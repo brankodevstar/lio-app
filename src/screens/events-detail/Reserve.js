@@ -100,7 +100,6 @@ const styles = StyleSheet.create({
         paddingVertical: 15,
         borderBottomWidth: 1,
         borderBottomColor: HiFiColors.AccentFade
-
     },
     closeButtonBack: {
         padding: 5,

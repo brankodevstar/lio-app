@@ -10,6 +10,9 @@ import HomeScreen from './src/screens/events-detail/Home';
 import ReserveScreen from './src/screens/events-detail/Reserve';
 import ConfirmDetailScreen from './src/screens/events-detail/ConfirmDetail';
 
+import CalendarScreen from './src/screens/calendar-partner/Calendar';
+
+
 const Stack = createStackNavigator();
 
 export default App = () => {
@@ -24,6 +27,10 @@ export default App = () => {
           },
         }}
       >
+        <Stack.Screen
+          name="Calendar"
+          component={CalendarScreen}
+        />
         <Stack.Screen
           name="ConfirmDetail"
           component={ConfirmDetailScreen}
