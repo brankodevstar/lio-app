@@ -22,17 +22,17 @@ export default App = () => {
         }}
       >
         <Stack.Screen
-          name="SplashScreen"
-          component={SplashScreen}
+          name="OTPScreen"
+          component={OTPScreen}
         />
         <Stack.Screen
           name="LoginhScreen"
           component={LoginScreen}
         />
         <Stack.Screen
-          name="OTPScreen"
-          component={OTPScreen}
-        />
+          name="SplashScreen"
+          component={SplashScreen}
+        />        
       </Stack.Navigator>
     </NavigationContainer>
   )

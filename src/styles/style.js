@@ -1,6 +1,6 @@
 import { Dimensions, StyleSheet } from 'react-native';
 import HiFiColors from './colors';
-import fonts from './fonts'
+import fonts from './fonts';
 
 const globalStyles = StyleSheet.create({
     container: {
