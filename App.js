@@ -23,7 +23,6 @@ export default App = () => {
           },
         }}
       >
-
         <Stack.Screen
           name="HomeScreen"
           component={HomeScreen}
@@ -39,7 +38,7 @@ export default App = () => {
         <Stack.Screen
           name="SplashScreen"
           component={SplashScreen}
-        />        
+        />
       </Stack.Navigator>
     </NavigationContainer>
   )
