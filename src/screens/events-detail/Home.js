@@ -1,13 +1,16 @@
 import React from 'react'
-import { View, Text, StyleSheet, ImageBackground, Image, Button, ScrollView, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, ImageBackground, Image, ScrollView } from 'react-native';
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
+import FeatherIcon from 'react-native-vector-icons/Feather';
+import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 export default Home = () => {
     return (
-        <ScrollView style={styles.container} contentContainerStyle={{ paddingBottom: 20 }}>
+        <ScrollView style={styles.container}>
             <View>
                 <ImageBackground
                     source={require('../../../assets/images/baner-1.png')}
@@ -18,9 +21,29 @@ export default Home = () => {
                         end={{ x: 0.5, y: 1.0 }}
                         colors={['#16253400', '#162534']}
                         style={styles.bannerMask}
-                    ></LinearGradient>
+                    >
+                        <View style={[styles.headerIconBack, { left: 20, }]}>
+                            <TouchableOpacity>
+                                <FeatherIcon name="arrow-left" size={20} color={HiFiColors.White} style={styles.headerIcon} />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={[styles.headerIconBack, { right: 60, }]}>
+                            <TouchableOpacity>
+                                <FontAwesomeIcon name="heart" size={20} color={HiFiColors.Primary} style={styles.headerIcon} />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={[styles.headerIconBack, { right: 20, }]}>
+                            <TouchableOpacity>
+                                <FeatherIcon name="share-2" size={20} color={HiFiColors.White} style={styles.headerIcon} />
+                            </TouchableOpacity>
+                        </View>
+                        <View style={styles.bannerControlBack}>
+                            <MaterialIcon name="photo-album" size={15} color={HiFiColors.White} />
+                            <Text style={globalStyles.label}>1/15</Text>
+                        </View>
+                    </LinearGradient>
                 </ImageBackground>
-            </View>
+            </View >
             <View style={styles.content}>
                 <Text style={globalStyles.pageTitle}>Startup Grind</Text>
                 <View style={styles.nameContainer}>
@@ -39,35 +62,36 @@ export default Home = () => {
                         startups to come together, meet investors, exchange ideas,
                         and participate in workshops.
                     </Text>
-                    <TouchableOpacity>
+                    <TouchableOpacity style={styles.readMoreButtonBack}>
                         <Text style={[globalStyles.smallLabel, styles.readMoreButton]}>Read More</Text>
+                        <FeatherIcon name="chevron-down" size={10} color={'#0088EF'} />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.discriptionContainer}>
                     <View >
                         <View style={styles.category}>
-                            <Image />
+                            <FeatherIcon name="users" size={20} color={HiFiColors.White} style={styles.icon} />
                             <View>
                                 <Text style={globalStyles.label}>3000+ Delegates</Text>
                                 <Text style={globalStyles.smallLabel}>Investors and exhibitors from all over India</Text>
                             </View>
                         </View>
                         <View style={styles.category}>
-                            <Image />
+                            <FeatherIcon name="briefcase" size={20} color={HiFiColors.White} style={styles.icon} />
                             <View>
                                 <Text style={globalStyles.label}>Business Services</Text>
                                 <Text style={globalStyles.smallLabel}>Consisting of a rectangular floor with tiles.</Text>
                             </View>
                         </View>
                         <View style={styles.category}>
-                            <Image />
+                            <FeatherIcon name="book" size={20} color={HiFiColors.White} style={styles.icon} />
                             <View>
                                 <Text style={globalStyles.label}>Education and Training</Text>
                                 <Text style={globalStyles.smallLabel}>In professional or organized basketball.</Text>
                             </View>
                         </View>
                         <View style={styles.category}>
-                            <Image />
+                            <FeatherIcon name="slash" size={20} color={HiFiColors.White} style={styles.icon} />
                             <View>
                                 <Text style={globalStyles.label}>Free Cancellation</Text>
                                 <Text style={globalStyles.smallLabel}>Full fee refund but 1 day before</Text>
@@ -77,19 +101,19 @@ export default Home = () => {
                     <View style={{ marginBottom: 10 }}>
                         <Text style={[globalStyles.label, { marginBottom: 10 }]}>Speakers</Text>
                         <View style={styles.speackers}>
-                            <Image />
-                            <Text style={[globalStyles.smallLabel, { marginRight: 10 }]}>Mahendra Singh Dhoni</Text>
-                            <Text style={[globalStyles.smallLabel, styles.blueMark]}>Former Chairman</Text>
+                            <Image source={require('../../../assets/images/avatar-001.png')} style={styles.avatarImage} />
+                            <Text style={styles.labelText}>Mahendra Singh Dhoni</Text>
+                            <Text style={styles.blueMark}>Former Chairman</Text>
                         </View>
                         <View style={styles.speackers}>
-                            <Image />
-                            <Text style={[globalStyles.smallLabel, { marginRight: 10 }]}>Yuvraj Singh</Text>
-                            <Text style={[globalStyles.smallLabel, styles.blueMark]}>Angel Investor</Text>
+                            <Image source={require('../../../assets/images/avatar-002.png')} style={styles.avatarImage} />
+                            <Text style={styles.labelText}>Yuvraj Singh</Text>
+                            <Text style={styles.blueMark}>Angel Investor</Text>
                         </View>
                         <View style={styles.speackers}>
-                            <Image />
-                            <Text style={[globalStyles.smallLabel, { marginRight: 10 }]}>Priyanka Bhatt</Text>
-                            <Text style={[globalStyles.smallLabel, styles.blueMark]}>CEO StepChange</Text>
+                            <Image source={require('../../../assets/images/avatar-003.png')} style={styles.avatarImage} />
+                            <Text style={styles.labelText}>Priyanka Bhatt</Text>
+                            <Text style={styles.blueMark}>CEO StepChange</Text>
                         </View>
                         <View style={styles.buttonContainer}>
                             <TouchableOpacity style={styles.buttonStyle}>
@@ -100,19 +124,19 @@ export default Home = () => {
                     <View style={{ marginBottom: 10 }}>
                         <Text style={[globalStyles.label, { marginBottom: 10 }]}>Exhibitors</Text>
                         <View style={styles.speackers}>
-                            <Image />
-                            <Text style={[globalStyles.smallLabel, { marginRight: 10 }]}>Step Change</Text>
-                            <Text style={[globalStyles.smallLabel, styles.redMark]}>Environment</Text>
+                            <Image source={require('../../../assets/images/exhibitor-001.png')} style={styles.avatarImage} />
+                            <Text style={styles.labelText}>Step Change</Text>
+                            <Text style={styles.redMark}>Environment</Text>
                         </View>
                         <View style={styles.speackers}>
-                            <Image />
-                            <Text style={[globalStyles.smallLabel, { marginRight: 10 }]}>Clickup</Text>
-                            <Text style={[globalStyles.smallLabel, styles.redMark]}>SasS tool</Text>
+                            <Image source={require('../../../assets/images/exhibitor-002.png')} style={styles.avatarImage} />
+                            <Text style={styles.labelText}>Clickup</Text>
+                            <Text style={styles.redMark}>SasS tool</Text>
                         </View>
                         <View style={styles.speackers}>
-                            <Image />
-                            <Text style={[globalStyles.smallLabel, { marginRight: 10 }]}>Dynamo Softwares</Text>
-                            <Text style={[globalStyles.smallLabel, styles.redMark]}>Software Development</Text>
+                            <Image source={require('../../../assets/images/exhibitor-003.png')} style={styles.avatarImage} />
+                            <Text style={styles.labelText}>Dynamo Softwares</Text>
+                            <Text style={styles.redMark}>Software Development</Text>
                         </View>
                         <View style={styles.buttonContainer}>
                             <TouchableOpacity style={styles.buttonStyle}>
@@ -134,20 +158,34 @@ export default Home = () => {
                                 <Text style={{ color: HiFiColors.White, fontSize: 36 }}>50% OFF</Text>
                                 <Text style={globalStyles.smallLabel}>FOR A LIMITED TIME</Text>
                                 <Text style={globalStyles.label}>Post C-19 Reopening</Text>
+                                <View style={styles.reverseButtonBack}>
+                                    <TouchableOpacity>
+                                        <LinearGradient
+                                            start={{ x: 0.0, y: 0.0 }}
+                                            end={{ x: 1.0, y: 1.0 }}
+                                            colors={['#7B61FF', '#991450', '#40799D']}
+                                            style={[globalStyles.filledButton, { width: '50%' }]}
+                                        >
+                                            <Text style={globalStyles.buttonLabel}>Reserve</Text>
+                                        </LinearGradient>
+                                    </TouchableOpacity>
+                                </View>
                             </LinearGradient>
                         </ImageBackground>
                     </View>
                 </View>
                 <View style={styles.discriptionContainer}>
                     <Text style={[globalStyles.label, { marginBottom: 10 }]}>Location</Text>
-                    <Text style={[globalStyles.smallLabel, { marginBottom: 10 }]}>Marriott Hotel New Delhi Aerocity, New Delhi</Text>
-                    <ImageBackground source={require('../../../assets/images/location.png')} style={styles.mapImage} >
-                        <View style={styles.mapContainer}>
-                            <TouchableOpacity>
-                                <Text style={[globalStyles.smallLabel, styles.getDirectionButton]}>Get Directions</Text>
-                            </TouchableOpacity>
-                        </View>
-                    </ImageBackground>
+                    <View style={styles.locationStringContainer}>
+                        <FeatherIcon name="map-pin" size={15} color={HiFiColors.White} />
+                        <Text style={[globalStyles.smallLabel, { marginLeft: 5 }]}>Marriott Hotel New Delhi Aerocity, New Delhi</Text>
+                    </View>
+                    <Image source={require('../../../assets/images/location.png')} style={styles.mapImage} />
+                    <View style={styles.mapContainer} >
+                        <TouchableOpacity>
+                            <Text style={[globalStyles.smallLabel, styles.getDirectionButton]}>Get Directions</Text>
+                        </TouchableOpacity>
+                    </View>
                 </View>
             </View>
             <View style={styles.footer}>
@@ -168,7 +206,7 @@ export default Home = () => {
                     </TouchableOpacity>
                 </View>
             </View>
-        </ScrollView>
+        </ScrollView >
     )
 }
 
@@ -178,11 +216,31 @@ const styles = StyleSheet.create({
     },
     bannerImage: {
         width: '100%',
-        height: 200,
+        height: 250,
     },
     bannerMask: {
         flex: 1,
         alignItems: 'center',
+        justifyContent: 'center'
+    },
+    headerIconBack: {
+        position: 'absolute',
+        top: 20,
+    },
+    headerIcon: {
+        backgroundColor: HiFiColors.AccentFade,
+        borderRadius: 50,
+        padding: 5,
+    },
+    bannerControlBack: {
+        position: 'absolute',
+        bottom: 10,
+        alignItems: 'center',
+        paddingHorizontal: 20,
+        paddingVertical: 5,
+        backgroundColor: HiFiColors.AccentFade,
+        borderRadius: 100,
+        flexDirection: 'row',
         justifyContent: 'center'
     },
     content: {
@@ -210,28 +268,55 @@ const styles = StyleSheet.create({
     discription: {
         marginBottom: 15
     },
+    readMoreButtonBack: {
+        flexDirection: 'row',
+        alignItems: 'center'
+    },
     readMoreButton: {
-        color: '#0088EF'
+        color: '#0088EF',
+        marginRight: 10
+    },
+    icon: {
+        marginRight: 10
     },
     category: {
-        marginBottom: 20
+        marginBottom: 20,
+        flexDirection: 'row',
+        alignItems: 'center'
     },
     speackers: {
-        marginVertical: 10,
-        flexDirection: 'row'
+        marginVertical: 5,
+        flexDirection: 'row',
+        alignItems: 'center',
     },
-    blueMark: {
-        backgroundColor: HiFiColors.Secondary,
-        paddingVertical: 2,
-        paddingHorizontal: 10,
-        borderRadius: 20
+    avatarImage: {
+        width: 30,
+        height: 30,
+        borderRadius: 50,
+        marginRight: 10,
+        backgroundColor: HiFiColors.White
     },
-    redMark: {
-        backgroundColor: HiFiColors.Primary,
-        paddingVertical: 2,
-        paddingHorizontal: 10,
-        borderRadius: 20
-    },
+    labelText: [
+        globalStyles.smallLabel, { marginRight: 10 }
+    ],
+    blueMark: [
+        {
+            backgroundColor: HiFiColors.Secondary,
+            paddingVertical: 2,
+            paddingHorizontal: 10,
+            borderRadius: 20
+        },
+        globalStyles.smallLabel
+    ],
+    redMark: [
+        {
+            backgroundColor: HiFiColors.Primary,
+            paddingVertical: 2,
+            paddingHorizontal: 10,
+            borderRadius: 20
+        },
+        globalStyles.smallLabel
+    ],
     buttonContainer: {
         alignSelf: "stretch",
         paddingVertical: 10
@@ -243,17 +328,24 @@ const styles = StyleSheet.create({
         paddingVertical: 10,
         alignItems: 'center'
     },
+    reverseButtonBack: {
+        alignSelf: 'stretch', marginTop: 20,
+    },
     mapImage: {
         width: '100%',
-        height: 140,
+        height: 170,
         alignItems: 'center',
         justifyContent: 'flex-end',
+        borderTopLeftRadius: 10,
+        borderTopRightRadius: 10
     },
     mapContainer: {
         backgroundColor: HiFiColors.AccentFade,
         alignSelf: 'stretch',
         alignItems: 'center',
-        justifyContent: 'center'
+        justifyContent: 'center',
+        borderBottomLeftRadius: 10,
+        borderBottomRightRadius: 10
     },
     getDirectionButton: {
         color: '#0088EF',
@@ -262,13 +354,19 @@ const styles = StyleSheet.create({
     footer: {
         backgroundColor: HiFiColors.AccentFade,
         flexDirection: 'row',
-        paddingVertical: 15,
+        paddingVertical: 20,
         paddingHorizontal: 20,
-        marginTop: 10
+        alignItems: 'center',
+        marginTop: 10,
     },
     footerContentContainer: {
         flex: 1,
         alignItems: 'flex-start'
+    },
+    locationStringContainer: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginBottom: 10
     },
     reverseButtonContainer: {
         flex: 1,
