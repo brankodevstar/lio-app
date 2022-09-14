@@ -8,6 +8,7 @@ import LoginScreen from './src/screens/authentication/Login';
 import OTPScreen from './src/screens/authentication/OTP';
 
 import HomeScreen from './src/screens/events-detail/Home';
+import ReserveScreen from './src/screens/events-detail/Reserve';
 
 const Stack = createStackNavigator();
 
@@ -24,8 +25,16 @@ export default App = () => {
         }}
       >
         <Stack.Screen
+          name="ReserveScreen"
+          component={ReserveScreen}
+        />
+        <Stack.Screen
           name="HomeScreen"
           component={HomeScreen}
+        />
+        <Stack.Screen
+          name="SplashScreen"
+          component={SplashScreen}
         />
         <Stack.Screen
           name="OTPScreen"
@@ -34,10 +43,6 @@ export default App = () => {
         <Stack.Screen
           name="LoginhScreen"
           component={LoginScreen}
-        />
-        <Stack.Screen
-          name="SplashScreen"
-          component={SplashScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>
