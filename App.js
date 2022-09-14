@@ -11,6 +11,7 @@ import ReserveScreen from './src/screens/events-detail/Reserve';
 import ConfirmDetailScreen from './src/screens/events-detail/ConfirmDetail';
 
 import CalendarScreen from './src/screens/calendar-partner/Calendar';
+import PartnerDetailScreen from './src/screens/calendar-partner/PartnerDetail';
 
 
 const Stack = createStackNavigator();
@@ -27,6 +28,10 @@ export default App = () => {
           },
         }}
       >
+        <Stack.Screen
+          name="PartnerDetail"
+          component={PartnerDetailScreen}
+        />
         <Stack.Screen
           name="Calendar"
           component={CalendarScreen}

@@ -49,9 +49,9 @@ export default Home = () => {
             <View style={styles.content}>
                 <Text style={globalStyles.pageTitle}>Startup Grind</Text>
                 <View style={styles.nameContainer}>
-                    <Text style={globalStyles.smallLabel}>₹ • </Text>
+                    <Text style={[globalStyles.smallLabel, { marginRight: 10 }]}>₹ • </Text>
                     <Text style={[styles.conferenceTag, globalStyles.smallLabel]}>Conference</Text>
-                    <Text style={globalStyles.smallLabel}> • 3 km away </Text>
+                    <Text style={[globalStyles.smallLabel, { marginRight: 10 }]}> • 3 km away </Text>
                     <Text style={globalStyles.smallLabel}> • 20-22 Sep, 2022 </Text>
                 </View>
                 <View style={styles.discriptionContainer}>
@@ -251,7 +251,6 @@ const styles = StyleSheet.create({
     nameContainer: {
         flexDirection: 'row',
         alignItems: 'center',
-        justifyContent: 'space-between',
         paddingBottom: 25,
         borderBottomColor: HiFiColors.AccentFade,
         borderBottomWidth: 1
@@ -261,6 +260,7 @@ const styles = StyleSheet.create({
         backgroundColor: HiFiColors.Primary,
         paddingHorizontal: 10,
         paddingVertical: 1,
+        marginRight: 10
     },
     discriptionContainer: {
         paddingVertical: 25,

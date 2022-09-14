@@ -10,7 +10,7 @@ import HiFiColors from '../../styles/colors';
 export default Calendar = () => {
     return (
         <View style={globalStyles.container}>
-            <View style={styles.headerContainer}>
+            <View style={globalStyles.headerContainer}>
                 <Text style={globalStyles.mediumStrongLabel}>Calendar</Text>
             </View>
             <View style={styles.section}>
@@ -85,15 +85,6 @@ export default Calendar = () => {
 }
 
 const styles = StyleSheet.create({
-    headerContainer: {
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignItems: 'center',
-        paddingHorizontal: 20,
-        paddingVertical: 15,
-        borderBottomWidth: 1,
-        borderBottomColor: HiFiColors.AccentFade
-    },
     section: {
         paddingHorizontal: 20,
         paddingVertical: 10,

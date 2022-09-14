@@ -12,7 +12,7 @@ export default Reserve = () => {
 
     return (
         <ScrollView style={globalStyles.container}>
-            <View style={styles.headerContainer}>
+            <View style={globalStyles.headerContainer}>
                 <TouchableOpacity>
                     <View style={styles.closeButtonBack}>
                         <FeatherIcon name="x" size={15} color={HiFiColors.White} />
@@ -92,15 +92,6 @@ export default Reserve = () => {
 }
 
 const styles = StyleSheet.create({
-    headerContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingHorizontal: 20,
-        paddingVertical: 15,
-        borderBottomWidth: 1,
-        borderBottomColor: HiFiColors.AccentFade
-    },
     closeButtonBack: {
         padding: 5,
         borderRadius: 50,
