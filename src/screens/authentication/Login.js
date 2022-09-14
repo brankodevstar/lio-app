@@ -22,8 +22,8 @@ export default Login = () => {
                 <View>
                     <Text style={styles.title}>Login</Text>
                 </View>
-                <TextInput style={styles.textInput} placeholder='Mobile Number'/>
-                <TextInput style={styles.textInput} placeholder='Password'/>
+                <TextInput style={styles.textInput} placeholder='Mobile Number' placeholderTextColor='#fff'/>
+                <TextInput style={styles.textInput} placeholder='Password' placeholderTextColor='#fff'/>
                 <View style={{ alignSelf: 'stretch', marginTop: 30, marginBottom: 100 }}>
                     <TouchableOpacity >
                         <LinearGradient
@@ -58,12 +58,13 @@ const styles = StyleSheet.create({
         lignItems: 'center',
         justifyContent: 'center',
         alignSelf: 'center',
-        paddingVertical: 5,
+        paddingVertical: 11,
+        paddingHorizontal: 16,
         marginVertical: 3,
         borderRadius: 5,
         fontSize: 14,
         width: "80%",
-        backgroundColor: HiFiColors.Secondary,
+        backgroundColor: HiFiColors.AccentFade,
         color: HiFiColors.White,
     },
     title: {
