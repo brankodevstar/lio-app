@@ -1,12 +1,14 @@
 import React from 'react'
 import { View, Text, StyleSheet, ImageBackground, Image, ScrollView } from 'react-native';
-import globalStyles from '../../styles/style';
-import HiFiColors from '../../styles/colors';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+
+import globalStyles from '../../styles/style';
+import HiFiColors from '../../styles/colors';
+
 
 export default Home = () => {
     return (
@@ -72,34 +74,34 @@ export default Home = () => {
                         <View style={styles.category}>
                             <FeatherIcon name="users" size={20} color={HiFiColors.White} style={styles.icon} />
                             <View>
-                                <Text style={globalStyles.label}>3000+ Delegates</Text>
+                                <Text style={globalStyles.boldLabel}>3000+ Delegates</Text>
                                 <Text style={globalStyles.smallLabel}>Investors and exhibitors from all over India</Text>
                             </View>
                         </View>
                         <View style={styles.category}>
                             <FeatherIcon name="briefcase" size={20} color={HiFiColors.White} style={styles.icon} />
                             <View>
-                                <Text style={globalStyles.label}>Business Services</Text>
+                                <Text style={globalStyles.boldLabel}>Business Services</Text>
                                 <Text style={globalStyles.smallLabel}>Consisting of a rectangular floor with tiles.</Text>
                             </View>
                         </View>
                         <View style={styles.category}>
                             <FeatherIcon name="book" size={20} color={HiFiColors.White} style={styles.icon} />
                             <View>
-                                <Text style={globalStyles.label}>Education and Training</Text>
+                                <Text style={globalStyles.boldLabel}>Education and Training</Text>
                                 <Text style={globalStyles.smallLabel}>In professional or organized basketball.</Text>
                             </View>
                         </View>
                         <View style={styles.category}>
                             <FeatherIcon name="slash" size={20} color={HiFiColors.White} style={styles.icon} />
                             <View>
-                                <Text style={globalStyles.label}>Free Cancellation</Text>
+                                <Text style={globalStyles.boldLabel}>Free Cancellation</Text>
                                 <Text style={globalStyles.smallLabel}>Full fee refund but 1 day before</Text>
                             </View>
                         </View>
                     </View>
                     <View style={{ marginBottom: 10 }}>
-                        <Text style={[globalStyles.label, { marginBottom: 10 }]}>Speakers</Text>
+                        <Text style={[globalStyles.boldLabel, { marginBottom: 10 }]}>Speakers</Text>
                         <View style={styles.speackers}>
                             <Image source={require('../../../assets/images/avatar-001.png')} style={styles.avatarImage} />
                             <Text style={styles.labelText}>Mahendra Singh Dhoni</Text>
@@ -117,7 +119,7 @@ export default Home = () => {
                         </View>
                         <View style={styles.buttonContainer}>
                             <TouchableOpacity style={styles.buttonStyle}>
-                                <Text style={globalStyles.label}>Show all 10 speakers</Text>
+                                <Text style={globalStyles.strongLabel}>Show all 10 speakers</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -140,7 +142,7 @@ export default Home = () => {
                         </View>
                         <View style={styles.buttonContainer}>
                             <TouchableOpacity style={styles.buttonStyle}>
-                                <Text style={globalStyles.label}>Show all 10 exhibitors</Text>
+                                <Text style={globalStyles.strongLabel}>Show all 10 exhibitors</Text>
                             </TouchableOpacity>
                         </View>
                     </View>
@@ -155,9 +157,9 @@ export default Home = () => {
                                 colors={['#16253400', '#162534']}
                                 style={styles.bannerMask}
                             >
-                                <Text style={{ color: HiFiColors.White, fontSize: 36 }}>50% OFF</Text>
-                                <Text style={globalStyles.smallLabel}>FOR A LIMITED TIME</Text>
-                                <Text style={globalStyles.label}>Post C-19 Reopening</Text>
+                                <Text style={{ color: HiFiColors.White, fontSize: 36, fontWeight: '700' }}>50% OFF</Text>
+                                <Text style={globalStyles.boldLabel}>FOR A LIMITED TIME</Text>
+                                <Text style={globalStyles.mediumLabel}>Post C-19 Reopening</Text>
                                 <View style={styles.reverseButtonBack}>
                                     <TouchableOpacity>
                                         <LinearGradient
@@ -175,7 +177,7 @@ export default Home = () => {
                     </View>
                 </View>
                 <View style={styles.discriptionContainer}>
-                    <Text style={[globalStyles.label, { marginBottom: 10 }]}>Location</Text>
+                    <Text style={[globalStyles.boldLabel, { marginBottom: 10 }]}>Location</Text>
                     <View style={styles.locationStringContainer}>
                         <FeatherIcon name="map-pin" size={15} color={HiFiColors.White} />
                         <Text style={[globalStyles.smallLabel, { marginLeft: 5 }]}>Marriott Hotel New Delhi Aerocity, New Delhi</Text>
@@ -183,15 +185,15 @@ export default Home = () => {
                     <Image source={require('../../../assets/images/location.png')} style={styles.mapImage} />
                     <View style={styles.mapContainer} >
                         <TouchableOpacity>
-                            <Text style={[globalStyles.smallLabel, styles.getDirectionButton]}>Get Directions</Text>
+                            <Text style={[globalStyles.boldSmallLabel, styles.getDirectionButton]}>Get Directions</Text>
                         </TouchableOpacity>
                     </View>
                 </View>
             </View>
             <View style={styles.footer}>
                 <View style={styles.footerContentContainer}>
-                    <Text style={globalStyles.label}>From ₹15 ₹7 / entry</Text>
-                    <Text style={globalStyles.smallLabel}>Limited time offer. 50% off</Text>
+                    <Text style={globalStyles.label}>From <Text style={globalStyles.mediumBoldLabel}>₹15 ₹7 /</Text> entry</Text>
+                    <Text style={globalStyles.tinyLabel}>Limited time offer. 50% off</Text>
                 </View>
                 <View style={styles.reverseButtonContainer}>
                     <TouchableOpacity>
@@ -297,7 +299,7 @@ const styles = StyleSheet.create({
         backgroundColor: HiFiColors.White
     },
     labelText: [
-        globalStyles.smallLabel, { marginRight: 10 }
+        globalStyles.boldSmallLabel, { marginRight: 10 }
     ],
     blueMark: [
         {
@@ -306,7 +308,7 @@ const styles = StyleSheet.create({
             paddingHorizontal: 10,
             borderRadius: 20
         },
-        globalStyles.smallLabel
+        globalStyles.tinyLabel
     ],
     redMark: [
         {
@@ -315,7 +317,7 @@ const styles = StyleSheet.create({
             paddingHorizontal: 10,
             borderRadius: 20
         },
-        globalStyles.smallLabel
+        globalStyles.tinyLabel
     ],
     buttonContainer: {
         alignSelf: "stretch",

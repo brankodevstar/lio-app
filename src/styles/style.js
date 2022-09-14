@@ -10,12 +10,14 @@ const globalStyles = StyleSheet.create({
     title: {
         color: HiFiColors.White,
         fontSize: 18,
+        fontWeight: '700',
         fontFamily: fonts.title,
     },
     content: {
         color: HiFiColors.White,
         fontFamily: fonts.primary,
         fontSize: 14,
+        fontWeight: '600'
     },
     filledButton: {
         alignItems: 'center',
@@ -28,23 +30,68 @@ const globalStyles = StyleSheet.create({
     buttonLabel: {
         color: HiFiColors.White,
         fontSize: 12,
+        fontWeight: '600'
     },
     pageTitle: {
         fontFamily: fonts.primary,
         color: HiFiColors.White,
         fontSize: 36,
-        fontWeight: 'bold',
+        fontWeight: '700',
         marginVertical: 10
+    },
+    tinyLabel: {
+        fontFamily: fonts.primary,
+        color: HiFiColors.White,
+        fontSize: 10,
+        fontWeight: '600'
     },
     smallLabel: {
         fontFamily: fonts.primary,
         color: HiFiColors.White,
         fontSize: 12,
+        fontWeight: '500'
+    },
+    boldSmallLabel: {
+        fontFamily: fonts.primary,
+        color: HiFiColors.White,
+        fontSize: 12,
+        fontWeight: '600'
     },
     label: {
         fontFamily: fonts.primary,
         color: HiFiColors.White,
         fontSize: 14,
+        fontWeight: '500',
+    },
+    boldLabel: {
+        fontFamily: fonts.primary,
+        color: HiFiColors.White,
+        fontSize: 14,
+        fontWeight: '600'
+    },
+    strongLabel: {
+        fontFamily: fonts.primary,
+        color: HiFiColors.White,
+        fontSize: 14,
+        fontWeight: '800'
+    },
+    mediumLabel: {
+        fontFamily: fonts.primary,
+        color: HiFiColors.White,
+        fontSize: 18,
+        fontWeight: '500'
+    },
+    mediumBoldLabel: {
+        fontFamily: fonts.primary,
+        color: HiFiColors.White,
+        fontSize: 18,
+        fontWeight: '600'
+    },
+    mediumStrongLabel: {
+        fontFamily: fonts.primary,
+        color: HiFiColors.White,
+        fontSize: 18,
+        fontWeight: '800'
     }
 })
 
