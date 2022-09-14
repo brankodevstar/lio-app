@@ -24,16 +24,16 @@ export default App = () => {
         }}
       >
         <Stack.Screen
+          name="LoginhScreen"
+          component={LoginScreen}
+        />        
+        <Stack.Screen
           name="HomeScreen"
           component={HomeScreen}
         />
         <Stack.Screen
           name="OTPScreen"
           component={OTPScreen}
-        />
-        <Stack.Screen
-          name="LoginhScreen"
-          component={LoginScreen}
         />
         <Stack.Screen
           name="SplashScreen"

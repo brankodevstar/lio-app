@@ -26,7 +26,7 @@ export default OTP = () => {
         if (symbol) {
             textChild = (
                 <MaskSymbol
-                    maskSymbol='-'
+                    maskSymbol="-"
                     isLastFilledCell={isLastFilledCell({index, value})}>
                     {symbol}
                 </MaskSymbol>
@@ -51,10 +51,10 @@ export default OTP = () => {
                 <Image
                     source={require('../../../assets/images/logo.png')}
                     style={styles.logo} />
-                <View>
-                    <Text>Verification Code Sent</Text>
-                    <Text>A 6 digit verification code has been sent to your</Text>
-                    <Text>registered phone number and email address.</Text>
+                <View style={styles.verificationCodePart}>
+                    <Text style={styles.sentText}>Verification Code Sent</Text>
+                    <Text style={styles.description}>A 6 digit verification code has been sent to your</Text>
+                    <Text style={styles.description}>registered phone number and email address.</Text>
                 </View>
                 <SafeAreaView style={styles.root}>
                     <CodeField
@@ -70,7 +70,7 @@ export default OTP = () => {
                     />
                 </SafeAreaView>
                 <View>
-                    <Text>Haven't received a code?</Text>
+                    <Text style={styles.notReceivedText}>Haven't received a code?</Text>
                 </View>
                 <View style={{ alignSelf: 'stretch', marginTop: 30, marginBottom: 100 }}>
                     <TouchableOpacity >
@@ -120,7 +120,29 @@ const styles = StyleSheet.create({
       codeFieldRoot: {
         marginTop: 20,
         paddingBottom: 30,
-        borderBottomWidth: 1,
+        borderBottomWidth: 0.5,
         borderColor: HiFiColors.White,
+      },
+      verificationCodePart: {
+        marginTop: 20,
+        marginBottom: 20,
+        alignItems: 'center',
+      },
+      sentText: {
+        color: HiFiColors.White,
+        fontSize: 14,
+        fontWeight: 'bold',
+        marginBottom: 10,
+      },
+      description: {
+        color: HiFiColors.White,
+        fontSize: 12,
+        marginBottom: 2,
+        marginTop: 2,
+      },
+      notReceivedText: {
+        color: HiFiColors.White,
+        fontSize: 12,
+        marginTop: 60,
       },
 });
