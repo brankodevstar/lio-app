@@ -19,7 +19,7 @@ export default Splash = () => {
                 </View>
                 <Text style={[globalStyles.content, { marginVertical: 20 }]}>Some amazing tag line here lorem ipsum</Text>
                 <View style={{ alignSelf: 'stretch', marginBottom: 100 }}>
-                    <TouchableOpacity >
+                    <TouchableOpacity>
                         <LinearGradient
                             start={{ x: 0.0, y: 0.0 }}
                             end={{ x: 1.0, y: 1.0 }}

@@ -28,6 +28,23 @@ const globalStyles = StyleSheet.create({
     buttonLabel: {
         color: HiFiColors.White,
         fontSize: 12,
+    },
+    pageTitle: {
+        fontFamily: fonts.primary,
+        color: HiFiColors.White,
+        fontSize: 36,
+        fontWeight: 'bold',
+        marginVertical: 10
+    },
+    smallLabel: {
+        fontFamily: fonts.primary,
+        color: HiFiColors.White,
+        fontSize: 12,
+    },
+    label: {
+        fontFamily: fonts.primary,
+        color: HiFiColors.White,
+        fontSize: 14,
     }
 })
 

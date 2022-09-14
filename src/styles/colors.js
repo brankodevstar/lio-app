@@ -9,7 +9,8 @@ const HiFiColors = {
     Maroon: '#301616',
     Black: '#050707',
     Grey: '#141717',
-    Gradient: 'gradient(88.62deg, #301616 0.63%, #301616 0.64%, #B88E34 100%)'
+    Gradient: 'gradient(88.62deg, #301616 0.63%, #301616 0.64%, #B88E34 100%)',
+    AccentFade: '#2d3b48'
 
 }
 
