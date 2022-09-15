@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, Dimensions, Button, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import Modal from 'react-native-modal';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -18,18 +17,15 @@ export default AddPost = () => {
 
     return (
         <View style={globalStyles.container}>
-            <View style={[globalStyles.headerContainer, { justifyContent: 'space-between', borderBottomWidth: 0 }]}>
-                <TouchableOpacity>
-                    <View style={styles.closeButtonBack}>
-                        <FeatherIcon name="x" size={15} color={HiFiColors.White} />
-                    </View>
-                </TouchableOpacity>
+            <View style={globalStyles.headerContainer}>
+                <View style={styles.closeButtonPos}>
+                    <TouchableOpacity>
+                        <FeatherIcon name="x" size={15} color={HiFiColors.White} style={styles.closeButtonBack} />
+                    </TouchableOpacity>
+                </View>
                 <Text style={globalStyles.mediumStrongLabel}>Create Post</Text>
-                <View></View>
             </View>
-            <View>
-                <Image source={require('../../../assets/images/forum/5e397f029e80b36b1f356c2dff42be37.png')} style={styles.backImage} resizeMode="stretch" />
-            </View>
+            <Image source={require('../../../assets/images/forum/5e397f029e80b36b1f356c2dff42be37.png')} style={styles.backImage} resizeMode="stretch" />
             <TouchableOpacity onPress={toggleModal}>
                 <View style={styles.writeCaptionBack}>
                     <Text style={globalStyles.boldLabel}>Write Caption</Text>
@@ -41,27 +37,26 @@ export default AddPost = () => {
                 onSwipeComplete={() => setModalVisible(false)}
                 swipeDirection={['down']}
                 propagateSwipe={true}
-                style={styles.modalContainer}>
+                style={globalStyles.modalContainer}
+            >
                 <View style={styles.modalContentContainer}>
                     <Text style={styles.modalCommentTitle}>Write a Caption</Text>
                     <View style={styles.captionContainer}>
                         <Text style={[globalStyles.label, { color: HiFiColors.Label }]}>
                             Really glad to be a part of the wonderful team. Lorem ipsum dolor sit amet, consectetur ut labore et dolore. Lorem ipsum dolor sit amet, consectetur ut labore et dolore. Lorem ipsum dolor sit amet, consectetur ut labore et dolore.
                         </Text>
-                        <TouchableOpacity>
-                            <LinearGradient
-                                start={{ x: 0.0, y: 0.0 }}
-                                end={{ x: 1.0, y: 1.0 }}
-                                colors={['#7B61FF', '#991450', '#40799D']}
-                                style={styles.uploadButtonBack}
-                            >
-                                <Text style={globalStyles.mediumBoldLabel}>Upload</Text>
-                            </LinearGradient>
-                        </TouchableOpacity>
-                    </View>
-                    <View>
 
                     </View>
+                    <TouchableOpacity onPress={toggleModal}>
+                        <LinearGradient
+                            start={{ x: 0.0, y: 0.0 }}
+                            end={{ x: 1.0, y: 1.0 }}
+                            colors={['#7B61FF', '#991450', '#40799D']}
+                            style={styles.uploadButtonBack}
+                        >
+                            <Text style={globalStyles.mediumBoldLabel}>Upload</Text>
+                        </LinearGradient>
+                    </TouchableOpacity>
                 </View>
             </Modal>
         </View>
@@ -69,10 +64,17 @@ export default AddPost = () => {
 }
 
 const styles = StyleSheet.create({
+    closeButtonPos: {
+        alignSelf: 'flex-start',
+        position: 'absolute',
+        left: 15,
+        top: 15
+    },
     closeButtonBack: {
         padding: 5,
         borderRadius: 50,
-        backgroundColor: HiFiColors.AccentFade
+        backgroundColor: HiFiColors.AccentFade,
+
     },
     backImage: {
         width: '100%',
@@ -84,13 +86,9 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         borderRadius: 40,
         alignItems: 'center',
-        width: '100%',
+        width: '50%',
         alignSelf: 'center',
         marginTop: 10
-    },
-    modalContainer: {
-        justifyContent: 'flex-end',
-        margin: 0,
     },
     modalCommentTitle: {
         fontFamily: fonts.primary,

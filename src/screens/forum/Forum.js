@@ -125,7 +125,7 @@ export default Forum = () => {
                 onSwipeComplete={() => setModalVisible(false)}
                 swipeDirection={['down']}
                 propagateSwipe={true}
-                style={styles.modalContainer}>
+                style={globalStyles.modalContainer}>
                 <View style={styles.modalContentContainer}>
                     <Text style={styles.modalCommentTitle}>Comments</Text>
                     <ScrollView style={styles.commentScroll}>
@@ -251,10 +251,6 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
         position: 'absolute',
         bottom: 30
-    },
-    modalContainer: {
-        justifyContent: 'flex-end',
-        margin: 0,
     },
     modalCommentTitle: {
         fontFamily: fonts.primary,

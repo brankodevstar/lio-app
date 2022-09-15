@@ -34,20 +34,20 @@ export default App = () => {
         }}
       >
         <Stack.Screen
+          name="AddPost"
+          component={AddPostScreen}
+        />
+        <Stack.Screen
           name="MemberBenefitsScreen"
           component={MemberBenefitsScreen}
         />
         <Stack.Screen
           name="OTPScreen"
           component={OTPScreen}
-        /> 
+        />
         <Stack.Screen
           name="LoginScreen"
           component={LoginScreen}
-        />
-        <Stack.Screen
-          name="AddPost"
-          component={AddPostScreen}
         />
         <Stack.Screen
           name="Forum"

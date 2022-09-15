@@ -108,6 +108,10 @@ const globalStyles = StyleSheet.create({
         borderBottomWidth: 1,
         borderBottomColor: HiFiColors.AccentFade,
     },
+    modalContainer: {
+        justifyContent: 'flex-end',
+        margin: 0,
+    },
 })
 
 export default globalStyles;
