@@ -1,5 +1,7 @@
 import React, { useState } from 'react'
 import { StyleSheet, SafeAreaView, View, Text, Image } from 'react-native';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import FeatherIcon from 'react-native-vector-icons/Feather';
 import globalStyles from '../../styles/style';
 import { CodeField,
     Cursor,
@@ -10,7 +12,6 @@ import { CodeField,
 } from 'react-native-confirmation-code-field';
 import HiFiColors from '../../styles/colors';
 import LinearGradient from 'react-native-linear-gradient';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 
 export default OTP = () => {
     const CELL_COUNT = 6;
@@ -47,6 +48,11 @@ export default OTP = () => {
 
     return (
         <View style={[globalStyles.container]}>
+            <View style={[styles.headerIconBack, { left: 20, top: 20, }]}>
+                <TouchableOpacity>
+                    <FeatherIcon name="arrow-left" size={20} color={HiFiColors.White} />
+                </TouchableOpacity>
+            </View>
             <View style={styles.container}>
                 <Image
                     source={require('../../../assets/images/logo.png')}
@@ -144,5 +150,10 @@ const styles = StyleSheet.create({
         color: HiFiColors.White,
         fontSize: 12,
         marginTop: 60,
+      },
+      headerIconBack: {
+        position: 'absolute',
+        top: 20,
+        blurAmount: 3,
       },
 });

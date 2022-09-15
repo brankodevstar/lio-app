@@ -13,6 +13,8 @@ import ConfirmDetailScreen from './src/screens/events-detail/ConfirmDetail';
 import CalendarScreen from './src/screens/calendar-partner/Calendar';
 import PartnerDetailScreen from './src/screens/calendar-partner/PartnerDetail';
 
+import MemberBenefitsScreen from './src/screens/benefits_map/memberBenefits';
+
 import ForumScreen from './src/screens/forum/Forum';
 import AddPostScreen from './src/screens/forum/AddPost';
 
@@ -31,6 +33,18 @@ export default App = () => {
           },
         }}
       >
+        <Stack.Screen
+          name="MemberBenefitsScreen"
+          component={MemberBenefitsScreen}
+        />
+        <Stack.Screen
+          name="OTPScreen"
+          component={OTPScreen}
+        /> 
+        <Stack.Screen
+          name="LoginScreen"
+          component={LoginScreen}
+        />
         <Stack.Screen
           name="AddPost"
           component={AddPostScreen}
@@ -62,14 +76,6 @@ export default App = () => {
         <Stack.Screen
           name="SplashScreen"
           component={SplashScreen}
-        />
-        <Stack.Screen
-          name="OTPScreen"
-          component={OTPScreen}
-        />
-        <Stack.Screen
-          name="LoginhScreen"
-          component={LoginScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>

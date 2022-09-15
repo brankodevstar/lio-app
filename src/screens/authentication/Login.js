@@ -20,7 +20,7 @@ export default Login = () => {
                     </View>
                 </View>
                 <View>
-                    <Text style={styles.title}>Login</Text>
+                    <Text style={[globalStyles.mediumBoldLabel, styles.loginLabel]}>Login</Text>
                 </View>
                 <TextInput style={styles.textInput} placeholder='Mobile Number' placeholderTextColor='#fff'/>
                 <TextInput style={styles.textInput} placeholder='Password' placeholderTextColor='#fff'/>
@@ -82,4 +82,7 @@ const styles = StyleSheet.create({
         right: 0,
         bottom: 0,
     },
+    loginLabel: {
+        marginBottom: 20,
+    }
 })
