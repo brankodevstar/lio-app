@@ -29,6 +29,14 @@ export default App = () => {
         }}
       >
         <Stack.Screen
+          name="OTPScreen"
+          component={OTPScreen}
+        /> 
+        <Stack.Screen
+          name="LoginScreen"
+          component={LoginScreen}
+        />
+        <Stack.Screen
           name="PartnerDetail"
           component={PartnerDetailScreen}
         />
@@ -51,14 +59,6 @@ export default App = () => {
         <Stack.Screen
           name="SplashScreen"
           component={SplashScreen}
-        />
-        <Stack.Screen
-          name="OTPScreen"
-          component={OTPScreen}
-        />
-        <Stack.Screen
-          name="LoginhScreen"
-          component={LoginScreen}
         />
       </Stack.Navigator>
     </NavigationContainer>
