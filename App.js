@@ -13,6 +13,8 @@ import ConfirmDetailScreen from './src/screens/events-detail/ConfirmDetail';
 import CalendarScreen from './src/screens/calendar-partner/Calendar';
 import PartnerDetailScreen from './src/screens/calendar-partner/PartnerDetail';
 
+import MemberBenefitsScreen from './src/screens/benefits_map/memberBenefits';
+
 
 const Stack = createStackNavigator();
 
@@ -28,6 +30,10 @@ export default App = () => {
           },
         }}
       >
+        <Stack.Screen
+          name="MemberBenefitsScreen"
+          component={MemberBenefitsScreen}
+        />
         <Stack.Screen
           name="OTPScreen"
           component={OTPScreen}

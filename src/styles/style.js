@@ -69,6 +69,12 @@ const globalStyles = StyleSheet.create({
         fontSize: 14,
         fontWeight: '600'
     },
+    selectedBoldLabel: {
+        fontFamily: fonts.primary,
+        color: HiFiColors.White,
+        fontSize: 14,
+        fontWeight: '800'
+    },
     strongLabel: {
         fontFamily: fonts.primary,
         color: HiFiColors.White,
