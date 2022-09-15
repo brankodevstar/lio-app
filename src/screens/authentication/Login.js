@@ -63,7 +63,7 @@ const styles = StyleSheet.create({
         marginVertical: 3,
         borderRadius: 5,
         fontSize: 14,
-        width: "80%",
+        width: '80%',
         backgroundColor: HiFiColors.AccentFade,
         color: HiFiColors.White,
     },
