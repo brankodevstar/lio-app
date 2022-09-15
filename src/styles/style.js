@@ -100,7 +100,7 @@ const globalStyles = StyleSheet.create({
         paddingHorizontal: 20,
         paddingVertical: 15,
         borderBottomWidth: 1,
-        borderBottomColor: HiFiColors.AccentFade
+        borderBottomColor: HiFiColors.AccentFade,
     },
 })
 

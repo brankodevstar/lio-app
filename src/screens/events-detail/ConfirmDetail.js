@@ -13,7 +13,7 @@ export default ConfirmDetail = () => {
 
     return (
         <View style={globalStyles.container}>
-            <View style={globalStyles.headerContainer}>
+            <View style={[globalStyles.headerContainer, { justifyContent: 'space-between' }]}>
                 <TouchableOpacity>
                     <View style={styles.closeButtonBack}>
                         <FeatherIcon name="x" size={15} color={HiFiColors.White} />

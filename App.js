@@ -13,6 +13,9 @@ import ConfirmDetailScreen from './src/screens/events-detail/ConfirmDetail';
 import CalendarScreen from './src/screens/calendar-partner/Calendar';
 import PartnerDetailScreen from './src/screens/calendar-partner/PartnerDetail';
 
+import ForumScreen from './src/screens/forum/Forum';
+import AddPostScreen from './src/screens/forum/AddPost';
+
 
 const Stack = createStackNavigator();
 
@@ -28,6 +31,14 @@ export default App = () => {
           },
         }}
       >
+        <Stack.Screen
+          name="AddPost"
+          component={AddPostScreen}
+        />
+        <Stack.Screen
+          name="Forum"
+          component={ForumScreen}
+        />
         <Stack.Screen
           name="PartnerDetail"
           component={PartnerDetailScreen}
