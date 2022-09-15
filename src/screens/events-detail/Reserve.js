@@ -1,17 +1,18 @@
 import React from 'react'
-import { View, Text, StyleSheet, TextInput } from 'react-native';
+import { View, Text, StyleSheet, TextInput, Dimensions } from 'react-native';
+import { ScrollView, TouchableOpacity } from 'react-native-gesture-handler';
+import FeatherIcon from 'react-native-vector-icons/Feather';
+import LinearGradient from 'react-native-linear-gradient';
+import CalendarPicker from 'react-native-calendar-picker';
 
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
-import { TouchableOpacity } from 'react-native-gesture-handler';
-import FeatherIcon from 'react-native-vector-icons/Feather';
-import LinearGradient from 'react-native-linear-gradient';
 
 export default Reserve = () => {
 
     return (
-        <View style={globalStyles.container}>
-            <View style={styles.headerContainer}>
+        <ScrollView style={globalStyles.container}>
+            <View style={globalStyles.headerContainer}>
                 <TouchableOpacity>
                     <View style={styles.closeButtonBack}>
                         <FeatherIcon name="x" size={15} color={HiFiColors.White} />
@@ -25,19 +26,37 @@ export default Reserve = () => {
                 <View style={styles.persons}>
                     <View style={{ flex: 1 }}>
                         <Text style={[globalStyles.strongLabel, { marginBottom: 5 }]}>Persons</Text>
-                        <Text style={globalStyles.label}>Select the number of seats that you want to purchase</Text>
+                        <Text style={[globalStyles.label, { color: HiFiColors.Label }]}>Select the number of seats that you want to purchase</Text>
                     </View>
                     <View style={styles.personNumber}>
-                        <FeatherIcon name="minus-circle" size={20} color={HiFiColors.Label} />
+                        <TouchableOpacity>
+                            <FeatherIcon name="minus-circle" size={20} color={HiFiColors.Label} />
+                        </TouchableOpacity>
                         <View style={styles.personNumberBack}>
                             <FeatherIcon name="user" size={20} color={HiFiColors.White} />
                             <Text style={globalStyles.mediumLabel}>1</Text>
                         </View>
-                        <FeatherIcon name="plus-circle" size={20} color={HiFiColors.Label} />
+                        <TouchableOpacity>
+                            <FeatherIcon name="plus-circle" size={20} color={HiFiColors.Label} />
+                        </TouchableOpacity>
                     </View>
                 </View>
+                <View style={styles.calendarContainer}>
+                    <CalendarPicker
+                        weekdays={['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']}
+                        textStyle={globalStyles.label}
+                        width={Dimensions.get("screen").width - 50}
+                        startFromMonday={true}
+                        previousComponent={<FeatherIcon name="chevron-left" size={15} color={HiFiColors.Label} style={{ left: 10 }} />}
+                        nextComponent={<FeatherIcon name="chevron-right" size={15} color={HiFiColors.Label} style={{ right: 10 }} />}
+                        selectedDayStyle={{ backgroundColor: HiFiColors.Primary }}
+                        dayLabelsWrapper={{ borderBottomWidth: 0, borderTopWidth: 0 }}
+                        yearTitleStyle={globalStyles.mediumStrongLabel}
+                        monthTitleStyle={globalStyles.mediumStrongLabel}
+                    />
+                </View>
             </View>
-            <View style={{ flex: 1, paddingVertical: 10, paddingHorizontal: 20 }}>
+            <View style={{ flex: 1, paddingVertical: 20, paddingHorizontal: 20 }}>
                 <TextInput
                     multiline
                     numberOfLines={10}
@@ -49,8 +68,11 @@ export default Reserve = () => {
             </View>
             <View style={styles.footer}>
                 <View style={styles.footerContentContainer}>
-                    <Text style={globalStyles.label}>From <Text style={globalStyles.mediumBoldLabel}>₹15 ₹7 /</Text> entry</Text>
-                    <Text style={globalStyles.tinyLabel}>Limited time offer. 50% off</Text>
+                    <Text style={[globalStyles.label, { color: HiFiColors.Label }]}>
+                        <Text style={[globalStyles.mediumBoldLabel, { color: HiFiColors.Label }]}>₹25.00 </Text>
+                        <Text style={globalStyles.mediumBoldLabel}>₹12.50</Text> / entry
+                    </Text>
+                    <Text style={[globalStyles.tinyLabel, { color: HiFiColors.Label }]}>Limited time offer. 50% off</Text>
                 </View>
                 <View style={styles.reverseButtonContainer}>
                     <TouchableOpacity>
@@ -65,21 +87,11 @@ export default Reserve = () => {
                     </TouchableOpacity>
                 </View>
             </View>
-        </View>
+        </ScrollView>
     )
 }
 
 const styles = StyleSheet.create({
-    headerContainer: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        alignItems: 'center',
-        paddingHorizontal: 20,
-        paddingVertical: 15,
-        borderBottomWidth: 1,
-        borderBottomColor: HiFiColors.AccentFade
-
-    },
     closeButtonBack: {
         padding: 5,
         borderRadius: 50,
@@ -87,7 +99,7 @@ const styles = StyleSheet.create({
     },
     section: {
         paddingHorizontal: 20,
-        paddingVertical: 10,
+        paddingVertical: 20,
         borderBottomWidth: 1,
         borderBottomColor: HiFiColors.AccentFade
     },
@@ -110,16 +122,22 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         marginHorizontal: 15
     },
+    calendarContainer: {
+        backgroundColor: HiFiColors.AccentFade,
+        borderColor: HiFiColors.Label,
+        borderWidth: 1,
+        borderRadius: 5,
+        padding: 20
+    },
     bookingNotes: {
         backgroundColor: HiFiColors.AccentFade,
         borderColor: HiFiColors.Label,
         borderWidth: 1,
         borderRadius: 5,
         paddingHorizontal: 15,
-        paddingVertical: 10
+        paddingVertical: 10,
+        textAlignVertical: 'top'
     },
-
-
     footer: {
         backgroundColor: HiFiColors.AccentFade,
         flexDirection: 'row',

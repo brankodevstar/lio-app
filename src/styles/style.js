@@ -92,7 +92,16 @@ const globalStyles = StyleSheet.create({
         color: HiFiColors.White,
         fontSize: 18,
         fontWeight: '800'
-    }
+    },
+    headerContainer: {
+        flexDirection: 'row',
+        justifyContent: 'center',
+        alignItems: 'center',
+        paddingHorizontal: 20,
+        paddingVertical: 15,
+        borderBottomWidth: 1,
+        borderBottomColor: HiFiColors.AccentFade
+    },
 })
 
 export default globalStyles;
