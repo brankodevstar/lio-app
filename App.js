@@ -18,6 +18,9 @@ import MemberBenefitsScreen from './src/screens/benefits_map/memberBenefits';
 import ForumScreen from './src/screens/forum/Forum';
 import AddPostScreen from './src/screens/forum/AddPost';
 
+import MemberListScreen from './src/screens/members/MemberList';
+import MemberInfoScreen from './src/screens/members/MemberInfo';
+
 
 const Stack = createStackNavigator();
 
@@ -33,6 +36,14 @@ export default App = () => {
           },
         }}
       >
+        <Stack.Screen
+          name="MemberInfo"
+          component={MemberInfoScreen}
+        />
+        <Stack.Screen
+          name="MemberList"
+          component={MemberListScreen}
+        />
         <Stack.Screen
           name="AddPost"
           component={AddPostScreen}
