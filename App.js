@@ -19,6 +19,9 @@ import VenueMapScreen from './src/screens/benefits_map/venueMap';
 import ForumScreen from './src/screens/forum/Forum';
 import AddPostScreen from './src/screens/forum/AddPost';
 
+import MemberListScreen from './src/screens/members/MemberList';
+import MemberInfoScreen from './src/screens/members/MemberInfo';
+
 
 const Stack = createStackNavigator();
 
@@ -35,8 +38,17 @@ export default App = () => {
         }}
       >
         <Stack.Screen
+<<<<<<< HEAD
           name="VenueMap"
           component={VenueMapScreen}
+=======
+          name="MemberInfo"
+          component={MemberInfoScreen}
+        />
+        <Stack.Screen
+          name="MemberList"
+          component={MemberListScreen}
+>>>>>>> 2962eec5b295d619ed5d751f5059399693c4ea1d
         />
         <Stack.Screen
           name="AddPost"
