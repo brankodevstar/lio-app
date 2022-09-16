@@ -39,6 +39,12 @@ const globalStyles = StyleSheet.create({
         fontWeight: '700',
         marginVertical: 10
     },
+    littleTinyLabel: {
+        fontFamily: fonts.primary,
+        color: HiFiColors.White,
+        fontSize: 8,
+        fontWeight: '400',
+    },
     tinyLabel: {
         fontFamily: fonts.primary,
         color: HiFiColors.White,

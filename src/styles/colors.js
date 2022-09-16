@@ -11,7 +11,9 @@ const HiFiColors = {
     Grey: '#141717',
     Gradient: 'gradient(88.62deg, #301616 0.63%, #301616 0.64%, #B88E34 100%)',
     AccentFade: '#2d3b48',
-    Label: '#8b9299'
+    Label: '#8b9299',
+    Blue: '#0088EF',
+    Green: '#80c652'
 
 }
 

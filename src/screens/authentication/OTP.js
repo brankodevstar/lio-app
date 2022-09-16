@@ -3,32 +3,33 @@ import { StyleSheet, SafeAreaView, View, Text, Image } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import globalStyles from '../../styles/style';
-import { CodeField,
+import {
+    CodeField,
     Cursor,
     useBlurOnFulfill,
     useClearByFocusCell,
     MaskSymbol,
-    isLastFilledCell, 
+    isLastFilledCell,
 } from 'react-native-confirmation-code-field';
 import HiFiColors from '../../styles/colors';
 import LinearGradient from 'react-native-linear-gradient';
 
-export default OTP = () => {
+export default OTP = ({ navigation }) => {
     const CELL_COUNT = 6;
     const [value, setValue] = useState('');
-    const ref = useBlurOnFulfill({value, cellCount: CELL_COUNT});
+    const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
     const [props, getCellOnLayoutHandler] = useClearByFocusCell({
         value,
         setValue,
     });
-    const renderCell = ({index, symbol, isFocused}) => {
+    const renderCell = ({ index, symbol, isFocused }) => {
         let textChild = null;
 
         if (symbol) {
             textChild = (
                 <MaskSymbol
                     maskSymbol="-"
-                    isLastFilledCell={isLastFilledCell({index, value})}>
+                    isLastFilledCell={isLastFilledCell({ index, value })}>
                     {symbol}
                 </MaskSymbol>
             );
@@ -79,7 +80,7 @@ export default OTP = () => {
                     <Text style={styles.notReceivedText}>Haven't received a code?</Text>
                 </View>
                 <View style={{ alignSelf: 'stretch', marginTop: 30, marginBottom: 100 }}>
-                    <TouchableOpacity >
+                    <TouchableOpacity onPress={() => navigation.navigate("Home")}>
                         <LinearGradient
                             start={{ x: 0.0, y: 0.0 }}
                             end={{ x: 1.0, y: 1.0 }}
@@ -119,41 +120,41 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         marginLeft: 5,
         marginRight: 5,
-      },
-      focusCell: {
+    },
+    focusCell: {
         borderColor: '#000',
-      },
-      codeFieldRoot: {
+    },
+    codeFieldRoot: {
         marginTop: 20,
         paddingBottom: 30,
         borderBottomWidth: 0.5,
         borderColor: HiFiColors.White,
-      },
-      verificationCodePart: {
+    },
+    verificationCodePart: {
         marginTop: 20,
         marginBottom: 20,
         alignItems: 'center',
-      },
-      sentText: {
+    },
+    sentText: {
         color: HiFiColors.White,
         fontSize: 14,
         fontWeight: 'bold',
         marginBottom: 10,
-      },
-      description: {
+    },
+    description: {
         color: HiFiColors.White,
         fontSize: 12,
         marginBottom: 2,
         marginTop: 2,
-      },
-      notReceivedText: {
+    },
+    notReceivedText: {
         color: HiFiColors.White,
         fontSize: 12,
         marginTop: 60,
-      },
-      headerIconBack: {
+    },
+    headerIconBack: {
         position: 'absolute',
         top: 20,
         blurAmount: 3,
-      },
+    },
 });

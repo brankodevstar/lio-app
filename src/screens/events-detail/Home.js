@@ -275,7 +275,7 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     readMoreButton: {
-        color: '#0088EF',
+        color: HiFiColors.Blue,
         marginRight: 10
     },
     icon: {

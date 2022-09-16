@@ -5,7 +5,7 @@ import HiFiColors from '../../styles/colors';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
 
-export default Splash = () => {
+export default Splash = ({ navigation }) => {
     return (
         <ImageBackground source={require('../../../assets/images/background.png')}
             style={[globalStyles.container]}>
@@ -19,7 +19,7 @@ export default Splash = () => {
                 </View>
                 <Text style={[globalStyles.content, { marginVertical: 20 }]}>Some amazing tag line here lorem ipsum</Text>
                 <View style={{ alignSelf: 'stretch', marginBottom: 100 }}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate('LoginScreen')}>
                         <LinearGradient
                             start={{ x: 0.0, y: 0.0 }}
                             end={{ x: 1.0, y: 1.0 }}

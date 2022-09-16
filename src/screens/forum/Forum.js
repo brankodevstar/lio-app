@@ -12,7 +12,7 @@ import HiFiColors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 
 
-export default Forum = () => {
+export default Forum = ({ navigation }) => {
 
     const [isModalVisible, setModalVisible] = useState(false);
 
@@ -108,7 +108,7 @@ export default Forum = () => {
                 </View>
             </ScrollView>
             <View>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("AddPost")}>
                     <LinearGradient
                         start={{ x: 0.0, y: 0.0 }}
                         end={{ x: 1.0, y: 1.0 }}

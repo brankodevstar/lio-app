@@ -77,8 +77,8 @@ const styles = StyleSheet.create({
         justifyContent: 'center'
     },
     memberAvatar: {
-        width: 132,
-        height: 132,
+        width: 100,
+        height: 100,
         borderRadius: 200,
     },
     memberDetailInfo: {
@@ -88,8 +88,8 @@ const styles = StyleSheet.create({
         alignItems: 'center'
     },
     memberDetailImage: {
-        width: 120,
-        height: 120,
+        width: 110,
+        height: 110,
         borderRadius: 200,
     },
     chatButtonContainer: {

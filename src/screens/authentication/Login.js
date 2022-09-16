@@ -6,7 +6,7 @@ import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
 import fonts from '../../styles/fonts';
 
-export default Login = () => {
+export default Login = ({ navigation }) => {
     return (
         <View style={[globalStyles.container]}>
             <View style={styles.container}>
@@ -14,7 +14,7 @@ export default Login = () => {
                     source={require('../../../assets/images/logo.png')}
                     style={styles.logo} />
                 <View>
-                    <View style={{ alignItems: 'center', marginVertical: 8 }}>                        
+                    <View style={{ alignItems: 'center', marginVertical: 8 }}>
                         <Text style={globalStyles.title}>Leaders for</Text>
                         <Text style={globalStyles.title}>India Organization</Text>
                     </View>
@@ -22,10 +22,10 @@ export default Login = () => {
                 <View>
                     <Text style={[globalStyles.mediumBoldLabel, styles.loginLabel]}>Login</Text>
                 </View>
-                <TextInput style={styles.textInput} placeholder='Mobile Number' placeholderTextColor='#fff'/>
-                <TextInput style={styles.textInput} placeholder='Password' placeholderTextColor='#fff'/>
+                <TextInput style={styles.textInput} placeholder='Mobile Number' placeholderTextColor='#fff' />
+                <TextInput style={styles.textInput} placeholder='Password' placeholderTextColor='#fff' />
                 <View style={{ alignSelf: 'stretch', marginTop: 30, marginBottom: 100 }}>
-                    <TouchableOpacity >
+                    <TouchableOpacity onPress={() => navigation.navigate('OTPScreen')}>
                         <LinearGradient
                             start={{ x: 0.0, y: 0.0 }}
                             end={{ x: 1.0, y: 1.0 }}

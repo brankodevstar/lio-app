@@ -20,7 +20,10 @@ import AddPostScreen from './src/screens/forum/AddPost';
 
 import MemberListScreen from './src/screens/members/MemberList';
 import MemberInfoScreen from './src/screens/members/MemberInfo';
+import ChatScreen from './src/screens/members/Chat';
 
+import TabNavigator from './src/navigation/MainTabNavigator';
+import MainNavigator from './src/navigation/MainNavigator';
 
 const Stack = createStackNavigator();
 
@@ -37,6 +40,31 @@ export default App = () => {
         }}
       >
         <Stack.Screen
+          name="SplashScreen"
+          component={SplashScreen}
+        />
+        <Stack.Screen
+          name="LoginScreen"
+          component={LoginScreen}
+        />
+        <Stack.Screen
+          name="OTPScreen"
+          component={OTPScreen}
+        />
+        <Stack.Screen
+          name="Home"
+          component={MainNavigator}
+        />
+
+        <Stack.Screen
+          name="TabHome"
+          component={TabNavigator}
+        />
+        <Stack.Screen
+          name="Chat"
+          component={ChatScreen}
+        />
+        <Stack.Screen
           name="MemberInfo"
           component={MemberInfoScreen}
         />
@@ -52,14 +80,8 @@ export default App = () => {
           name="MemberBenefitsScreen"
           component={MemberBenefitsScreen}
         />
-        <Stack.Screen
-          name="OTPScreen"
-          component={OTPScreen}
-        />
-        <Stack.Screen
-          name="LoginScreen"
-          component={LoginScreen}
-        />
+
+
         <Stack.Screen
           name="Forum"
           component={ForumScreen}
@@ -84,10 +106,7 @@ export default App = () => {
           name="HomeScreen"
           component={HomeScreen}
         />
-        <Stack.Screen
-          name="SplashScreen"
-          component={SplashScreen}
-        />
+
       </Stack.Navigator>
     </NavigationContainer>
   )
