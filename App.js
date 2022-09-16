@@ -22,6 +22,8 @@ import MemberListScreen from './src/screens/members/MemberList';
 import MemberInfoScreen from './src/screens/members/MemberInfo';
 import ChatScreen from './src/screens/members/Chat';
 
+import OverViewScreen from './src/screens/profile-gallery/Overview';
+
 import TabNavigator from './src/navigation/MainTabNavigator';
 import MainNavigator from './src/navigation/MainNavigator';
 
@@ -105,6 +107,10 @@ export default App = () => {
         <Stack.Screen
           name="HomeScreen"
           component={HomeScreen}
+        />
+        <Stack.Screen
+          name="OverViewScreen"
+          component={OverViewScreen}
         />
 
       </Stack.Navigator>
