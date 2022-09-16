@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
         height: 100,
     },
     textInput: {
-        lignItems: 'center',
+        alignItems: 'center',
         justifyContent: 'center',
         alignSelf: 'center',
         paddingVertical: 11,
