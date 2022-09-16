@@ -14,6 +14,7 @@ import CalendarScreen from './src/screens/calendar-partner/Calendar';
 import PartnerDetailScreen from './src/screens/calendar-partner/PartnerDetail';
 
 import MemberBenefitsScreen from './src/screens/benefits_map/memberBenefits';
+import VenueMapScreen from './src/screens/benefits_map/venueMap';
 
 import ForumScreen from './src/screens/forum/Forum';
 import AddPostScreen from './src/screens/forum/AddPost';
@@ -33,6 +34,10 @@ export default App = () => {
           },
         }}
       >
+        <Stack.Screen
+          name="VenueMap"
+          component={VenueMapScreen}
+        />
         <Stack.Screen
           name="AddPost"
           component={AddPostScreen}
