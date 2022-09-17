@@ -22,7 +22,7 @@ import MemberListScreen from '../screens/members/MemberList';
 import MemberInfoScreen from '../screens/members/MemberInfo';
 import ChatScreen from '../screens/members/Chat';
 
-import TabNavigator from './MainTabNavigator';
+import TabNavigator from './TabNavigator';
 
 const Stack = createStackNavigator();
 
@@ -62,14 +62,6 @@ export default MainNavigator = () => {
                 component={MemberBenefitsScreen}
             />
             <Stack.Screen
-                name="OTPScreen"
-                component={OTPScreen}
-            />
-            <Stack.Screen
-                name="LoginScreen"
-                component={LoginScreen}
-            />
-            <Stack.Screen
                 name="Forum"
                 component={ForumScreen}
             />
@@ -93,10 +85,7 @@ export default MainNavigator = () => {
                 name="HomeScreen"
                 component={HomeScreen}
             />
-            <Stack.Screen
-                name="SplashScreen"
-                component={SplashScreen}
-            />
+
         </Stack.Navigator>
     )
 }

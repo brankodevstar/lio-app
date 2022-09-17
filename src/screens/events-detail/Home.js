@@ -10,7 +10,7 @@ import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
 
 
-export default Home = () => {
+export default Home = ({ navigation }) => {
     return (
         <ScrollView style={styles.container}>
             <View>
@@ -161,7 +161,7 @@ export default Home = () => {
                                 <Text style={globalStyles.boldLabel}>FOR A LIMITED TIME</Text>
                                 <Text style={globalStyles.mediumLabel}>Post C-19 Reopening</Text>
                                 <View style={styles.reverseButtonBack}>
-                                    <TouchableOpacity>
+                                    <TouchableOpacity onPress={() => navigation.navigate("ReserveScreen")}>
                                         <LinearGradient
                                             start={{ x: 0.0, y: 0.0 }}
                                             end={{ x: 1.0, y: 1.0 }}
@@ -196,7 +196,7 @@ export default Home = () => {
                     <Text style={globalStyles.tinyLabel}>Limited time offer. 50% off</Text>
                 </View>
                 <View style={styles.reverseButtonContainer}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate("ReserveScreen")}>
                         <LinearGradient
                             start={{ x: 0.0, y: 0.0 }}
                             end={{ x: 1.0, y: 1.0 }}

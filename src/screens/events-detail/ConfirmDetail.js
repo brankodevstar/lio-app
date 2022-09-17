@@ -9,12 +9,12 @@ import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
 
 
-export default ConfirmDetail = () => {
+export default ConfirmDetail = ({ navigation }) => {
 
     return (
         <View style={globalStyles.container}>
             <View style={[globalStyles.headerContainer, { justifyContent: 'space-between' }]}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
                     <View style={styles.closeButtonBack}>
                         <FeatherIcon name="x" size={15} color={HiFiColors.White} />
                     </View>

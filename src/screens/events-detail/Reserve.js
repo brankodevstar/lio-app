@@ -8,12 +8,12 @@ import CalendarPicker from 'react-native-calendar-picker';
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
 
-export default Reserve = () => {
+export default Reserve = ({ navigation }) => {
 
     return (
         <ScrollView style={globalStyles.container}>
             <View style={[globalStyles.headerContainer, { justifyContent: 'space-between' }]}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
                     <View style={styles.closeButtonBack}>
                         <FeatherIcon name="x" size={15} color={HiFiColors.White} />
                     </View>
@@ -75,14 +75,14 @@ export default Reserve = () => {
                     <Text style={[globalStyles.tinyLabel, { color: HiFiColors.Label }]}>Limited time offer. 50% off</Text>
                 </View>
                 <View style={styles.reverseButtonContainer}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate("ConfirmDetail")}>
                         <LinearGradient
                             start={{ x: 0.0, y: 0.0 }}
                             end={{ x: 1.0, y: 1.0 }}
                             colors={['#7B61FF', '#991450', '#40799D']}
                             style={[globalStyles.filledButton, styles.reverseButton]}
                         >
-                            <Text style={globalStyles.buttonLabel}>Reverse</Text>
+                            <Text style={globalStyles.buttonLabel}>Book Now</Text>
                         </LinearGradient>
                     </TouchableOpacity>
                 </View>

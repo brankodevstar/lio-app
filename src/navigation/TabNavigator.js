@@ -11,6 +11,8 @@ import MemberInfoScreen from '../screens/members/MemberInfo';
 import HomeScreen from '../screens/events-detail/Home';
 import ForumScreen from '../screens/forum/Forum';
 
+import ChatScreen from '../screens/members/Chat';
+
 import globalStyles from '../styles/style';
 import HiFiColors from '../styles/colors';
 
@@ -25,7 +27,7 @@ export default function TabNavigator() {
                 tabBarActiveTintColor: HiFiColors.White,
                 tabBarInactiveTintColor: HiFiColors.Label,
             }}
-            initialRouteName="Home"
+            initialRouteName="HomeScreen"
         >
             <Tab.Screen
                 name="Benefits"
@@ -34,7 +36,7 @@ export default function TabNavigator() {
                     tabBarIcon: ({ focused, color, size }) => (
                         <FontAwesomeIcon name="diamond" color={color} size={size} />
                     ),
-                    tabBarLabel: ({ focused, color }) => (<Text style={[globalStyles.littleTinyLabel,]}>Benefits</Text>),
+                    tabBarLabel: ({ focused, color }) => (<Text style={[globalStyles.littleTinyLabel, { color: color, marginBottom: 5 }]}>Benefits</Text>),
                 }}
             />
             <Tab.Screen
@@ -48,7 +50,7 @@ export default function TabNavigator() {
                 }}
             />
             <Tab.Screen
-                name="Home"
+                name="HomeScreen"
                 component={HomeScreen}
                 options={{
                     tabBarIcon: ({ focused, color, size }) => (

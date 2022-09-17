@@ -42,8 +42,6 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: HiFiColors.Accent,
         opacity: 0.8,
-        borderWidth: 1,
-        borderColor: 'white',
     },
     logo: {
         width: 100,
