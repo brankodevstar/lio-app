@@ -47,8 +47,8 @@ export default App = () => {
           component={GalleryScreen}
         />
         <Stack.Screen
-          name="ChatScreen"
-          component={ChatScreen}
+        name="ChatScreen"
+        component={ChatScreen}
         />
         <Stack.Screen
           name="SplashScreen"
