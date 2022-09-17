@@ -55,7 +55,7 @@ const styles = StyleSheet.create({
         marginBottom: 50,
     },
     paginationContainer: {
-        marginTop: 30,
+        marginTop: 10,
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',

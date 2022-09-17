@@ -26,6 +26,7 @@ import OverViewScreen from './src/screens/profile-gallery/Overview';
 import GalleryScreen from './src/screens/profile-gallery/Gallery';
 import EventInfoGalleryScreen from './src/screens/profile-gallery/EventInfoGallery';
 import ViewPictureScreeen from './src/screens/profile-gallery/ViewPicture';
+import AccountInfoScreen from './src/screens/profile-gallery/AccountInfo';
 
 import TabNavigator from './src/navigation/MainTabNavigator';
 import MainNavigator from './src/navigation/MainNavigator';
@@ -44,6 +45,10 @@ export default App = () => {
           },
         }}
       >
+        <Stack.Screen
+          name="AccountInfoScreen"
+          component={AccountInfoScreen}
+        />
         <Stack.Screen
           name="ViewPictureScreeen"
           component={ViewPictureScreeen}
