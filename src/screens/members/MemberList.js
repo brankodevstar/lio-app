@@ -8,7 +8,7 @@ import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 
-export default MemberList = () => {
+export default MemberList = ({ navigation }) => {
     return (
         <View style={globalStyles.container}>
             <View style={[globalStyles.headerContainer, { justifyContent: 'space-between' }]}>
@@ -21,7 +21,7 @@ export default MemberList = () => {
                 </TouchableOpacity>
             </View>
             <ScrollView style={styles.scrollViewContainer} contentContainerStyle={{ paddingBottom: 20 }}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("MemberInfo")}>
                     <View style={styles.memberCard}>
                         <Image source={require('../../../assets/images/avatars/f14583d4fa72dd0c419994432fa612d8.png')} style={styles.memberAvatar} resizeMode="center" />
                         <View style={styles.memberInfo}>
@@ -31,7 +31,7 @@ export default MemberList = () => {
                         </View>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("MemberInfo")}>
                     <View style={styles.memberCard}>
                         <Image source={require('../../../assets/images/avatars/781c710a587bd211f11ba1155753fe38.png')} style={styles.memberAvatar} resizeMode="center" />
                         <View style={styles.memberInfo}>
@@ -41,7 +41,7 @@ export default MemberList = () => {
                         </View>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("MemberInfo")}>
                     <View style={styles.memberCard}>
                         <Image source={require('../../../assets/images/avatars/54bcd2f8d0c3783972547e2d7a723e91.png')} style={styles.memberAvatar} resizeMode="center" />
                         <View style={styles.memberInfo}>
@@ -51,7 +51,7 @@ export default MemberList = () => {
                         </View>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("MemberInfo")}>
                     <View style={styles.memberCard}>
                         <Image source={require('../../../assets/images/avatars/7fe1a020fdff606843aff1544b1b36b8.png')} style={styles.memberAvatar} resizeMode="center" />
                         <View style={styles.memberInfo}>
@@ -61,7 +61,7 @@ export default MemberList = () => {
                         </View>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("MemberInfo")}>
                     <View style={styles.memberCard}>
                         <Image source={require('../../../assets/images/avatars/f14583d4fa72dd0c419994432fa612d8.png')} style={styles.memberAvatar} resizeMode="center" />
                         <View style={styles.memberInfo}>
@@ -71,7 +71,7 @@ export default MemberList = () => {
                         </View>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("MemberInfo")}>
                     <View style={styles.memberCard}>
                         <Image source={require('../../../assets/images/avatars/781c710a587bd211f11ba1155753fe38.png')} style={styles.memberAvatar} resizeMode="center" />
                         <View style={styles.memberInfo}>
@@ -81,7 +81,7 @@ export default MemberList = () => {
                         </View>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("MemberInfo")}>
                     <View style={styles.memberCard}>
                         <Image source={require('../../../assets/images/avatars/54bcd2f8d0c3783972547e2d7a723e91.png')} style={styles.memberAvatar} resizeMode="center" />
                         <View style={styles.memberInfo}>
@@ -91,7 +91,7 @@ export default MemberList = () => {
                         </View>
                     </View>
                 </TouchableOpacity>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => navigation.navigate("MemberInfo")}>
                     <View style={styles.memberCard}>
                         <Image source={require('../../../assets/images/avatars/7fe1a020fdff606843aff1544b1b36b8.png')} style={styles.memberAvatar} resizeMode="center" />
                         <View style={styles.memberInfo}>

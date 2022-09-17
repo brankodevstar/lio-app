@@ -8,7 +8,7 @@ import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 
-export default AddPost = () => {
+export default AddPost = ({ navigation }) => {
     const [isModalVisible, setModalVisible] = useState(false);
 
     const toggleModal = () => {
@@ -19,7 +19,7 @@ export default AddPost = () => {
         <View style={globalStyles.container}>
             <View style={globalStyles.headerContainer}>
                 <View style={styles.closeButtonPos}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
                         <FeatherIcon name="x" size={15} color={HiFiColors.White} style={styles.closeButtonBack} />
                     </TouchableOpacity>
                 </View>

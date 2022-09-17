@@ -7,7 +7,7 @@ import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 
-export default MemberInfo = () => {
+export default MemberInfo = ({ navigation }) => {
     return (
         <View style={globalStyles.container}>
             <View style={globalStyles.headerContainer}>
@@ -40,7 +40,7 @@ export default MemberInfo = () => {
                     </View>
                 </View>
                 <View style={styles.chatButtonContainer}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
                         <LinearGradient
                             start={{ x: 0.0, y: 0.0 }}
                             end={{ x: 1.0, y: 1.0 }}

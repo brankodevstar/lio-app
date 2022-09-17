@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, SafeAreaView, View, Text, Image } from 'react-native';
-import { TouchableOpacity } from 'react-native-gesture-handler';
+import { StyleSheet, SafeAreaView, View, Text, Image, TouchableOpacity } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import globalStyles from '../../styles/style';
 import {
@@ -49,9 +48,9 @@ export default OTP = ({ navigation }) => {
 
     return (
         <View style={[globalStyles.container]}>
-            <View style={[styles.headerIconBack, { left: 20, top: 20, }]}>
-                <TouchableOpacity>
-                    <FeatherIcon name="arrow-left" size={20} color={HiFiColors.White} />
+            <View style={[globalStyles.headerContainer, { justifyContent: 'space-between', borderBottomWidth: 0 }]}>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <FeatherIcon name="arrow-left" size={20} color={HiFiColors.White} style={styles.headerIcon} />
                 </TouchableOpacity>
             </View>
             <View style={styles.container}>
@@ -155,6 +154,14 @@ const styles = StyleSheet.create({
     headerIconBack: {
         position: 'absolute',
         top: 20,
-        blurAmount: 3,
+        left: 20,
+        borderWidth: 1,
+        borderColor: 'red',
+        margin: 10
+    },
+    headerIcon: {
+        backgroundColor: HiFiColors.AccentFade,
+        borderRadius: 50,
+        padding: 5,
     },
 });
