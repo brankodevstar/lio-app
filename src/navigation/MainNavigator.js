@@ -21,6 +21,8 @@ import AddPostScreen from '../screens/forum/AddPost';
 import MemberListScreen from '../screens/members/MemberList';
 import MemberInfoScreen from '../screens/members/MemberInfo';
 import ChatScreen from '../screens/members/Chat';
+import GroupChatScreen from '../screens/members/GroupChat';
+import IndividualChatScreen from '../screens/members/IndividualChat';
 
 import TabNavigator from './TabNavigator';
 
@@ -44,6 +46,14 @@ export default MainNavigator = () => {
             <Stack.Screen
                 name="Chat"
                 component={ChatScreen}
+            />
+            <Stack.Screen
+                name="GroupChat"
+                component={GroupChatScreen}
+            />
+            <Stack.Screen
+                name="IndividualChat"
+                component={IndividualChatScreen}
             />
             <Stack.Screen
                 name="MemberInfo"

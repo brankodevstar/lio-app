@@ -6,6 +6,7 @@ import SplashScreen from './src/screens/authentication/Splash';
 import LoginScreen from './src/screens/authentication/Login';
 import OTPScreen from './src/screens/authentication/OTP';
 
+
 import ChatScreen from './src/screens/members/Chat';
 import OverViewScreen from './src/screens/profile-gallery/Overview';
 import GalleryScreen from './src/screens/profile-gallery/Gallery';
@@ -31,6 +32,10 @@ export default App = () => {
         }}
       >
         <Stack.Screen
+          name="SplashScreen"
+          component={SplashScreen}
+        />
+        <Stack.Screen
           name="AccountInfoScreen"
           component={AccountInfoScreen}
         />
@@ -47,9 +52,10 @@ export default App = () => {
           component={GalleryScreen}
         />
         <Stack.Screen
-        name="ChatScreen"
-        component={ChatScreen}
+          name="ChatScreen"
+          component={ChatScreen}
         />
+
         <Stack.Screen
           name="SplashScreen"
           component={SplashScreen}

@@ -11,6 +11,7 @@ import fonts from '../../styles/fonts';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import Modal from 'react-native-modal';
 import { CheckBox } from 'react-native-elements';
+import { useEffect } from 'react';
 
 const checkedIconTag = () => (
     <View style={{ backgroundColor: HiFiColors.Accent, width: 30, height: 30, borderRadius: 50, borderWidth: 2, borderColor: HiFiColors.Accent, alignItems: 'center', justifyContent: 'center' }}>
@@ -40,7 +41,7 @@ const checkedUser = () => (
 
 
 
-export default MemberInfo = () => {
+export default Chat = ({ navigation }) => {
     const [isSettingModalVisible, setSettingModalVisible] = useState(false);
     const [isParticipantModalVisible, setParticipantModalVisible] = useState(false);
     const [isNewGroupModalVisible, setNewGroupModalVisible] = useState(false);
@@ -253,7 +254,7 @@ export default MemberInfo = () => {
             >
                 <View style={styles.modalContentContainer}>
                     <Text style={[globalStyles.mediumStrongLabel, { alignSelf: 'center', marginBottom: 20 }]}>Chat</Text>
-                    <TouchableOpacity style={{ marginBottom: 10 }}>
+                    <TouchableOpacity style={{ marginBottom: 10 }} onPress={() => { setSettingModalVisible(false); navigation.navigate("IndividualChat") }}>
                         <Text style={globalStyles.boldLabel}>New Chat</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => { toggleSettingModal(); setParticipantModalVisible(true) }}>
@@ -324,7 +325,7 @@ export default MemberInfo = () => {
                             <Text style={globalStyles.boldLabel}>Cancel</Text>
                         </TouchableOpacity>
                         <Text style={globalStyles.mediumStrongLabel}>New Group</Text>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => { setNewGroupModalVisible(false); navigation.navigate("GroupChat") }}>
                             <Text style={[globalStyles.boldLabel, { color: HiFiColors.Blue }]}>Create</Text>
                         </TouchableOpacity>
                     </View>
