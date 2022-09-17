@@ -23,6 +23,9 @@ import MemberInfoScreen from './src/screens/members/MemberInfo';
 import ChatScreen from './src/screens/members/Chat';
 
 import OverViewScreen from './src/screens/profile-gallery/Overview';
+import GalleryScreen from './src/screens/profile-gallery/Gallery';
+import EventInfoGalleryScreen from './src/screens/profile-gallery/EventInfoGallery';
+import ViewPictureScreeen from './src/screens/profile-gallery/ViewPicture';
 
 import TabNavigator from './src/navigation/MainTabNavigator';
 import MainNavigator from './src/navigation/MainNavigator';
@@ -41,6 +44,18 @@ export default App = () => {
           },
         }}
       >
+        <Stack.Screen
+          name="ViewPictureScreeen"
+          component={ViewPictureScreeen}
+        />
+        <Stack.Screen
+          name="EventInfoGalleryScreen"
+          component={EventInfoGalleryScreen}
+        />
+        <Stack.Screen
+          name="GalleryScreen"
+          component={GalleryScreen}
+        />
         <Stack.Screen
           name="SplashScreen"
           component={SplashScreen}
