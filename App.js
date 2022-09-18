@@ -6,6 +6,8 @@ import SplashScreen from './src/screens/authentication/Splash';
 import LoginScreen from './src/screens/authentication/Login';
 import OTPScreen from './src/screens/authentication/OTP';
 
+import InvestmentDetailScreen from './src/screens/investments/InvestmentDetail';
+
 import MainNavigator from './src/navigation/MainNavigator';
 
 const Stack = createStackNavigator();
@@ -23,6 +25,10 @@ export default App = () => {
         }}
       >
 
+        <Stack.Screen
+          name="InvestmentDetail"
+          component={InvestmentDetailScreen}
+        />
         <Stack.Screen
           name="SplashScreen"
           component={SplashScreen}
