@@ -10,6 +10,7 @@ import InvestmentDetailScreen from './src/screens/investments/InvestmentDetail';
 
 import MemberInfoScreen from './src/screens/profile/MemberInfo';
 import TransactionHistoryScreen from './src/screens/profile/TransactionHistory';
+import NavigationScreen from './src/screens/profile/Navigation';
 
 import MainNavigator from './src/navigation/MainNavigator';
 
@@ -27,6 +28,10 @@ export default App = () => {
           },
         }}
       >
+        <Stack.Screen
+          name="NavigationScreen"
+          component={NavigationScreen}
+        />
         <Stack.Screen
           name="TransactionHistoryScreen"
           component={TransactionHistoryScreen}
