@@ -29,7 +29,7 @@ export default function TabNavigator() {
             initialRouteName="HomeScreen"
         >
             <Tab.Screen
-                name="Benefits"
+                name="BenefitsScreen"
                 component={InvestmentsScreen}
                 options={{
                     tabBarIcon: ({ focused, color, size }) => (
@@ -39,7 +39,7 @@ export default function TabNavigator() {
                 }}
             />
             <Tab.Screen
-                name="Members"
+                name="MembersScreen"
                 component={MemberListScreen}
                 options={{
                     tabBarIcon: ({ focused, color, size }) => (
@@ -59,7 +59,7 @@ export default function TabNavigator() {
                 }}
             />
             <Tab.Screen
-                name="Forum"
+                name="ForumScreen"
                 component={ForumScreen}
                 options={{
                     tabBarIcon: ({ focused, color, size }) => (
@@ -69,7 +69,7 @@ export default function TabNavigator() {
                 }}
             />
             <Tab.Screen
-                name="Investments"
+                name="InvestmentsScreen"
                 component={MyInvestmentScreen}
                 options={{
                     tabBarIcon: ({ focused, color, size }) => (

@@ -8,7 +8,7 @@ import globalStyles from "../../styles/style";
 import HiFiColors from '../../styles/colors';
 import { TextInput } from "react-native-gesture-handler";
 
-export default AccountInfo = () => {
+export default AccountInfo = ({ navigation }) => {
 
     const [selected, setSelected] = React.useState("");
     const data = [{ key: '1', value: 'Jammu & Kashmir' }];
@@ -17,7 +17,7 @@ export default AccountInfo = () => {
         <View style={globalStyles.container}>
             <View style={[globalStyles.headerContainer, { borderBottomWidth: 0, height: 60, }]}>
                 <View style={[styles.headerIconBack, { left: 20, }]}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => { navigation.goBack() }}>
                         <FeatherIcon name="arrow-left" size={20} color={HiFiColors.White} style={styles.headerIcon} />
                     </TouchableOpacity>
                 </View>

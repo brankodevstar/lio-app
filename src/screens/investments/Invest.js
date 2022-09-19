@@ -6,8 +6,8 @@ import LinearGradient from 'react-native-linear-gradient';
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
 import fonts from '../../styles/fonts';
-// import { Slider } from 'react-native-elements';
-import Slider from '@react-native-community/slider';
+import { Slider } from 'react-native-elements';
+// import Slider from '@react-native-community/slider';
 
 export default Invest = ({ navigation }) => {
     const [equity, setEquity] = useState(0);
@@ -57,7 +57,7 @@ export default Invest = ({ navigation }) => {
                 </View>
             </View>
             <View style={styles.confirmInvesButtonContainer}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => { navigation.navigate("ConfirmationScreen") }}>
                     <LinearGradient
                         start={{ x: 0.0, y: 0.0 }}
                         end={{ x: 1.0, y: 1.0 }}

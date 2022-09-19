@@ -6,10 +6,6 @@ import SplashScreen from './src/screens/authentication/Splash';
 import LoginScreen from './src/screens/authentication/Login';
 import OTPScreen from './src/screens/authentication/OTP';
 
-import MemberInfoScreen from './src/screens/profile/MemberInfo';
-import TransactionHistoryScreen from './src/screens/profile/TransactionHistory';
-import NavigationScreen from './src/screens/profile/Navigation';
-
 import MainNavigator from './src/navigation/MainNavigator';
 
 const Stack = createStackNavigator();

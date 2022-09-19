@@ -44,7 +44,7 @@ export default Investments = ({ navigation }) => {
             </View>
             <View style={{ flex: 1 }}>
                 <ScrollView style={styles.investmentCardScroll} contentContainerStyle={{ paddingVertical: 20 }}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => { navigation.navigate("InvestmentDetailScreen") }}>
                         <View style={styles.investmentContainer}>
                             <Image
                                 style={styles.inventmentImage}

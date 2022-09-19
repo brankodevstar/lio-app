@@ -111,7 +111,7 @@ export default IndividualChat = ({ navigation }) => {
     return (
         <View style={globalStyles.container}>
             <View style={styles.chatBoxHeader}>
-                <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
+                <TouchableOpacity onPress={() => navigation.navigate("ChatScreen")}>
                     <FeatherIcon name="arrow-left" size={20} color={HiFiColors.White} style={styles.headerIcon} />
                 </TouchableOpacity>
                 <Image source={{ uri: 'https://s3-alpha-sig.figma.com/img/9f93/6d28/03ffef0f3919e687c7cdf564d6d052e0?Expires=1664150400&Signature=bwm-JDGhizn-nMTW8bmFxW16V2j6meR7vdxSoaPbXYzY72DA-hEVS7mMmbRSSvdJ-DnYGU4Kj0ySspbmJz6KEBDiHPlW2vI47s7~ibOyHTL4KOYMXIgpCWnNYbWSRplgAQXPhszaNW7EUd57QdueS2qYD171BhgU4YyuALpQAqk2WnAJ-LXtpF9SAsobphxdntqCkHvPhs2ncCqFXPW8ksBmG2AHpT3rmZQCFVEhpVbU-TbzEI8iUEgwwNIizUTOHAwKWdPM1u2NGhYneh934graF2EtanSl1Aa~RLkXaK6NCcBiYS5YIn21Z3VPg6Ovh5rBYYugIRHSi8vRdazgig__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA' }} style={styles.headerImage} />

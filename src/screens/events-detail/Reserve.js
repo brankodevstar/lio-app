@@ -75,7 +75,7 @@ export default Reserve = ({ navigation }) => {
                     <Text style={[globalStyles.tinyLabel, { color: HiFiColors.Label }]}>Limited time offer. 50% off</Text>
                 </View>
                 <View style={styles.reverseButtonContainer}>
-                    <TouchableOpacity onPress={() => navigation.navigate("ConfirmDetail")}>
+                    <TouchableOpacity onPress={() => navigation.navigate("ConfirmDetailScreen")}>
                         <LinearGradient
                             start={{ x: 0.0, y: 0.0 }}
                             end={{ x: 1.0, y: 1.0 }}

@@ -40,7 +40,7 @@ export default MemberInfo = ({ navigation }) => {
                     </View>
                 </View>
                 <View style={styles.chatButtonContainer}>
-                    <TouchableOpacity onPress={() => navigation.navigate("Chat")}>
+                    <TouchableOpacity onPress={() => navigation.navigate("ChatScreen")}>
                         <LinearGradient
                             start={{ x: 0.0, y: 0.0 }}
                             end={{ x: 1.0, y: 1.0 }}

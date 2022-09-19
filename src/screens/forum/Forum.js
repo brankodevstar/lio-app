@@ -108,7 +108,7 @@ export default Forum = ({ navigation }) => {
                 </View>
             </ScrollView>
             <View>
-                <TouchableOpacity onPress={() => navigation.navigate("AddPost")}>
+                <TouchableOpacity onPress={() => navigation.navigate("AddPostScreen")}>
                     <LinearGradient
                         start={{ x: 0.0, y: 0.0 }}
                         end={{ x: 1.0, y: 1.0 }}

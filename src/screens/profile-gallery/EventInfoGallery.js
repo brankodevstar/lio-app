@@ -8,12 +8,12 @@ import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
 
 
-export default EventInfoGallery = () => {
+export default EventInfoGallery = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <View style={globalStyles.headerContainer}>
                 <View style={[styles.headerIconBack, { left: 20, }]}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => { navigation.goBack() }}>
                         <FeatherIcon name="arrow-left" size={20} color={HiFiColors.White} style={styles.headerIcon} />
                     </TouchableOpacity>
                 </View>
@@ -60,30 +60,30 @@ export default EventInfoGallery = () => {
                             <View style={styles.columnContainer}>
                                 <Image
                                     source={require('../../../assets/images/gallery/e3b05eccb793dd4161168446be9b0501.png')}
-                                    style={styles.primaryImage} 
-                                    />
+                                    style={styles.primaryImage}
+                                />
                                 <Image
                                     source={require('../../../assets/images/gallery/a1e604cccd8716c0d696dded92b3b791.png')}
-                                    style={styles.primaryImage} 
-                                    />
+                                    style={styles.primaryImage}
+                                />
                                 <Image
                                     source={require('../../../assets/images/gallery/19e3217fca7f0d3d8162eab9981ac14c.png')}
-                                    style={[styles.primaryImage, { height: 320 }]} 
-                                    />
+                                    style={[styles.primaryImage, { height: 320 }]}
+                                />
                             </View>
                             <View style={styles.columnContainer}>
                                 <Image
                                     source={require('../../../assets/images/gallery/6d2e078bf9298e50293ed20a9288b810.png')}
-                                    style={styles.primaryImage} 
-                                    />
+                                    style={styles.primaryImage}
+                                />
                                 <Image
                                     source={require('../../../assets/images/gallery/3f227fa353518fc473e06ea8818feaf1.png')}
-                                    style={[styles.primaryImage, { height: 320 }]} 
-                                    />
+                                    style={[styles.primaryImage, { height: 320 }]}
+                                />
                                 <Image
                                     source={require('../../../assets/images/gallery/ca79be9a8469914ac1207f5223cec848.png')}
-                                    style={styles.primaryImage} 
-                                    />
+                                    style={styles.primaryImage}
+                                />
                             </View>
                         </View>
                     </View>
@@ -265,7 +265,7 @@ const styles = StyleSheet.create({
         marginTop: 20,
     },
     columnContainer: {
-        width: Dimensions.get("window").width / 2 -30,
+        width: Dimensions.get("window").width / 2 - 30,
         marginTop: 20,
     },
     primaryImage: {

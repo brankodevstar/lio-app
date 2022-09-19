@@ -6,8 +6,9 @@ import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
+import Navigation from '../profile/Navigation';
 
-export default Calendar = () => {
+export default Calendar = ({ navigation }) => {
     return (
         <View style={globalStyles.container}>
             <View style={globalStyles.headerContainer}>
@@ -55,12 +56,14 @@ export default Calendar = () => {
             <ScrollView style={styles.eventsContainer}>
                 <View style={styles.eventCard}>
                     <Text style={[globalStyles.tinyLabel, { color: HiFiColors.Label, marginRight: 20 }]}>09:00 PM</Text>
-                    <View style={styles.eventPanel}>
-                        <Image source={require('../../../assets/images/event-001.png')} style={styles.eventImage} resizeMode="stretch" />
-                        <View>
-                            <Text style={globalStyles.mediumBoldLabel}>Start Up Grind</Text>
-                            <Text style={globalStyles.tinyLabel}>Networking Event</Text>
-                        </View>
+                    <View style={{ flex: 1 }}>
+                        <TouchableOpacity style={[styles.eventPanel]} onPress={() => { navigation.navigate("PartnerDetailScreen") }}>
+                            <Image source={require('../../../assets/images/event-001.png')} style={styles.eventImage} resizeMode="stretch" />
+                            <View>
+                                <Text style={globalStyles.mediumBoldLabel}>Start Up Grind</Text>
+                                <Text style={globalStyles.tinyLabel}>Networking Event</Text>
+                            </View>
+                        </TouchableOpacity>
                     </View>
                 </View>
                 <View style={styles.eventCard}>

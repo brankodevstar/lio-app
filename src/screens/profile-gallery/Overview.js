@@ -6,13 +6,13 @@ import LinearGradient from 'react-native-linear-gradient';
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
 
-export default Overview = () => {
+export default Overview = ({ navigation }) => {
     return (
         <View style={globalStyles.container}>
             <View style={styles.whiteCard}>
-                <Image 
+                <Image
                     source={require('../../../assets/images/avatars/avatar.jpg')}
-                    style={styles.avatar}/>
+                    style={styles.avatar} />
                 <View style={styles.caption}>
                     <Text style={[globalStyles.mediumBoldLabel, { fontSize: 16, fontWeight: '800', color: HiFiColors.Black, }]}>Roger Sanchez</Text>
                     <Text style={[globalStyles.mediumBoldLabel, { fontSize: 16, fontWeight: '800', color: HiFiColors.Primary, }]}>R.Sanchez@email.com</Text>
@@ -25,7 +25,7 @@ export default Overview = () => {
                         <Text style={styles.captionTitle}>Account Information</Text>
                         <Text style={styles.captionDescription}>Change your account information</Text>
                     </View>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => { navigation.navigate("AccountInfoScreen") }}>
                         <FeatherIcon name="chevron-right" size={15} color={HiFiColors.White} />
                     </TouchableOpacity>
                 </View>

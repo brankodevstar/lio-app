@@ -254,7 +254,7 @@ export default Chat = ({ navigation }) => {
             >
                 <View style={styles.modalContentContainer}>
                     <Text style={[globalStyles.mediumStrongLabel, { alignSelf: 'center', marginBottom: 20 }]}>Chat</Text>
-                    <TouchableOpacity style={{ marginBottom: 10 }} onPress={() => { setSettingModalVisible(false); navigation.navigate("IndividualChat") }}>
+                    <TouchableOpacity style={{ marginBottom: 10 }} onPress={() => { setSettingModalVisible(false); navigation.navigate("IndividualChatScreen") }}>
                         <Text style={globalStyles.boldLabel}>New Chat</Text>
                     </TouchableOpacity>
                     <TouchableOpacity onPress={() => { toggleSettingModal(); setParticipantModalVisible(true) }}>
@@ -325,7 +325,7 @@ export default Chat = ({ navigation }) => {
                             <Text style={globalStyles.boldLabel}>Cancel</Text>
                         </TouchableOpacity>
                         <Text style={globalStyles.mediumStrongLabel}>New Group</Text>
-                        <TouchableOpacity onPress={() => { setNewGroupModalVisible(false); navigation.navigate("GroupChat") }}>
+                        <TouchableOpacity onPress={() => { setNewGroupModalVisible(false); navigation.navigate("GroupChatScreen") }}>
                             <Text style={[globalStyles.boldLabel, { color: HiFiColors.Blue }]}>Create</Text>
                         </TouchableOpacity>
                     </View>

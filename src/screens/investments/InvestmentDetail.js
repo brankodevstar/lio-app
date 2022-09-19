@@ -247,7 +247,7 @@ export default InvestmentDetail = ({ navigation }) => {
                     resizeMode="stretch"
                     style={styles.bannerImage} >
                     <View style={[styles.headerIconBack, { left: 20, }]}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => { navigation.goBack() }}>
                             <FeatherIcon name="arrow-left" size={20} color={HiFiColors.White} style={styles.headerIcon} />
                         </TouchableOpacity>
                     </View>
@@ -296,7 +296,7 @@ export default InvestmentDetail = ({ navigation }) => {
                     renderWithCategory()
                 }
                 <View style={styles.InvestNowButtonContainer}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => { navigation.navigate("InvestScreen") }}>
                         <LinearGradient
                             start={{ x: 0.0, y: 0.0 }}
                             end={{ x: 1.0, y: 1.0 }}
