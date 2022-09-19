@@ -13,8 +13,8 @@ const HiFiColors = {
     AccentFade: '#2d3b48',
     Label: '#8b9299',
     Blue: '#0088EF',
-    Green: '#80c652'
-
+    Green: '#80c652',
+    LightGreen: '#52BD94',
 }
 
 export default HiFiColors;

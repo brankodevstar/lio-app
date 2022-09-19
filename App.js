@@ -8,6 +8,9 @@ import OTPScreen from './src/screens/authentication/OTP';
 
 import InvestmentDetailScreen from './src/screens/investments/InvestmentDetail';
 
+import MemberInfoScreen from './src/screens/profile/MemberInfo';
+import TransactionHistoryScreen from './src/screens/profile/TransactionHistory';
+
 import MainNavigator from './src/navigation/MainNavigator';
 
 const Stack = createStackNavigator();
@@ -24,7 +27,14 @@ export default App = () => {
           },
         }}
       >
-
+        <Stack.Screen
+          name="TransactionHistoryScreen"
+          component={TransactionHistoryScreen}
+        />
+        <Stack.Screen
+          name="MemberInfoScreen"
+          component={MemberInfoScreen}
+        />
         <Stack.Screen
           name="InvestmentDetail"
           component={InvestmentDetailScreen}
