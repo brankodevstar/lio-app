@@ -10,6 +10,7 @@
     "lint": "eslint ."
   },
   "dependencies": {
+    "@react-native-community/art": "^1.2.0",
     "@react-navigation/bottom-tabs": "^6.3.3",
     "@react-navigation/drawer": "^6.4.4",
     "@react-navigation/native": "^6.0.12",
@@ -26,18 +27,21 @@
     "react-native-confirmation-code-field": "^7.3.0",
     "react-native-dropdown-select-list": "^1.0.21",
     "react-native-elements": "^3.4.2",
-    "react-native-gesture-handler": "^2.6.0",
+    "react-native-gesture-handler": "^2.6.1",
     "react-native-linear-gradient": "^2.6.2",
     "react-native-modal": "^13.0.1",
     "react-native-phone-number": "^1.0.0",
+    "react-native-pie-chart": "^2.0.2",
     "react-native-reanimated": "^2.10.0",
     "react-native-safe-area-context": "^4.3.3",
     "react-native-screens": "^3.17.0",
     "react-native-select-dropdown": "^2.0.4",
+    "react-native-svg": "^13.2.0",
     "react-native-text-gradient": "^0.1.7",
     "react-native-vector-icons": "^9.2.0",
     "react-router-native": "^6.4.0",
-    "tsutils": "^3.21.0"
+    "tsutils": "^3.21.0",
+    "victory-native": "^36.6.7"
   },
   "devDependencies": {
     "@babel/core": "^7.12.9",

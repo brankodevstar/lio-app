@@ -7,11 +7,10 @@ import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 
 import MemberListScreen from '../screens/members/MemberList';
-import MemberInfoScreen from '../screens/members/MemberInfo';
 import HomeScreen from '../screens/events-detail/Home';
 import ForumScreen from '../screens/forum/Forum';
-
-import ChatScreen from '../screens/members/Chat';
+import InvestmentsScreen from '../screens/investments/Investments.js'
+import MyInvestmentScreen from '../screens/my-investment/MyInvestment'
 
 import globalStyles from '../styles/style';
 import HiFiColors from '../styles/colors';
@@ -31,7 +30,7 @@ export default function TabNavigator() {
         >
             <Tab.Screen
                 name="Benefits"
-                component={MemberListScreen}
+                component={InvestmentsScreen}
                 options={{
                     tabBarIcon: ({ focused, color, size }) => (
                         <FontAwesomeIcon name="diamond" color={color} size={size} />
@@ -71,7 +70,7 @@ export default function TabNavigator() {
             />
             <Tab.Screen
                 name="Investments"
-                component={MemberInfoScreen}
+                component={MyInvestmentScreen}
                 options={{
                     tabBarIcon: ({ focused, color, size }) => (
                         <View style={{ borderWidth: 1, borderColor: color, padding: 3, alignItems: 'center', width: 30, height: 30, borderRadius: 50 }}>

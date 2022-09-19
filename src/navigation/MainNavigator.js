@@ -25,6 +25,7 @@ import GroupChatScreen from '../screens/members/GroupChat';
 import IndividualChatScreen from '../screens/members/IndividualChat';
 
 import TabNavigator from './TabNavigator';
+import DrawerNavigator from './DrawerNavigator';
 
 const Stack = createStackNavigator();
 
@@ -40,9 +41,16 @@ export default MainNavigator = () => {
             }}
         >
             <Stack.Screen
+                name="DrawerHome"
+                component={DrawerNavigator}
+            />
+            
+            <Stack.Screen
                 name="TabHome"
                 component={TabNavigator}
             />
+            
+            
             <Stack.Screen
                 name="Chat"
                 component={ChatScreen}
