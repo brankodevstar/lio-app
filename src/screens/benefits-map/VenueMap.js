@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, Image, Dimensions, ImageBackground, TouchableOpacity, } from "react-native";
 import globalStyles from "../../styles/style";
 import { StyleSheet } from "react-native";
@@ -9,21 +9,47 @@ import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import { TextInput } from "react-native-gesture-handler";
 
-export default VenueMap = () => {
+const mapCard = () => (
+
+    <View style={styles.card}>
+        <View style={styles.graphic}>
+            <View style={styles.brandPart}>
+                <Image style={styles.brand} resizeMode={'stretch'} source={require('../../../assets/images/member-benefits/categories/adidas.png')} />
+            </View>
+            <TouchableOpacity>
+                <FeatherIcon name="heart" size={20} color={HiFiColors.White} style={{ marginTop: 10, marginRight: 5 }} />
+            </TouchableOpacity>
+        </View>
+        <View style={{ marginLeft: 10, marginTop: 5, }}>
+            <Text style={globalStyles.boldSmallLabel}>Adidas</Text>
+            <View style={{ flexDirection: 'row', marginVertical: 5, }}>
+                <Text style={[globalStyles.label, { color: HiFiColors.Label }]}>1.5 kms away • </Text>
+                <View style={{ flexDirection: 'row', alignSelf: 'flex-end' }}>
+                    <Text style={[globalStyles.smallLabel, { color: HiFiColors.Secondary, fontWeight: '100', }]}> 4.8 </Text>
+                    <TouchableOpacity>
+                        <FontAwesomeIcon name="star" size={15} color={HiFiColors.Secondary} />
+                    </TouchableOpacity>
+                </View>
+            </View>
+        </View>
+    </View>
+)
+
+export default VenueMap = ({ navigation }) => {
+    const [viewState, setViewState] = useState(true);
+    const toggleViewState = () => {
+        setViewState(!viewState);
+    }
     return (
         <View style={globalStyles.container}>
             <View style={[globalStyles.headerContainer, { justifyContent: 'space-between' }]}>
-                <TouchableOpacity>
-                    <View>
-                        <FeatherIcon name="arrow-left" size={20} color={HiFiColors.White} />
-                    </View>
+                <TouchableOpacity onPress={() => { navigation.goBack() }}>
+                    <FeatherIcon name="arrow-left" size={20} color={HiFiColors.White} style={styles.headerIcon} />
                 </TouchableOpacity>
                 <View style={styles.searchInputView}>
-                    <TextInput style={styles.searchInput}/>
-                    <TouchableOpacity style={{ marginHorizontal: 20, }}>
-                        <View>
-                            <FeatherIcon name="search" size={20} color={HiFiColors.White} style={{ borderWidth: 0 }} />
-                        </View>
+                    <TextInput style={styles.searchInput} placeholder="sports" placeholderTextColor={HiFiColors.Label} />
+                    <TouchableOpacity >
+                        <FeatherIcon name="search" size={20} color={HiFiColors.White} style={{ borderWidth: 0, marginRight: 10 }} />
                     </TouchableOpacity>
                 </View>
                 <TouchableOpacity>
@@ -34,32 +60,12 @@ export default VenueMap = () => {
                 <ImageBackground
                     source={require('../../../assets/images/member-benefits/map-view/900fafb49287c0fdc6c722e7a58334a0.png')}
                     style={styles.imageBackground}>
-                    <View style={styles.card}>
-                        <View style={styles.graphic}>
-                            <View style={styles.brandPart}>
-                                <Image style={styles.brand} resizeMode={'stretch'} source={require('../../../assets/images/member-benefits/categories/adidas.png')} />
-                            </View>
-                            <TouchableOpacity>
-                                <FeatherIcon name="heart" size={20} color={HiFiColors.White} style={{ marginTop: 10, marginRight: 5 }} />
-                            </TouchableOpacity>
-                        </View>
-                        <View style={{ marginLeft: 10, marginTop: 5, }}>
-                            <Text style={globalStyles.boldSmallLabel}>Adidas</Text>
-                            <View style={{ flexDirection: 'row', marginVertical: 5, }}>
-                                <Text style={[globalStyles.label, { color: HiFiColors.Label }]}>1.5 kms away • </Text>
-                                <View style={{ flexDirection: 'row', alignSelf: 'flex-end' }}>
-                                    <Text style={[globalStyles.smallLabel, { color: HiFiColors.Secondary, fontWeight: '100', }]}> 4.8 </Text>
-                                    <TouchableOpacity>
-                                        <FontAwesomeIcon name="star" size={15} color={HiFiColors.Secondary} />
-                                    </TouchableOpacity>
-                                </View>
-                            </View>
-                        </View>
-                    </View>
+                    {viewState && mapCard()}
+
                     <View style={styles.adidas}>
-                        <TouchableOpacity>
-                            <View style={[styles.location, { backgroundColor: HiFiColors.Accent }]}>
-                                <Text style={[globalStyles.selectedBoldLabel, { color: HiFiColors.White, fontWeight: '800' }]}>Adidas</Text>
+                        <TouchableOpacity onPress={toggleViewState}>
+                            <View style={[styles.location, viewState ? { backgroundColor: HiFiColors.Accent } : { backgroundColor: HiFiColors.White }, viewState]}>
+                                <Text style={[globalStyles.selectedBoldLabel, { color: viewState ? HiFiColors.White : HiFiColors.Black, fontWeight: '800' }]}>Adidas</Text>
                             </View>
                         </TouchableOpacity>
                     </View>
@@ -92,12 +98,17 @@ export default VenueMap = () => {
 }
 
 const styles = StyleSheet.create({
+    headerIcon: {
+        backgroundColor: HiFiColors.AccentFade,
+        borderRadius: 50,
+        padding: 5,
+    },
     imageBackground: {
         width: Dimensions.get("window").width,
         height: Dimensions.get("window").height,
     },
     searchInputView: {
-        width: '85%',
+        flex: 1,
         backgroundColor: HiFiColors.AccentFade,
         marginHorizontal: 10,
         borderRadius: 5,
@@ -106,10 +117,9 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     searchInput: {
-        width: '80%',
         color: HiFiColors.White,
-        paddingLeft: 10,
-        fontSize: 20,
+        paddingHorizontal: 10,
+        paddingVertical: 5
     },
     card: {
         position: 'absolute',
@@ -117,8 +127,8 @@ const styles = StyleSheet.create({
         height: 160,
         backgroundColor: HiFiColors.AccentFade,
         borderRadius: 8,
-        marginLeft: 180,
-        marginTop: 180,
+        right: 10,
+        bottom: 300
     },
     graphic: {
         flexDirection: 'row',

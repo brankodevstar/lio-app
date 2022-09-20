@@ -8,29 +8,27 @@ import { TextInput } from "react-native-gesture-handler";
 import globalStyles from "../../styles/style";
 import HiFiColors from "../../styles/colors";
 
-export default TransactionHistory = () => {
+export default TransactionHistory = ({ navigation }) => {
     return (
         <View style={globalStyles.container}>
-            <View style={[globalStyles.headerContainer, { justifyContent: 'space-between', borderBottomWidth: 0, }]}>
-                <TouchableOpacity>
-                    <View>
-                        <FeatherIcon name="arrow-left" size={20} color={HiFiColors.White} />
-                    </View>
+            <View style={[globalStyles.headerContainer, { justifyContent: 'space-between' }]}>
+                <TouchableOpacity onPress={() => { navigation.goBack() }}>
+                    <FeatherIcon name="arrow-left" size={20} color={HiFiColors.White} style={styles.headerIcon} />
                 </TouchableOpacity>
                 <View style={styles.searchInputView}>
-                    <TextInput style={styles.searchInput} />
-                    <TouchableOpacity style={{ marginHorizontal: 20, }}>
+                    <TextInput style={styles.searchInput} placeholder="Search Bookings" placeholderTextColor={HiFiColors.Label} />
+                    <TouchableOpacity style={{ marginHorizontal: 10, }}>
                         <View>
                             <FeatherIcon name="search" size={20} color={HiFiColors.White} style={{ borderWidth: 0 }} />
                         </View>
                     </TouchableOpacity>
                 </View>
                 <TouchableOpacity>
-                    <FontAwesome5Icon name="sliders-h" size={20} color={HiFiColors.White} style={styles.headerButton} />
+                    <FontAwesome5Icon name="sliders-h" size={20} color={HiFiColors.White} style={styles.headerIcon} />
                 </TouchableOpacity>
             </View>
             <View style={styles.historySection}>
-                <Text style={[globalStyles.title, { fontSize: 24, fontWeight: '200', marginBottom: 10,}]}>My Bookings</Text>
+                <Text style={[globalStyles.title, { fontSize: 24, fontWeight: '400', marginBottom: 10, }]}>My Bookings</Text>
                 <View style={styles.historyCard}>
                     <Image style={styles.image}
                         source={require('../../../assets/images/profile/17762da99063aafa349337af1f8148ae.jpg')} />
@@ -85,8 +83,13 @@ export default TransactionHistory = () => {
 }
 
 const styles = StyleSheet.create({
+    headerIcon: {
+        backgroundColor: HiFiColors.AccentFade,
+        borderRadius: 50,
+        padding: 5,
+    },
     searchInputView: {
-        width: '85%',
+        flex: 1,
         backgroundColor: HiFiColors.AccentFade,
         marginHorizontal: 10,
         borderRadius: 5,
@@ -95,10 +98,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     searchInput: {
-        width: '80%',
         color: HiFiColors.White,
-        paddingLeft: 10,
-        fontSize: 20,
+        paddingVertical: 10
     },
     historySection: {
         marginHorizontal: 10,
@@ -107,10 +108,11 @@ const styles = StyleSheet.create({
     historyCard: {
         marginVertical: 10,
         marginHorizontal: 10,
-        borderBottomColor: HiFiColors.Label,
-        borderBottomWidth: 0.5,
+        borderBottomColor: HiFiColors.AccentFade,
+        borderBottomWidth: 1,
         flexDirection: 'row',
         paddingBottom: 10,
+        alignItems: 'center'
     },
     image: {
         width: 50,

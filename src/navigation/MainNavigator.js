@@ -5,32 +5,15 @@ import SplashScreen from '../screens/authentication/Splash';
 import LoginScreen from '../screens/authentication/Login';
 import OTPScreen from '../screens/authentication/OTP';
 
-import MemberBenefitsScreen from '../screens/benefits-map/MemberBenefits';
-import VenueMapScreen from '../screens/benefits-map/VenueMap';
-
 import CalendarScreen from '../screens/calendar-partner/Calendar';
 import PartnerDetailScreen from '../screens/calendar-partner/PartnerDetail';
 
 import ConfirmDetailScreen from '../screens/events-detail/ConfirmDetail';
-import HomeScreen from '../screens/events-detail/Home';
+import EventsDetailScreen from '../screens/events-detail/EventsDetail';
 import ReserveScreen from '../screens/events-detail/Reserve';
 
 import ForumScreen from '../screens/forum/Forum';
 import AddPostScreen from '../screens/forum/AddPost';
-
-import ConfirmationScreen from '../screens/investments/Confirmation';
-import InvestScreen from '../screens/investments/Invest';
-import InvestmentDetailScreen from '../screens/investments/InvestmentDetail';
-import InvestmentsScreen from '../screens/investments/Investments';
-
-import ChatScreen from '../screens/members/Chat';
-import GroupChatScreen from '../screens/members/GroupChat';
-import IndividualChatScreen from '../screens/members/IndividualChat';
-import MemberInfoScreen from '../screens/members/MemberInfo';
-import MemberListScreen from '../screens/members/MemberList';
-
-import MyInvestmentScreen from '../screens/my-investment/MyInvestment';
-import MyInvestmentDetailScreen from '../screens/my-investment/MyInvestmentDetail';
 
 import MemberProfileInfoScreen from '../screens/profile/MemberInfo';
 import NavigationScreen from '../screens/profile/Navigation';
@@ -68,25 +51,26 @@ export default MainNavigator = () => {
                 name="TabHome"
                 component={TabNavigator}
             />
-            <Stack.Screen
+
+            {/* <Stack.Screen
                 name="MemberBenefitsScreen"
                 component={MemberBenefitsScreen}
             />
             <Stack.Screen
                 name="VenueMapScreen"
                 component={VenueMapScreen}
-            />
+            /> */}
 
-            <Stack.Screen
+            {/* <Stack.Screen
                 name="CalendarScreen"
                 component={CalendarScreen}
             />
             <Stack.Screen
                 name="PartnerDetailScreen"
                 component={PartnerDetailScreen}
-            />
+            /> */}
 
-            <Stack.Screen
+            {/* <Stack.Screen
                 name="ConfirmDetailScreen"
                 component={ConfirmDetailScreen}
             />
@@ -97,18 +81,18 @@ export default MainNavigator = () => {
             <Stack.Screen
                 name="ReserveScreen"
                 component={ReserveScreen}
-            />
+            /> */}
 
-            <Stack.Screen
+            {/* <Stack.Screen
                 name="ForumScreen"
                 component={ForumScreen}
             />
             <Stack.Screen
                 name="AddPostScreen"
                 component={AddPostScreen}
-            />
+            /> */}
 
-            <Stack.Screen
+            {/* <Stack.Screen
                 name="ConfirmationScreen"
                 component={ConfirmationScreen}
             />
@@ -123,9 +107,9 @@ export default MainNavigator = () => {
             <Stack.Screen
                 name="InvestmentsScreen"
                 component={InvestmentsScreen}
-            />
+            /> */}
 
-            <Stack.Screen
+            {/* <Stack.Screen
                 name="ChatScreen"
                 component={ChatScreen}
             />
@@ -144,18 +128,18 @@ export default MainNavigator = () => {
             <Stack.Screen
                 name="MemberListScreen"
                 component={MemberListScreen}
-            />
+            /> */}
 
-            <Stack.Screen
+            {/* <Stack.Screen
                 name="MyInvestmentScreen"
                 component={MyInvestmentScreen}
             />
             <Stack.Screen
                 name="MyInvestmentDetailScreen"
                 component={MyInvestmentDetailScreen}
-            />
+            /> */}
 
-            <Stack.Screen
+            {/* <Stack.Screen
                 name="MemberProfileInfoScreen"
                 component={MemberProfileInfoScreen}
             />
@@ -166,28 +150,28 @@ export default MainNavigator = () => {
             <Stack.Screen
                 name="TransactionHistoryScreen"
                 component={TransactionHistoryScreen}
-            />
+            /> */}
 
-            <Stack.Screen
+            {/* <Stack.Screen
                 name="AccountInfoScreen"
                 component={AccountInfoScreen}
-            />
-            <Stack.Screen
+            /> */}
+            {/* <Stack.Screen
                 name="EventInfoGalleryScreen"
                 component={EventInfoGalleryScreen}
             />
             <Stack.Screen
                 name="GalleryScreen"
                 component={GalleryScreen}
-            />
-            <Stack.Screen
+            /> */}
+            {/* <Stack.Screen
                 name="OverviewScreen"
                 component={OverviewScreen}
-            />
-            <Stack.Screen
+            /> */}
+            {/* <Stack.Screen
                 name="ViewPictureScreen"
                 component={ViewPictureScreen}
-            />
+            /> */}
         </Stack.Navigator>
     )
 }

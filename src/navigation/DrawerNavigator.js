@@ -15,6 +15,13 @@ import OverviewScreen from '../screens/profile-gallery/Overview'
 import ChatScreen from '../screens/members/Chat'
 import MyBookingScreen from '../screens/profile/TransactionHistory'
 
+import BenefitsNavigator from './BenefitsNavigator';
+import EventDetailsNavigator from './EventDetailsNavigator';
+import ProfileNavigator from './ProfileNavigator';
+import GalleryNavigator from './GalleryNavigator';
+import CalendarPartnerDetailNavigator from './CalendarPartnerDetailNavigator';
+
+import HiFiColors from '../styles/colors';
 
 
 export default function DrawerNavigator() {
@@ -22,7 +29,9 @@ export default function DrawerNavigator() {
     return (
         <Drawer.Navigator
             screenOptions={{
-                headerShown: false
+                headerShown: false,
+                drawerStyle: { width: 300 },
+                overlayColor: HiFiColors.AccentFade
             }}
             initialRouteName="Home">
             <Drawer.Screen
@@ -34,48 +43,35 @@ export default function DrawerNavigator() {
             />
             <Drawer.Screen
                 name="BenefitsList"
-                component={BenefitScreen}
+                component={BenefitsNavigator}
                 options={{
                     drawerLabel: 'Benefits List'
-                }} />
-            <Drawer.Screen
-                name="MapBenefitLogo"
-                component={MapBenefitLogoScreen}
-                options={{
-                    drawerLabel: 'Map Benefit Logo'
                 }}
             />
             <Drawer.Screen
-                name="CalendarScreen"
-                component={CalendarScreen}
+                name="EventDetails"
+                component={EventDetailsNavigator}
                 options={{
-                    drawerLabel: 'Calendar'
+                    drawerLabel: 'Event Details'
                 }}
             />
             <Drawer.Screen
-                name="MyBookingScreen"
-                component={MyBookingScreen}
+                name="CalendarPartnerDetail"
+                component={CalendarPartnerDetailNavigator}
                 options={{
-                    drawerLabel: 'My Bookings'
+                    drawerLabel: 'Calendar & Partner Detail'
                 }}
             />
             <Drawer.Screen
                 name="Gallery"
-                component={GalleryScreen}
+                component={GalleryNavigator}
                 options={{
-                    drawerLabel: 'Gallery List'
-                }}
-            />
-            <Drawer.Screen
-                name="ChatScreen"
-                component={ChatScreen}
-                options={{
-                    drawerLabel: 'Chat'
+                    drawerLabel: 'Gallery'
                 }}
             />
             <Drawer.Screen
                 name="Profile"
-                component={OverviewScreen}
+                component={ProfileNavigator}
                 options={{
                     drawerLabel: 'My Profile'
                 }}

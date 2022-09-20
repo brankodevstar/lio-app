@@ -78,7 +78,7 @@ const styles = StyleSheet.create({
     },
     backImage: {
         width: '100%',
-        height: 500
+        height: 400
     },
     writeCaptionBack: {
         backgroundColor: HiFiColors.AccentFade,

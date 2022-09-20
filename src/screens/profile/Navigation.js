@@ -6,14 +6,12 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 import globalStyles from "../../styles/style";
 import HiFiColors from "../../styles/colors";
 
-export default Navigation = () => {
+export default Navigation = ({ navigation }) => {
     return (
         <View style={globalStyles.container}>
             <View style={[globalStyles.headerContainer, { justifyContent: 'flex-start', borderBottomWidth: 0, }]}>
-                <TouchableOpacity>
-                    <View>
-                        <FeatherIcon name="x" size={20} color={HiFiColors.White} />
-                    </View>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
+                    <FeatherIcon name="x" size={20} color={HiFiColors.White} style={styles.headerIcon} />
                 </TouchableOpacity>
             </View>
             <View style={styles.imageSection}>
@@ -32,41 +30,48 @@ export default Navigation = () => {
                     <Text style={globalStyles.boldLabel}>Roger Sanchez</Text>
                     <Text style={[globalStyles.boldLabel, { color: HiFiColors.Blue }]}>R.Sanchez@email.com</Text>
                 </View>
-                <View style={styles.logout}>
-                    <Text style={globalStyles.boldSmallLabel}>Logout</Text>
-                </View>
+                <TouchableOpacity>
+                    <View style={styles.logout}>
+                        <Text style={globalStyles.boldSmallLabel}>Logout</Text>
+                    </View>
+                </TouchableOpacity>
             </View>
         </View>
     )
 }
 
 const styles = StyleSheet.create({
+    headerIcon: {
+        backgroundColor: HiFiColors.AccentFade,
+        borderRadius: 50,
+        padding: 5,
+    },
     imageSection: {
-        marginHorizontal: 10,
-        marginVertical: 10,
+        marginHorizontal: 20,
+        marginVertical: 20,
         flexDirection: 'row',
     },
     image: {
-        width: 80,
-        height: 80,
+        width: 100,
+        height: 100,
     },
     textSection: {
         marginTop: 20,
         marginLeft: 30,
     },
     footSection: {
-        width: '95%',
-        height: 70,
+        paddingVertical: 25,
         backgroundColor: HiFiColors.AccentFade,
         borderRadius: 20,
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
-        alignSelf: 'center',
+        alignSelf: 'stretch',
+        marginHorizontal: 20,
+        paddingHorizontal: 20,
         marginTop: 320,
     },
     footImage: {
-        marginLeft: 10,
         width: 50,
         height: 50,
         borderRadius: 50,
@@ -81,7 +86,6 @@ const styles = StyleSheet.create({
         width: 80,
         height: 40,
         justifyContent: 'center',
-        marginRight: 10,
         alignItems: 'center',
     }
 })

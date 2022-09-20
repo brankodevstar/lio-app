@@ -6,11 +6,11 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 import SimpleLineIcons from 'react-native-vector-icons/SimpleLineIcons';
 import AntDesignIcon from 'react-native-vector-icons/AntDesign';
 
-import MemberListScreen from '../screens/members/MemberList';
-import HomeScreen from '../screens/events-detail/Home';
-import ForumScreen from '../screens/forum/Forum';
-import InvestmentsScreen from '../screens/investments/Investments.js'
-import MyInvestmentScreen from '../screens/my-investment/MyInvestment'
+import HomeStackNavigation from './HomeNavigator';
+import MemberListNavigator from './MemberListNavigator';
+import MyInvestmentsNavigator from './MyInvestmentsNavigator';
+import InvestmentsNavigator from './InvestmentsNavigator';
+import ForumNavigator from './ForumNavigator';
 
 import globalStyles from '../styles/style';
 import HiFiColors from '../styles/colors';
@@ -30,7 +30,7 @@ export default function TabNavigator() {
         >
             <Tab.Screen
                 name="BenefitsScreen"
-                component={InvestmentsScreen}
+                component={InvestmentsNavigator}
                 options={{
                     tabBarIcon: ({ focused, color, size }) => (
                         <FontAwesomeIcon name="diamond" color={color} size={size} />
@@ -40,7 +40,7 @@ export default function TabNavigator() {
             />
             <Tab.Screen
                 name="MembersScreen"
-                component={MemberListScreen}
+                component={MemberListNavigator}
                 options={{
                     tabBarIcon: ({ focused, color, size }) => (
                         <FeatherIcon name="user" color={color} size={size} />
@@ -50,7 +50,7 @@ export default function TabNavigator() {
             />
             <Tab.Screen
                 name="HomeScreen"
-                component={HomeScreen}
+                component={HomeStackNavigation}
                 options={{
                     tabBarIcon: ({ focused, color, size }) => (
                         <SimpleLineIcons name="home" color={color} size={size} />
@@ -59,8 +59,8 @@ export default function TabNavigator() {
                 }}
             />
             <Tab.Screen
-                name="ForumScreen"
-                component={ForumScreen}
+                name="Forum"
+                component={ForumNavigator}
                 options={{
                     tabBarIcon: ({ focused, color, size }) => (
                         <AntDesignIcon name="earth" color={color} size={size} />
@@ -70,7 +70,7 @@ export default function TabNavigator() {
             />
             <Tab.Screen
                 name="InvestmentsScreen"
-                component={MyInvestmentScreen}
+                component={MyInvestmentsNavigator}
                 options={{
                     tabBarIcon: ({ focused, color, size }) => (
                         <View style={{ borderWidth: 1, borderColor: color, padding: 3, alignItems: 'center', width: 30, height: 30, borderRadius: 50 }}>

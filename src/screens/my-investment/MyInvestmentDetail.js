@@ -18,7 +18,7 @@ export default InvestmentDetail = ({ navigation }) => {
                     resizeMode="stretch"
                     style={styles.bannerImage} >
                     <View style={[styles.headerIconBack, { left: 20, }]}>
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={() => { navigation.goBack() }}>
                             <FeatherIcon name="arrow-left" size={20} color={HiFiColors.White} style={styles.headerIcon} />
                         </TouchableOpacity>
                     </View>
