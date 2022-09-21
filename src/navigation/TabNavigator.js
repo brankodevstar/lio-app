@@ -25,6 +25,7 @@ export default function TabNavigator() {
                 tabBarStyle: styles.tabBarBackground,
                 tabBarActiveTintColor: HiFiColors.White,
                 tabBarInactiveTintColor: HiFiColors.Label,
+
             }}
             initialRouteName="HomeScreen"
         >
@@ -35,7 +36,7 @@ export default function TabNavigator() {
                     tabBarIcon: ({ focused, color, size }) => (
                         <FontAwesomeIcon name="diamond" color={color} size={size} />
                     ),
-                    tabBarLabel: ({ focused, color }) => (<Text style={[globalStyles.littleTinyLabel, { color: color, marginBottom: 5 }]}>Benefits</Text>),
+                    tabBarLabel: ({ focused, color }) => (<Text style={[globalStyles.littleTinyLabel, { color: color, marginBottom: 5 }]}>Open Investments</Text>),
                 }}
             />
             <Tab.Screen
@@ -77,7 +78,7 @@ export default function TabNavigator() {
                             <FontAwesomeIcon name="inr" color={color} size={size} />
                         </View>
                     ),
-                    tabBarLabel: ({ focused, color }) => (<Text style={[globalStyles.littleTinyLabel, { color: color, marginBottom: 5 }]}>Investments</Text>),
+                    tabBarLabel: ({ focused, color }) => (<Text style={[globalStyles.littleTinyLabel, { color: color, marginBottom: 5 }]}>My Investments</Text>),
                 }}
             />
         </Tab.Navigator >

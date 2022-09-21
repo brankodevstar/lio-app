@@ -56,6 +56,22 @@
     {
       "path": "assets/fonts/Poppins-Regular.ttf",
       "sha1": "fdd3002e7d814ee47c1c1b8487c72c6bbb3a2d00"
+    },
+    {
+      "path": "assets/fonts/times new roman bold italic.ttf",
+      "sha1": "a999c4760db515679f6a31756d2ee6ab5f745ecf"
+    },
+    {
+      "path": "assets/fonts/times new roman bold.ttf",
+      "sha1": "b2ea78cd70ec16e3a39ead2c44ed23f1216602da"
+    },
+    {
+      "path": "assets/fonts/times new roman italic.ttf",
+      "sha1": "0ab588efc47afa31e13181cd29a5795398491150"
+    },
+    {
+      "path": "assets/fonts/times new roman.ttf",
+      "sha1": "78f02dbda3abc563e972f7d26ff26ba6abd738d9"
     }
   ]
 }

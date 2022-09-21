@@ -94,7 +94,8 @@ const styles = StyleSheet.create({
         fontFamily: fonts.primary,
         color: HiFiColors.White,
         fontSize: 20,
-        fontWeight: '700'
+        fontWeight: '700',
+        fontFamily: fonts.primary,
     },
     modalContentContainer: {
         backgroundColor: HiFiColors.Accent,

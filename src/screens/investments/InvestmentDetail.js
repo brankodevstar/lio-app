@@ -6,6 +6,7 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
+import fonts from '../../styles/fonts';
 
 export default InvestmentDetail = ({ navigation }) => {
     const [category, setCategory] = useState('overview');
@@ -407,7 +408,8 @@ const styles = StyleSheet.create({
         fontSize: 10,
         fontWeight: '600',
         color: HiFiColors.White,
-        marginLeft: 5
+        marginLeft: 5,
+        fontFamily: fonts.primary,
     },
     documentContainer: {
         backgroundColor: HiFiColors.AccentFade,

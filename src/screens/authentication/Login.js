@@ -64,6 +64,7 @@ const styles = StyleSheet.create({
         borderRadius: 5,
         fontSize: 14,
         width: '80%',
+        fontFamily: fonts.primary,
         backgroundColor: HiFiColors.AccentFade,
         color: HiFiColors.White,
     },

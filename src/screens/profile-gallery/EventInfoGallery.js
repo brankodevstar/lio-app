@@ -58,38 +58,50 @@ export default EventInfoGallery = ({ navigation }) => {
                         </TouchableOpacity>
                         <View style={styles.galleryView}>
                             <View style={styles.columnContainer}>
-                                <Image
-                                    source={require('../../../assets/images/gallery/e3b05eccb793dd4161168446be9b0501.png')}
-                                    style={styles.primaryImage}
-                                />
-                                <Image
-                                    source={require('../../../assets/images/gallery/a1e604cccd8716c0d696dded92b3b791.png')}
-                                    style={styles.primaryImage}
-                                />
-                                <Image
-                                    source={require('../../../assets/images/gallery/19e3217fca7f0d3d8162eab9981ac14c.png')}
-                                    style={[styles.primaryImage, { height: 320 }]}
-                                />
+                                <TouchableOpacity onPress={() => { navigation.navigate("ViewPictureScreen") }}>
+                                    <Image
+                                        source={require('../../../assets/images/gallery/e3b05eccb793dd4161168446be9b0501.png')}
+                                        style={styles.primaryImage}
+                                    />
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => { navigation.navigate("ViewPictureScreen") }}>
+                                    <Image
+                                        source={require('../../../assets/images/gallery/a1e604cccd8716c0d696dded92b3b791.png')}
+                                        style={styles.primaryImage}
+                                    />
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => { navigation.navigate("ViewPictureScreen") }}>
+                                    <Image
+                                        source={require('../../../assets/images/gallery/19e3217fca7f0d3d8162eab9981ac14c.png')}
+                                        style={[styles.primaryImage, { height: 320 }]}
+                                    />
+                                </TouchableOpacity>
                             </View>
                             <View style={styles.columnContainer}>
-                                <Image
-                                    source={require('../../../assets/images/gallery/6d2e078bf9298e50293ed20a9288b810.png')}
-                                    style={styles.primaryImage}
-                                />
-                                <Image
-                                    source={require('../../../assets/images/gallery/3f227fa353518fc473e06ea8818feaf1.png')}
-                                    style={[styles.primaryImage, { height: 320 }]}
-                                />
-                                <Image
-                                    source={require('../../../assets/images/gallery/ca79be9a8469914ac1207f5223cec848.png')}
-                                    style={styles.primaryImage}
-                                />
+                                <TouchableOpacity onPress={() => { navigation.navigate("ViewPictureScreen") }}>
+                                    <Image
+                                        source={require('../../../assets/images/gallery/6d2e078bf9298e50293ed20a9288b810.png')}
+                                        style={styles.primaryImage}
+                                    />
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => { navigation.navigate("ViewPictureScreen") }}>
+                                    <Image
+                                        source={require('../../../assets/images/gallery/3f227fa353518fc473e06ea8818feaf1.png')}
+                                        style={[styles.primaryImage, { height: 320 }]}
+                                    />
+                                </TouchableOpacity>
+                                <TouchableOpacity onPress={() => { navigation.navigate("ViewPictureScreen") }}>
+                                    <Image
+                                        source={require('../../../assets/images/gallery/ca79be9a8469914ac1207f5223cec848.png')}
+                                        style={styles.primaryImage}
+                                    />
+                                </TouchableOpacity>
                             </View>
                         </View>
                     </View>
-                </View>
-            </ScrollView>
-        </View>
+                </View >
+            </ScrollView >
+        </View >
     )
 }
 

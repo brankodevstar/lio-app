@@ -43,7 +43,7 @@ export default MyInvestment = ({ navigation }) => {
                         data={sampleData}
                         colorScale={sliceColor}
                         labels={({ datum }) => datum.x + '\n' + datum.y + '%'}
-                        style={{ labels: { fill: HiFiColors.Label, fontSize: 8, fontWeight: "300" } }}
+                        style={{ labels: { fill: HiFiColors.Label, fontSize: 8, fontWeight: "300", fontFamily: fonts.primary, } }}
                         width={300}
                         height={300}
                     />

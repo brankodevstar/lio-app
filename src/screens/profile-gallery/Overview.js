@@ -5,6 +5,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
+import fonts from '../../styles/fonts';
 
 export default Overview = ({ navigation }) => {
     return (
@@ -95,6 +96,7 @@ const styles = StyleSheet.create({
         color: HiFiColors.White,
         fontSize: 28,
         marginVertical: 5,
+        fontFamily: fonts.primary,
     },
     accountCard: {
         width: '95%',
@@ -112,11 +114,13 @@ const styles = StyleSheet.create({
         fontSize: 18,
         fontWeight: '400',
         marginVertical: 2,
+        fontFamily: fonts.primary,
     },
     captionDescription: {
         color: HiFiColors.Label,
         fontSize: 14,
         fontWeight: '600',
         marginVertical: 2,
+        fontFamily: fonts.primary,
     }
 })

@@ -1,5 +1,5 @@
 import React from 'react';
-import { StyleSheet } from 'react-native';
+import { StyleSheet, View, Text } from 'react-native';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import FeatherIcon from 'react-native-vector-icons/Feather';
@@ -22,23 +22,57 @@ import GalleryNavigator from './GalleryNavigator';
 import CalendarPartnerDetailNavigator from './CalendarPartnerDetailNavigator';
 
 import HiFiColors from '../styles/colors';
+import DrawerMenu from './component/DrawerMenu';
+import { TouchableOpacity } from 'react-native-gesture-handler';
 
+const HeaderMenu = (props) => {
+    return (
+        <View style={{ width: '100%', innerHeight: 50 }}>
+            <TouchableOpacity>menu</TouchableOpacity>
+        </View>
+    )
+}
 
-export default function DrawerNavigator() {
+export default function DrawerNavigator(props) {
     const Drawer = createDrawerNavigator();
     return (
         <Drawer.Navigator
             screenOptions={{
-                headerShown: false,
-                drawerStyle: { width: 300 },
-                overlayColor: HiFiColors.AccentFade
+                headerShown: true,
+                drawerStyle: { width: '100%', backgroundColor: HiFiColors.Accent },
+                drawerActiveTintColor: HiFiColors.White,
+                drawerInactiveTintColor: HiFiColors.Label,
+                header: (props) => (
+                    <View
+                        style={{
+                            position: 'absolute',
+                            top: 150,
+                            backgroundColor: HiFiColors.Secondary,
+                            left: 0,
+                            borderTopRightRadius: 5,
+                            borderBottomRightRadius: 5,
+                            opacity: 0.4
+
+                        }}>
+                        <TouchableOpacity
+                            style={{ padding: 10 }}
+                            onPress={() => {
+                                props.navigation.openDrawer()
+                            }}>
+                            <FeatherIcon name="menu" size={20} color={HiFiColors.White} />
+                        </TouchableOpacity>
+                    </View>
+                )
             }}
-            initialRouteName="Home">
+
+            drawerContent={props => < DrawerMenu {...props} />}
+            initialRouteName="Home" >
             <Drawer.Screen
                 name="Home"
                 component={TabNavigator}
                 options={{
-                    drawerLabel: 'Home'
+                    drawerLabel: 'Home',
+                    headerTitle: false
                 }}
             />
             <Drawer.Screen
@@ -76,7 +110,7 @@ export default function DrawerNavigator() {
                     drawerLabel: 'My Profile'
                 }}
             />
-        </Drawer.Navigator>
+        </Drawer.Navigator >
     )
 }
 

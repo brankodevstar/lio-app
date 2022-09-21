@@ -6,6 +6,7 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import globalStyles from "../../styles/style";
 import HiFiColors from '../../styles/colors';
+import fonts from "../../styles/fonts";
 import { TextInput } from "react-native-gesture-handler";
 
 export default AccountInfo = ({ navigation }) => {
@@ -133,6 +134,7 @@ const styles = StyleSheet.create({
         color: HiFiColors.White,
         fontSize: 24,
         marginLeft: 20,
+        fontFamily: fonts.primary,
     },
     infoPanel: {
         marginLeft: 20,

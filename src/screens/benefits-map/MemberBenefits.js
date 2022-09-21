@@ -404,6 +404,7 @@ const styles = StyleSheet.create({
         fontWeight: '500',
         fontSize: 36,
         color: HiFiColors.White,
+        fontFamily: fonts.primary,
         marginBottom: 20,
     },
     catptionDescription: {
@@ -411,6 +412,7 @@ const styles = StyleSheet.create({
         font: fonts.Manrope,
         fontSize: 18,
         fontWeight: '500',
+        fontFamily: fonts.primary,
     },
     categories: {
         paddingTop: 20,
@@ -420,6 +422,7 @@ const styles = StyleSheet.create({
         font: fonts.Poppins,
         fontWeight: '800',
         fontSize: 24,
+        fontFamily: fonts.primary,
         paddingLeft: 15,
     },
     buttonGroup: {

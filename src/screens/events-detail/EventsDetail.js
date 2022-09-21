@@ -8,6 +8,7 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
+import fonts from '../../styles/fonts';
 
 
 export default Home = ({ navigation }) => {
@@ -157,7 +158,7 @@ export default Home = ({ navigation }) => {
                                 colors={['#16253400', '#162534']}
                                 style={styles.bannerMask}
                             >
-                                <Text style={{ color: HiFiColors.White, fontSize: 36, fontWeight: '700' }}>50% OFF</Text>
+                                <Text style={{ color: HiFiColors.White, fontSize: 36, fontWeight: '700', fontFamily: fonts.primary, }}>50% OFF</Text>
                                 <Text style={globalStyles.boldLabel}>FOR A LIMITED TIME</Text>
                                 <Text style={globalStyles.mediumLabel}>Post C-19 Reopening</Text>
                                 <View style={styles.reverseButtonBack}>

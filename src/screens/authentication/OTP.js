@@ -11,6 +11,7 @@ import {
     isLastFilledCell,
 } from 'react-native-confirmation-code-field';
 import HiFiColors from '../../styles/colors';
+import fonts from '../../styles/fonts';
 import LinearGradient from 'react-native-linear-gradient';
 
 export default OTP = ({ navigation }) => {
@@ -113,6 +114,7 @@ const styles = StyleSheet.create({
         height: 50,
         lineHeight: 50,
         fontSize: 24,
+        fontFamily: fonts.primary,
         borderWidth: 1,
         borderRadius: 5,
         borderColor: HiFiColors.White,
@@ -138,18 +140,22 @@ const styles = StyleSheet.create({
         color: HiFiColors.White,
         fontSize: 14,
         fontWeight: 'bold',
+        fontWeight: '600',
+        fontFamily: fonts.primary,
         marginBottom: 10,
     },
     description: {
         color: HiFiColors.White,
         fontSize: 12,
         marginBottom: 2,
+        fontFamily: fonts.primary,
         marginTop: 2,
     },
     notReceivedText: {
         color: HiFiColors.White,
         fontSize: 12,
         marginTop: 60,
+        fontFamily: fonts.primary,
     },
     headerIconBack: {
         position: 'absolute',
