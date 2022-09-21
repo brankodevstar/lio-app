@@ -15,10 +15,10 @@ export default MemberInfo = ({ navigation }) => {
             <View style={[globalStyles.headerContainer, { justifyContent: 'space-between' }]}>
                 <Text style={globalStyles.mediumStrongLabel}>Leaders Of India</Text>
                 <View style={styles.headerRightPart}>
-                    <TouchableOpacity onPress={() => { navigation.navigate("NavigationScreen") }}>
+                    {/* <TouchableOpacity onPress={() => { navigation.navigate("NavigationScreen") }}>
                         <MaterialIcons name="notifications-none" size={30} color={HiFiColors.White} />
-                    </TouchableOpacity>
-                    <TouchableOpacity onPress={() => { navigation.navigate("TransactionHistoryScreen") }}>
+                    </TouchableOpacity> */}
+                    <TouchableOpacity onPress={() => { navigation.navigate("Profile") }}>
                         <Image source={require('../../../assets/images/avatars/avatar.jpg')} style={styles.avtarStyle} />
                     </TouchableOpacity>
                 </View>
