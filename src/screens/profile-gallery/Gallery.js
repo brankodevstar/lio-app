@@ -5,12 +5,15 @@ import { ScrollView } from 'react-native-gesture-handler';
 
 import globalStyles from "../../styles/style";
 import HiFiColors from '../../styles/colors';
-
+import MenuButton from '../../components/MenuButton';
 
 export default Gallery = ({ navigation }) => {
     return (
         <View style={globalStyles.container}>
             <View style={globalStyles.headerContainer}>
+                <View style={{ position: 'absolute', left: 20 }}>
+                    <MenuButton navigation={navigation} />
+                </View>
                 <Text style={globalStyles.mediumStrongLabel}>Gallery</Text>
             </View>
             <ScrollView contentContainerStyle={{ paddingBottom: 20 }} style={{ paddingHorizontal: 15 }}>

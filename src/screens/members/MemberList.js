@@ -7,18 +7,22 @@ import { ScrollView } from 'react-native-gesture-handler';
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
 import fonts from '../../styles/fonts';
+import MenuButton from '../../components/MenuButton';
 
 export default MemberList = ({ navigation }) => {
     return (
         <View style={globalStyles.container}>
             <View style={[globalStyles.headerContainer, { justifyContent: 'space-between' }]}>
-                <TouchableOpacity>
-                    <FeatherIcon name="search" size={15} color={HiFiColors.White} style={styles.headerButton} />
-                </TouchableOpacity>
-                <Text style={globalStyles.mediumStrongLabel}>Members</Text>
-                <TouchableOpacity>
-                    <FontAwesome5Icon name="sliders-h" size={15} color={HiFiColors.White} style={styles.headerButton} />
-                </TouchableOpacity>
+                <MenuButton navigation={navigation} />
+                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <TouchableOpacity>
+                        <FeatherIcon name="search" size={15} color={HiFiColors.White} style={styles.headerButton} />
+                    </TouchableOpacity>
+                    <Text style={globalStyles.mediumStrongLabel}>Members</Text>
+                    <TouchableOpacity>
+                        <FontAwesome5Icon name="sliders-h" size={15} color={HiFiColors.White} style={styles.headerButton} />
+                    </TouchableOpacity>
+                </View>
             </View>
             <ScrollView style={styles.scrollViewContainer} contentContainerStyle={{ paddingBottom: 20 }}>
                 <TouchableOpacity onPress={() => navigation.navigate("MemberInfoScreen")}>

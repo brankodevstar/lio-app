@@ -6,11 +6,15 @@ import LinearGradient from 'react-native-linear-gradient';
 
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
+import MenuButton from '../../components/MenuButton';
 
-export default PartnerDetail = () => {
+export default PartnerDetail = ({ navigation }) => {
     return (
         <ScrollView style={styles.container}>
             <View style={globalStyles.headerContainer}>
+                <View style={{ position: 'absolute', left: 20 }}>
+                    <MenuButton navigation={navigation} />
+                </View>
                 <Text style={globalStyles.mediumStrongLabel}>Partner Details</Text>
             </View>
             <View style={styles.section}>

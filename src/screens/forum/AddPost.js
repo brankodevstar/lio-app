@@ -7,6 +7,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
 import fonts from '../../styles/fonts';
+import MenuButton from '../../components/MenuButton';
 
 export default AddPost = ({ navigation }) => {
     const [isModalVisible, setModalVisible] = useState(false);
@@ -18,6 +19,9 @@ export default AddPost = ({ navigation }) => {
     return (
         <View style={globalStyles.container}>
             <View style={globalStyles.headerContainer}>
+                <View style={{ position: 'absolute', left: 20 }}>
+                    <MenuButton navigation={navigation} />
+                </View>
                 <View style={styles.closeButtonPos}>
                     <TouchableOpacity onPress={() => navigation.goBack()}>
                         <FeatherIcon name="x" size={15} color={HiFiColors.White} style={styles.closeButtonBack} />
@@ -67,7 +71,7 @@ const styles = StyleSheet.create({
     closeButtonPos: {
         alignSelf: 'flex-start',
         position: 'absolute',
-        left: 15,
+        left: 65,
         top: 15
     },
     closeButtonBack: {

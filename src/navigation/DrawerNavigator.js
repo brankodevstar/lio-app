@@ -38,31 +38,30 @@ export default function DrawerNavigator(props) {
     return (
         <Drawer.Navigator
             screenOptions={{
-                headerShown: true,
+                headerShown: false,
                 drawerStyle: { width: '100%', backgroundColor: HiFiColors.Accent },
                 drawerActiveTintColor: HiFiColors.White,
                 drawerInactiveTintColor: HiFiColors.Label,
-                header: (props) => (
-                    <View
-                        style={{
-                            position: 'absolute',
-                            top: 150,
-                            backgroundColor: HiFiColors.Secondary,
-                            left: 0,
-                            borderTopRightRadius: 5,
-                            borderBottomRightRadius: 5,
-                            opacity: 0.4
+                headerStyle: { backgroundColor: HiFiColors.Accent, },
+                headerShadowVisible: false,
+                headerTintColor: HiFiColors.White,
+                // header: (props) => (
+                //     <View
+                //         style={{
+                //             backgroundColor: HiFiColors.Accent,
+                //             left: 0,
+                //             opacity: 1
 
-                        }}>
-                        <TouchableOpacity
-                            style={{ padding: 10 }}
-                            onPress={() => {
-                                props.navigation.openDrawer()
-                            }}>
-                            <FeatherIcon name="menu" size={20} color={HiFiColors.White} />
-                        </TouchableOpacity>
-                    </View>
-                )
+                //         }}>
+                //         <TouchableOpacity
+                //             style={{ padding: 10 }}
+                //             onPress={() => {
+                //                 props.navigation.openDrawer()
+                //             }}>
+                //             <FeatherIcon name="menu" size={25} color={HiFiColors.White} />
+                //         </TouchableOpacity>
+                //     </View>
+                // )
             }}
 
             drawerContent={props => < DrawerMenu {...props} />}

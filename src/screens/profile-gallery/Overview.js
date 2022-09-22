@@ -6,10 +6,14 @@ import LinearGradient from 'react-native-linear-gradient';
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
 import fonts from '../../styles/fonts';
+import MenuButton from '../../components/MenuButton';
 
 export default Overview = ({ navigation }) => {
     return (
         <View style={globalStyles.container}>
+            <View style={{ paddingHorizontal: 10, flexDirection: 'row' }}>
+                <MenuButton navigation={navigation} />
+            </View>
             <View style={styles.whiteCard}>
                 <Image
                     source={require('../../../assets/images/avatars/avatar.jpg')}

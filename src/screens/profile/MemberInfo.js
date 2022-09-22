@@ -8,11 +8,13 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
 import fonts from '../../styles/fonts';
+import MenuButton from '../../components/MenuButton';
 
 export default MemberInfo = ({ navigation }) => {
     return (
         <ScrollView style={globalStyles.container}>
             <View style={[globalStyles.headerContainer, { justifyContent: 'space-between' }]}>
+                <MenuButton navigation={navigation} />
                 <Text style={globalStyles.mediumStrongLabel}>Leaders Of India</Text>
                 <View style={styles.headerRightPart}>
                     {/* <TouchableOpacity onPress={() => { navigation.navigate("NavigationScreen") }}>

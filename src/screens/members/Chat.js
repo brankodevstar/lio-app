@@ -12,6 +12,7 @@ import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import Modal from 'react-native-modal';
 import { CheckBox } from 'react-native-elements';
 import { useEffect } from 'react';
+import MenuButton from '../../components/MenuButton';
 
 const checkedIconTag = () => (
     <View style={{ backgroundColor: HiFiColors.Accent, width: 30, height: 30, borderRadius: 50, borderWidth: 2, borderColor: HiFiColors.Accent, alignItems: 'center', justifyContent: 'center' }}>
@@ -81,13 +82,16 @@ export default Chat = ({ navigation }) => {
     return (
         <View style={globalStyles.container}>
             <View style={[globalStyles.headerContainer, { justifyContent: 'space-between' }]}>
-                <TouchableOpacity>
-                    <FeatherIcon name="search" size={20} color={HiFiColors.White} style={styles.headerButton} />
-                </TouchableOpacity>
-                <Text style={globalStyles.mediumStrongLabel}>Chats</Text>
-                <TouchableOpacity onPress={toggleSettingModal}>
-                    <FeatherIcon name="plus-circle" size={20} color={HiFiColors.White} style={styles.headerButton} />
-                </TouchableOpacity>
+                <MenuButton navigation={navigation} />
+                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <TouchableOpacity>
+                        <FeatherIcon name="search" size={20} color={HiFiColors.White} style={styles.headerButton} />
+                    </TouchableOpacity>
+                    <Text style={globalStyles.mediumStrongLabel}>Chats</Text>
+                    <TouchableOpacity onPress={toggleSettingModal}>
+                        <FeatherIcon name="plus-circle" size={20} color={HiFiColors.White} style={styles.headerButton} />
+                    </TouchableOpacity>
+                </View>
             </View>
             <ScrollView>
                 <View style={styles.chatItemContainer}>

@@ -8,6 +8,7 @@ import fonts from '../../styles/fonts';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import { Dimensions } from 'react-native';
 import ChatFooter from '../../components/ChatFooter';
+import MenuButton from '../../components/MenuButton';
 
 const messageData = [
     {
@@ -112,6 +113,7 @@ export default GroupChat = ({ navigation }) => {
     return (
         <View style={globalStyles.container}>
             <View style={styles.chatBoxHeader}>
+                <MenuButton navigation={navigation} />
                 <TouchableOpacity onPress={() => navigation.goBack()}>
                     <FeatherIcon name="arrow-left" size={20} color={HiFiColors.White} style={styles.headerIcon} />
                 </TouchableOpacity>
@@ -154,7 +156,7 @@ const styles = StyleSheet.create({
         width: 52,
         height: 52,
         borderRadius: 100,
-        marginHorizontal: 10
+        marginRight: 10
     },
     headerTitle: {
         fontSize: 16,

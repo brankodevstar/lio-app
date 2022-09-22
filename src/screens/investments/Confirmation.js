@@ -7,6 +7,7 @@ import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import { Slider } from 'react-native-elements';
+import MenuButton from '../../components/MenuButton';
 
 export default Confirmation = ({ navigation }) => {
     const [equity, setEquity] = useState(0);
@@ -14,6 +15,9 @@ export default Confirmation = ({ navigation }) => {
     return (
         <View style={globalStyles.container}>
             <View style={[globalStyles.headerContainer, { justifyContent: 'center', borderBottomWidth: 0 }]}>
+                <View style={{ position: 'absolute', left: 20 }}>
+                    <MenuButton navigation={navigation} />
+                </View>
                 <Text style={globalStyles.mediumStrongLabel}>Confirmation</Text>
             </View>
             <View style={styles.contentContainer}>

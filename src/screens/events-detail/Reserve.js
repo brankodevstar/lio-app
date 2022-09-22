@@ -7,19 +7,23 @@ import CalendarPicker from 'react-native-calendar-picker';
 
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
+import MenuButton from '../../components/MenuButton';
 
 export default Reserve = ({ navigation }) => {
 
     return (
         <ScrollView style={globalStyles.container}>
             <View style={[globalStyles.headerContainer, { justifyContent: 'space-between' }]}>
-                <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <View style={styles.closeButtonBack}>
-                        <FeatherIcon name="x" size={15} color={HiFiColors.White} />
-                    </View>
-                </TouchableOpacity>
-                <Text style={globalStyles.mediumStrongLabel}>Reserve</Text>
-                <TouchableOpacity><Text style={globalStyles.boldLabel}>Clear</Text></TouchableOpacity>
+                <MenuButton navigation={navigation} />
+                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <View style={styles.closeButtonBack}>
+                            <FeatherIcon name="x" size={15} color={HiFiColors.White} />
+                        </View>
+                    </TouchableOpacity>
+                    <Text style={globalStyles.mediumStrongLabel}>Reserve</Text>
+                    <TouchableOpacity><Text style={globalStyles.boldLabel}>Clear</Text></TouchableOpacity>
+                </View>
             </View>
             <View style={styles.section}>
                 <Text style={globalStyles.mediumStrongLabel}>Where & When?</Text>

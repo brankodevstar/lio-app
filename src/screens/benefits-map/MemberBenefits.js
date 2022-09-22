@@ -9,6 +9,7 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 import LinearGradient from 'react-native-linear-gradient';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import { color } from "react-native-reanimated";
+import MenuButton from '../../components/MenuButton';
 
 export default MemberBenefits = ({ navigation }) => {
     return (
@@ -38,9 +39,12 @@ export default MemberBenefits = ({ navigation }) => {
                 </View>
             </View>
             <View style={styles.caption}>
-                <Text style={styles.captionTitle}>
-                    Member benefits
-                </Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center', marginBottom: 20 }}>
+                    <MenuButton navigation={navigation} />
+                    <Text style={styles.captionTitle}>
+                        Member benefits
+                    </Text>
+                </View>
                 <Text style={styles.catptionDescription}>
                     Check out some of these exciting and exclusive member benefits just for YOU!
                 </Text>
@@ -405,7 +409,6 @@ const styles = StyleSheet.create({
         fontSize: 36,
         color: HiFiColors.White,
         fontFamily: fonts.primary,
-        marginBottom: 20,
     },
     catptionDescription: {
         color: HiFiColors.Label,

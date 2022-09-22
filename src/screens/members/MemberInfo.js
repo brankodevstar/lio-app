@@ -6,11 +6,15 @@ import LinearGradient from 'react-native-linear-gradient';
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
 import fonts from '../../styles/fonts';
+import MenuButton from '../../components/MenuButton';
 
 export default MemberInfo = ({ navigation }) => {
     return (
         <View style={globalStyles.container}>
             <View style={globalStyles.headerContainer}>
+                <View style={{ position: 'absolute', left: 20 }}>
+                    <MenuButton navigation={navigation} />
+                </View>
                 <Text style={globalStyles.mediumStrongLabel}>Member Info</Text>
             </View>
             <View style={styles.contentContainer}>

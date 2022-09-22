@@ -5,11 +5,15 @@ import LinearGradient from 'react-native-linear-gradient';
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
 import fonts from '../../styles/fonts';
+import MenuButton from '../../components/MenuButton';
 
 export default Investments = ({ navigation }) => {
     return (
         <View style={globalStyles.container}>
             <View style={globalStyles.headerContainer}>
+                <View style={{ position: 'absolute', left: 20 }}>
+                    <MenuButton navigation={navigation} />
+                </View>
                 <Text style={globalStyles.mediumStrongLabel}>Open Investments</Text>
             </View>
             <View>

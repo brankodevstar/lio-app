@@ -7,11 +7,13 @@ import { TextInput } from "react-native-gesture-handler";
 
 import globalStyles from "../../styles/style";
 import HiFiColors from "../../styles/colors";
+import MenuButton from '../../components/MenuButton';
 
 export default TransactionHistory = ({ navigation }) => {
     return (
         <View style={globalStyles.container}>
             <View style={[globalStyles.headerContainer, { justifyContent: 'space-between' }]}>
+                <MenuButton navigation={navigation} />
                 <TouchableOpacity onPress={() => { navigation.goBack() }}>
                     <FeatherIcon name="arrow-left" size={20} color={HiFiColors.White} style={styles.headerIcon} />
                 </TouchableOpacity>

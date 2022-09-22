@@ -8,6 +8,7 @@ import fonts from '../../styles/fonts';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import { Dimensions } from 'react-native';
 import ChatFooter from '../../components/ChatFooter';
+import MenuButton from '../../components/MenuButton';
 
 const messageData = [
     {
@@ -111,6 +112,7 @@ export default IndividualChat = ({ navigation }) => {
     return (
         <View style={globalStyles.container}>
             <View style={styles.chatBoxHeader}>
+                <MenuButton navigation={navigation} />
                 <TouchableOpacity onPress={() => navigation.navigate("ChatScreen")}>
                     <FeatherIcon name="arrow-left" size={20} color={HiFiColors.White} style={styles.headerIcon} />
                 </TouchableOpacity>

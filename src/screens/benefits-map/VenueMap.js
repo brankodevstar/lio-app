@@ -8,6 +8,7 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import { TextInput } from "react-native-gesture-handler";
+import MenuButton from '../../components/MenuButton';
 
 const mapCard = () => (
 
@@ -43,6 +44,7 @@ export default VenueMap = ({ navigation }) => {
     return (
         <View style={globalStyles.container}>
             <View style={[globalStyles.headerContainer, { justifyContent: 'space-between' }]}>
+                <MenuButton navigation={navigation} />
                 <TouchableOpacity onPress={() => { navigation.goBack() }}>
                     <FeatherIcon name="arrow-left" size={20} color={HiFiColors.White} style={styles.headerIcon} />
                 </TouchableOpacity>

@@ -10,7 +10,7 @@ import Modal from 'react-native-modal';
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
 import fonts from '../../styles/fonts';
-
+import MenuButton from '../../components/MenuButton';
 
 export default Forum = ({ navigation }) => {
 
@@ -23,6 +23,9 @@ export default Forum = ({ navigation }) => {
     return (
         <View style={globalStyles.container}>
             <View style={[globalStyles.headerContainer, { borderBottomWidth: 0 }]}>
+                <View style={{ position: 'absolute', left: 20 }}>
+                    <MenuButton navigation={navigation} />
+                </View>
                 <Text style={globalStyles.mediumStrongLabel}>Forum</Text>
             </View>
             <ScrollView style={styles.scrollViewContainer} contentContainerStyle={{ paddingBottom: 20 }}>

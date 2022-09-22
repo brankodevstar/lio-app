@@ -9,7 +9,7 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
 import fonts from '../../styles/fonts';
-
+import MenuButton from '../../components/MenuButton';
 
 export default Home = ({ navigation }) => {
     return (
@@ -25,7 +25,10 @@ export default Home = ({ navigation }) => {
                         colors={['#16253400', '#162534']}
                         style={styles.bannerMask}
                     >
-                        <View style={[styles.headerIconBack, { left: 20, }]}>
+                        <View style={{ position: 'absolute', left: 20, top: 15, }}>
+                            <MenuButton navigation={navigation} />
+                        </View>
+                        <View style={[styles.headerIconBack, { left: 60, }]}>
                             <TouchableOpacity>
                                 <FeatherIcon name="arrow-left" size={20} color={HiFiColors.White} style={styles.headerIcon} />
                             </TouchableOpacity>

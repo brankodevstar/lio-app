@@ -7,11 +7,15 @@ import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
 import Navigation from '../profile/Navigation';
+import MenuButton from '../../components/MenuButton';
 
 export default Calendar = ({ navigation }) => {
     return (
         <View style={globalStyles.container}>
-            <View style={globalStyles.headerContainer}>
+            <View style={[globalStyles.headerContainer,]}>
+                <View style={{ position: 'absolute', left: 20 }}>
+                    <MenuButton navigation={navigation} style={{ left: 0 }} />
+                </View>
                 <Text style={globalStyles.mediumStrongLabel}>Calendar</Text>
             </View>
             <View style={styles.section}>

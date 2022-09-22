@@ -8,6 +8,7 @@ import { VictoryPie } from 'victory-native';
 import HiFiColors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import globalStyles from '../../styles/style';
+import MenuButton from '../../components/MenuButton';
 
 export default MyInvestment = ({ navigation }) => {
     const series = [21.4, 14.3, 28.6, 21.4, 14.3];
@@ -23,6 +24,9 @@ export default MyInvestment = ({ navigation }) => {
     return (
         <ScrollView style={globalStyles.container}>
             <View style={[globalStyles.headerContainer, { justifyContent: 'center' }]}>
+                <View style={{ position: 'absolute', left: 20 }}>
+                    <MenuButton navigation={navigation} />
+                </View>
                 <Text style={globalStyles.mediumStrongLabel}>My Investments</Text>
             </View>
             <View style={styles.contentContainer}>

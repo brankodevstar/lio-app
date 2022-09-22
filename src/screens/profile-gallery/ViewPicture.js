@@ -5,11 +5,13 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 import globalStyles from "../../styles/style";
 import HiFiColors from '../../styles/colors';
 import fonts from '../../styles/fonts';
+import MenuButton from '../../components/MenuButton';
 
 export default ViewPicture = ({ navigation }) => {
     return (
         <View style={globalStyles.container}>
-            <View style={[globalStyles.headerContainer, { borderBottomWidth: 0, justifyContent: 'flex-start', }]}>
+            <View style={[globalStyles.headerContainer, { borderBottomWidth: 0, justifyContent: 'flex-start', alignItems: 'center' }]}>
+                <MenuButton navigation={navigation} />
                 <TouchableOpacity onPress={() => { navigation.goBack() }}>
                     <LinearGradient
                         start={{ x: 0.0, y: 0.0 }}

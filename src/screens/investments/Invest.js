@@ -8,6 +8,7 @@ import HiFiColors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import { Slider } from 'react-native-elements';
 // import Slider from '@react-native-community/slider';
+import MenuButton from '../../components/MenuButton';
 
 export default Invest = ({ navigation }) => {
     const [equity, setEquity] = useState(0);
@@ -15,13 +16,16 @@ export default Invest = ({ navigation }) => {
     return (
         <View style={globalStyles.container}>
             <View style={[globalStyles.headerContainer, { justifyContent: 'space-between' }]}>
-                <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <View style={styles.closeButtonBack}>
-                        <FeatherIcon name="x" size={15} color={HiFiColors.White} />
-                    </View>
-                </TouchableOpacity>
-                <Text style={globalStyles.mediumStrongLabel}>Invest</Text>
-                <TouchableOpacity><Text style={globalStyles.boldLabel}>Clear</Text></TouchableOpacity>
+                <MenuButton navigation={navigation} />
+                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <View style={styles.closeButtonBack}>
+                            <FeatherIcon name="x" size={15} color={HiFiColors.White} />
+                        </View>
+                    </TouchableOpacity>
+                    <Text style={globalStyles.mediumStrongLabel}>Invest</Text>
+                    <TouchableOpacity><Text style={globalStyles.boldLabel}>Clear</Text></TouchableOpacity>
+                </View>
             </View>
             <View style={styles.contentContainer}>
                 <Text style={globalStyles.label}>Your Investment</Text>

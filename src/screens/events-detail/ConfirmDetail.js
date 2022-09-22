@@ -7,6 +7,7 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
+import MenuButton from '../../components/MenuButton';
 
 
 export default ConfirmDetail = ({ navigation }) => {
@@ -14,13 +15,16 @@ export default ConfirmDetail = ({ navigation }) => {
     return (
         <View style={globalStyles.container}>
             <View style={[globalStyles.headerContainer, { justifyContent: 'space-between' }]}>
-                <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <View style={styles.closeButtonBack}>
-                        <FeatherIcon name="x" size={15} color={HiFiColors.White} />
-                    </View>
-                </TouchableOpacity>
-                <Text style={globalStyles.mediumStrongLabel}>Confirmation Details</Text>
-                <TouchableOpacity><Text style={globalStyles.boldLabel}>Edit</Text></TouchableOpacity>
+                <MenuButton navigation={navigation} />
+                <View style={{ flex: 1, flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center' }}>
+                    <TouchableOpacity onPress={() => navigation.goBack()}>
+                        <View style={styles.closeButtonBack}>
+                            <FeatherIcon name="x" size={15} color={HiFiColors.White} />
+                        </View>
+                    </TouchableOpacity>
+                    <Text style={globalStyles.mediumStrongLabel}>Confirmation Details</Text>
+                    <TouchableOpacity><Text style={globalStyles.boldLabel}>Edit</Text></TouchableOpacity>
+                </View>
             </View>
             <View style={styles.section}>
                 <ImageBackground

@@ -8,6 +8,7 @@ import globalStyles from "../../styles/style";
 import HiFiColors from '../../styles/colors';
 import fonts from "../../styles/fonts";
 import { TextInput } from "react-native-gesture-handler";
+import MenuButton from '../../components/MenuButton';
 
 export default AccountInfo = ({ navigation }) => {
 
@@ -16,12 +17,11 @@ export default AccountInfo = ({ navigation }) => {
 
     return (
         <View style={globalStyles.container}>
-            <View style={[globalStyles.headerContainer, { borderBottomWidth: 0, height: 60, }]}>
-                <View style={[styles.headerIconBack, { left: 20, }]}>
-                    <TouchableOpacity onPress={() => { navigation.goBack() }}>
-                        <FeatherIcon name="arrow-left" size={20} color={HiFiColors.White} style={styles.headerIcon} />
-                    </TouchableOpacity>
-                </View>
+            <View style={[globalStyles.headerContainer, { borderBottomWidth: 0, justifyContent: 'flex-start' }]}>
+                <MenuButton navigation={navigation} />
+                <TouchableOpacity onPress={() => { navigation.goBack() }}>
+                    <FeatherIcon name="arrow-left" size={20} color={HiFiColors.White} style={styles.headerIcon} />
+                </TouchableOpacity>
             </View>
             <Text style={styles.title}>Account Information</Text>
             <ScrollView style={{ paddingBottom: 30, }}>
@@ -135,6 +135,7 @@ const styles = StyleSheet.create({
         fontSize: 24,
         marginLeft: 20,
         fontFamily: fonts.primary,
+        marginBottom: 20
     },
     infoPanel: {
         marginLeft: 20,

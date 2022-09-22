@@ -6,13 +6,16 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
-
+import MenuButton from '../../components/MenuButton';
 
 export default EventInfoGallery = ({ navigation }) => {
     return (
         <View style={styles.container}>
             <View style={globalStyles.headerContainer}>
                 <View style={[styles.headerIconBack, { left: 20, }]}>
+                    <MenuButton navigation={navigation} />
+                </View>
+                <View style={[styles.headerIconBack, { left: 65, }]}>
                     <TouchableOpacity onPress={() => { navigation.goBack() }}>
                         <FeatherIcon name="arrow-left" size={20} color={HiFiColors.White} style={styles.headerIcon} />
                     </TouchableOpacity>
