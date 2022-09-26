@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 
@@ -10,75 +10,8 @@ import { Dimensions } from 'react-native';
 import ChatFooter from '../../components/ChatFooter';
 import MenuButton from '../../components/MenuButton';
 
-const messageData = [
-    {
-        type: 'in',
-        avatar: 'https://s3-alpha-sig.figma.com/img/de0b/4d43/821302c0177644a0cc7bf49a40c944e4?Expires=1664150400&Signature=WtdJKdCcHtzLWUYjvs9oi4CsAuNcRwBhu9Y5Sc5zFEm17QxmRZpVWnrH09odse3UAPW4vpC~j3GHJPIxHCS5e7TWoXXub34hpm6bKN21ugsnYUi5XgceVAuKZF9rnTaohQ62-1-LfJT5rLTG4LFoRb8UAC6dZMy-Eh2PBW~NrIga90yvVIxMrVeaaI4hK1slg875Coekm7x8lys8CHToufL7k9I9IN~ePXbmgM838GlUmzcBhmpH5lffGMcC~-7Y3bGW~YLeqhSqo8KQjeY~8AAwWXbehxygkIN3oiQZ~0BJRKmhZhCTP0thByb5yfnl-WRJZaP-nSXl2ImLIeuOmA__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
-        message: 'Hey! Thank you for the coupons!',
-        timestamp: '15.01'
-    },
-    {
-        type: 'out',
-        avatar: '821302c0177644a0cc7bf49a40c944e4.png',
-        message: 'Your welcome!',
-        timestamp: '15.03'
-    },
-    {
-        type: 'out',
-        avatar: '821302c0177644a0cc7bf49a40c944e4.png',
-        message: 'Where are you at right now?',
-        timestamp: '15.03'
-    },
-    {
-        type: 'in',
-        avatar: 'https://s3-alpha-sig.figma.com/img/f46f/e832/7fe1a020fdff606843aff1544b1b36b8?Expires=1664150400&Signature=GXrUlPwxN4mXKu~y5gma7xdWleah7DK0q62JPJY-ZQFOA6oaDWpYffQ0aDeXuW0ma-jvIlQWlGgHvqbFTy0Inyt29fXNhYiHaS0xoMSlPGQec1NfpZU-RWmXovbbu2lLm9PcVlDTEijkud3v-ZMG3KilJG8q3b1gf2rzu-ZluUWu03sgFdkoIcmDDKExaYOprcZx8aUmoKOLiWvrcpWiryYnT1Gci1ULHmYbYTpipYs5PvT~HG0sk2tTtcMt5cQI59o2lD1rDsU2WC07HNwAWWRTHVRHDzksKxzsXMu~SXX0bXqAnmRaetfa5ZUswgQZuni6ynWr2nmTwm4cfUbiHw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
-        message: 'Thanks once again!',
-        timestamp: '15.11'
-    },
-    {
-        type: 'in',
-        avatar: 'https://s3-alpha-sig.figma.com/img/f46f/e832/7fe1a020fdff606843aff1544b1b36b8?Expires=1664150400&Signature=GXrUlPwxN4mXKu~y5gma7xdWleah7DK0q62JPJY-ZQFOA6oaDWpYffQ0aDeXuW0ma-jvIlQWlGgHvqbFTy0Inyt29fXNhYiHaS0xoMSlPGQec1NfpZU-RWmXovbbu2lLm9PcVlDTEijkud3v-ZMG3KilJG8q3b1gf2rzu-ZluUWu03sgFdkoIcmDDKExaYOprcZx8aUmoKOLiWvrcpWiryYnT1Gci1ULHmYbYTpipYs5PvT~HG0sk2tTtcMt5cQI59o2lD1rDsU2WC07HNwAWWRTHVRHDzksKxzsXMu~SXX0bXqAnmRaetfa5ZUswgQZuni6ynWr2nmTwm4cfUbiHw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
-        message: 'I’m at the office right now.',
-        timestamp: '15.12'
-    },
-    {
-        type: 'out',
-        avatar: '821302c0177644a0cc7bf49a40c944e4.png',
-        message: 'Your welcome!',
-        timestamp: '15.03'
-    },
-    {
-        type: 'out',
-        avatar: '821302c0177644a0cc7bf49a40c944e4.png',
-        message: 'So when do we make our next?',
-        timestamp: '15.03'
-    },
-    {
-        type: 'in',
-        avatar: 'https://s3-alpha-sig.figma.com/img/f46f/e832/7fe1a020fdff606843aff1544b1b36b8?Expires=1664150400&Signature=GXrUlPwxN4mXKu~y5gma7xdWleah7DK0q62JPJY-ZQFOA6oaDWpYffQ0aDeXuW0ma-jvIlQWlGgHvqbFTy0Inyt29fXNhYiHaS0xoMSlPGQec1NfpZU-RWmXovbbu2lLm9PcVlDTEijkud3v-ZMG3KilJG8q3b1gf2rzu-ZluUWu03sgFdkoIcmDDKExaYOprcZx8aUmoKOLiWvrcpWiryYnT1Gci1ULHmYbYTpipYs5PvT~HG0sk2tTtcMt5cQI59o2lD1rDsU2WC07HNwAWWRTHVRHDzksKxzsXMu~SXX0bXqAnmRaetfa5ZUswgQZuni6ynWr2nmTwm4cfUbiHw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
-        message: 'Thanks once again!',
-        timestamp: '15.11'
-    },
-    {
-        type: 'in',
-        avatar: 'https://s3-alpha-sig.figma.com/img/f46f/e832/7fe1a020fdff606843aff1544b1b36b8?Expires=1664150400&Signature=GXrUlPwxN4mXKu~y5gma7xdWleah7DK0q62JPJY-ZQFOA6oaDWpYffQ0aDeXuW0ma-jvIlQWlGgHvqbFTy0Inyt29fXNhYiHaS0xoMSlPGQec1NfpZU-RWmXovbbu2lLm9PcVlDTEijkud3v-ZMG3KilJG8q3b1gf2rzu-ZluUWu03sgFdkoIcmDDKExaYOprcZx8aUmoKOLiWvrcpWiryYnT1Gci1ULHmYbYTpipYs5PvT~HG0sk2tTtcMt5cQI59o2lD1rDsU2WC07HNwAWWRTHVRHDzksKxzsXMu~SXX0bXqAnmRaetfa5ZUswgQZuni6ynWr2nmTwm4cfUbiHw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
-        message: 'I’m at the office right now.',
-        timestamp: '15.12'
-    },
-    {
-        type: 'out',
-        avatar: '821302c0177644a0cc7bf49a40c944e4.png',
-        message: 'Your welcome!',
-        timestamp: '15.03'
-    },
-    {
-        type: 'out',
-        avatar: '821302c0177644a0cc7bf49a40c944e4.png',
-        message: 'So when do we make our next?',
-        timestamp: '15.03'
-    },
-
-]
+import firestore from "@react-native-firebase/firestore";
+import moment from 'moment';
 
 const inMessage = (messageData, index) => {
     return (
@@ -90,7 +23,7 @@ const inMessage = (messageData, index) => {
                 </Text>
             </View>
             <View style={styles.timeContainer}>
-                <Text style={globalStyles.label}>{messageData.timestamp}</Text>
+                <Text style={globalStyles.label}>{messageData.createdAt}</Text>
             </View>
         </View>
     )
@@ -99,7 +32,7 @@ const inMessage = (messageData, index) => {
 const outMessage = (messageData, index) => (
     <View style={[styles.chatRow, { justifyContent: 'flex-end' }]} key={index}>
         <View style={[styles.timeContainer, { alignItems: 'flex-end' }]}>
-            <Text style={globalStyles.label}>{messageData.timestamp}</Text>
+            <Text style={globalStyles.label}>{messageData.createdAt}</Text>
         </View>
         <View style={styles.myMessageContainer}>
             <Text style={globalStyles.boldLabel}>
@@ -110,6 +43,59 @@ const outMessage = (messageData, index) => (
 )
 
 export default GroupChat = ({ navigation }) => {
+    const [messages, setMessages] = useState([]);
+    const [groupMembers, setGroupMembers] = useState([]);
+    const scrollViewRef = useRef();
+
+    const chatRoom = 'TestGroupChatRoom';
+    const collectionName = 'group-chat';
+    const phoneNumber = 'myPhoneNumber';
+
+    const onResult = (querySnapshot) => {
+        console.log('Got Chat collection result! ', querySnapshot.size);
+        setGroupMembers(querySnapshot.docs[0].data().members);
+        querySnapshot.docs.sort((a, b) => {
+            return Number.parseInt(a.data().createdAt.seconds) > Number.parseInt(b.data().createdAt.seconds) ? 1 : -1
+        })
+        const msgs = querySnapshot.docs.map((doc) => ({
+            _id: doc.id,
+            from: doc.data().from,
+            to: doc.data().to,
+            createdAt: moment(doc.data().createdAt.toDate()).format("yyyy-MM-DD hh.mm"),
+            message: doc.data().text,
+            type: doc.data().from === phoneNumber ? 'out' : 'in',
+            avatar: 'https://s3-alpha-sig.figma.com/img/9f93/6d28/03ffef0f3919e687c7cdf564d6d052e0?Expires=1665360000&Signature=EwJRzME-8e-7KFD9akULq89xkJ4Sm7w9NIxwft~sr9~mrNNrUcjZZ2wLnLMVeSUhIg06b6ohB2CUI-J7~PghgJHh33OphGLxcZ9YvcxQhZeBSTIiBJwHujy2u7rzA4EIasL-vbw9kyoL24x3bLb0bz7rd1osIjlwL-J95LOfjS1xLKxAeaJYIzVCzk-spGNTtX80SDFPdfvhHd6aoaZ9vN-sNMq-EAvfaithVyHvmPouHov8Wlm8W82h6Pjd1UR4JZIURsRIcrucDSk8HXQZprlYGJmOe4Qwwq1GSrRfukFTgv1niWkwXn8MygzWoF2SxhZRJJYisdBZfCYLdXeEow__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA'
+        }));
+        setMessages(msgs);
+    }
+
+    const onError = (error) => {
+
+    }
+
+    const onSend = (message) => {
+        const messageData = {
+            chatRoom: chatRoom,
+            createdAt: new Date(),
+            text: message,
+            from: phoneNumber,
+            to: '',
+            members: groupMembers
+        };
+        firestore().collection(collectionName).add(messageData).then(() => {
+            console.log('message sent!')
+        })
+    }
+
+    useEffect(() => {
+        firestore()
+            .collection(collectionName)
+            .where('chatRoom', '==', chatRoom)
+            .where('members', 'array-contains', phoneNumber)
+            // .orderBy('createdAt', 'asc')
+            .onSnapshot(onResult, onError);
+    }, [])
+
     return (
         <View style={globalStyles.container}>
             <View style={styles.chatBoxHeader}>
@@ -118,16 +104,18 @@ export default GroupChat = ({ navigation }) => {
                     <FeatherIcon name="arrow-left" size={20} color={HiFiColors.White} style={styles.headerIcon} />
                 </TouchableOpacity>
                 <Image
-                    source={{ uri: 'https://s3-alpha-sig.figma.com/img/5ee5/588c/e94d6cbe8148ccee458be196f341f4a5?Expires=1664150400&Signature=OCMMgvFUM09O2jrBbViM95EcZxlS1ekM6BYKEXkqBP5l-B5Pxlqb4ryRxy0fUEh3JAI2KRKFVPZLyMkeBqK9gwcEfatQQlWG6hRAz0sbTBRJXVfG~4XOaBMRiv3qMjMetYhPk6XHIyZ-ZD4tpAkHrLDd3OYAigFLDd6Gbo5KcT2s2fbTYIs-s~wQK8bXoy1AZoeXAxjcSDSA0aRmZBU5rgGN62L5XTZ1Q2b~UoiIf6ibEM0YSzajQ3QVChiZzO-UBUXg90l0BcjyjDN-eEW9hfOiQhJVEPUmVTFAcFPj0raQ1hBQNSJOcyqr6Q0HFGYqEOUiV0yHEga1-1izvyTe-Q__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA' }}
+                    source={{ uri: 'https://s3-alpha-sig.figma.com/img/5ee5/588c/e94d6cbe8148ccee458be196f341f4a5?Expires=1665360000&Signature=PrfXpTDg6kT7kLjr-jHCwhbDykBUhxvkXiFlvykAruKQg7tIW~sq396Zre2Ax5wJsf~ntsZ674L~aw02hff9ui7ALuSfEUUGjpDtfPRHjtECjgi5klnOSYkK~NK3iIbYY~s2BgmTVvZewHtxL9t4uZaqeXwEfgSvrXEL2J8Fv5SAmWY5UiZltjO1v-FvmvbHLERCjuJ2g~p2nWCOo7ndMqoxbatiFENdN7i4GKXHTREJmVitpO4AVDNICoNOM9O~u1qAiXl~wPOfgzOYH3kAFvg3AfvDfwCKYjMAbpre8gQdzVSNGgPNL4F42Dsi54eECV8fPE8X5Sz7g34407twMw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA' }}
                     style={styles.headerImage} />
                 <View>
                     <Text style={styles.headerTitle}>The Entreprenurial Club</Text>
                     <Text style={globalStyles.label}>6 Members</Text>
                 </View>
             </View>
-            <ScrollView>
+            <ScrollView
+                ref={scrollViewRef}
+                onContentSizeChange={() => scrollViewRef.current.scrollToEnd({ animated: true })}>
                 {
-                    messageData.map((item, index) => {
+                    messages.map((item, index) => {
                         if (item.type === 'in') {
                             return inMessage(item, index)
                         } else {
@@ -136,7 +124,7 @@ export default GroupChat = ({ navigation }) => {
                     })
                 }
             </ScrollView>
-            <ChatFooter />
+            <ChatFooter onSend={onSend} />
         </View>
     )
 }

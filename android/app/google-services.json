@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1009873761544",
+    "project_id": "lio-for-india-76480",
+    "storage_bucket": "lio-for-india-76480.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1009873761544:android:219ca6c0ae8a3a341ca8bd",
+        "android_client_info": {
+          "package_name": "com.lio"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1009873761544-gmdlh4m6gbvv0q7v8g4c6pcj2jduc1du.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA-fDURfaE5eB1eUk6pMh24BaL6uyYhNXA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1009873761544-gmdlh4m6gbvv0q7v8g4c6pcj2jduc1du.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

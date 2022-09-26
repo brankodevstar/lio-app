@@ -8,6 +8,9 @@ import OTPScreen from './src/screens/authentication/OTP';
 
 import MainNavigator from './src/navigation/MainNavigator';
 
+import IndividualChatScreen from './src/screens/members/IndividualChat';
+import GroupChatScreen from './src/screens/members/GroupChat';
+
 const Stack = createStackNavigator();
 
 export default App = () => {
@@ -22,6 +25,18 @@ export default App = () => {
           },
         }}
       >
+        <Stack.Screen
+          name="GroupChatScreen"
+          component={GroupChatScreen}
+        />
+        
+        <Stack.Screen
+          name="IndividualChatScreen"
+          component={IndividualChatScreen}
+        />
+
+        
+        
         <Stack.Screen
           name="SplashScreen"
           component={SplashScreen}

@@ -7,16 +7,24 @@ import HiFiColors from '../styles/colors';
 import fonts from '../styles/fonts';
 
 
-export default ChatFooter = () => {
+export default ChatFooter = (props) => {
+    const [message, setMessage] = useState('');
+
     return (
         <View style={styles.footerContainer}>
             <TouchableOpacity>
                 <FeatherIcon name='plus-circle' size={30} color={HiFiColors.White} />
             </TouchableOpacity>
             <View style={{ flex: 1 }}>
-                <TextInput placeholder='Type your message' placeholderTextColor={HiFiColors.Label} style={styles.chatBox} />
+                <TextInput
+                    placeholder='Type your message'
+                    placeholderTextColor={HiFiColors.Label}
+                    style={styles.chatBox}
+                    value={message}
+                    onChangeText={(value) => { setMessage(value) }}
+                />
             </View>
-            <TouchableOpacity>
+            <TouchableOpacity onPress={() => { props.onSend(message); setMessage('') }}>
                 <FeatherIcon name='arrow-right-circle' size={30} color={HiFiColors.White} />
             </TouchableOpacity>
         </View>

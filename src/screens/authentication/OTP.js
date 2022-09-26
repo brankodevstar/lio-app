@@ -1,5 +1,5 @@
 import React, { useState } from 'react'
-import { StyleSheet, SafeAreaView, View, Text, Image, TouchableOpacity } from 'react-native';
+import { StyleSheet, SafeAreaView, View, Text, Image, TouchableOpacity, ActivityIndicator } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import globalStyles from '../../styles/style';
 import {
@@ -13,10 +13,13 @@ import {
 import HiFiColors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import LinearGradient from 'react-native-linear-gradient';
+import { sendSmsVerification, checkVerification } from '../../service/TwilioService';
 
-export default OTP = ({ navigation }) => {
+export default OTP = ({ route, navigation }) => {
+    const { phoneNumber } = route.params;
     const CELL_COUNT = 6;
     const [value, setValue] = useState('');
+    const [activityIndicator, setActivityIndicator] = useState(false);
     const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
     const [props, getCellOnLayoutHandler] = useClearByFocusCell({
         value,
@@ -27,11 +30,13 @@ export default OTP = ({ navigation }) => {
 
         if (symbol) {
             textChild = (
-                <MaskSymbol
+                <Text
                     maskSymbol="-"
+                    style={{ color: HiFiColors.Label }}
                     isLastFilledCell={isLastFilledCell({ index, value })}>
+
                     {symbol}
-                </MaskSymbol>
+                </Text>
             );
         } else if (isFocused) {
             textChild = <Cursor />;
@@ -45,6 +50,24 @@ export default OTP = ({ navigation }) => {
                 {textChild}
             </Text>
         );
+    }
+
+    const confirmCode = async () => {
+        setActivityIndicator(true);
+        navigation.navigate('Home');
+        // if (checkVerification(phoneNumber, value)) {
+        //     navigation.navigate('Home');
+        // } else {
+        //     setActivityIndicator(false);
+        // }
+    }
+
+    const resendCode = async () => {
+        setActivityIndicator(true);
+        if (await sendSmsVerification(phoneNumber)) {
+
+        }
+        setActivityIndicator(false);
     }
 
     return (
@@ -70,17 +93,31 @@ export default OTP = ({ navigation }) => {
                         value={value}
                         onChangeText={setValue}
                         cellCount={CELL_COUNT}
+                        maskSymbol="*"
                         rootStyle={styles.codeFieldRoot}
                         keyboardType="number-pad"
                         textContentType="oneTimeCode"
                         renderCell={renderCell}
                     />
                 </SafeAreaView>
+                <View style={{ alignSelf: 'stretch', marginTop: 30, }}>
+                    {activityIndicator && <ActivityIndicator size="large" style={{ position: 'absolute' }} />}
+                    <TouchableOpacity onPress={confirmCode}>
+                        <LinearGradient
+                            start={{ x: 0.0, y: 0.0 }}
+                            end={{ x: 1.0, y: 1.0 }}
+                            colors={['#991450', '#40799D']}
+                            style={globalStyles.filledButton}
+                        >
+                            <Text style={globalStyles.buttonLabel}>Confirm</Text>
+                        </LinearGradient>
+                    </TouchableOpacity>
+                </View>
                 <View>
                     <Text style={styles.notReceivedText}>Haven't received a code?</Text>
                 </View>
                 <View style={{ alignSelf: 'stretch', marginTop: 30, marginBottom: 100 }}>
-                    <TouchableOpacity onPress={() => navigation.navigate("Home")}>
+                    <TouchableOpacity onPress={resendCode}>
                         <LinearGradient
                             start={{ x: 0.0, y: 0.0 }}
                             end={{ x: 1.0, y: 1.0 }}

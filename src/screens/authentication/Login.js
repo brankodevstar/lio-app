@@ -1,12 +1,43 @@
-import React from 'react'
-import { View, Text, StyleSheet, Image } from 'react-native';
+import React, { useState } from 'react'
+import { View, Text, StyleSheet, Image, ActivityIndicator } from 'react-native';
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
 import { TextInput, TouchableOpacity } from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
 import fonts from '../../styles/fonts';
+import { sendSmsVerification, checkVerification } from '../../service/TwilioService';
 
 export default Login = ({ navigation }) => {
+    const [phone, setPhone] = useState("");
+    const [activityIndicator, setActivityIndicator] = useState(false);
+
+    // Function to validate phone number
+    const validatePhoneNumber = () => {
+        const argPhone = String(phone).replace(/[^\d]/g, "");
+        if (argPhone.length > 10) {
+            return String("+" + argPhone);
+        } else if (argPhone.length == 10) {
+            return String("+91" + argPhone);
+        }
+    };
+
+    const signInUser = async () => {
+        try {
+            setActivityIndicator(true);
+            const argPhone = validatePhoneNumber();
+
+            navigation.navigate('OTPScreen', { phoneNumber: argPhone });
+
+            // if (await sendSmsVerification(argPhone)) {
+            //     navigation.navigate('OTPScreen', { phoneNumber: argPhone });
+            // }
+            setActivityIndicator(false);
+        } catch (error) {
+            console.log(error);
+            setActivityIndicator(false);
+        }
+    }
+
     return (
         <View style={[globalStyles.container]}>
             <View style={styles.container}>
@@ -22,10 +53,16 @@ export default Login = ({ navigation }) => {
                 <View>
                     <Text style={[globalStyles.mediumBoldLabel, styles.loginLabel]}>Login</Text>
                 </View>
-                <TextInput style={styles.textInput} placeholder='Mobile Number' placeholderTextColor='#fff' />
-                <TextInput style={styles.textInput} placeholder='Password' placeholderTextColor='#fff' />
+                <TextInput
+                    style={styles.textInput}
+                    placeholder='Mobile Number'
+                    placeholderTextColor={HiFiColors.Label}
+                    value={phone}
+                    keyboardType="numeric"
+                    onChangeText={(value) => setPhone(value)} />
+                {activityIndicator && <ActivityIndicator size="large" style={{ position: 'absolute' }} />}
                 <View style={{ alignSelf: 'stretch', marginTop: 30, marginBottom: 100 }}>
-                    <TouchableOpacity onPress={() => navigation.navigate('OTPScreen')}>
+                    <TouchableOpacity onPress={signInUser}>
                         <LinearGradient
                             start={{ x: 0.0, y: 0.0 }}
                             end={{ x: 1.0, y: 1.0 }}
