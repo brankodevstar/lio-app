@@ -10,7 +10,7 @@ import { Dimensions } from 'react-native';
 import ChatFooter from '../../components/ChatFooter';
 import MenuButton from '../../components/MenuButton';
 import moment from 'moment';
-
+import { useSelector } from 'react-redux';
 import firestore from "@react-native-firebase/firestore";
 
 const inMessage = (messageData, index) => {
@@ -46,6 +46,9 @@ export default IndividualChat = ({ navigation }) => {
     const scrollViewRef = useRef();
     const chatRoom = ['b', 'a'].sort().join('-');
     const collectionName = "chat";
+    const currentUser = useSelector(state => state.CurrentUser)
+
+    console.log(currentUser);
 
     const onResult = (querySnapshot) => {
         console.log('Got Chat collection result! ', querySnapshot.size);

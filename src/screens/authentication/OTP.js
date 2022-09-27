@@ -14,6 +14,8 @@ import HiFiColors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import LinearGradient from 'react-native-linear-gradient';
 import { sendSmsVerification, checkVerification } from '../../service/TwilioService';
+import { useSelector, useDispatch } from 'react-redux';
+import allActions from '../../redux/actions'
 
 export default OTP = ({ route, navigation }) => {
     const { phoneNumber } = route.params;
@@ -21,6 +23,8 @@ export default OTP = ({ route, navigation }) => {
     const [value, setValue] = useState('');
     const [activityIndicator, setActivityIndicator] = useState(false);
     const ref = useBlurOnFulfill({ value, cellCount: CELL_COUNT });
+    const dispatch = useDispatch();
+
     const [props, getCellOnLayoutHandler] = useClearByFocusCell({
         value,
         setValue,
@@ -54,12 +58,19 @@ export default OTP = ({ route, navigation }) => {
 
     const confirmCode = async () => {
         setActivityIndicator(true);
-        navigation.navigate('Home');
-        // if (checkVerification(phoneNumber, value)) {
-        //     navigation.navigate('Home');
-        // } else {
-        //     setActivityIndicator(false);
-        // }
+        // navigation.navigate('Home');
+        if (checkVerification(phoneNumber, value)) {
+
+            const mockUserData = {
+                name: 'test user',
+                avatar: 'avatar path',
+                phone: phoneNumber,
+            }
+            dispatch(allActions.UserAction.setUser(mockUserData))
+            navigation.navigate('Home');
+        } else {
+            setActivityIndicator(false);
+        }
     }
 
     const resendCode = async () => {
