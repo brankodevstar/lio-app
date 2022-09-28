@@ -1,7 +1,9 @@
 import announcements from "./announcements"
+import investments from "./investments"
 
 const allAction = {
-    announcements
+    announcements,
+    investments
 }
 
 export default allAction;

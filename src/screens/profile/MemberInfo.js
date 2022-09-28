@@ -9,17 +9,24 @@ import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import MenuButton from '../../components/MenuButton';
+import Action from '../../service';
+import { ADMIN_API_URL } from '@env';
+import moment from 'moment';
 
 export default MemberInfo = ({ navigation }) => {
     const [announcements, setAnnouncements] = useState([]);
 
-    const getAnnouncements = () => {
-        
-    }
+    const getAnnouncements = async () => {
+        const response = await Action.announcements.list();
+        if (response.data) {
+            setAnnouncements(response.data);
+        }
+    };
 
     useEffect(() => {
-        getAnnouncements();
-    }, [])
+        navigation.addListener('focus', () => { getAnnouncements(); })
+    }, [navigation]);
+
 
 
     return (
@@ -101,32 +108,43 @@ export default MemberInfo = ({ navigation }) => {
 
                 <View style={styles.bottomSection}>
                     <Text style={[globalStyles.mediumBoldLabel, { fontSize: 20, fontWeight: '400' }]}>Announcements</Text>
-                    <View style={styles.card}>
-                        <View style={styles.cardHeader}>
-                            <View style={styles.userNameContainer}>
-                                <Image source={require('../../../assets/images/fdd9945619a0269dd7ba72d1167f72e6.png')} style={styles.avatarImage} />
-                                <Text style={styles.userNameLabel}>Leaders for India</Text>
+                    {
+                        announcements.map((item, index) => (
+                            <View key={index} style={styles.card}>
+                                <View style={styles.cardHeader}>
+                                    <View style={styles.userNameContainer}>
+                                        <Image source={require('../../../assets/images/fdd9945619a0269dd7ba72d1167f72e6.png')} style={styles.avatarImage} />
+                                        <Text style={styles.userNameLabel}>Leaders for India</Text>
+                                    </View>
+                                    <View>
+                                        <TouchableOpacity>
+                                            <FeatherIcon name="more-vertical" size={20} color={HiFiColors.White} />
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                                <View style={styles.discriptionContainer}>
+                                    <Text style={globalStyles.label}>{item.description}</Text>
+                                </View>
+                                <Image source={{ uri: `${ADMIN_API_URL}upload/${item.imgUrl}` }} style={styles.cardImage} />
+                                <View style={styles.cardFooter}>
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <FeatherIcon name="heart" size={15} color={HiFiColors.White} style={styles.labelSpace} />
+                                        <Text style={[globalStyles.boldLabel, styles.labelSpace]}>{item.clickCount.toLocaleString()}</Text>
+                                        <FeatherIcon name="message-circle" size={15} color={HiFiColors.White} style={styles.labelSpace} />
+                                        <Text style={globalStyles.boldLabel}>{item.commentCount.toLocaleString()}</Text>
+                                    </View>
+                                    <Text style={styles.timeLabel}>
+                                        {
+                                            (moment.duration(moment(new Date()).diff(moment(item.createdDt)))).asHours() > 1 ?
+                                                Math.ceil((moment.duration(moment(new Date()).diff(moment(item.createdDt)))).asHours()) + ' Hours ago' :
+                                                Math.ceil((moment.duration(moment(new Date()).diff(moment(item.createdDt)))).asMinutes()) + ' Minutes ago'
+                                        }
+                                    </Text>
+                                </View>
                             </View>
-                            <View>
-                                <TouchableOpacity>
-                                    <FeatherIcon name="more-vertical" size={20} color={HiFiColors.White} />
-                                </TouchableOpacity>
-                            </View>
-                        </View>
-                        <View style={styles.discriptionContainer}>
-                            <Text style={globalStyles.label}>Really glad to be a part of the wonderful team. Lorem ipsum dolor sit amet, consectetur ut labore et dolore😁😍</Text>
-                        </View>
-                        <Image source={require('../../../assets/images/forum/1e3c40fef25f3337704ef983162d8f7d.png')} style={styles.cardImage} />
-                        <View style={styles.cardFooter}>
-                            <View style={{ flexDirection: 'row' }}>
-                                <FeatherIcon name="heart" size={15} color={HiFiColors.White} style={styles.labelSpace} />
-                                <Text style={[globalStyles.boldLabel, styles.labelSpace]}>1.892</Text>
-                                <FeatherIcon name="message-circle" size={15} color={HiFiColors.White} style={styles.labelSpace} />
-                                <Text style={globalStyles.boldLabel}>72</Text>
-                            </View>
-                            <Text style={styles.timeLabel}>2 Hours ago</Text>
-                        </View>
-                    </View>
+                        ))
+                    }
+
                 </View>
             </View>
         </ScrollView>
