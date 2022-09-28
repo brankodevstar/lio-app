@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { View, Text, Image, StyleSheet, ImageBackground, } from 'react-native';
 import { TouchableOpacity, ScrollView } from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
@@ -11,6 +11,17 @@ import fonts from '../../styles/fonts';
 import MenuButton from '../../components/MenuButton';
 
 export default MemberInfo = ({ navigation }) => {
+    const [announcements, setAnnouncements] = useState([]);
+
+    const getAnnouncements = () => {
+        
+    }
+
+    useEffect(() => {
+        getAnnouncements();
+    }, [])
+
+
     return (
         <ScrollView style={globalStyles.container}>
             <View style={[globalStyles.headerContainer, { justifyContent: 'space-between' }]}>
@@ -206,7 +217,7 @@ const styles = StyleSheet.create({
         marginRight: 10
     },
     bottomSection: {
-        marginTop: 20
+        marginTop: 20,
     },
     card: {
         padding: 15,

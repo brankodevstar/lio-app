@@ -58,7 +58,7 @@ export default OTP = ({ route, navigation }) => {
 
     const confirmCode = async () => {
         setActivityIndicator(true);
-        // navigation.navigate('Home');
+        navigation.navigate('Home');
         if (checkVerification(phoneNumber, value)) {
 
             const mockUserData = {
