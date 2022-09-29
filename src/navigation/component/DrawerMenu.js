@@ -5,9 +5,12 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 
 import globalStyles from "../../styles/style";
 import HiFiColors from "../../styles/colors";
-
+import { useSelector } from 'react-redux';
+import { ADMIN_API_URL } from '@env';
 
 export default DrawerMenu = (props) => {
+    const currentUser = useSelector(state => state.CurrentUser)
+
     return (
         <View style={globalStyles.container}>
             <View style={[globalStyles.headerContainer, { justifyContent: 'flex-start', borderBottomWidth: 0, }]}>
@@ -41,11 +44,13 @@ export default DrawerMenu = (props) => {
                 </TouchableOpacity>
             </View>
             <View style={styles.footSection}>
-                <Image style={styles.footImage}
-                    source={require('../../../assets/images/avatars/avatar.jpg')} />
-                <View style={styles.footText}>
-                    <Text style={globalStyles.boldLabel}>Roger Sanchez</Text>
-                    <Text style={[globalStyles.boldLabel, { color: HiFiColors.Blue }]}>R.Sanchez@email.com</Text>
+                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
+                    <Image style={styles.footImage}
+                        source={{ uri: `${ADMIN_API_URL}upload/${currentUser.user.avatarUrl}` }} />
+                    <View style={styles.footText}>
+                        <Text style={globalStyles.boldLabel}>{currentUser.user.firstName + ' ' + currentUser.user.lastName}</Text>
+                        <Text style={[globalStyles.boldLabel, { color: HiFiColors.Blue }]}>{currentUser.user.email}</Text>
+                    </View>
                 </View>
                 <TouchableOpacity>
                     <View style={styles.logout}>
@@ -95,6 +100,7 @@ const styles = StyleSheet.create({
         borderRadius: 50,
     },
     footText: {
+        marginLeft: 15
     },
     logout: {
         backgroundColor: HiFiColors.LightAccent,

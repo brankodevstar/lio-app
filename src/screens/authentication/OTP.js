@@ -16,6 +16,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import { sendSmsVerification, checkVerification } from '../../service/TwilioService';
 import { useSelector, useDispatch } from 'react-redux';
 import allActions from '../../redux/actions'
+import Action from '../../service';
 
 export default OTP = ({ route, navigation }) => {
     const { phoneNumber } = route.params;
@@ -58,16 +59,17 @@ export default OTP = ({ route, navigation }) => {
 
     const confirmCode = async () => {
         setActivityIndicator(true);
-        navigation.navigate('Home');
+        // navigation.navigate('Home');
         if (checkVerification(phoneNumber, value)) {
-
-            const mockUserData = {
-                name: 'test user',
-                avatar: 'avatar path',
-                phone: phoneNumber,
+            const reponse = await Action.members.list({ phone: phoneNumber });
+            if (reponse.data) {
+                console.log('user data =========> ', reponse.data);
+                dispatch(allActions.UserAction.setUser(reponse.data[0]))
+                navigation.navigate('Home');
+            } else {
+                alert('Unregistered user!');
             }
-            dispatch(allActions.UserAction.setUser(mockUserData))
-            navigation.navigate('Home');
+
         } else {
             setActivityIndicator(false);
         }

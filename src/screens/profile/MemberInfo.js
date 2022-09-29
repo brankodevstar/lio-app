@@ -12,9 +12,13 @@ import MenuButton from '../../components/MenuButton';
 import Action from '../../service';
 import { ADMIN_API_URL } from '@env';
 import moment from 'moment';
+import { useSelector } from 'react-redux';
 
 export default MemberInfo = ({ navigation }) => {
     const [announcements, setAnnouncements] = useState([]);
+    const currentUser = useSelector(state => state.CurrentUser)
+
+    console.log('current user ==========> ', currentUser);
 
     const getAnnouncements = async () => {
         const response = await Action.announcements.list();
@@ -39,7 +43,7 @@ export default MemberInfo = ({ navigation }) => {
                         <MaterialIcons name="notifications-none" size={30} color={HiFiColors.White} />
                     </TouchableOpacity> */}
                     <TouchableOpacity onPress={() => { navigation.navigate("Profile") }}>
-                        <Image source={require('../../../assets/images/avatars/avatar.jpg')} style={styles.avtarStyle} />
+                        <Image source={{ uri: `${ADMIN_API_URL}upload/${currentUser.user.avatarUrl}` }} style={styles.avtarStyle} />
                     </TouchableOpacity>
                 </View>
             </View>

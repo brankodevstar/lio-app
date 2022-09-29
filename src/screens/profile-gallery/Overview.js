@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import LinearGradient from 'react-native-linear-gradient';
+import { useSelector } from 'react-redux';
+import { ADMIN_API_URL } from '@env';
 
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
@@ -9,6 +11,7 @@ import fonts from '../../styles/fonts';
 import MenuButton from '../../components/MenuButton';
 
 export default Overview = ({ navigation }) => {
+    const currentUser = useSelector(state => state.CurrentUser)
     return (
         <View style={globalStyles.container}>
             <View style={{ paddingHorizontal: 10, flexDirection: 'row' }}>
@@ -16,11 +19,11 @@ export default Overview = ({ navigation }) => {
             </View>
             <View style={styles.whiteCard}>
                 <Image
-                    source={require('../../../assets/images/avatars/avatar.jpg')}
+                    source={{ uri: `${ADMIN_API_URL}upload/${currentUser.user.avatarUrl}` }}
                     style={styles.avatar} />
                 <View style={styles.caption}>
-                    <Text style={[globalStyles.mediumBoldLabel, { fontSize: 16, fontWeight: '800', color: HiFiColors.Black, }]}>Roger Sanchez</Text>
-                    <Text style={[globalStyles.mediumBoldLabel, { fontSize: 16, fontWeight: '800', color: HiFiColors.Primary, }]}>R.Sanchez@email.com</Text>
+                    <Text style={[globalStyles.mediumBoldLabel, { fontSize: 16, fontWeight: '800', color: HiFiColors.Black, }]}>{currentUser.user.firstName + ' ' + currentUser.user.lastName}</Text>
+                    <Text style={[globalStyles.mediumBoldLabel, { fontSize: 16, fontWeight: '800', color: HiFiColors.Primary, }]}>{currentUser.user.email}</Text>
                 </View>
             </View>
             <View style={styles.accountPanel}>
@@ -31,7 +34,7 @@ export default Overview = ({ navigation }) => {
                         <Text style={styles.captionDescription}>Change your account information</Text>
                     </View>
                     <TouchableOpacity onPress={() => { navigation.navigate("AccountInfoScreen") }}>
-                        <FeatherIcon name="chevron-right" size={15} color={HiFiColors.White} />
+                        <FeatherIcon name="chevron-right" size={25} color={HiFiColors.White} />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.accountCard}>
@@ -40,7 +43,7 @@ export default Overview = ({ navigation }) => {
                         <Text style={styles.captionDescription}>Manage payment methods</Text>
                     </View>
                     <TouchableOpacity>
-                        <FeatherIcon name="chevron-right" size={15} color={HiFiColors.White} />
+                        <FeatherIcon name="chevron-right" size={25} color={HiFiColors.White} />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.accountCard}>
@@ -49,7 +52,7 @@ export default Overview = ({ navigation }) => {
                         <Text style={styles.captionDescription}>Manage closure of your account</Text>
                     </View>
                     <TouchableOpacity>
-                        <FeatherIcon name="chevron-right" size={15} color={HiFiColors.White} />
+                        <FeatherIcon name="chevron-right" size={25} color={HiFiColors.White} />
                     </TouchableOpacity>
                 </View>
                 <View style={{ alignSelf: 'stretch', marginTop: 30, marginBottom: 100, width: '100%' }}>
@@ -72,16 +75,16 @@ export default Overview = ({ navigation }) => {
 const styles = StyleSheet.create({
     whiteCard: {
         backgroundColor: HiFiColors.White,
-        width: '95%',
         flexDirection: 'row',
         borderRadius: 10,
         marginTop: 20,
         marginBottom: 20,
         marginHorizontal: 10,
-        height: 80,
-        alignSelf: 'center',
-        paddingBottom: 20,
+        alignSelf: 'stretch',
+        marginHorizontal: 15,
+        paddingVertical: 15,
         alignItems: 'center',
+        justifyContent: 'flex-start'
     },
     avatar: {
         width: 50,
@@ -93,7 +96,6 @@ const styles = StyleSheet.create({
     },
     caption: {
         marginLeft: 10,
-        paddingTop: 5,
     },
     account: {
         marginLeft: 10,

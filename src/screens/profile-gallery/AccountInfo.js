@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { View, Text, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import SelectList from 'react-native-dropdown-select-list';
 import LinearGradient from 'react-native-linear-gradient';
+import { useSelector } from 'react-redux';
+import { ADMIN_API_URL } from '@env';
 
 import globalStyles from "../../styles/style";
 import HiFiColors from '../../styles/colors';
@@ -11,9 +13,10 @@ import { TextInput } from "react-native-gesture-handler";
 import MenuButton from '../../components/MenuButton';
 
 export default AccountInfo = ({ navigation }) => {
-
-    const [selected, setSelected] = React.useState("");
+    const [selected, setSelected] = useState("");
     const data = [{ key: '1', value: 'Jammu & Kashmir' }];
+    const currentUser = useSelector(state => state.CurrentUser)
+    const [user, setUser] = useState(currentUser.user);
 
     return (
         <View style={globalStyles.container}>
@@ -28,60 +31,64 @@ export default AccountInfo = ({ navigation }) => {
                 <View style={styles.infoPanel}>
                     <View style={styles.unitPanel}>
                         <Text style={globalStyles.smallLabel}>First Name</Text>
-                        <TextInput style={styles.inputBox}>Mohammed</TextInput>
+                        <TextInput
+                            style={styles.inputBox}
+                            value={user.firstName}
+                            onChangeText={(value) => setUser({ ...user, firstName: value })} />
                     </View>
                 </View>
                 <View style={styles.infoPanel}>
                     <View style={styles.unitPanel}>
                         <Text style={globalStyles.smallLabel}>Last Name</Text>
-                        <TextInput style={styles.inputBox}>Ali</TextInput>
+                        <TextInput
+                            style={styles.inputBox}
+                            value={user.lastName}
+                            onChangeText={(value) => setUser({ ...user, lastName: value })} />
                     </View>
                 </View>
                 <View style={styles.infoPanel}>
                     <View style={styles.unitPanel}>
                         <Text style={globalStyles.smallLabel}>Email Address</Text>
-                        <TextInput style={styles.inputBox}>m.ali@email.com</TextInput>
+                        <TextInput
+                            style={styles.inputBox}
+                            value={user.email}
+                            onChangeText={(value) => setUser({ ...user, email: value })} />
                     </View>
                 </View>
                 <View style={styles.infoPanel}>
                     <View style={styles.unitPanel}>
                         <Text style={globalStyles.smallLabel}>Mobile Number</Text>
-                        <View style={styles.phoneInputPanel}>
-                            <SelectList searchPlaceholder={''} inputStyles={styles.inputStyle}
-                                boxStyles={styles.regionSelect} setSelected={setSelected} data={data} />
-                            <TextInput style={[styles.inputBox, { width: 240 }]}>56 125-7482</TextInput>
-                        </View>
+                        <TextInput
+                            style={styles.inputBox}
+                            value={user.phone}
+                            onChangeText={(value) => setUser({ ...user, phone: value })} />
                     </View>
                 </View>
                 <View style={styles.infoPanel}>
                     <View style={styles.unitPanel}>
                         <Text style={globalStyles.smallLabel}>City</Text>
-                        <View style={styles.phoneInputPanel}>
-                            <SelectList searchPlaceholder={''} inputStyles={styles.inputStyle}
-                                boxStyles={[styles.regionSelect, { width: '78%' }]} setSelected={setSelected} data={data} />
-                        </View>
+                        <TextInput
+                            style={styles.inputBox}
+                            value={user.city}
+                            onChangeText={(value) => setUser({ ...user, city: value })} />
                     </View>
                 </View>
                 <View style={styles.infoPanel}>
                     <View style={styles.unitPanel}>
                         <Text style={globalStyles.smallLabel}>Gender</Text>
-                        <View style={styles.phoneInputPanel}>
-                            <SelectList searchPlaceholder={''} inputStyles={styles.inputStyle}
-                                boxStyles={[styles.regionSelect, { width: '78%' }]} setSelected={setSelected} data={data} />
-                        </View>
+                        <TextInput
+                            style={styles.inputBox}
+                            value={user.gender}
+                            onChangeText={(value) => setUser({ ...user, gender: value })} />
                     </View>
                 </View>
                 <View style={styles.infoPanel}>
                     <View style={styles.unitPanel}>
-                        <Text style={globalStyles.smallLabel}>Gender</Text>
-                        <View style={[styles.phoneInputPanel, { marginRight: 20 }]}>
-                            <SelectList searchPlaceholder={''} inputStyles={styles.inputStyle}
-                                boxStyles={[styles.regionSelect, { width: 120 }]} setSelected={setSelected} data={data} />
-                            <SelectList searchPlaceholder={''} inputStyles={styles.inputStyle}
-                                boxStyles={[styles.regionSelect, { width: 120 }]} setSelected={setSelected} data={data} />
-                            <SelectList searchPlaceholder={''} inputStyles={styles.inputStyle}
-                                boxStyles={[styles.regionSelect, { width: 120 }]} setSelected={setSelected} data={data} />
-                        </View>
+                        <Text style={globalStyles.smallLabel}>Birthday</Text>
+                        <TextInput
+                            style={styles.inputBox}
+                            value={user.birthday}
+                            onChangeText={(value) => setUser({ ...user, birthday: value })} />
                     </View>
                 </View>
                 <View style={styles.border}></View>
@@ -89,28 +96,37 @@ export default AccountInfo = ({ navigation }) => {
                 <View style={styles.infoPanel}>
                     <View style={styles.unitPanel}>
                         <Text style={globalStyles.smallLabel}>Current Password</Text>
-                        <TextInput style={styles.inputBox} placeholder='Current Password' placeholderTextColor='#fff' ></TextInput>
+                        <TextInput
+                            style={styles.inputBox}
+                            placeholder='Current Password'
+                            placeholderTextColor={HiFiColors.Label} />
                     </View>
                 </View>
                 <View style={styles.infoPanel}>
                     <View style={styles.unitPanel}>
                         <Text style={globalStyles.smallLabel}>New Password</Text>
-                        <TextInput style={styles.inputBox} placeholder='New Password' placeholderTextColor='#fff'></TextInput>
+                        <TextInput
+                            style={styles.inputBox}
+                            placeholder='New Password'
+                            placeholderTextColor={HiFiColors.Label} />
                     </View>
                 </View>
                 <View style={styles.infoPanel}>
                     <View style={styles.unitPanel}>
                         <Text style={globalStyles.smallLabel}>Confirm New Password</Text>
-                        <TextInput style={styles.inputBox} placeholder='Confirm New Password' placeholderTextColor='#fff'></TextInput>
+                        <TextInput
+                            style={styles.inputBox}
+                            placeholder='Confirm New Password'
+                            placeholderTextColor={HiFiColors.Label} />
                     </View>
                 </View>
-                <View style={{ alignSelf: 'center', marginTop: 30, marginBottom: 50, width: 450 }}>
+                <View style={{ marginTop: 20, marginBottom: 30, paddingHorizontal: 20 }}>
                     <TouchableOpacity onPress={() => navigation.navigate('OTPScreen')}>
                         <LinearGradient
                             start={{ x: 0.0, y: 0.0 }}
                             end={{ x: 1.0, y: 1.0 }}
                             colors={['#991450', '#40799D']}
-                            style={globalStyles.filledButton}
+                            style={[globalStyles.filledButton, { width: '100%' }]}
                         >
                             <Text style={globalStyles.buttonLabel}>Update Account Details</Text>
                         </LinearGradient>

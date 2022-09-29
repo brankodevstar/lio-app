@@ -25,7 +25,7 @@ export default Login = ({ navigation }) => {
         try {
             setActivityIndicator(true);
             const argPhone = validatePhoneNumber();
-            navigation.navigate('OTPScreen', { phoneNumber: argPhone });
+            // navigation.navigate('OTPScreen', { phoneNumber: argPhone });
             if (await sendSmsVerification(argPhone)) {
                 navigation.navigate('OTPScreen', { phoneNumber: argPhone });
             }
