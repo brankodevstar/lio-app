@@ -3,7 +3,6 @@ import APIServer from "./APIService";
 import { ADMIN_API_URL } from '@env';
 
 const list = async (param) => {
-    console.log('android ======== ', param);
     const response = await APIServer.get('investments', { params: param });
     return response;
 }
