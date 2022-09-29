@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity, Platform } from 'react-native';
+import { launchImageLibrary } from 'react-native-image-picker';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import Modal from 'react-native-modal';
 import LinearGradient from 'react-native-linear-gradient';
@@ -8,16 +9,53 @@ import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import MenuButton from '../../components/MenuButton';
+import { ScrollView, TextInput } from 'react-native-gesture-handler';
+import Action from '../../service';
+import { ADMIN_API_URL } from '@env';
 
 export default AddPost = ({ navigation }) => {
-    const [isModalVisible, setModalVisible] = useState(false);
+    const [photo, setPhoto] = useState(null);
+    const [description, setDescription] = useState('');
 
-    const toggleModal = () => {
-        setModalVisible(!isModalVisible);
+    const createFormData = (photo) => {
+        const data = new FormData();
+        data.append('file', {
+            filename: photo?.assets[0].fileName,
+            name: photo?.assets[0].fileName,
+            type: photo?.assets[0].type,
+            uri: photo?.assets[0].uri
+        });
+        return data;
     };
 
+    const handleChoosePhoto = async () => {
+        launchImageLibrary({ noData: true }, (response) => {
+            if (response.assets) {
+                setPhoto(response);
+                fetch(`${ADMIN_API_URL}upload`, {
+                    method: 'POST',
+                    body: createFormData(response),
+                    headers: {
+                        'Accept': 'application/json',
+                        'Content-Type': 'multipart/form-data'
+                    },
+                })
+                    .then((response) => response.json())
+                    .then((response) => {
+                        setPhoto(response.filename);
+                    })
+                    .catch((error) => {
+                        console.log('error', error);
+                    });
+            }
+        })
+
+        // const apiResponse = await Action.upload.upload(createFormData(response));
+        // console.log('api response ============> ', apiResponse.data);
+    }
+
     return (
-        <View style={globalStyles.container}>
+        <ScrollView style={globalStyles.container}>
             <View style={globalStyles.headerContainer}>
                 <View style={{ position: 'absolute', left: 20 }}>
                     <MenuButton navigation={navigation} />
@@ -29,41 +67,28 @@ export default AddPost = ({ navigation }) => {
                 </View>
                 <Text style={globalStyles.mediumStrongLabel}>Create Post</Text>
             </View>
-            <Image source={require('../../../assets/images/forum/5e397f029e80b36b1f356c2dff42be37.png')} style={styles.backImage} resizeMode="stretch" />
-            <TouchableOpacity onPress={toggleModal}>
-                <View style={styles.writeCaptionBack}>
-                    <Text style={globalStyles.boldLabel}>Write Caption</Text>
-                </View>
-            </TouchableOpacity>
+            <View style={{ alignItems: 'center', paddingHorizontal: 15 }}>
+                <Image source={{ uri: `${ADMIN_API_URL}upload/${photo}` }} style={styles.backImage} resizeMode="stretch" />
+            </View>
+            <View style={styles.postInputContainer}>
+                <TouchableOpacity style={styles.chooseImageBtnBack} onPress={handleChoosePhoto}>
+                    <Text style={globalStyles.boldLabel}>Choose Image</Text>
+                </TouchableOpacity>
+                <Text style={styles.titleLabel}>Write a Caption</Text>
+                <TextInput
+                    placeholder='Write Caption'
+                    placeholderTextColor={HiFiColors.Label}
+                    style={styles.inputBox}
+                    multiline numberOfLines={10}
+                    value={description}
+                    onChangeText={(value) => setDescription(value)}
+                />
+                <TouchableOpacity style={styles.writeCaptionBack}>
+                    <Text style={globalStyles.boldLabel}>Post</Text>
+                </TouchableOpacity>
+            </View>
 
-            <Modal
-                isVisible={isModalVisible}
-                onSwipeComplete={() => setModalVisible(false)}
-                swipeDirection={['down']}
-                propagateSwipe={true}
-                style={globalStyles.modalContainer}
-            >
-                <View style={styles.modalContentContainer}>
-                    <Text style={styles.modalCommentTitle}>Write a Caption</Text>
-                    <View style={styles.captionContainer}>
-                        <Text style={[globalStyles.label, { color: HiFiColors.Label }]}>
-                            Really glad to be a part of the wonderful team. Lorem ipsum dolor sit amet, consectetur ut labore et dolore. Lorem ipsum dolor sit amet, consectetur ut labore et dolore. Lorem ipsum dolor sit amet, consectetur ut labore et dolore.
-                        </Text>
-
-                    </View>
-                    <TouchableOpacity onPress={toggleModal}>
-                        <LinearGradient
-                            start={{ x: 0.0, y: 0.0 }}
-                            end={{ x: 1.0, y: 1.0 }}
-                            colors={['#7B61FF', '#991450', '#40799D']}
-                            style={styles.uploadButtonBack}
-                        >
-                            <Text style={globalStyles.mediumBoldLabel}>Upload</Text>
-                        </LinearGradient>
-                    </TouchableOpacity>
-                </View>
-            </Modal>
-        </View>
+        </ScrollView>
     )
 }
 
@@ -82,42 +107,45 @@ const styles = StyleSheet.create({
     },
     backImage: {
         width: '100%',
-        height: 400
+        height: 200,
+        marginHorizontal: 15,
+    },
+    chooseImageBtnBack: {
+        paddingHorizontal: 20,
+        paddingVertical: 10,
+        borderRadius: 50,
+        backgroundColor: HiFiColors.AccentFade,
+        width: '40%',
+        alignItems: 'center'
     },
     writeCaptionBack: {
         backgroundColor: HiFiColors.AccentFade,
         paddingVertical: 10,
-        paddingHorizontal: 20,
+        paddingHorizontal: 15,
         borderRadius: 40,
         alignItems: 'center',
         width: '50%',
         alignSelf: 'center',
         marginTop: 10
     },
-    modalCommentTitle: {
+    titleLabel: {
         fontFamily: fonts.primary,
         color: HiFiColors.White,
         fontSize: 20,
         fontWeight: '700',
         fontFamily: fonts.primary,
     },
-    modalContentContainer: {
-        backgroundColor: HiFiColors.Accent,
-        paddingVertical: 30,
-        paddingHorizontal: 20,
-        height: Dimensions.get("window").height / 2 - 50,
-        borderTopLeftRadius: 20,
-        borderTopRightRadius: 20
+    postInputContainer: {
+        padding: 15
     },
-    captionContainer: {
-        paddingVertical: 20,
-        borderBottomColor: HiFiColors.AccentFade,
-        borderBottomWidth: 1
+    inputBox: {
+        backgroundColor: HiFiColors.AccentFade,
+        borderColor: HiFiColors.Label,
+        borderWidth: 1,
+        color: HiFiColors.White,
+        paddingVertical: 5,
+        paddingHorizontal: 10,
+        borderRadius: 5,
+        textAlignVertical: 'top'
     },
-    uploadButtonBack: {
-        marginTop: 20,
-        paddingVertical: 10,
-        alignItems: 'center',
-        borderRadius: 50,
-    }
 })

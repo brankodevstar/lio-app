@@ -19,7 +19,6 @@ export default InvestmentDetail = ({ route, navigation }) => {
     const getInvestments = async () => {
         const response = await Action.investments.getById(id);
         if (response.data) {
-            console.log('investment data =========> ', response.data);
             setInvestment(response.data);
         }
     }
@@ -42,7 +41,7 @@ export default InvestmentDetail = ({ route, navigation }) => {
                         <Text style={[globalStyles.mediumBoldLabel, { marginBottom: 10 }]}>Highlights</Text>
                         {
                             investment.overview?.highlights.map((txt, index) => (
-                                <Text style={[globalStyles.label, styles.discription]}>
+                                <Text key={index} style={[globalStyles.label, styles.discription]}>
                                     • {txt}
                                 </Text>
                             ))

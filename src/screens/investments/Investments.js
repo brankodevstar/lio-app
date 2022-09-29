@@ -17,7 +17,6 @@ export default Investments = ({ navigation }) => {
         const param = {
             type: categoryId
         }
-        console.log('param =========> ', param);
         const response = await Action.investments.list(param);
         if (response.data) {
             setInvestments(response.data);
