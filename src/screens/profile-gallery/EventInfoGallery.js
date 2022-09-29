@@ -1,14 +1,29 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { View, Text, StyleSheet, ImageBackground, Image, ScrollView, Dimensions } from 'react-native';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
 import FeatherIcon from 'react-native-vector-icons/Feather';
+import moment from 'moment';
 
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
 import MenuButton from '../../components/MenuButton';
+import Action from '../../service';
+import { ADMIN_API_URL } from '@env';
 
-export default EventInfoGallery = ({ navigation }) => {
+export default EventInfoGallery = ({ route, navigation }) => {
+    const { id } = route.params;
+    const [eventItem, setEventItem] = useState({});
+
+    const getEvent = async () => {
+        const response = await Action.events.getById(id);
+        setEventItem(response.data);
+    }
+
+    useEffect(() => {
+        navigation.addListener('focus', () => { getEvent(); })
+    }, [navigation]);
+
     return (
         <View style={styles.container}>
             <View style={globalStyles.headerContainer}>
@@ -20,12 +35,12 @@ export default EventInfoGallery = ({ navigation }) => {
                         <FeatherIcon name="arrow-left" size={20} color={HiFiColors.White} style={styles.headerIcon} />
                     </TouchableOpacity>
                 </View>
-                <Text style={globalStyles.mediumStrongLabel}>Start Up Grind</Text>
+                <Text style={globalStyles.mediumStrongLabel}>{eventItem.title}</Text>
             </View>
             <ScrollView style={styles.container}>
                 <View>
                     <ImageBackground
-                        source={require('../../../assets/images/baner-1.png')}
+                        source={{ uri: `${ADMIN_API_URL}upload/${eventItem?.photos?.length && eventItem?.photos[0]}` }}
                         resizeMode="stretch"
                         style={styles.bannerImage} >
                         <LinearGradient
@@ -38,22 +53,16 @@ export default EventInfoGallery = ({ navigation }) => {
                     </ImageBackground>
                 </View >
                 <View style={styles.content}>
-                    <Text style={globalStyles.pageTitle}>Startup Grind</Text>
+                    <Text style={globalStyles.pageTitle}>{eventItem.title}</Text>
                     <View style={styles.nameContainer}>
                         <Text style={[globalStyles.smallLabel, { marginRight: 10 }]}>₹ • </Text>
                         <Text style={[styles.conferenceTag, globalStyles.smallLabel]}>Conference</Text>
-                        <Text style={[globalStyles.smallLabel, { marginRight: 10 }]}> • 3 km away </Text>
-                        <Text style={globalStyles.smallLabel}> • 20-22 Sep, 2022 </Text>
+                        <Text style={[globalStyles.smallLabel, { marginRight: 10 }]}> • {eventItem.location} </Text>
+                        <Text style={globalStyles.smallLabel}> • {moment(eventItem.createdDt).format("yyyy-MM-DD hh.mm")} </Text>
                     </View>
                     <View style={styles.discriptionContainer}>
                         <Text style={[globalStyles.label, styles.discription]}>
-                            Both a live and online event,
-                            Startup Grind is one of the most renowned
-                            startup conferences in North America.
-                            Powered by Microsoft for Startups, this event is a
-                            great opportunity for large-scale and early-phase
-                            startups to come together, meet investors, exchange ideas,
-                            and participate in workshops.
+                            {eventItem.description}
                         </Text>
                         <TouchableOpacity style={styles.readMoreButtonBack}>
                             <Text style={[globalStyles.smallLabel, styles.readMoreButton]}>Read More</Text>
@@ -61,45 +70,38 @@ export default EventInfoGallery = ({ navigation }) => {
                         </TouchableOpacity>
                         <View style={styles.galleryView}>
                             <View style={styles.columnContainer}>
-                                <TouchableOpacity onPress={() => { navigation.navigate("ViewPictureScreen") }}>
-                                    <Image
-                                        source={require('../../../assets/images/gallery/e3b05eccb793dd4161168446be9b0501.png')}
-                                        style={styles.primaryImage}
-                                    />
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={() => { navigation.navigate("ViewPictureScreen") }}>
-                                    <Image
-                                        source={require('../../../assets/images/gallery/a1e604cccd8716c0d696dded92b3b791.png')}
-                                        style={styles.primaryImage}
-                                    />
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={() => { navigation.navigate("ViewPictureScreen") }}>
-                                    <Image
-                                        source={require('../../../assets/images/gallery/19e3217fca7f0d3d8162eab9981ac14c.png')}
-                                        style={[styles.primaryImage, { height: 320 }]}
-                                    />
-                                </TouchableOpacity>
+                                {
+                                    eventItem?.photos?.length && eventItem?.photos.map((photo, index) => (
+                                        index % 2 === 0 && 
+                                        <TouchableOpacity key={index} onPress={() => { navigation.navigate("ViewPictureScreen", { index: index, photos: eventItem?.photos?.length && eventItem?.photos }) }}>
+                                            <Image
+                                                source={{ uri: `${ADMIN_API_URL}upload/${photo}` }}
+                                                style={styles.primaryImage}
+                                            />
+                                        </TouchableOpacity>
+                                    ))
+                                }
                             </View>
                             <View style={styles.columnContainer}>
-                                <TouchableOpacity onPress={() => { navigation.navigate("ViewPictureScreen") }}>
-                                    <Image
-                                        source={require('../../../assets/images/gallery/6d2e078bf9298e50293ed20a9288b810.png')}
-                                        style={styles.primaryImage}
-                                    />
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={() => { navigation.navigate("ViewPictureScreen") }}>
-                                    <Image
-                                        source={require('../../../assets/images/gallery/3f227fa353518fc473e06ea8818feaf1.png')}
-                                        style={[styles.primaryImage, { height: 320 }]}
-                                    />
-                                </TouchableOpacity>
-                                <TouchableOpacity onPress={() => { navigation.navigate("ViewPictureScreen") }}>
-                                    <Image
-                                        source={require('../../../assets/images/gallery/ca79be9a8469914ac1207f5223cec848.png')}
-                                        style={styles.primaryImage}
-                                    />
-                                </TouchableOpacity>
+                                {
+                                    eventItem?.photos?.length && eventItem?.photos.map((photo, index) => (
+                                        index % 2 === 1 && 
+                                        <TouchableOpacity key={index} onPress={() => { navigation.navigate("ViewPictureScreen", { index: index, photos: eventItem?.photos?.length && eventItem?.photos }) }}>
+                                            <Image
+                                                source={{ uri: `${ADMIN_API_URL}upload/${photo}` }}
+                                                style={styles.primaryImage}
+                                            />
+                                        </TouchableOpacity>
+                                    ))
+                                }
                             </View>
+                            {/* <View style={styles.columnContainer}>
+                                {
+                                    eventItem?.photos?.length && eventItem?.photos.map((photo, index) => (
+                                        remainder(index, photo)
+                                    ))
+                                }
+                            </View> */}
                         </View>
                     </View>
                 </View >
