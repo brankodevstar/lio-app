@@ -52,7 +52,6 @@ export default GroupChat = ({ navigation }) => {
     const phoneNumber = 'myPhoneNumber';
 
     const onResult = (querySnapshot) => {
-        console.log('Got Chat collection result! ', querySnapshot.size);
         setGroupMembers(querySnapshot.docs[0].data().members);
         querySnapshot.docs.sort((a, b) => {
             return Number.parseInt(a.data().createdAt.seconds) > Number.parseInt(b.data().createdAt.seconds) ? 1 : -1

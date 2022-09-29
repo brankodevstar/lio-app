@@ -59,20 +59,31 @@ export default OTP = ({ route, navigation }) => {
 
     const confirmCode = async () => {
         setActivityIndicator(true);
-        // navigation.navigate('Home');
-        if (checkVerification(phoneNumber, value)) {
-            const reponse = await Action.members.list({ phone: phoneNumber });
-            if (reponse.data) {
-                console.log('user data =========> ', reponse.data);
-                dispatch(allActions.UserAction.setUser(reponse.data[0]))
-                navigation.navigate('Home');
-            } else {
-                alert('Unregistered user!');
-            }
 
+        // temp code
+        const reponse = await Action.members.list({ phone: phoneNumber.replace('+', '') });
+        if (reponse.data.length > 0) {
+            dispatch(allActions.UserAction.setUser(reponse.data[0]))
+            navigation.navigate('Home');
         } else {
-            setActivityIndicator(false);
+            alert('Unregistered user!');
         }
+        setActivityIndicator(false);
+        // temp code
+
+        // if (checkVerification(phoneNumber, value)) {
+        //     const reponse = await Action.members.list({ phone: phoneNumber });
+        //     if (reponse.data) {
+        //         dispatch(allActions.UserAction.setUser(reponse.data[0]))
+        //         navigation.navigate('Home');
+        //     } else {
+        //         alert('Unregistered user!');
+        //     }
+        //     setActivityIndicator(false);
+        // } else {
+        //     alert('Valid Failed!')
+        //     setActivityIndicator(false);
+        // }
     }
 
     const resendCode = async () => {
@@ -113,8 +124,9 @@ export default OTP = ({ route, navigation }) => {
                         renderCell={renderCell}
                     />
                 </SafeAreaView>
+                {activityIndicator && <ActivityIndicator size="large" style={{ position: 'absolute' }} />}
                 <View style={{ alignSelf: 'stretch', marginTop: 30, }}>
-                    {activityIndicator && <ActivityIndicator size="large" style={{ position: 'absolute' }} />}
+
                     <TouchableOpacity onPress={confirmCode}>
                         <LinearGradient
                             start={{ x: 0.0, y: 0.0 }}

@@ -24,11 +24,17 @@ export default Login = ({ navigation }) => {
     const signInUser = async () => {
         try {
             setActivityIndicator(true);
+            // temp code
             const argPhone = validatePhoneNumber();
-            // navigation.navigate('OTPScreen', { phoneNumber: argPhone });
-            if (await sendSmsVerification(argPhone)) {
-                navigation.navigate('OTPScreen', { phoneNumber: argPhone });
-            }
+            navigation.navigate('OTPScreen', { phoneNumber: argPhone });
+            // temp code
+
+            // const argPhone = validatePhoneNumber();
+            // if (await sendSmsVerification(argPhone)) {
+            //     navigation.navigate('OTPScreen', { phoneNumber: argPhone });
+            // } else {
+            //     alert('Valid Failed!')
+            // }
             setActivityIndicator(false);
         } catch (error) {
             console.log(error);

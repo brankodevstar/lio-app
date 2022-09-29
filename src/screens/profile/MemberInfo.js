@@ -18,8 +18,6 @@ export default MemberInfo = ({ navigation }) => {
     const [announcements, setAnnouncements] = useState([]);
     const currentUser = useSelector(state => state.CurrentUser)
 
-    console.log('current user ==========> ', currentUser);
-
     const getAnnouncements = async () => {
         const response = await Action.announcements.list();
         if (response.data) {

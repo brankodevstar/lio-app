@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import FeatherIcon from 'react-native-vector-icons/Feather';
@@ -6,19 +6,42 @@ import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
 import Modal from 'react-native-modal';
+import { useSelector } from 'react-redux';
+import { ADMIN_API_URL } from '@env';
+import moment from 'moment';
 
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import MenuButton from '../../components/MenuButton';
 
+import Action from '../../service';
+
 export default Forum = ({ navigation }) => {
 
     const [isModalVisible, setModalVisible] = useState(false);
+    const currentUser = useSelector(state => state.CurrentUser);
+    const [posts, setPosts] = useState([]);
 
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
     };
+
+    const getPosts = async () => {
+        console.log('called!!!!!!!!!')
+        Action.forum.list({}).then(response => {
+            if (response.data) {
+                setPosts(response.data);
+            }
+        }).catch(error => {
+            console.log('error ===>', error);
+        })
+
+    }
+
+    useEffect(() => {
+        navigation.addListener('focus', () => { getPosts(); })
+    }, [navigation]);
 
     return (
         <View style={globalStyles.container}>
@@ -29,86 +52,46 @@ export default Forum = ({ navigation }) => {
                 <Text style={globalStyles.mediumStrongLabel}>Forum</Text>
             </View>
             <ScrollView style={styles.scrollViewContainer} contentContainerStyle={{ paddingBottom: 20 }}>
-                <View style={styles.card}>
-                    <View style={styles.cardHeader}>
-                        <View style={styles.userNameContainer}>
-                            <Image source={require('../../../assets/images/avatars/89054f02d25fd8b775c707f4239e6db3.png')} style={styles.avatarImage} />
-                            <Text style={styles.userNameLabel}>Sansa Indira</Text>
-                        </View>
-                        <View>
-                            <TouchableOpacity onPress={toggleModal}>
-                                <FeatherIcon name="more-vertical" size={20} color={HiFiColors.White} />
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                    <View style={styles.discriptionContainer}>
-                        <Text style={globalStyles.label}>Really glad to be a part of the wonderful team. Lorem ipsum dolor sit amet, consectetur ut labore et dolore😁😍</Text>
-                    </View>
-                    <Image source={require('../../../assets/images/forum/1e3c40fef25f3337704ef983162d8f7d.png')} style={styles.cardImage} />
-                    <View style={styles.cardFooter}>
-                        <View style={{ flexDirection: 'row' }}>
-                            <FeatherIcon name="heart" size={15} color={HiFiColors.White} style={styles.labelSpace} />
-                            <Text style={[globalStyles.boldLabel, styles.labelSpace]}>1.892</Text>
-                            <FeatherIcon name="message-circle" size={15} color={HiFiColors.White} style={styles.labelSpace} />
-                            <Text style={globalStyles.boldLabel}>72</Text>
-                        </View>
-                        <Text style={styles.timeLabel}>2 Hours ago</Text>
-                    </View>
-                </View>
-
-                <View style={styles.card}>
-                    <View style={styles.cardHeader}>
-                        <View style={styles.userNameContainer}>
-                            <Image source={require('../../../assets/images/avatars/dacd64e8bd3d6a9717bbc6ddfd7a55f6.png')} style={styles.avatarImage} />
-                            <Text style={styles.userNameLabel}>Sansa Indira</Text>
-                        </View>
-                        <View>
-                            <TouchableOpacity onPress={toggleModal}>
-                                <FeatherIcon name="more-vertical" size={20} color={HiFiColors.White} />
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                    <View style={styles.discriptionContainer}>
-                        <Text style={globalStyles.label}>This has been one hell of a week. Lorem ipsum dolor sit amet, consectetur ut labore et dolore😁😍</Text>
-                    </View>
-                    <Image source={require('../../../assets/images/forum/cbda085b8c73d90125722ff265283537.png')} style={styles.cardImage} />
-                    <View style={styles.cardFooter}>
-                        <View style={{ flexDirection: 'row' }}>
-                            <FeatherIcon name="heart" size={15} color={HiFiColors.White} style={styles.labelSpace} />
-                            <Text style={[globalStyles.boldLabel, styles.labelSpace]}>1.892</Text>
-                            <FeatherIcon name="message-circle" size={15} color={HiFiColors.White} style={styles.labelSpace} />
-                            <Text style={globalStyles.boldLabel}>72</Text>
-                        </View>
-                        <Text style={styles.timeLabel}>2 Hours ago</Text>
-                    </View>
-                </View>
-
-                <View style={styles.card}>
-                    <View style={styles.cardHeader}>
-                        <View style={styles.userNameContainer}>
-                            <Image source={require('../../../assets/images/avatars/dacd64e8bd3d6a9717bbc6ddfd7a55f6.png')} style={styles.avatarImage} />
-                            <Text style={styles.userNameLabel}>Sansa Indira</Text>
-                        </View>
-                        <View>
-                            <TouchableOpacity onPress={toggleModal}>
-                                <FeatherIcon name="more-vertical" size={20} color={HiFiColors.White} />
-                            </TouchableOpacity>
-                        </View>
-                    </View>
-                    <View style={styles.discriptionContainer}>
-                        <Text style={globalStyles.label}>This has been one hell of a week. Lorem ipsum dolor sit amet, consectetur ut labore et dolore😁😍</Text>
-                    </View>
-                    <Image source={require('../../../assets/images/forum/cbda085b8c73d90125722ff265283537.png')} style={styles.cardImage} />
-                    <View style={styles.cardFooter}>
-                        <View style={{ flexDirection: 'row' }}>
-                            <FeatherIcon name="heart" size={15} color={HiFiColors.White} style={styles.labelSpace} />
-                            <Text style={[globalStyles.boldLabel, styles.labelSpace]}>1.892</Text>
-                            <FeatherIcon name="message-circle" size={15} color={HiFiColors.White} style={styles.labelSpace} />
-                            <Text style={globalStyles.boldLabel}>72</Text>
-                        </View>
-                        <Text style={styles.timeLabel}>2 Hours ago</Text>
-                    </View>
-                </View>
+                {
+                    posts.map((item, index) => {
+                        (
+                            <View key={index} style={styles.card}>
+                                <View style={styles.cardHeader}>
+                                    <View style={styles.userNameContainer}>
+                                        <Image
+                                            source={{ uri: `${ADMIN_API_URL}upload/${item.posterAvatarUrl}` }}
+                                            style={styles.avatarImage} />
+                                        <Text style={styles.userNameLabel}>{item.posterFirstName + ' ' + item.posterLastName}</Text>
+                                    </View>
+                                    <View>
+                                        <TouchableOpacity onPress={toggleModal}>
+                                            <FeatherIcon name="more-vertical" size={20} color={HiFiColors.White} />
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                                <View style={styles.discriptionContainer}>
+                                    <Text style={globalStyles.label}>{item.description}</Text>
+                                </View>
+                                <Image source={{ uri: `${ADMIN_API_URL}upload/${item.imgUrl}` }} style={styles.cardImage} />
+                                <View style={styles.cardFooter}>
+                                    <View style={{ flexDirection: 'row' }}>
+                                        <FeatherIcon name="heart" size={15} color={HiFiColors.White} style={styles.labelSpace} />
+                                        <Text style={[globalStyles.boldLabel, styles.labelSpace]}>{item.heartRate.toLocaleString()}</Text>
+                                        <FeatherIcon name="message-circle" size={15} color={HiFiColors.White} style={styles.labelSpace} />
+                                        <Text style={globalStyles.boldLabel}>{item.articleNumber.toLocaleString()}</Text>
+                                    </View>
+                                    <Text style={styles.timeLabel}>
+                                        {
+                                            (moment.duration(moment(new Date()).diff(moment(item.createdDt)))).asHours() > 1 ?
+                                                Math.ceil((moment.duration(moment(new Date()).diff(moment(item.createdDt)))).asHours()) + ' Hours ago' :
+                                                Math.ceil((moment.duration(moment(new Date()).diff(moment(item.createdDt)))).asMinutes()) + ' Minutes ago'
+                                        }
+                                    </Text>
+                                </View>
+                            </View>
+                        )
+                    })
+                }
             </ScrollView>
             <View>
                 <TouchableOpacity onPress={() => navigation.navigate("AddPostScreen")}>

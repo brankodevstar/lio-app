@@ -1,21 +1,22 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity, Platform } from 'react-native';
+import { View, Text, StyleSheet, Image, ActivityIndicator, TouchableOpacity, Platform } from 'react-native';
 import { launchImageLibrary } from 'react-native-image-picker';
 import FeatherIcon from 'react-native-vector-icons/Feather';
-import Modal from 'react-native-modal';
-import LinearGradient from 'react-native-linear-gradient';
+import { ScrollView, TextInput } from 'react-native-gesture-handler';
+import { ADMIN_API_URL } from '@env';
+import { useSelector } from 'react-redux';
 
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import MenuButton from '../../components/MenuButton';
-import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import Action from '../../service';
-import { ADMIN_API_URL } from '@env';
 
 export default AddPost = ({ navigation }) => {
     const [photo, setPhoto] = useState(null);
     const [description, setDescription] = useState('');
+    const currentUser = useSelector(state => state.CurrentUser);
+    const [activityIndicator, setActivityIndicator] = useState(false);
 
     const createFormData = (photo) => {
         const data = new FormData();
@@ -49,13 +50,40 @@ export default AddPost = ({ navigation }) => {
                     });
             }
         })
+    }
 
-        // const apiResponse = await Action.upload.upload(createFormData(response));
-        // console.log('api response ============> ', apiResponse.data);
+    const handleSave = async () => {
+        setActivityIndicator(true);
+        if (!description) {
+            alert('Description is required!');
+        }
+        const data = {
+            posterFirstName: currentUser.user.firstName,
+            posterLastName: currentUser.user.lastName,
+            posterAvatarUrl: currentUser.user.avatarUrl,
+            description: description,
+            imgUrl: photo,
+            heartRate: 0,
+            articleNumber: 0,
+            createdDt: new Date(),
+            comments: []
+        }
+        Action.forum.create(data).then(response => {
+            if (response.data) {
+                navigation.goBack();
+            } else {
+                alert('Save failed!');
+            }
+            setActivityIndicator(false);
+        }).catch(error => {
+            console.log('error ===>', error);
+        })
+        setActivityIndicator(false);
     }
 
     return (
-        <ScrollView style={globalStyles.container}>
+        <ScrollView style={[globalStyles.container]}>
+            {activityIndicator && <ActivityIndicator size="large" style={{ position: 'absolute', left: '50%', top: '50%' }} />}
             <View style={globalStyles.headerContainer}>
                 <View style={{ position: 'absolute', left: 20 }}>
                     <MenuButton navigation={navigation} />
@@ -70,6 +98,7 @@ export default AddPost = ({ navigation }) => {
             <View style={{ alignItems: 'center', paddingHorizontal: 15 }}>
                 <Image source={{ uri: `${ADMIN_API_URL}upload/${photo}` }} style={styles.backImage} resizeMode="stretch" />
             </View>
+
             <View style={styles.postInputContainer}>
                 <TouchableOpacity style={styles.chooseImageBtnBack} onPress={handleChoosePhoto}>
                     <Text style={globalStyles.boldLabel}>Choose Image</Text>
@@ -83,11 +112,11 @@ export default AddPost = ({ navigation }) => {
                     value={description}
                     onChangeText={(value) => setDescription(value)}
                 />
-                <TouchableOpacity style={styles.writeCaptionBack}>
+
+                <TouchableOpacity style={styles.writeCaptionBack} onPress={handleSave}>
                     <Text style={globalStyles.boldLabel}>Post</Text>
                 </TouchableOpacity>
             </View>
-
         </ScrollView>
     )
 }

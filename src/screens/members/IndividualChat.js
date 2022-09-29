@@ -48,10 +48,7 @@ export default IndividualChat = ({ navigation }) => {
     const collectionName = "chat";
     const currentUser = useSelector(state => state.CurrentUser)
 
-    console.log(currentUser);
-
     const onResult = (querySnapshot) => {
-        console.log('Got Chat collection result! ', querySnapshot.size);
         querySnapshot.docs.sort((a, b) => {
             return Number.parseInt(a.data().createdAt.seconds) > Number.parseInt(b.data().createdAt.seconds) ? 1 : -1
         })

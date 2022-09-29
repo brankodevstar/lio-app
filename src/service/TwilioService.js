@@ -22,7 +22,6 @@ const sendSmsVerification = async (phoneNumber) => {
             },
             body: data
         })
-        // const response = await TwilioService.post('start-verify', data);
         const json = await response.json();
         console.log('TLIO-OTP service start-verify', json);
         return json.success;
@@ -45,7 +44,6 @@ const checkVerification = async (phoneNumber, code) => {
             },
             body: data
         })
-        // const response = await TwilioService.post('check-verify', data)
         const json = await response.json();
         console.log('TLIO-OTP service check-verify', json);
         return json.success;
