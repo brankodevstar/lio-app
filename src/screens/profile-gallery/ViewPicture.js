@@ -1,3 +1,4 @@
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity, Dimensions, } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import FeatherIcon from 'react-native-vector-icons/Feather';
@@ -6,8 +7,19 @@ import globalStyles from "../../styles/style";
 import HiFiColors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import MenuButton from '../../components/MenuButton';
+import { ADMIN_API_URL } from '@env';
 
-export default ViewPicture = ({ navigation }) => {
+export default ViewPicture = ({ route, navigation }) => {
+    const { index, photos } = route.params;
+    const [ id, setId ] = useState(index);
+
+    const changeIndex = (step) => {
+        const next = id + step;
+        if (next > 0 && next < photos?.length) {
+            setId(next);
+        }
+    }
+
     return (
         <View style={globalStyles.container}>
             <View style={[globalStyles.headerContainer, { borderBottomWidth: 0, justifyContent: 'flex-start', alignItems: 'center' }]}>
@@ -25,16 +37,16 @@ export default ViewPicture = ({ navigation }) => {
             </View>
             <Image
                 style={styles.imageContainer}
-                source={require('../../../assets/images/gallery/6d2e078bf9298e50293ed20a9288b810.png')}
+                source={{ uri: `${ADMIN_API_URL}upload/${photos?.length && photos[id]}` }}
             />
             <View style={styles.paginationContainer}>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => changeIndex(-1)}>
                     <FeatherIcon name="chevron-left" size={25} color={HiFiColors.White} />
                 </TouchableOpacity>
-                <Text style={[styles.paginationLabel, { marginLeft: 20, }]}> 2 </Text>
+                <Text style={[styles.paginationLabel, { marginLeft: 20, }]}> {id + 1} </Text>
                 <Text style={styles.paginationLabel}> of </Text>
-                <Text style={[styles.paginationLabel, { marginRight: 20, }]}> 15 </Text>
-                <TouchableOpacity>
+                <Text style={[styles.paginationLabel, { marginRight: 20, }]}> {photos?.length} </Text>
+                <TouchableOpacity onPress={() => changeIndex(1)}>
                     <FeatherIcon name="chevron-right" size={25} color={HiFiColors.White} />
                 </TouchableOpacity>
             </View>

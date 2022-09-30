@@ -1,13 +1,30 @@
+import React, { useState, useEffect } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity, } from "react-native";
 import LinearGradient from "react-native-linear-gradient";
 import MaterialComunityIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { ScrollView } from 'react-native-gesture-handler';
+import moment from 'moment';
 
 import globalStyles from "../../styles/style";
 import HiFiColors from '../../styles/colors';
 import MenuButton from '../../components/MenuButton';
+import { ADMIN_API_URL } from '@env';
+import Action from '../../service';
 
 export default Gallery = ({ navigation }) => {
+    const [events, setEvents] = useState([]);
+
+    const getEvents = async () => {
+        const response = await Action.events.list();
+        if (response.data) {
+            setEvents(response.data);
+        }
+    }
+
+    useEffect(() => {
+        navigation.addListener('focus', () => { getEvents(); })
+    }, [navigation]);
+
     return (
         <View style={globalStyles.container}>
             <View style={globalStyles.headerContainer}>
@@ -17,181 +34,35 @@ export default Gallery = ({ navigation }) => {
                 <Text style={globalStyles.mediumStrongLabel}>Gallery</Text>
             </View>
             <ScrollView contentContainerStyle={{ paddingBottom: 20 }} style={{ paddingHorizontal: 15 }}>
-                <TouchableOpacity onPress={() => { navigation.navigate("EventInfoGalleryScreen") }}>
-                    <View style={styles.galleryCard}>
-                        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                            <Image
-                                source={require('../../../assets/images/baner-1.png')}
-                                style={styles.galleryImage} />
-                            <View style={styles.galleryCaption}>
-                                <Text style={globalStyles.mediumLabel}>Start Up Grind</Text>
-                                <Text style={globalStyles.label}>Networking Event</Text>
-                                <Text style={globalStyles.label}>20-22 Sep, 2022</Text>
+                {
+                    events.map((item, index) => (
+                        <TouchableOpacity key={index} onPress={() => { navigation.navigate("EventInfoGalleryScreen", { id: item._id }) }}>
+                            <View style={styles.galleryCard}>
+                                <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
+                                    <Image
+                                        source={{ uri: `${ADMIN_API_URL}upload/${item.photos[0]}` }}
+                                        style={styles.galleryImage} />
+                                    <View style={styles.galleryCaption}>
+                                        <Text style={globalStyles.mediumLabel}>{item.title}</Text>
+                                        <Text style={globalStyles.label}>{item.category}</Text>
+                                        <Text style={globalStyles.label}>{moment(item.createdDt).format("yyyy-MM-DD hh.mm")}</Text>
+                                    </View>
+                                </View>
+                                <TouchableOpacity onPress={() => { navigation.navigate("ViewPictureScreen", { index: 0, photos: item?.photos?.length && item?.photos }) }}>
+                                    <LinearGradient
+                                        start={{ x: 0.0, y: 1.0 }}
+                                        end={{ x: 1.0, y: 1.0 }}
+                                        colors={['#991450', '#40799D']}
+                                        style={styles.icon}
+                                    >
+                                        <MaterialComunityIcons name="image-album" size={20} color={HiFiColors.White} style={{ marginHorizontal: 5 }} />
+                                        <Text style={globalStyles.label}>{item.photos.length}</Text>
+                                    </LinearGradient>
+                                </TouchableOpacity>
                             </View>
-                        </View>
-                        <TouchableOpacity onPress={() => { navigation.navigate("ViewPictureScreen") }}>
-                            <LinearGradient
-                                start={{ x: 0.0, y: 1.0 }}
-                                end={{ x: 1.0, y: 1.0 }}
-                                colors={['#991450', '#40799D']}
-                                style={styles.icon}
-                            >
-                                <MaterialComunityIcons name="image-album" size={20} color={HiFiColors.White} style={{ marginHorizontal: 5 }} />
-                                <Text style={globalStyles.label}>15</Text>
-                            </LinearGradient>
                         </TouchableOpacity>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => { navigation.navigate("EventInfoGalleryScreen") }}>
-                    <View style={styles.galleryCard}>
-                        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                            <Image
-                                source={require('../../../assets/images/baner-1.png')}
-                                style={styles.galleryImage} />
-                            <View style={styles.galleryCaption}>
-                                <Text style={globalStyles.mediumLabel}>Start Up Grind</Text>
-                                <Text style={globalStyles.label}>Networking Event</Text>
-                                <Text style={globalStyles.label}>20-22 Sep, 2022</Text>
-                            </View>
-                        </View>
-                        <TouchableOpacity onPress={() => { navigation.navigate("ViewPictureScreen") }}>
-                            <LinearGradient
-                                start={{ x: 0.0, y: 1.0 }}
-                                end={{ x: 1.0, y: 1.0 }}
-                                colors={['#991450', '#40799D']}
-                                style={styles.icon}
-                            >
-                                <MaterialComunityIcons name="image-album" size={20} color={HiFiColors.White} style={{ marginHorizontal: 5 }} />
-                                <Text style={globalStyles.label}>15</Text>
-                            </LinearGradient>
-                        </TouchableOpacity>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => { navigation.navigate("EventInfoGalleryScreen") }}>
-                    <View style={styles.galleryCard}>
-                        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                            <Image
-                                source={require('../../../assets/images/baner-1.png')}
-                                style={styles.galleryImage} />
-                            <View style={styles.galleryCaption}>
-                                <Text style={globalStyles.mediumLabel}>Start Up Grind</Text>
-                                <Text style={globalStyles.label}>Networking Event</Text>
-                                <Text style={globalStyles.label}>20-22 Sep, 2022</Text>
-                            </View>
-                        </View>
-                        <TouchableOpacity onPress={() => { navigation.navigate("ViewPictureScreen") }}>
-                            <LinearGradient
-                                start={{ x: 0.0, y: 1.0 }}
-                                end={{ x: 1.0, y: 1.0 }}
-                                colors={['#991450', '#40799D']}
-                                style={styles.icon}
-                            >
-                                <MaterialComunityIcons name="image-album" size={20} color={HiFiColors.White} style={{ marginHorizontal: 5 }} />
-                                <Text style={globalStyles.label}>15</Text>
-                            </LinearGradient>
-                        </TouchableOpacity>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => { navigation.navigate("EventInfoGalleryScreen") }}>
-                    <View style={styles.galleryCard}>
-                        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                            <Image
-                                source={require('../../../assets/images/baner-1.png')}
-                                style={styles.galleryImage} />
-                            <View style={styles.galleryCaption}>
-                                <Text style={globalStyles.mediumLabel}>Start Up Grind</Text>
-                                <Text style={globalStyles.label}>Networking Event</Text>
-                                <Text style={globalStyles.label}>20-22 Sep, 2022</Text>
-                            </View>
-                        </View>
-                        <TouchableOpacity onPress={() => { navigation.navigate("ViewPictureScreen") }}>
-                            <LinearGradient
-                                start={{ x: 0.0, y: 1.0 }}
-                                end={{ x: 1.0, y: 1.0 }}
-                                colors={['#991450', '#40799D']}
-                                style={styles.icon}
-                            >
-                                <MaterialComunityIcons name="image-album" size={20} color={HiFiColors.White} style={{ marginHorizontal: 5 }} />
-                                <Text style={globalStyles.label}>15</Text>
-                            </LinearGradient>
-                        </TouchableOpacity>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => { navigation.navigate("EventInfoGalleryScreen") }}>
-                    <View style={styles.galleryCard}>
-                        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                            <Image
-                                source={require('../../../assets/images/baner-1.png')}
-                                style={styles.galleryImage} />
-                            <View style={styles.galleryCaption}>
-                                <Text style={globalStyles.mediumLabel}>Start Up Grind</Text>
-                                <Text style={globalStyles.label}>Networking Event</Text>
-                                <Text style={globalStyles.label}>20-22 Sep, 2022</Text>
-                            </View>
-                        </View>
-                        <TouchableOpacity onPress={() => { navigation.navigate("ViewPictureScreen") }}>
-                            <LinearGradient
-                                start={{ x: 0.0, y: 1.0 }}
-                                end={{ x: 1.0, y: 1.0 }}
-                                colors={['#991450', '#40799D']}
-                                style={styles.icon}
-                            >
-                                <MaterialComunityIcons name="image-album" size={20} color={HiFiColors.White} style={{ marginHorizontal: 5 }} />
-                                <Text style={globalStyles.label}>15</Text>
-                            </LinearGradient>
-                        </TouchableOpacity>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => { navigation.navigate("EventInfoGalleryScreen") }}>
-                    <View style={styles.galleryCard}>
-                        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                            <Image
-                                source={require('../../../assets/images/baner-1.png')}
-                                style={styles.galleryImage} />
-                            <View style={styles.galleryCaption}>
-                                <Text style={globalStyles.mediumLabel}>Start Up Grind</Text>
-                                <Text style={globalStyles.label}>Networking Event</Text>
-                                <Text style={globalStyles.label}>20-22 Sep, 2022</Text>
-                            </View>
-                        </View>
-                        <TouchableOpacity onPress={() => { navigation.navigate("ViewPictureScreen") }}>
-                            <LinearGradient
-                                start={{ x: 0.0, y: 1.0 }}
-                                end={{ x: 1.0, y: 1.0 }}
-                                colors={['#991450', '#40799D']}
-                                style={styles.icon}
-                            >
-                                <MaterialComunityIcons name="image-album" size={20} color={HiFiColors.White} style={{ marginHorizontal: 5 }} />
-                                <Text style={globalStyles.label}>15</Text>
-                            </LinearGradient>
-                        </TouchableOpacity>
-                    </View>
-                </TouchableOpacity>
-                <TouchableOpacity onPress={() => { navigation.navigate("EventInfoGalleryScreen") }}>
-                    <View style={styles.galleryCard}>
-                        <View style={{ flex: 1, flexDirection: 'row', alignItems: 'center' }}>
-                            <Image
-                                source={require('../../../assets/images/baner-1.png')}
-                                style={styles.galleryImage} />
-                            <View style={styles.galleryCaption}>
-                                <Text style={globalStyles.mediumLabel}>Start Up Grind</Text>
-                                <Text style={globalStyles.label}>Networking Event</Text>
-                                <Text style={globalStyles.label}>20-22 Sep, 2022</Text>
-                            </View>
-                        </View>
-                        <TouchableOpacity onPress={() => { navigation.navigate("ViewPictureScreen") }}>
-                            <LinearGradient
-                                start={{ x: 0.0, y: 1.0 }}
-                                end={{ x: 1.0, y: 1.0 }}
-                                colors={['#991450', '#40799D']}
-                                style={styles.icon}
-                            >
-                                <MaterialComunityIcons name="image-album" size={20} color={HiFiColors.White} style={{ marginHorizontal: 5 }} />
-                                <Text style={globalStyles.label}>15</Text>
-                            </LinearGradient>
-                        </TouchableOpacity>
-                    </View>
-                </TouchableOpacity>
+                    ))
+                }
             </ScrollView>
         </View>
     )
