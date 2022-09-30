@@ -1,18 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
-import FeatherIcon from 'react-native-vector-icons/Feather';
 
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
-import fonts from '../../styles/fonts';
-import { Dimensions } from 'react-native';
-import ChatFooter from '../../components/ChatFooter';
 import MenuButton from '../../components/MenuButton';
 
 import firestore from "@react-native-firebase/firestore";
-import moment from 'moment';
 import { useSelector } from 'react-redux';
-import { ADMIN_API_URL } from '@env';
 import Action from '../../service';
 
 export default GroupChatRooms = ({ route, navigation }) => {

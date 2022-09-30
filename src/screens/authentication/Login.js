@@ -62,7 +62,7 @@ export default Login = ({ navigation }) => {
                     placeholder='Mobile Number'
                     placeholderTextColor={HiFiColors.Label}
                     value={phone}
-                    keyboardType="numeric"
+                    keyboardType="number-pad"
                     onChangeText={(value) => setPhone(value)} />
                 {activityIndicator && <ActivityIndicator size="large" style={{ position: 'absolute' }} />}
                 <View style={{ alignSelf: 'stretch', marginTop: 30, marginBottom: 100 }}>

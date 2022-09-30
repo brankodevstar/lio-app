@@ -45,13 +45,14 @@ const outMessage = (messageData, index) => (
 
 export default IndividualChat = ({ route, navigation }) => {
     const { partner } = route.params;
-    const [messages, setMessages] = useState([]);
-    const scrollViewRef = useRef();
+    const partnerId = partner._id;
     const collectionName = "chat";
     const currentUser = useSelector(state => state.CurrentUser);
-    const myPhone = currentUser.user.phone;
-    const parterPhone = partner.phone;
-    const chatRoom = [myPhone, parterPhone].sort().join('-');
+    const myId = currentUser.user._id;
+    const chatRoom = [myId, partnerId].sort().join('-');
+
+    const [messages, setMessages] = useState([]);
+    const scrollViewRef = useRef();
 
     const onResult = (querySnapshot) => {
         querySnapshot.docs.sort((a, b) => {
@@ -63,36 +64,35 @@ export default IndividualChat = ({ route, navigation }) => {
             to: doc.data().to,
             createdAt: moment(doc.data().createdAt.toDate()).format("yyyy-MM-DD hh.mm"),
             message: doc.data().text,
-            type: doc.data().from === myPhone ? 'out' : 'in'
+            type: doc.data().from === myId ? 'out' : 'in'
         }));
         setMessages(msgs);
     }
 
     const onError = (error) => {
-
+        console.log('get chat data error ===> ', error);
     }
-
-    useEffect(() => {
-        firestore()
-            .collection(collectionName)
-            .where('chatRoom', '==', chatRoom)
-            // .orderBy('createdAt', 'asc')
-            .onSnapshot(onResult, onError);
-    }, []);
 
     const onSend = (message) => {
         const messageData = {
             chatRoom: chatRoom,
             createdAt: new Date(),
             text: message,
-            from: myPhone,
-            to: parterPhone,
+            from: myId,
+            to: partnerId,
             read: 0
         }
         firestore().collection(collectionName).add(messageData).then(() => {
             console.log('message sent!')
         })
     }
+
+    useEffect(() => {
+        firestore()
+            .collection(collectionName)
+            .where('chatRoom', '==', chatRoom)
+            .onSnapshot(onResult, onError);
+    }, [route.params]);
 
     return (
         <View style={globalStyles.container}>
