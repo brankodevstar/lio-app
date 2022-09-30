@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, StyleSheet, Image, Dimensions, TouchableOpacity, TouchableWithoutFeedback, ActivityIndicator } from 'react-native';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons'
@@ -22,14 +22,16 @@ export default Forum = ({ navigation }) => {
     const [isModalVisible, setModalVisible] = useState(false);
     const currentUser = useSelector(state => state.CurrentUser);
     const [posts, setPosts] = useState([]);
+    const [selectedPost, setSelectedPost] = useState({});
+    const [comment, setComment] = useState('');
+    const [activityIndicator, setActivityIndicator] = useState(false);
 
     const toggleModal = () => {
         setModalVisible(!isModalVisible);
     };
 
     const getPosts = async () => {
-        console.log('called!!!!!!!!!')
-        Action.forum.list({}).then(response => {
+        Action.forum.list().then(response => {
             if (response.data) {
                 setPosts(response.data);
             }
@@ -37,6 +39,39 @@ export default Forum = ({ navigation }) => {
             console.log('error ===>', error);
         })
 
+    }
+
+    const getById = async (id) => {
+        const response = await Action.forum.getById(id);
+        setSelectedPost(response.data);
+    }
+
+    const showCommentDialog = async (id) => {
+        setModalVisible(true);
+        getById(id);
+    }
+
+    const addComment = () => {
+        setActivityIndicator(true);
+        const data = selectedPost;
+        const commentData = {
+            commenterFirstName: currentUser.user.firstName,
+            commenterLastName: currentUser.user.lastName,
+            commenterEmailAddress: currentUser.user.email,
+            commenterAvatarUrl: currentUser.user.avatarUrl,
+            commentDescription: comment
+        };
+        data.comments.push(commentData);
+        Action.forum.update(data._id, data).then(response => {
+            if (response.data) {
+                getById(data._id);
+                setComment('');
+            }
+            setActivityIndicator(false);
+        }).catch(error => {
+            console.log('error ===> ', error);
+            setActivityIndicator(false);
+        })
     }
 
     useEffect(() => {
@@ -53,44 +88,43 @@ export default Forum = ({ navigation }) => {
             </View>
             <ScrollView style={styles.scrollViewContainer} contentContainerStyle={{ paddingBottom: 20 }}>
                 {
-                    posts.map((item, index) => {
-                        (
-                            <View key={index} style={styles.card}>
-                                <View style={styles.cardHeader}>
-                                    <View style={styles.userNameContainer}>
-                                        <Image
-                                            source={{ uri: `${ADMIN_API_URL}upload/${item.posterAvatarUrl}` }}
-                                            style={styles.avatarImage} />
-                                        <Text style={styles.userNameLabel}>{item.posterFirstName + ' ' + item.posterLastName}</Text>
-                                    </View>
-                                    <View>
-                                        <TouchableOpacity onPress={toggleModal}>
-                                            <FeatherIcon name="more-vertical" size={20} color={HiFiColors.White} />
-                                        </TouchableOpacity>
-                                    </View>
+                    posts.map((item, index) =>
+                    (
+                        <View key={index} style={styles.card}>
+                            <View style={styles.cardHeader}>
+                                <View style={styles.userNameContainer}>
+                                    <Image
+                                        source={{ uri: `${ADMIN_API_URL}upload/${item.posterAvatarUrl}` }}
+                                        style={styles.avatarImage} />
+                                    <Text style={styles.userNameLabel}>{item.posterFirstName + ' ' + item.posterLastName}</Text>
                                 </View>
-                                <View style={styles.discriptionContainer}>
-                                    <Text style={globalStyles.label}>{item.description}</Text>
-                                </View>
-                                <Image source={{ uri: `${ADMIN_API_URL}upload/${item.imgUrl}` }} style={styles.cardImage} />
-                                <View style={styles.cardFooter}>
-                                    <View style={{ flexDirection: 'row' }}>
-                                        <FeatherIcon name="heart" size={15} color={HiFiColors.White} style={styles.labelSpace} />
-                                        <Text style={[globalStyles.boldLabel, styles.labelSpace]}>{item.heartRate.toLocaleString()}</Text>
-                                        <FeatherIcon name="message-circle" size={15} color={HiFiColors.White} style={styles.labelSpace} />
-                                        <Text style={globalStyles.boldLabel}>{item.articleNumber.toLocaleString()}</Text>
-                                    </View>
-                                    <Text style={styles.timeLabel}>
-                                        {
-                                            (moment.duration(moment(new Date()).diff(moment(item.createdDt)))).asHours() > 1 ?
-                                                Math.ceil((moment.duration(moment(new Date()).diff(moment(item.createdDt)))).asHours()) + ' Hours ago' :
-                                                Math.ceil((moment.duration(moment(new Date()).diff(moment(item.createdDt)))).asMinutes()) + ' Minutes ago'
-                                        }
-                                    </Text>
+                                <View>
+                                    <TouchableOpacity onPress={() => { showCommentDialog(item._id) }}>
+                                        <FeatherIcon name="more-vertical" size={20} color={HiFiColors.White} />
+                                    </TouchableOpacity>
                                 </View>
                             </View>
-                        )
-                    })
+                            <View style={styles.discriptionContainer}>
+                                <Text style={globalStyles.label}>{item.description}</Text>
+                            </View>
+                            <Image source={{ uri: `${ADMIN_API_URL}upload/${item.imgUrl}` }} style={styles.cardImage} />
+                            <View style={styles.cardFooter}>
+                                <View style={{ flexDirection: 'row' }}>
+                                    <FeatherIcon name="heart" size={15} color={HiFiColors.White} style={styles.labelSpace} />
+                                    <Text style={[globalStyles.boldLabel, styles.labelSpace]}>{item.heartRate.toLocaleString()}</Text>
+                                    <FeatherIcon name="message-circle" size={15} color={HiFiColors.White} style={styles.labelSpace} />
+                                    <Text style={globalStyles.boldLabel}>{item.articleNumber.toLocaleString()}</Text>
+                                </View>
+                                <Text style={styles.timeLabel}>
+                                    {
+                                        (moment.duration(moment(new Date()).diff(moment(item.createdDt)))).asHours() > 1 ?
+                                            Math.ceil((moment.duration(moment(new Date()).diff(moment(item.createdDt)))).asHours()) + ' Hours ago' :
+                                            Math.ceil((moment.duration(moment(new Date()).diff(moment(item.createdDt)))).asMinutes()) + ' Minutes ago'
+                                    }
+                                </Text>
+                            </View>
+                        </View>
+                    ))
                 }
             </ScrollView>
             <View>
@@ -113,39 +147,27 @@ export default Forum = ({ navigation }) => {
                 propagateSwipe={true}
                 style={globalStyles.modalContainer}>
                 <View style={styles.modalContentContainer}>
+
+                    {activityIndicator && <ActivityIndicator size="large" style={{ position: 'absolute', left: '50%', top: '50%' }} />}
                     <Text style={styles.modalCommentTitle}>Comments</Text>
                     <ScrollView style={styles.commentScroll}>
                         <TouchableOpacity>
                             <TouchableWithoutFeedback>
                                 <View>
-                                    <View style={styles.commentsTag}>
-                                        <Image source={require('../../../assets/images/avatars/07761a26bdc324932f3da15e966ebe97.png')} style={styles.avatarImage} />
-                                        <Text style={globalStyles.boldLabel}>Arthur Black <Text style={[globalStyles.boldLabel, { color: HiFiColors.Primary }]}>@dudewayne9</Text> I will go there next week, is it worth it? maybe we can go there together haha.</Text>
-                                    </View>
-                                    <View style={styles.commentsTag}>
-                                        <Image source={require('../../../assets/images/avatars/54bcd2f8d0c3783972547e2d7a723e91.png')} style={styles.avatarImage} />
-                                        <Text style={globalStyles.boldLabel}>Jacob Howard <Text style={[globalStyles.boldLabel, { color: HiFiColors.Primary }]}>@john_flicks</Text> Haha isn’t that funny to you? share it to your mother and tell me her reaction!</Text>
-                                    </View>
-                                    <View style={styles.commentsTag}>
-                                        <Image source={require('../../../assets/images/avatars/0aaf7f0b9c129b90a93d11ab0c521784.png')} style={styles.avatarImage} />
-                                        <Text style={globalStyles.boldLabel}>Diane Richards <Text style={[globalStyles.boldLabel, { color: HiFiColors.Primary }]}>@smith12jackson</Text> Look at that! we must go there this weekend dude, come on!</Text>
-                                    </View>
-                                    <View style={styles.commentsTag}>
-                                        <Image source={require('../../../assets/images/avatars/07761a26bdc324932f3da15e966ebe97.png')} style={styles.avatarImage} />
-                                        <Text style={globalStyles.boldLabel}>Arthur Black <Text style={[globalStyles.boldLabel, { color: HiFiColors.Primary }]}>@dudewayne9</Text> I will go there next week, is it worth it? maybe we can go there together haha.</Text>
-                                    </View>
-                                    <View style={styles.commentsTag}>
-                                        <Image source={require('../../../assets/images/avatars/54bcd2f8d0c3783972547e2d7a723e91.png')} style={styles.avatarImage} />
-                                        <Text style={globalStyles.boldLabel}>Jacob Howard <Text style={[globalStyles.boldLabel, { color: HiFiColors.Primary }]}>@john_flicks</Text> Haha isn’t that funny to you? share it to your mother and tell me her reaction!</Text>
-                                    </View>
-                                    <View style={styles.commentsTag}>
-                                        <Image source={require('../../../assets/images/avatars/0aaf7f0b9c129b90a93d11ab0c521784.png')} style={styles.avatarImage} />
-                                        <Text style={globalStyles.boldLabel}>Diane Richards <Text style={[globalStyles.boldLabel, { color: HiFiColors.Primary }]}>@smith12jackson</Text> Look at that! we must go there this weekend dude, come on!</Text>
-                                    </View>
-                                    <View style={styles.commentsTag}>
-                                        <Image source={require('../../../assets/images/avatars/07761a26bdc324932f3da15e966ebe97.png')} style={styles.avatarImage} />
-                                        <Text style={globalStyles.boldLabel}>Arthur Black <Text style={[globalStyles.boldLabel, { color: HiFiColors.Primary }]}>@dudewayne9</Text> I will go there next week, is it worth it? maybe we can go there together haha.</Text>
-                                    </View>
+                                    {
+                                        selectedPost?.comments?.map((item, index) => (
+                                            <View key={index} style={styles.commentsTag}>
+                                                <Image source={{ uri: `${ADMIN_API_URL}upload/${item.commenterAvatarUrl}` }} style={styles.avatarImage} />
+                                                <View>
+                                                    <View style={{ flexDirection: 'row' }}>
+                                                        <Text style={globalStyles.boldLabel}>{item.commenterFirstName + ' ' + item.commenterLastName}</Text>
+                                                        <Text style={[globalStyles.boldLabel, { color: HiFiColors.Primary, marginLeft: 10 }]}>{item.commenterEmailAddress}</Text>
+                                                    </View>
+                                                    <Text style={globalStyles.boldLabel}>{item.commentDescription}</Text>
+                                                </View>
+                                            </View>
+                                        ))
+                                    }
                                 </View>
                             </TouchableWithoutFeedback>
                         </TouchableOpacity>
@@ -157,8 +179,10 @@ export default Forum = ({ navigation }) => {
                         <TextInput
                             placeholder='Write your comments'
                             placeholderTextColor={HiFiColors.Label}
+                            value={comment}
+                            onChangeText={value => { setComment(value) }}
                             style={styles.addCommentTextInput} />
-                        <TouchableOpacity>
+                        <TouchableOpacity onPress={addComment}>
                             <FeatherIcon name="send" size={25} color={HiFiColors.Label} />
                         </TouchableOpacity>
                     </View>

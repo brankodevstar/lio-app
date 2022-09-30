@@ -12,7 +12,11 @@ import { ScrollView, TextInput } from 'react-native-gesture-handler';
 import Modal from 'react-native-modal';
 import { CheckBox } from 'react-native-elements';
 import { useEffect } from 'react';
+import { useSelector } from 'react-redux';
+
 import MenuButton from '../../components/MenuButton';
+import { ADMIN_API_URL } from '@env';
+import Action from '../../service';
 
 const checkedIconTag = () => (
     <View style={{ backgroundColor: HiFiColors.Accent, width: 30, height: 30, borderRadius: 50, borderWidth: 2, borderColor: HiFiColors.Accent, alignItems: 'center', justifyContent: 'center' }}>
@@ -46,6 +50,22 @@ export default Chat = ({ navigation }) => {
     const [isSettingModalVisible, setSettingModalVisible] = useState(false);
     const [isParticipantModalVisible, setParticipantModalVisible] = useState(false);
     const [isNewGroupModalVisible, setNewGroupModalVisible] = useState(false);
+    const currentUser = useSelector(state => state.CurrentUser);
+    const [members, setMembers] = useState([]);
+    const [checkedMembers, setCheckedMembers] = useState([]);
+    const [groupName, setGroupName] = useState('');
+    const [description, setDescription] = useState('');
+
+    const getMembers = async () => {
+        const response = await Action.members.list({});
+        if (response.data) {
+            setMembers(response.data.filter(item => item._id != currentUser.user._id));
+        }
+    }
+
+    useEffect(() => {
+        navigation.addListener('focus', () => { getMembers(); })
+    }, [navigation]);
 
     const [isChecked, setChecked] = useState(false);
 
@@ -57,27 +77,32 @@ export default Chat = ({ navigation }) => {
         setChecked(!isChecked);
     }
 
-    const memberInfo = () => (
-        <View style={styles.memberContainer}>
-            <View style={styles.memberAvatarContainer}>
-                <Image source={require('../../../assets/images/avatars/f14583d4fa72dd0c419994432fa612d8.png')} style={styles.avatarImage} />
-            </View>
-            <View style={styles.memberInfo}>
-                <View>
-                    <Text style={globalStyles.selectedBoldLabel}>Hemant Perdesi</Text>
-                    <Text style={globalStyles.boldSmallLabel}>Lorem ipsum dolor sit amet</Text>
-                </View>
-                <View style={{ alignItems: 'center' }}>
-                    <CheckBox
-                        checkedIcon={checkedIconTag()}
-                        uncheckedIcon={unCheckedIconTag()}
-                        onPress={toggleCheckbox}
-                        checked={isChecked}
-                    />
-                </View>
-            </View>
-        </View>
-    )
+    const memberCheck = (id) => {
+        let checkedMembersClone = checkedMembers;
+        if (checkedMembersClone.indexOf(id) > -1) {
+            checkedMembersClone = checkedMembersClone.filter(item => item != id);
+        } else {
+            checkedMembersClone.push(id);
+        }
+        setCheckedMembers(Object.assign([], checkedMembersClone));
+    }
+
+    const createGroupChat = () => {
+        if (!groupName) {
+            alert('Group name is required!');
+            return;
+        }
+        setNewGroupModalVisible(false);
+        let checkedMembersClone = checkedMembers;
+        checkedMembersClone.push(currentUser.user._id)
+        navigation.navigate("GroupChatScreen", {
+            groupInfo: {
+                name: groupName,
+                description: description,
+                members: checkedMembersClone
+            }
+        });
+    }
 
     return (
         <View style={globalStyles.container}>
@@ -88,164 +113,44 @@ export default Chat = ({ navigation }) => {
                         <FeatherIcon name="search" size={20} color={HiFiColors.White} style={styles.headerButton} />
                     </TouchableOpacity>
                     <Text style={globalStyles.mediumStrongLabel}>Chats</Text>
-                    <TouchableOpacity onPress={toggleSettingModal}>
+                    <TouchableOpacity onPress={() => { toggleSettingModal(); setCheckedMembers([]); setGroupName(''); setDescription(''); }}>
                         <FeatherIcon name="plus-circle" size={20} color={HiFiColors.White} style={styles.headerButton} />
                     </TouchableOpacity>
                 </View>
             </View>
             <ScrollView>
-                <View style={styles.chatItemContainer}>
-                    <View style={{ flexDirection: 'row' }}>
-                        <View style={styles.memberAvatarContainer}>
-                            <Image source={require('../../../assets/images/avatars/f14583d4fa72dd0c419994432fa612d8.png')} style={styles.avatarImage} />
-                            <FontistoIcon name="ellipse" size={8} color={HiFiColors.Green} style={styles.onlineCheckTag} />
-                        </View>
-                        <View>
-                            <Text style={globalStyles.selectedBoldLabel}>Hemant Perdesi</Text>
-                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <Ionicons name="checkmark-done-sharp" size={15} color={HiFiColors.Blue} style={{ marginRight: 5 }} />
-                                <Text style={globalStyles.boldSmallLabel}>Lorem ipsum dolor sit amet</Text>
+                {
+                    members.map((item, index) => (
+                        <View key={index} style={styles.chatItemContainer}>
+                            <View style={{ flexDirection: 'row' }}>
+                                <View style={styles.memberAvatarContainer}>
+                                    <Image source={{ uri: `${ADMIN_API_URL}upload/${item.avatarUrl}` }} style={styles.avatarImage} />
+                                    <FontistoIcon name="ellipse" size={8} color={HiFiColors.Green} style={styles.onlineCheckTag} />
+                                </View>
+                                <View>
+                                    <Text style={globalStyles.selectedBoldLabel}>{item.firstName + ' ' + item.lastName}</Text>
+                                    <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                                        <Ionicons name="checkmark-done-sharp" size={15} color={HiFiColors.Blue} style={{ marginRight: 5 }} />
+                                        <Text style={globalStyles.boldSmallLabel}>Lorem ipsum dolor sit amet</Text>
+                                    </View>
+                                </View>
                             </View>
-                        </View>
-                    </View>
-                    <View style={{ alignItems: 'center' }}>
-                        <Text style={globalStyles.smallLabel}>4:44 PM</Text>
-                        <LinearGradient
+                            <View style={{ alignItems: 'center' }}>
+                                <Text style={globalStyles.smallLabel}>4:44 PM</Text>
+                                {/* <LinearGradient
                             start={{ x: 0.0, y: 0.0 }}
                             end={{ x: 1.0, y: 1.0 }}
                             colors={['#7B61FF', '#991450', '#40799D']}
                             style={styles.chatCount}
                         >
                             <Text style={globalStyles.smallLabel}>3</Text>
-                        </LinearGradient>
-                    </View>
-                </View>
-                <View style={[styles.chatItemContainer, { backgroundColor: '#46525e', borderLeftColor: HiFiColors.AccentFade }]}>
-                    <View style={{ flexDirection: 'row' }}>
-                        <View style={styles.memberAvatarContainer}>
-                            <Image source={require('../../../assets/images/avatars/781c710a587bd211f11ba1155753fe38.png')} style={styles.avatarImage} />
-                            <FontistoIcon name="ellipse" size={8} color={HiFiColors.Green} style={styles.onlineCheckTag} />
-                        </View>
-                        <View>
-                            <Text style={globalStyles.selectedBoldLabel}>Hemant Perdesi</Text>
-                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <Ionicons name="checkmark-done-sharp" size={15} color={HiFiColors.Blue} style={{ marginRight: 5 }} />
-                                <Text style={globalStyles.boldSmallLabel}>Lorem ipsum dolor sit amet</Text>
+                        </LinearGradient> */}
                             </View>
                         </View>
-                    </View>
-                    <View style={{ alignItems: 'center' }}>
-                        <Text style={globalStyles.smallLabel}>4:44 PM</Text>
-                    </View>
-                </View>
-                <View style={styles.chatItemContainer}>
-                    <View style={{ flexDirection: 'row' }}>
-                        <View style={styles.memberAvatarContainer}>
-                            <Image source={require('../../../assets/images/avatars/54bcd2f8d0c3783972547e2d7a723e91.png')} style={styles.avatarImage} />
-                            <FontistoIcon name="ellipse" size={8} color={HiFiColors.White} style={styles.onlineCheckTag} />
-                        </View>
-                        <View>
-                            <Text style={globalStyles.selectedBoldLabel}>Hemant Perdesi</Text>
-                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <Ionicons name="checkmark-done-sharp" size={15} color={HiFiColors.White} style={{ marginRight: 5 }} />
-                                <Text style={globalStyles.boldSmallLabel}>Lorem ipsum dolor sit amet</Text>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={{ alignItems: 'center' }}>
-                        <Text style={globalStyles.smallLabel}>4:44 PM</Text>
-                    </View>
-                </View>
-                <View style={styles.chatItemContainer}>
-                    <View style={{ flexDirection: 'row' }}>
-                        <View style={styles.memberAvatarContainer}>
-                            <Image source={require('../../../assets/images/avatars/7fe1a020fdff606843aff1544b1b36b8.png')} style={styles.avatarImage} />
-                            <FontistoIcon name="ellipse" size={8} color={HiFiColors.White} style={styles.onlineCheckTag} />
-                        </View>
-                        <View>
-                            <Text style={globalStyles.selectedBoldLabel}>Hemant Perdesi</Text>
-                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <Ionicons name="checkmark-done-sharp" size={15} color={HiFiColors.White} style={{ marginRight: 5 }} />
-                                <Text style={globalStyles.boldSmallLabel}>Lorem ipsum dolor sit amet</Text>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={{ alignItems: 'center' }}>
-                        <Text style={globalStyles.smallLabel}>4:44 PM</Text>
-                    </View>
-                </View>
-                <View style={styles.chatItemContainer}>
-                    <View style={{ flexDirection: 'row' }}>
-                        <View style={styles.memberAvatarContainer}>
-                            <Image source={require('../../../assets/images/avatars/781c710a587bd211f11ba1155753fe38.png')} style={styles.avatarImage} />
-                            <FontistoIcon name="ellipse" size={8} color={HiFiColors.White} style={styles.onlineCheckTag} />
-                        </View>
-                        <View>
-                            <Text style={globalStyles.selectedBoldLabel}>Hemant Perdesi</Text>
-                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <Ionicons name="checkmark-done-sharp" size={15} color={HiFiColors.White} style={{ marginRight: 5 }} />
-                                <Text style={globalStyles.boldSmallLabel}>Lorem ipsum dolor sit amet</Text>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={{ alignItems: 'center' }}>
-                        <Text style={globalStyles.smallLabel}>4:44 PM</Text>
-                    </View>
-                </View>
-                <View style={styles.chatItemContainer}>
-                    <View style={{ flexDirection: 'row' }}>
-                        <View style={styles.memberAvatarContainer}>
-                            <Image source={require('../../../assets/images/avatars/54bcd2f8d0c3783972547e2d7a723e91.png')} style={styles.avatarImage} />
-                            <FontistoIcon name="ellipse" size={8} color={HiFiColors.White} style={styles.onlineCheckTag} />
-                        </View>
-                        <View>
-                            <Text style={globalStyles.selectedBoldLabel}>Hemant Perdesi</Text>
-                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <Ionicons name="checkmark-done-sharp" size={15} color={HiFiColors.White} style={{ marginRight: 5 }} />
-                                <Text style={globalStyles.boldSmallLabel}>Lorem ipsum dolor sit amet</Text>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={{ alignItems: 'center' }}>
-                        <Text style={globalStyles.smallLabel}>4:44 PM</Text>
-                    </View>
-                </View>
-                <View style={styles.chatItemContainer}>
-                    <View style={{ flexDirection: 'row' }}>
-                        <View style={styles.memberAvatarContainer}>
-                            <Image source={require('../../../assets/images/avatars/7fe1a020fdff606843aff1544b1b36b8.png')} style={styles.avatarImage} />
-                            <FontistoIcon name="ellipse" size={8} color={HiFiColors.White} style={styles.onlineCheckTag} />
-                        </View>
-                        <View>
-                            <Text style={globalStyles.selectedBoldLabel}>Hemant Perdesi</Text>
-                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <Ionicons name="checkmark-done-sharp" size={15} color={HiFiColors.White} style={{ marginRight: 5 }} />
-                                <Text style={globalStyles.boldSmallLabel}>Lorem ipsum dolor sit amet</Text>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={{ alignItems: 'center' }}>
-                        <Text style={globalStyles.smallLabel}>4:44 PM</Text>
-                    </View>
-                </View>
-                <View style={styles.chatItemContainer}>
-                    <View style={{ flexDirection: 'row' }}>
-                        <View style={styles.memberAvatarContainer}>
-                            <Image source={require('../../../assets/images/avatars/781c710a587bd211f11ba1155753fe38.png')} style={styles.avatarImage} />
-                            <FontistoIcon name="ellipse" size={8} color={HiFiColors.White} style={styles.onlineCheckTag} />
-                        </View>
-                        <View>
-                            <Text style={globalStyles.selectedBoldLabel}>Hemant Perdesi</Text>
-                            <View style={{ flexDirection: 'row', alignItems: 'center' }}>
-                                <Ionicons name="checkmark-done-sharp" size={15} color={HiFiColors.White} style={{ marginRight: 5 }} />
-                                <Text style={globalStyles.boldSmallLabel}>Lorem ipsum dolor sit amet</Text>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={{ alignItems: 'center' }}>
-                        <Text style={globalStyles.smallLabel}>4:44 PM</Text>
-                    </View>
-                </View>
+                    ))
+                }
+
+
             </ScrollView >
 
             {/* Setting Modal start */}
@@ -282,7 +187,7 @@ export default Chat = ({ navigation }) => {
                         <TouchableOpacity onPress={() => setParticipantModalVisible(false)}>
                             <Text style={[globalStyles.boldLabel, { color: HiFiColors.Label }]}>Cancel</Text>
                         </TouchableOpacity>
-                        <Text style={[globalStyles.boldSmallLabel, { color: HiFiColors.Label }]}>1 / 512</Text>
+                        <Text style={[globalStyles.boldSmallLabel, { color: HiFiColors.Label }]}>{checkedMembers.length} / {members.length}</Text>
                         <TouchableOpacity onPress={() => { setParticipantModalVisible(false); setNewGroupModalVisible(true) }}>
                             <Text style={[globalStyles.boldLabel, { color: HiFiColors.Blue }]}>Next</Text>
                         </TouchableOpacity>
@@ -290,23 +195,52 @@ export default Chat = ({ navigation }) => {
                     <TextInput placeholder='Search Members' placeholderTextColor={HiFiColors.Label} style={styles.searchMemberInput} />
                     <View style={styles.memberCheck}>
                         <View style={{ flexDirection: 'row' }}>
-                            {checkedUser()}
+                            {
+                                checkedMembers.map((item, index) => (
+                                    <View key={index} style={styles.checkedUserContainer}>
+                                        <Image source={{ uri: `${ADMIN_API_URL}upload/${members.filter(temp => temp._id == item)[0]?.avatarUrl}` }} style={styles.checkedUserAvatar} />
+                                        <Text style={globalStyles.smallLabel}>{members.filter(temp => temp._id == item)[0]?.firstName + ' ' + members.filter(temp => temp._id == item)[0]?.lastName}</Text>
+                                        <View style={{
+                                            position: 'absolute',
+                                            top: -2,
+                                            right: -2
+                                        }}>
+                                            <TouchableOpacity onPress={() => { memberCheck(item) }}>
+                                                <FeatherIcon name="x" size={15} color={HiFiColors.White} style={styles.checkedUserCancel} />
+                                            </TouchableOpacity>
+                                        </View>
+                                    </View>
+                                ))
+                            }
                         </View>
-                        <Text style={globalStyles.boldLabel}>A</Text>
                     </View>
                     <ScrollView style={{ height: 150 }}>
                         <TouchableOpacity>
                             <TouchableWithoutFeedback>
                                 <View>
-                                    {memberInfo()}
-                                    {memberInfo()}
-                                    {memberInfo()}
-                                    {memberInfo()}
-                                    {memberInfo()}
-                                    {memberInfo()}
-                                    {memberInfo()}
-                                    {memberInfo()}
-                                    {memberInfo()}
+                                    {
+                                        members.map((item, index) => (
+                                            <View key={index} style={styles.memberContainer}>
+                                                <View style={styles.memberAvatarContainer}>
+                                                    <Image source={{ uri: `${ADMIN_API_URL}upload/${item.avatarUrl}` }} style={styles.avatarImage} />
+                                                </View>
+                                                <View style={styles.memberInfo}>
+                                                    <View>
+                                                        <Text style={globalStyles.selectedBoldLabel}>{item.firstName + ' ' + item.lastName}</Text>
+                                                        <Text style={globalStyles.boldSmallLabel}>{item.caption}</Text>
+                                                    </View>
+                                                    <View style={{ alignItems: 'center' }}>
+                                                        <CheckBox
+                                                            checkedIcon={checkedIconTag()}
+                                                            uncheckedIcon={unCheckedIconTag()}
+                                                            onPress={() => { memberCheck(item._id) }}
+                                                            checked={checkedMembers.indexOf(item._id) > -1 ? true : false}
+                                                        />
+                                                    </View>
+                                                </View>
+                                            </View>
+                                        ))
+                                    }
                                 </View>
                             </TouchableWithoutFeedback>
                         </TouchableOpacity>
@@ -329,33 +263,52 @@ export default Chat = ({ navigation }) => {
                             <Text style={globalStyles.boldLabel}>Cancel</Text>
                         </TouchableOpacity>
                         <Text style={globalStyles.mediumStrongLabel}>New Group</Text>
-                        <TouchableOpacity onPress={() => { setNewGroupModalVisible(false); navigation.navigate("GroupChatScreen") }}>
+                        <TouchableOpacity onPress={() => { createGroupChat() }}>
                             <Text style={[globalStyles.boldLabel, { color: HiFiColors.Blue }]}>Create</Text>
                         </TouchableOpacity>
                     </View>
                     <View style={{ flexDirection: 'row', marginBottom: 10 }}>
-                        <TouchableOpacity>
+                        {/* <TouchableOpacity>
                             <FeatherIcon name="camera" size={20} color={HiFiColors.Blue} style={styles.cameraButton} />
-                        </TouchableOpacity>
+                        </TouchableOpacity> */}
                         <View style={{ flex: 1 }}>
-                            <TextInput placeholder='Group Name' placeholderTextColor={HiFiColors.Label} style={styles.groupName} />
-                            <TextInput multiline placeholder='Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod' placeholderTextColor={HiFiColors.Label} style={styles.groupDescription} />
+                            <TextInput
+                                placeholder='Group Name'
+                                placeholderTextColor={HiFiColors.Label}
+                                value={groupName}
+                                onChangeText={(value) => setGroupName(value)}
+                                style={styles.groupName} />
+                            <TextInput
+                                multiline
+                                placeholder='Description'
+                                placeholderTextColor={HiFiColors.Label}
+                                value={description}
+                                onChangeText={(value) => setDescription(value)}
+                                style={styles.groupDescription} />
                         </View>
                     </View>
-                    <Text style={[globalStyles.boldLabel, { marginBottom: 10 }]}>Participants: 1 OF 512</Text>
+                    <Text style={[globalStyles.boldLabel, { marginBottom: 10 }]}>Participants: {checkedMembers.length} OF {members.length}</Text>
                     <View style={{ flexDirection: 'row' }}>
                         {
-                            checkedUser()
-                        }
-                        {
-                            checkedUser()
-                        }
-                        {
-                            checkedUser()
+                            checkedMembers.map((item, index) => (
+                                <View key={index} style={styles.checkedUserContainer}>
+                                    <Image source={{ uri: `${ADMIN_API_URL}upload/${members.filter(temp => temp._id == item)[0]?.avatarUrl}` }} style={styles.checkedUserAvatar} />
+                                    <Text style={globalStyles.smallLabel}>{members.filter(temp => temp._id == item)[0]?.firstName + ' ' + members.filter(temp => temp._id == item)[0]?.lastName}</Text>
+                                    <View style={{
+                                        position: 'absolute',
+                                        top: -2,
+                                        right: -2
+                                    }}>
+                                        <TouchableOpacity onPress={() => { memberCheck(item) }}>
+                                            <FeatherIcon name="x" size={15} color={HiFiColors.White} style={styles.checkedUserCancel} />
+                                        </TouchableOpacity>
+                                    </View>
+                                </View>
+                            ))
                         }
                     </View>
                 </View>
-            </Modal>
+            </Modal >
             {/* New Group Modal end */}
         </View >
     )
@@ -454,7 +407,8 @@ const styles = StyleSheet.create({
     checkedUserContainer: {
         alignItems: 'center',
         justifyContent: 'center',
-        marginRight: 10
+        marginRight: 10,
+        width: 80
     },
     checkedUserAvatar: {
         width: 60,

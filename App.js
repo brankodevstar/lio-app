@@ -13,6 +13,7 @@ import MainNavigator from './src/navigation/MainNavigator';
 
 import IndividualChatScreen from './src/screens/members/IndividualChat';
 import GroupChatScreen from './src/screens/members/GroupChat';
+import GroupChatRoomsScreen from './src/screens/members/GroupChatRooms';
 
 const Stack = createStackNavigator();
 
@@ -29,6 +30,7 @@ export default App = () => {
             },
           }}
         >
+          
           <Stack.Screen
             name="SplashScreen"
             component={SplashScreen}

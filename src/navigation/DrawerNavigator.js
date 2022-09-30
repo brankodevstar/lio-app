@@ -20,6 +20,8 @@ import EventDetailsNavigator from './EventDetailsNavigator';
 import ProfileNavigator from './ProfileNavigator';
 import GalleryNavigator from './GalleryNavigator';
 import CalendarPartnerDetailNavigator from './CalendarPartnerDetailNavigator';
+import GroupChatScreen from '../screens/members/GroupChat';
+import GroupChatRoomsScreen from '../screens/members/GroupChatRooms';
 
 import HiFiColors from '../styles/colors';
 import DrawerMenu from './component/DrawerMenu';
@@ -103,11 +105,26 @@ export default function DrawerNavigator(props) {
                 }}
             />
             <Drawer.Screen
+                name="Chat"
+                component={ChatScreen}
+                options={{
+                    drawerLabel: 'Chat'
+                }}
+            />
+            <Drawer.Screen
                 name="Profile"
                 component={ProfileNavigator}
                 options={{
                     drawerLabel: 'My Profile'
                 }}
+            />
+            <Drawer.Screen
+                name="GroupChatScreen"
+                component={GroupChatScreen}
+            />
+            <Drawer.Screen
+                name="GroupChatRooms"
+                component={GroupChatRoomsScreen}
             />
         </Drawer.Navigator >
     )

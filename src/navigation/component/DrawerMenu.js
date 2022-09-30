@@ -7,6 +7,7 @@ import globalStyles from "../../styles/style";
 import HiFiColors from "../../styles/colors";
 import { useSelector } from 'react-redux';
 import { ADMIN_API_URL } from '@env';
+import ChatScreen from '../../screens/members/Chat';
 
 export default DrawerMenu = (props) => {
     const currentUser = useSelector(state => state.CurrentUser)
@@ -39,6 +40,12 @@ export default DrawerMenu = (props) => {
                 <TouchableOpacity onPress={() => { props.navigation.navigate("Gallery") }}>
                     <Text style={[globalStyles.mediumBoldLabel, { paddingVertical: 10 }]}>Gallery</Text>
                 </TouchableOpacity>
+                <TouchableOpacity onPress={() => { props.navigation.navigate("Chat") }}>
+                    <Text style={[globalStyles.mediumBoldLabel, { paddingVertical: 10 }]}>Chat</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => { props.navigation.navigate("GroupChatRooms") }}>
+                    <Text style={[globalStyles.mediumBoldLabel, { paddingVertical: 10 }]}>Group Chats</Text>
+                </TouchableOpacity>
                 <TouchableOpacity onPress={() => { props.navigation.navigate("Profile") }}>
                     <Text style={[globalStyles.mediumBoldLabel, { paddingVertical: 10 }]}>My Profile</Text>
                 </TouchableOpacity>
@@ -52,7 +59,7 @@ export default DrawerMenu = (props) => {
                         <Text style={[globalStyles.boldLabel, { color: HiFiColors.Blue }]}>{currentUser.user.email}</Text>
                     </View>
                 </View>
-                <TouchableOpacity>
+                <TouchableOpacity onPress={() => { props.navigation.navigate("SplashScreen") }}>
                     <View style={styles.logout}>
                         <Text style={globalStyles.boldSmallLabel}>Logout</Text>
                     </View>

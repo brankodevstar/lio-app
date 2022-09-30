@@ -12,6 +12,8 @@ import MenuButton from '../../components/MenuButton';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
 import firestore from "@react-native-firebase/firestore";
+import { ADMIN_API_URL } from '@env';
+import Action from '../../service';
 
 const inMessage = (messageData, index) => {
     return (
@@ -41,12 +43,15 @@ const outMessage = (messageData, index) => (
     </View>
 )
 
-export default IndividualChat = ({ navigation }) => {
+export default IndividualChat = ({ route, navigation }) => {
+    const { partner } = route.params;
     const [messages, setMessages] = useState([]);
     const scrollViewRef = useRef();
-    const chatRoom = ['b', 'a'].sort().join('-');
     const collectionName = "chat";
-    const currentUser = useSelector(state => state.CurrentUser)
+    const currentUser = useSelector(state => state.CurrentUser);
+    const myPhone = currentUser.user.phone;
+    const parterPhone = partner.phone;
+    const chatRoom = [myPhone, parterPhone].sort().join('-');
 
     const onResult = (querySnapshot) => {
         querySnapshot.docs.sort((a, b) => {
@@ -58,7 +63,7 @@ export default IndividualChat = ({ navigation }) => {
             to: doc.data().to,
             createdAt: moment(doc.data().createdAt.toDate()).format("yyyy-MM-DD hh.mm"),
             message: doc.data().text,
-            type: doc.data().from === 'a' ? 'out' : 'in'
+            type: doc.data().from === myPhone ? 'out' : 'in'
         }));
         setMessages(msgs);
     }
@@ -80,8 +85,8 @@ export default IndividualChat = ({ navigation }) => {
             chatRoom: chatRoom,
             createdAt: new Date(),
             text: message,
-            from: 'a',
-            to: 'b',
+            from: myPhone,
+            to: parterPhone,
             read: 0
         }
         firestore().collection(collectionName).add(messageData).then(() => {
@@ -93,13 +98,13 @@ export default IndividualChat = ({ navigation }) => {
         <View style={globalStyles.container}>
             <View style={styles.chatBoxHeader}>
                 <MenuButton navigation={navigation} />
-                <TouchableOpacity onPress={() => navigation.navigate("ChatScreen")}>
+                <TouchableOpacity onPress={() => navigation.goBack()}>
                     <FeatherIcon name="arrow-left" size={20} color={HiFiColors.White} style={styles.headerIcon} />
                 </TouchableOpacity>
-                <Image source={{ uri: 'https://s3-alpha-sig.figma.com/img/9f93/6d28/03ffef0f3919e687c7cdf564d6d052e0?Expires=1664150400&Signature=bwm-JDGhizn-nMTW8bmFxW16V2j6meR7vdxSoaPbXYzY72DA-hEVS7mMmbRSSvdJ-DnYGU4Kj0ySspbmJz6KEBDiHPlW2vI47s7~ibOyHTL4KOYMXIgpCWnNYbWSRplgAQXPhszaNW7EUd57QdueS2qYD171BhgU4YyuALpQAqk2WnAJ-LXtpF9SAsobphxdntqCkHvPhs2ncCqFXPW8ksBmG2AHpT3rmZQCFVEhpVbU-TbzEI8iUEgwwNIizUTOHAwKWdPM1u2NGhYneh934graF2EtanSl1Aa~RLkXaK6NCcBiYS5YIn21Z3VPg6Ovh5rBYYugIRHSi8vRdazgig__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA' }} style={styles.headerImage} />
+                <Image source={{ uri: `${ADMIN_API_URL}upload/${partner.avatarUrl}` }} style={styles.headerImage} />
                 <View>
-                    <Text style={styles.headerTitle}>Michael Snow</Text>
-                    <Text style={globalStyles.label}>@snowmichael09</Text>
+                    <Text style={styles.headerTitle}>{partner.firstName + ' ' + partner.lastName}</Text>
+                    <Text style={globalStyles.label}>{partner.email}</Text>
                 </View>
             </View>
             <ScrollView

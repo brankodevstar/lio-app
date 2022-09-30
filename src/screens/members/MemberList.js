@@ -3,6 +3,7 @@ import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import { ScrollView } from 'react-native-gesture-handler';
+import { useSelector } from 'react-redux';
 
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
@@ -12,11 +13,12 @@ import Action from '../../service';
 
 export default MemberList = ({ navigation }) => {
     const [members, setMembers] = useState([]);
+    const currentUser = useSelector(state => state.CurrentUser);
 
     const getMembers = async () => {
         const response = await Action.members.list({});
         if (response.data) {
-            setMembers(response.data);
+            setMembers(response.data.filter(item => item._id != currentUser.user._id));
         }
     }
 

@@ -1,7 +1,7 @@
 import APIServer from "./APIService";
 
-const list = async (param) => {
-    const response = await APIServer.get('posts', { params: param });
+const list = async () => {
+    const response = await APIServer.get('posts');
     return response;
 }
 
@@ -15,8 +15,14 @@ const create = async (param) => {
     return response;
 }
 
+const update = async (id, param) => {
+    const response = await APIServer.put(`posts/${id}`, param);
+    return response;
+}
+
 export default {
     list,
     getById,
-    create
+    create,
+    update
 }

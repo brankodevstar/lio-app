@@ -1,6 +1,7 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
+import { StackActions, StackActionType } from '@react-navigation/native';
 
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
@@ -12,6 +13,9 @@ import MenuButton from '../../components/MenuButton';
 
 import firestore from "@react-native-firebase/firestore";
 import moment from 'moment';
+import { useSelector } from 'react-redux';
+import { ADMIN_API_URL } from '@env';
+import Action from '../../service';
 
 const inMessage = (messageData, index) => {
     return (
@@ -42,17 +46,32 @@ const outMessage = (messageData, index) => (
     </View>
 )
 
-export default GroupChat = ({ navigation }) => {
-    const [messages, setMessages] = useState([]);
-    const [groupMembers, setGroupMembers] = useState([]);
+export default GroupChat = ({ route, navigation }) => {
+    const { name, members, allUsers } = route.params.groupInfo;
+    const currentUser = useSelector(state => state.CurrentUser);
+    const [chatName, setChatName] = useState(name);
+    const [groupMembers, setGroupMembers] = useState(members);
+    const myId = currentUser.user._id;
     const scrollViewRef = useRef();
-
-    const chatRoom = 'TestGroupChatRoom';
+    const [messages, setMessages] = useState([]);
+    const [users, setUsers] = useState(allUsers);
     const collectionName = 'group-chat';
-    const phoneNumber = 'myPhoneNumber';
+
+    const onSend = (message) => {
+        const messageData = {
+            chatRoom: name,
+            createdAt: new Date(),
+            text: message,
+            from: myId,
+            to: '',
+            members: groupMembers
+        };
+        firestore().collection(collectionName).add(messageData).then(() => {
+            console.log('message sent!')
+        })
+    }
 
     const onResult = (querySnapshot) => {
-        setGroupMembers(querySnapshot.docs[0].data().members);
         querySnapshot.docs.sort((a, b) => {
             return Number.parseInt(a.data().createdAt.seconds) > Number.parseInt(b.data().createdAt.seconds) ? 1 : -1
         })
@@ -62,38 +81,28 @@ export default GroupChat = ({ navigation }) => {
             to: doc.data().to,
             createdAt: moment(doc.data().createdAt.toDate()).format("yyyy-MM-DD hh.mm"),
             message: doc.data().text,
-            type: doc.data().from === phoneNumber ? 'out' : 'in',
-            avatar: 'https://s3-alpha-sig.figma.com/img/9f93/6d28/03ffef0f3919e687c7cdf564d6d052e0?Expires=1665360000&Signature=EwJRzME-8e-7KFD9akULq89xkJ4Sm7w9NIxwft~sr9~mrNNrUcjZZ2wLnLMVeSUhIg06b6ohB2CUI-J7~PghgJHh33OphGLxcZ9YvcxQhZeBSTIiBJwHujy2u7rzA4EIasL-vbw9kyoL24x3bLb0bz7rd1osIjlwL-J95LOfjS1xLKxAeaJYIzVCzk-spGNTtX80SDFPdfvhHd6aoaZ9vN-sNMq-EAvfaithVyHvmPouHov8Wlm8W82h6Pjd1UR4JZIURsRIcrucDSk8HXQZprlYGJmOe4Qwwq1GSrRfukFTgv1niWkwXn8MygzWoF2SxhZRJJYisdBZfCYLdXeEow__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA'
+            type: doc.data().from === myId ? 'out' : 'in',
+            avatar: `${ADMIN_API_URL}upload/${users.filter(item => item._id == doc.data().from)[0]?.avatarUrl}`
         }));
         setMessages(msgs);
     }
 
     const onError = (error) => {
-
-    }
-
-    const onSend = (message) => {
-        const messageData = {
-            chatRoom: chatRoom,
-            createdAt: new Date(),
-            text: message,
-            from: phoneNumber,
-            to: '',
-            members: groupMembers
-        };
-        firestore().collection(collectionName).add(messageData).then(() => {
-            console.log('message sent!')
-        })
+        console.log('get chat data error ===> ', error);
     }
 
     useEffect(() => {
-        firestore()
-            .collection(collectionName)
-            .where('chatRoom', '==', chatRoom)
-            .where('members', 'array-contains', phoneNumber)
-            // .orderBy('createdAt', 'asc')
-            .onSnapshot(onResult, onError);
-    }, [])
+        setMessages([]);
+        if (chatName !== name) {
+            setChatName(name);
+            firestore()
+                .collection(collectionName)
+                .where('chatRoom', '==', name)
+                .where('members', 'array-contains', myId)
+                .onSnapshot(onResult, onError);
+            setGroupMembers(members);
+        }
+    }, [route.params.groupInfo.name])
 
     return (
         <View style={globalStyles.container}>
@@ -103,11 +112,11 @@ export default GroupChat = ({ navigation }) => {
                     <FeatherIcon name="arrow-left" size={20} color={HiFiColors.White} style={styles.headerIcon} />
                 </TouchableOpacity>
                 <Image
-                    source={{ uri: 'https://s3-alpha-sig.figma.com/img/5ee5/588c/e94d6cbe8148ccee458be196f341f4a5?Expires=1665360000&Signature=PrfXpTDg6kT7kLjr-jHCwhbDykBUhxvkXiFlvykAruKQg7tIW~sq396Zre2Ax5wJsf~ntsZ674L~aw02hff9ui7ALuSfEUUGjpDtfPRHjtECjgi5klnOSYkK~NK3iIbYY~s2BgmTVvZewHtxL9t4uZaqeXwEfgSvrXEL2J8Fv5SAmWY5UiZltjO1v-FvmvbHLERCjuJ2g~p2nWCOo7ndMqoxbatiFENdN7i4GKXHTREJmVitpO4AVDNICoNOM9O~u1qAiXl~wPOfgzOYH3kAFvg3AfvDfwCKYjMAbpre8gQdzVSNGgPNL4F42Dsi54eECV8fPE8X5Sz7g34407twMw__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA' }}
+                    source={{ uri: `${ADMIN_API_URL}upload/${currentUser.user.avatarUrl}` }}
                     style={styles.headerImage} />
-                <View>
-                    <Text style={styles.headerTitle}>The Entreprenurial Club</Text>
-                    <Text style={globalStyles.label}>6 Members</Text>
+                <View style={{ flex: 1, alignItems: 'flex-end' }}>
+                    <Text style={styles.headerTitle}>{chatName}</Text>
+                    <Text style={globalStyles.label}>{groupMembers.length} Members</Text>
                 </View>
             </View>
             <ScrollView
@@ -143,6 +152,7 @@ const styles = StyleSheet.create({
         width: 52,
         height: 52,
         borderRadius: 100,
+        marginLeft: 20,
         marginRight: 10
     },
     headerTitle: {
