@@ -25,16 +25,16 @@ export default Login = ({ navigation }) => {
         try {
             setActivityIndicator(true);
             // temp code
-            const argPhone = validatePhoneNumber();
-            navigation.navigate('OTPScreen', { phoneNumber: argPhone });
+            // const argPhone = validatePhoneNumber();
+            // navigation.navigate('OTPScreen', { phoneNumber: argPhone });
             // temp code
 
-            // const argPhone = validatePhoneNumber();
-            // if (await sendSmsVerification(argPhone)) {
-            //     navigation.navigate('OTPScreen', { phoneNumber: argPhone });
-            // } else {
-            //     alert('Valid Failed!')
-            // }
+            const argPhone = validatePhoneNumber();
+            if (await sendSmsVerification(argPhone)) {
+                navigation.navigate('OTPScreen', { phoneNumber: argPhone });
+            } else {
+                alert('Valid Failed!')
+            }
             setActivityIndicator(false);
         } catch (error) {
             console.log(error);

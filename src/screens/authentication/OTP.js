@@ -61,37 +61,38 @@ export default OTP = ({ route, navigation }) => {
         setActivityIndicator(true);
 
         // temp code
-        Action.members.list({ phone: phoneNumber.replace('+', '') }).then(response => {
-            if (response.data.length > 0) {
-                dispatch(allActions.UserAction.setUser(response.data[0]));
-                navigation.navigate('Home');
-            } else {
-                alert('Unregistered user!');
-            }
-            setActivityIndicator(false);
-        }).catch((err) => {
-            console.log('login error ===> ', err);
-            setActivityIndicator(false);
-        })
+        // Action.members.list({ phone: phoneNumber.replace('+', '') }).then(response => {
+        //     if (response.data.length > 0) {
+        //         dispatch(allActions.UserAction.setUser(response.data[0]));
+        //         navigation.navigate('Home');
+        //     } else {
+        //         alert('Unregistered user!');
+        //     }
+        //     setActivityIndicator(false);
+        // }).catch((err) => {
+        //     console.log('login error ===> ', err);
+        //     setActivityIndicator(false);
+        // })
         // temp code
 
-        // if (checkVerification(phoneNumber, value)) {
-        //     Action.members.list({ phone: phoneNumber.replace('+', '') }).then(response => {
-        //         if (response.data.length > 0) {
-        //             dispatch(allActions.UserAction.setUser(reponse.data[0]));
-        //             navigation.navigate('Home');
-        //         } else {
-        //             alert('Unregistered user!');
-        //         }
-        //         setActivityIndicator(false);
-        //     }).catch((err) => {
-        //         console.log('login error ===> ', err);
-        //         setActivityIndicator(false);
-        //     })
-        // } else {
-        //     alert('Valid Failed!')
-        //     setActivityIndicator(false);
-        // }
+        if (await checkVerification(phoneNumber, value)) {
+            console.log('verify success!!');
+            Action.members.list({ phone: phoneNumber.replace('+', '') }).then(response => {
+                if (response.data.length > 0) {
+                    dispatch(allActions.UserAction.setUser(response.data[0]));
+                    navigation.navigate('Home');
+                } else {
+                    alert('Unregistered user!');
+                }
+                setActivityIndicator(false);
+            }).catch((err) => {
+                console.log('login error ===> ', err);
+                setActivityIndicator(false);
+            })
+        } else {
+            alert('Valid Failed!')
+            setActivityIndicator(false);
+        }
     }
 
     const resendCode = async () => {
