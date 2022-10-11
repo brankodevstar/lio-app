@@ -1,5 +1,6 @@
 import axios from 'axios';
-import { TWILIO_URL } from '@env';
+// import { TWILIO_URL } from '@env';
+import { TWILIO_URL } from '../../config';
 
 const TwilioService = axios.create({
     baseURL: TWILIO_URL,
