@@ -1,5 +1,5 @@
-import React from 'react'
-import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
+import {createStackNavigator} from '@react-navigation/stack';
 
 import SplashScreen from '../screens/authentication/Splash';
 import LoginScreen from '../screens/authentication/Login';
@@ -25,7 +25,6 @@ import GalleryScreen from '../screens/profile-gallery/Gallery';
 import OverviewScreen from '../screens/profile-gallery/Overview';
 import ViewPictureScreen from '../screens/profile-gallery/ViewPicture';
 
-
 import TabNavigator from './TabNavigator';
 import DrawerNavigator from './DrawerNavigator';
 
@@ -40,17 +39,10 @@ export default MainNavigator = () => {
                 cardStyle: {
                     backgroundColor: 'white',
                 },
-            }}
-        >
-            <Stack.Screen
-                name="DrawerHome"
-                component={DrawerNavigator}
-            />
+            }}>
+            <Stack.Screen name="DrawerHome" component={DrawerNavigator} />
 
-            <Stack.Screen
-                name="TabHome"
-                component={TabNavigator}
-            />
+            <Stack.Screen name="TabHome" component={TabNavigator} />
 
             {/* <Stack.Screen
                 name="MemberBenefitsScreen"
@@ -173,5 +165,5 @@ export default MainNavigator = () => {
                 component={ViewPictureScreen}
             /> */}
         </Stack.Navigator>
-    )
-}
+    );
+};

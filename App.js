@@ -14,23 +14,26 @@ import MainNavigator from './src/navigation/MainNavigator';
 const Stack = createStackNavigator();
 
 export default App = () => {
-  return (
-    <Provider store={store}>
-      <NavigationContainer>
-        <Stack.Navigator
-          screenOptions={{
-            headerShown: false,
-            cardOverlayEnabled: true,
-            cardStyle: {
-              backgroundColor: 'white',
-            },
-          }}>
-          <Stack.Screen name="SplashScreen" component={SplashScreen} />
-          <Stack.Screen name="LoginScreen" component={LoginScreen} />
-          <Stack.Screen name="OTPScreen" component={OTPScreen} />
-          <Stack.Screen name="Home" component={MainNavigator} />
-        </Stack.Navigator>
-      </NavigationContainer>
-    </Provider>
-  );
+    return (
+        <Provider store={store}>
+            <NavigationContainer>
+                <Stack.Navigator
+                    screenOptions={{
+                        headerShown: false,
+                        cardOverlayEnabled: true,
+                        cardStyle: {
+                            backgroundColor: 'white',
+                        },
+                    }}>
+                    <Stack.Screen
+                        name="SplashScreen"
+                        component={SplashScreen}
+                    />
+                    <Stack.Screen name="LoginScreen" component={LoginScreen} />
+                    <Stack.Screen name="OTPScreen" component={OTPScreen} />
+                    <Stack.Screen name="Home" component={MainNavigator} />
+                </Stack.Navigator>
+            </NavigationContainer>
+        </Provider>
+    );
 };

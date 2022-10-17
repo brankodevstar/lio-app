@@ -1,5 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView, ImageBackground, TextInput } from 'react-native';
+import React, {useState, useEffect} from 'react';
+import {
+    View,
+    Text,
+    StyleSheet,
+    Image,
+    TouchableOpacity,
+    ScrollView,
+    ImageBackground,
+    TextInput,
+} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
@@ -9,10 +18,10 @@ import HiFiColors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import MenuButton from '../../components/MenuButton';
 import Action from '../../service';
-import { ADMIN_API_URL } from '@env';
+import {ADMIN_API_URL} from '@env';
 
-export default InvestmentDetail = ({ route, navigation }) => {
-    const { id } = route.params;
+export default InvestmentDetail = ({route, navigation}) => {
+    const {id} = route.params;
     const [investment, setInvestment] = useState({});
     const [category, setCategory] = useState('overview');
 
@@ -21,10 +30,12 @@ export default InvestmentDetail = ({ route, navigation }) => {
         if (response.data) {
             setInvestment(response.data);
         }
-    }
+    };
 
     useEffect(() => {
-        navigation.addListener('focus', () => { getInvestments(); })
+        navigation.addListener('focus', () => {
+            getInvestments();
+        });
     }, [navigation]);
 
     const renderWithCategory = () => {
@@ -32,169 +43,321 @@ export default InvestmentDetail = ({ route, navigation }) => {
             return (
                 <View>
                     <View style={styles.discriptionContainer}>
-                        <Text style={[globalStyles.mediumBoldLabel, { marginBottom: 10 }]}>Short Summary</Text>
+                        <Text
+                            style={[
+                                globalStyles.mediumBoldLabel,
+                                {marginBottom: 10},
+                            ]}>
+                            Short Summary
+                        </Text>
                         <Text style={[globalStyles.label, styles.discription]}>
                             {investment.overview?.shortSummary}
                         </Text>
                     </View>
                     <View style={styles.discriptionContainer}>
-                        <Text style={[globalStyles.mediumBoldLabel, { marginBottom: 10 }]}>Highlights</Text>
-                        {
-                            investment.overview?.highlights.map((txt, index) => (
-                                <Text key={index} style={[globalStyles.label, styles.discription]}>
-                                    • {txt}
-                                </Text>
-                            ))
-                        }
+                        <Text
+                            style={[
+                                globalStyles.mediumBoldLabel,
+                                {marginBottom: 10},
+                            ]}>
+                            Highlights
+                        </Text>
+                        {investment.overview?.highlights.map((txt, index) => (
+                            <Text
+                                key={index}
+                                style={[
+                                    globalStyles.label,
+                                    styles.discription,
+                                ]}>
+                                • {txt}
+                            </Text>
+                        ))}
                     </View>
                     <View style={styles.discriptionContainer}>
-                        <Text style={[globalStyles.mediumBoldLabel, { marginBottom: 10 }]}>Investment Details</Text>
+                        <Text
+                            style={[
+                                globalStyles.mediumBoldLabel,
+                                {marginBottom: 10},
+                            ]}>
+                            Investment Details
+                        </Text>
                         <View style={styles.detailInfoContainer}>
                             <Text style={globalStyles.label}>Target</Text>
-                            <TextInput value='₹500,000' style={styles.detailInfo} />
+                            <TextInput
+                                value="₹500,000"
+                                style={styles.detailInfo}
+                            />
                         </View>
                         <View style={styles.detailInfoContainer}>
                             <Text style={globalStyles.label}>Minimum</Text>
-                            <TextInput value='₹20,000' style={styles.detailInfo} />
+                            <TextInput
+                                value="₹20,000"
+                                style={styles.detailInfo}
+                            />
                         </View>
                         <View style={styles.detailInfoContainer}>
-                            <Text style={globalStyles.label}>Investment Raised</Text>
-                            <TextInput value='₹800,000' style={styles.detailInfo} />
+                            <Text style={globalStyles.label}>
+                                Investment Raised
+                            </Text>
+                            <TextInput
+                                value="₹800,000"
+                                style={styles.detailInfo}
+                            />
                         </View>
                         <View style={styles.detailInfoContainer}>
-                            <Text style={globalStyles.label}>Previous Rounds</Text>
-                            <TextInput value='₹900,000' style={styles.detailInfo} />
+                            <Text style={globalStyles.label}>
+                                Previous Rounds
+                            </Text>
+                            <TextInput
+                                value="₹900,000"
+                                style={styles.detailInfo}
+                            />
                         </View>
                         <View style={styles.detailInfoContainer}>
                             <Text style={globalStyles.label}>Stage</Text>
-                            <TextInput value='Profitable' style={styles.detailInfo} />
+                            <TextInput
+                                value="Profitable"
+                                style={styles.detailInfo}
+                            />
                         </View>
                     </View>
                 </View>
-            )
+            );
         }
         if (category === 'detail') {
             return (
                 <View>
-                    {
-                        investment.pitchDetails.map((item, index) => (
-                            <View key={index} style={styles.discriptionContainer}>
-                                <Text style={[globalStyles.mediumBoldLabel, { marginBottom: 10 }]}>{item.title}</Text>
-                                <Text style={[globalStyles.label, styles.discription]}>
-                                    {item.description}
-                                </Text>
-                            </View>
-                        ))
-                    }
+                    {investment.pitchDetails.map((item, index) => (
+                        <View key={index} style={styles.discriptionContainer}>
+                            <Text
+                                style={[
+                                    globalStyles.mediumBoldLabel,
+                                    {marginBottom: 10},
+                                ]}>
+                                {item.title}
+                            </Text>
+                            <Text
+                                style={[
+                                    globalStyles.label,
+                                    styles.discription,
+                                ]}>
+                                {item.description}
+                            </Text>
+                        </View>
+                    ))}
                 </View>
-            )
+            );
         }
         if (category === 'team') {
             return (
                 <View>
-                    {
-                        investment.team.map((item, index) => (
-                            <View key={index} style={styles.discriptionContainer}>
-                                <View style={styles.memberInfoContainer}>
-                                    <Image
-                                        source={{ uri: `${ADMIN_API_URL}upload/${item.avatarUrl}` }}
-                                        style={styles.memberAvatar}
-                                    />
-                                    <Text style={globalStyles.boldLabel}>{item.name}</Text>
-                                    <Text style={styles.memberJob}>{item.roleName}</Text>
-                                </View>
-                                <Text style={[globalStyles.label, styles.discription]}>
-                                    {item.description}
+                    {investment.team.map((item, index) => (
+                        <View key={index} style={styles.discriptionContainer}>
+                            <View style={styles.memberInfoContainer}>
+                                <Image
+                                    source={{
+                                        uri: `${ADMIN_API_URL}upload/${item.avatarUrl}`,
+                                    }}
+                                    style={styles.memberAvatar}
+                                />
+                                <Text style={globalStyles.boldLabel}>
+                                    {item.name}
+                                </Text>
+                                <Text style={styles.memberJob}>
+                                    {item.roleName}
                                 </Text>
                             </View>
-                        ))
-                    }
+                            <Text
+                                style={[
+                                    globalStyles.label,
+                                    styles.discription,
+                                ]}>
+                                {item.description}
+                            </Text>
+                        </View>
+                    ))}
                 </View>
-            )
+            );
         }
         if (category === 'documents') {
             return (
                 <View style={styles.discriptionContainer}>
-                    {
-                        investment.documents.map((item, index) => (
-                            <View key={index} style={styles.documentContainer}>
-                                <View>
-                                    {/* <Image
+                    {investment.documents.map((item, index) => (
+                        <View key={index} style={styles.documentContainer}>
+                            <View>
+                                {/* <Image
                                         source={{ uri: 'https://s3-alpha-sig.figma.com/img/b194/69e5/971683f800daa2f1011d02deedc51b77?Expires=1664150400&Signature=aMgZtuGJ1os9oFplLTl5v0ztVNuzjqfXvIKuaC3xvqcu3ygv1kQsRf9hbPD3UCcR70X09b~TTANWDcaqMaurI7FfjWO1tEdBGomQeQT2SMd1PIj9E9jrK-e~56DlTFSHg3GmiVuVZlKAem9YjfDYRZPzXAn6McaovwValYvlTpc-JJa9sIe8rXS5-tLLhEfFMgneCi8Wcbi~It5PFH2Ji1XT41Kkpbi30MQah8HaHU9GJZUn2wuHB5dINeGGDlimYNnximzRiQJIjORdMYWV~FiD0zFPnOMBhaTCdjrDyoEV4YJuEmL4fHGF4D7WzpWfNg4N49a~9A285vvJ5U3ttg__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA' }}
                                         style={styles.documentImage}
                                     /> */}
-                                    <FeatherIcon name='paperclip' size={25} color={HiFiColors.Label} style={styles.paperclip} />
-                                </View>
-                                <Text style={globalStyles.selectedBoldLabel}>{item.documentName}</Text>
+                                <FeatherIcon
+                                    name="paperclip"
+                                    size={25}
+                                    color={HiFiColors.Label}
+                                    style={styles.paperclip}
+                                />
                             </View>
-                        ))
-                    }
+                            <Text style={globalStyles.selectedBoldLabel}>
+                                {item.documentName}
+                            </Text>
+                        </View>
+                    ))}
                 </View>
-            )
+            );
         }
-    }
+    };
 
     return (
         <ScrollView style={styles.container}>
             <View>
                 <ImageBackground
-                    source={{ uri: `${ADMIN_API_URL}upload/${investment.imageUrl}` }}
+                    source={{
+                        uri: `${ADMIN_API_URL}upload/${investment.imageUrl}`,
+                    }}
                     resizeMode="stretch"
-                    style={styles.bannerImage} >
-                    <View style={{ position: 'absolute', left: 20, top: 15, }}>
+                    style={styles.bannerImage}>
+                    <View style={{position: 'absolute', left: 20, top: 15}}>
                         <MenuButton navigation={navigation} />
                     </View>
-                    <View style={[styles.headerIconBack, { left: 60, }]}>
-                        <TouchableOpacity onPress={() => { navigation.goBack() }}>
-                            <FeatherIcon name="arrow-left" size={20} color={HiFiColors.White} style={styles.headerIcon} />
+                    <View style={[styles.headerIconBack, {left: 60}]}>
+                        <TouchableOpacity
+                            onPress={() => {
+                                navigation.goBack();
+                            }}>
+                            <FeatherIcon
+                                name="arrow-left"
+                                size={20}
+                                color={HiFiColors.White}
+                                style={styles.headerIcon}
+                            />
                         </TouchableOpacity>
                     </View>
-                    <View style={[styles.headerIconBack, { right: 60, }]}>
+                    <View style={[styles.headerIconBack, {right: 60}]}>
                         <TouchableOpacity>
-                            <FontAwesomeIcon name="heart" size={20} color={HiFiColors.Primary} style={styles.headerIcon} />
+                            <FontAwesomeIcon
+                                name="heart"
+                                size={20}
+                                color={HiFiColors.Primary}
+                                style={styles.headerIcon}
+                            />
                         </TouchableOpacity>
                     </View>
-                    <View style={[styles.headerIconBack, { right: 20, }]}>
+                    <View style={[styles.headerIconBack, {right: 20}]}>
                         <TouchableOpacity>
-                            <FeatherIcon name="share-2" size={20} color={HiFiColors.White} style={styles.headerIcon} />
+                            <FeatherIcon
+                                name="share-2"
+                                size={20}
+                                color={HiFiColors.White}
+                                style={styles.headerIcon}
+                            />
                         </TouchableOpacity>
                     </View>
                 </ImageBackground>
-            </View >
+            </View>
             <View style={styles.content}>
                 <Text style={globalStyles.pageTitle}>{investment.title}</Text>
                 <View style={styles.nameContainer}>
-                    <Text style={[styles.conferenceTag, globalStyles.smallLabel]}>Conference</Text>
-                    <Text style={[globalStyles.smallLabel, { marginRight: 10 }]}> • {investment.location} </Text>
-                    <Text style={globalStyles.smallLabel}> {investment.closeDay} </Text>
+                    <Text
+                        style={[styles.conferenceTag, globalStyles.smallLabel]}>
+                        Conference
+                    </Text>
+                    <Text style={[globalStyles.smallLabel, {marginRight: 10}]}>
+                        {' '}
+                        • {investment.location}{' '}
+                    </Text>
+                    <Text style={globalStyles.smallLabel}>
+                        {' '}
+                        {investment.closeDay}{' '}
+                    </Text>
                 </View>
                 <ScrollView horizontal style={styles.categorySelect}>
                     <TouchableOpacity
-                        style={[styles.investmentCategory, category === 'overview' ? { backgroundColor: HiFiColors.White, color: HiFiColors.Accent } : {}]}
+                        style={[
+                            styles.investmentCategory,
+                            category === 'overview'
+                                ? {
+                                      backgroundColor: HiFiColors.White,
+                                      color: HiFiColors.Accent,
+                                  }
+                                : {},
+                        ]}
                         onPress={() => setCategory('overview')}>
-                        <Text style={[globalStyles.boldLabel, category === 'overview' ? { color: HiFiColors.Accent } : {}]}>Overview</Text>
+                        <Text
+                            style={[
+                                globalStyles.boldLabel,
+                                category === 'overview'
+                                    ? {color: HiFiColors.Accent}
+                                    : {},
+                            ]}>
+                            Overview
+                        </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        style={[styles.investmentCategory, category === 'detail' ? { backgroundColor: HiFiColors.White, color: HiFiColors.Accent } : {}]}
-                        onPress={() => setCategory('detail')} >
-                        <Text style={[globalStyles.boldLabel, category === 'detail' ? { color: HiFiColors.Accent } : {}]}>Pitch Details</Text>
+                        style={[
+                            styles.investmentCategory,
+                            category === 'detail'
+                                ? {
+                                      backgroundColor: HiFiColors.White,
+                                      color: HiFiColors.Accent,
+                                  }
+                                : {},
+                        ]}
+                        onPress={() => setCategory('detail')}>
+                        <Text
+                            style={[
+                                globalStyles.boldLabel,
+                                category === 'detail'
+                                    ? {color: HiFiColors.Accent}
+                                    : {},
+                            ]}>
+                            Pitch Details
+                        </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        style={[styles.investmentCategory, category === 'team' ? { backgroundColor: HiFiColors.White, color: HiFiColors.Accent } : {}]}
+                        style={[
+                            styles.investmentCategory,
+                            category === 'team'
+                                ? {
+                                      backgroundColor: HiFiColors.White,
+                                      color: HiFiColors.Accent,
+                                  }
+                                : {},
+                        ]}
                         onPress={() => setCategory('team')}>
-                        <Text style={[globalStyles.boldLabel, category === 'team' ? { color: HiFiColors.Accent } : {}]}>Team</Text>
+                        <Text
+                            style={[
+                                globalStyles.boldLabel,
+                                category === 'team'
+                                    ? {color: HiFiColors.Accent}
+                                    : {},
+                            ]}>
+                            Team
+                        </Text>
                     </TouchableOpacity>
                     <TouchableOpacity
-                        style={[styles.investmentCategory, category === 'documents' ? { backgroundColor: HiFiColors.White, color: HiFiColors.Accent } : {}]}
+                        style={[
+                            styles.investmentCategory,
+                            category === 'documents'
+                                ? {
+                                      backgroundColor: HiFiColors.White,
+                                      color: HiFiColors.Accent,
+                                  }
+                                : {},
+                        ]}
                         onPress={() => setCategory('documents')}>
-                        <Text style={[globalStyles.boldLabel, category === 'documents' ? { color: HiFiColors.Accent } : {}]}>Documents</Text>
+                        <Text
+                            style={[
+                                globalStyles.boldLabel,
+                                category === 'documents'
+                                    ? {color: HiFiColors.Accent}
+                                    : {},
+                            ]}>
+                            Documents
+                        </Text>
                     </TouchableOpacity>
                 </ScrollView>
-                {
-                    renderWithCategory()
-                }
+                {renderWithCategory()}
                 <View style={styles.InvestNowButtonContainer}>
-                    <TouchableOpacity onPress={() => { navigation.navigate("InvestScreen") }}>
+                    {/* <TouchableOpacity onPress={() => { navigation.navigate("InvestScreen") }}>
                         <LinearGradient
                             start={{ x: 0.0, y: 0.0 }}
                             end={{ x: 1.0, y: 1.0 }}
@@ -203,12 +366,12 @@ export default InvestmentDetail = ({ route, navigation }) => {
                         >
                             <Text style={globalStyles.buttonLabel}>Invest Now</Text>
                         </LinearGradient>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                 </View>
-            </View >
-        </ScrollView >
-    )
-}
+            </View>
+        </ScrollView>
+    );
+};
 
 const styles = StyleSheet.create({
     container: {
@@ -228,21 +391,21 @@ const styles = StyleSheet.create({
         padding: 5,
     },
     content: {
-        paddingHorizontal: 20
+        paddingHorizontal: 20,
     },
     nameContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         paddingBottom: 25,
         borderBottomColor: HiFiColors.AccentFade,
-        borderBottomWidth: 1
+        borderBottomWidth: 1,
     },
     conferenceTag: {
         borderRadius: 18,
         backgroundColor: HiFiColors.Primary,
         paddingHorizontal: 10,
         paddingVertical: 1,
-        marginRight: 10
+        marginRight: 10,
     },
     categorySelect: {
         paddingVertical: 10,
@@ -256,18 +419,18 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         justifyContent: 'center',
         alignSelf: 'stretch',
-        width: 100
+        width: 100,
     },
     discriptionContainer: {
         paddingVertical: 10,
         borderBottomColor: HiFiColors.AccentFade,
-        borderBottomWidth: 1
+        borderBottomWidth: 1,
     },
     discription: {
-        marginBottom: 5
+        marginBottom: 5,
     },
     detailInfoContainer: {
-        marginBottom: 5
+        marginBottom: 5,
     },
     detailInfo: {
         backgroundColor: HiFiColors.AccentFade,
@@ -276,27 +439,27 @@ const styles = StyleSheet.create({
         color: HiFiColors.White,
         paddingVertical: 5,
         paddingHorizontal: 10,
-        borderRadius: 5
+        borderRadius: 5,
     },
     InvestNowButtonContainer: {
         flex: 1,
-        marginVertical: 15
+        marginVertical: 15,
     },
     reverseButton: {
         alignSelf: 'flex-end',
-        width: '40%'
+        width: '40%',
     },
     memberInfoContainer: {
         flexDirection: 'row',
         alignItems: 'center',
         justifyContent: 'flex-start',
-        marginBottom: 10
+        marginBottom: 10,
     },
     memberAvatar: {
         width: 30,
         height: 30,
         borderRadius: 50,
-        marginRight: 5
+        marginRight: 5,
     },
     memberJob: {
         padding: 5,
@@ -325,6 +488,6 @@ const styles = StyleSheet.create({
         marginRight: 15,
     },
     paperclip: {
-        margin: 10
-    }
-})
+        margin: 10,
+    },
+});

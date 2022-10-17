@@ -28,24 +28,30 @@ export default DrawerMenu = (props) => {
                 <TouchableOpacity onPress={() => { props.navigation.navigate("HomeScreen") }}>
                     <Text style={[globalStyles.mediumBoldLabel, { paddingVertical: 10 }]}>Home</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => { props.navigation.navigate("BenefitsList") }}>
+                {/* <TouchableOpacity onPress={() => { props.navigation.navigate("BenefitsList") }}>
                     <Text style={[globalStyles.mediumBoldLabel, { paddingVertical: 10 }]}>Benefits List</Text>
+                </TouchableOpacity> */}
+                <TouchableOpacity onPress={() => { props.navigation.navigate("OpenInvestmentsScreen") }}>
+                    <Text style={[globalStyles.mediumBoldLabel, { paddingVertical: 10 }]}>Investments</Text>
+                </TouchableOpacity>
+                <TouchableOpacity onPress={() => { props.navigation.navigate("MyInvestmentsScreen") }}>
+                    <Text style={[globalStyles.mediumBoldLabel, { paddingVertical: 10 }]}>My Investments</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => { props.navigation.navigate("EventDetails") }}>
                     <Text style={[globalStyles.mediumBoldLabel, { paddingVertical: 10 }]}>Event Details</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => { props.navigation.navigate("CalendarPartnerDetail") }}>
+                {/* <TouchableOpacity onPress={() => { props.navigation.navigate("CalendarPartnerDetail") }}>
                     <Text style={[globalStyles.mediumBoldLabel, { paddingVertical: 10 }]}>Calendar & Partner Detail</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 <TouchableOpacity onPress={() => { props.navigation.navigate("Gallery") }}>
                     <Text style={[globalStyles.mediumBoldLabel, { paddingVertical: 10 }]}>Gallery</Text>
                 </TouchableOpacity>
                 <TouchableOpacity onPress={() => { props.navigation.navigate("Chat") }}>
                     <Text style={[globalStyles.mediumBoldLabel, { paddingVertical: 10 }]}>Chat</Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => { props.navigation.navigate("GroupChatRooms") }}>
+                {/* <TouchableOpacity onPress={() => { props.navigation.navigate("GroupChatRooms") }}>
                     <Text style={[globalStyles.mediumBoldLabel, { paddingVertical: 10 }]}>Group Chats</Text>
-                </TouchableOpacity>
+                </TouchableOpacity> */}
                 <TouchableOpacity onPress={() => { props.navigation.navigate("Profile") }}>
                     <Text style={[globalStyles.mediumBoldLabel, { paddingVertical: 10 }]}>My Profile</Text>
                 </TouchableOpacity>
