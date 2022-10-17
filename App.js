@@ -1,8 +1,8 @@
-import React from 'react'
-import { NavigationContainer } from '@react-navigation/native';
-import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
+import {NavigationContainer} from '@react-navigation/native';
+import {createStackNavigator} from '@react-navigation/stack';
 
-import { Provider } from 'react-redux';
+import {Provider} from 'react-redux';
 import store from './src/redux/store';
 
 import SplashScreen from './src/screens/authentication/Splash';
@@ -10,10 +10,6 @@ import LoginScreen from './src/screens/authentication/Login';
 import OTPScreen from './src/screens/authentication/OTP';
 
 import MainNavigator from './src/navigation/MainNavigator';
-
-import IndividualChatScreen from './src/screens/members/IndividualChat';
-import GroupChatScreen from './src/screens/members/GroupChat';
-import GroupChatRoomsScreen from './src/screens/members/GroupChatRooms';
 
 const Stack = createStackNavigator();
 
@@ -28,27 +24,13 @@ export default App = () => {
             cardStyle: {
               backgroundColor: 'white',
             },
-          }}
-        >
-          
-          <Stack.Screen
-            name="SplashScreen"
-            component={SplashScreen}
-          />
-          <Stack.Screen
-            name="LoginScreen"
-            component={LoginScreen}
-          />
-          <Stack.Screen
-            name="OTPScreen"
-            component={OTPScreen}
-          />
-          <Stack.Screen
-            name="Home"
-            component={MainNavigator}
-          />
+          }}>
+          <Stack.Screen name="SplashScreen" component={SplashScreen} />
+          <Stack.Screen name="LoginScreen" component={LoginScreen} />
+          <Stack.Screen name="OTPScreen" component={OTPScreen} />
+          <Stack.Screen name="Home" component={MainNavigator} />
         </Stack.Navigator>
       </NavigationContainer>
     </Provider>
-  )
-}
+  );
+};
