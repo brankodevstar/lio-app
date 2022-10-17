@@ -106,7 +106,11 @@ export default function TabNavigator() {
                 component={CalendarPartnerDetailNavigator}
                 options={{
                     tabBarIcon: ({focused, color, size}) => (
-                        <AntDesignIcon name="earth" color={color} size={size} />
+                        <FeatherIcon
+                            name="calendar"
+                            color={color}
+                            size={size}
+                        />
                     ),
                     tabBarLabel: ({focused, color}) => (
                         <Text
