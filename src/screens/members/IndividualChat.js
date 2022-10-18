@@ -12,7 +12,7 @@ import MenuButton from '../../components/MenuButton';
 import moment from 'moment';
 import { useSelector } from 'react-redux';
 import firestore from "@react-native-firebase/firestore";
-import { ADMIN_API_URL } from '@env';
+import { ADMIN_API_URL } from "../../../config";
 import Action from '../../service';
 
 const inMessage = (messageData, index) => {

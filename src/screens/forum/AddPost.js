@@ -3,7 +3,7 @@ import { View, Text, StyleSheet, Image, ActivityIndicator, TouchableOpacity, Pla
 import { launchImageLibrary } from 'react-native-image-picker';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import { ScrollView, TextInput } from 'react-native-gesture-handler';
-import { ADMIN_API_URL } from '@env';
+import { ADMIN_API_URL } from "../../../config";
 import { useSelector } from 'react-redux';
 
 import globalStyles from '../../styles/style';

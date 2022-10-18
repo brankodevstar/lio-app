@@ -1,76 +1,131 @@
-import React, { useState } from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import React, {useState} from 'react';
+import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import LinearGradient from 'react-native-linear-gradient';
-import { useSelector } from 'react-redux';
-import { ADMIN_API_URL } from '@env';
+import {useSelector} from 'react-redux';
+import {ADMIN_API_URL} from '../../../config';
 
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import MenuButton from '../../components/MenuButton';
 
-export default Overview = ({ navigation }) => {
-    const currentUser = useSelector(state => state.CurrentUser)
+export default Overview = ({navigation}) => {
+    const currentUser = useSelector(state => state.CurrentUser);
     return (
         <View style={globalStyles.container}>
-            <View style={{ paddingHorizontal: 10, flexDirection: 'row' }}>
+            <View style={{paddingHorizontal: 10, flexDirection: 'row'}}>
                 <MenuButton navigation={navigation} />
             </View>
             <View style={styles.whiteCard}>
                 <Image
-                    source={{ uri: `${ADMIN_API_URL}upload/${currentUser.user.avatarUrl}` }}
-                    style={styles.avatar} />
+                    source={{
+                        uri: `${ADMIN_API_URL}upload/${currentUser.user.avatarUrl}`,
+                    }}
+                    style={styles.avatar}
+                />
                 <View style={styles.caption}>
-                    <Text style={[globalStyles.mediumBoldLabel, { fontSize: 16, fontWeight: '800', color: HiFiColors.Black, }]}>{currentUser.user.firstName + ' ' + currentUser.user.lastName}</Text>
-                    <Text style={[globalStyles.mediumBoldLabel, { fontSize: 16, fontWeight: '800', color: HiFiColors.Primary, }]}>{currentUser.user.email}</Text>
+                    <Text
+                        style={[
+                            globalStyles.mediumBoldLabel,
+                            {
+                                fontSize: 16,
+                                fontWeight: '800',
+                                color: HiFiColors.Black,
+                            },
+                        ]}>
+                        {currentUser.user.firstName +
+                            ' ' +
+                            currentUser.user.lastName}
+                    </Text>
+                    <Text
+                        style={[
+                            globalStyles.mediumBoldLabel,
+                            {
+                                fontSize: 16,
+                                fontWeight: '800',
+                                color: HiFiColors.Primary,
+                            },
+                        ]}>
+                        {currentUser.user.email}
+                    </Text>
                 </View>
             </View>
             <View style={styles.accountPanel}>
                 <Text style={styles.account}>Account</Text>
                 <View style={styles.accountCard}>
                     <View>
-                        <Text style={styles.captionTitle}>Account Information</Text>
-                        <Text style={styles.captionDescription}>Change your account information</Text>
+                        <Text style={styles.captionTitle}>
+                            Account Information
+                        </Text>
+                        <Text style={styles.captionDescription}>
+                            Change your account information
+                        </Text>
                     </View>
-                    <TouchableOpacity onPress={() => { navigation.navigate("AccountInfoScreen") }}>
-                        <FeatherIcon name="chevron-right" size={25} color={HiFiColors.White} />
+                    <TouchableOpacity
+                        onPress={() => {
+                            navigation.navigate('AccountInfoScreen');
+                        }}>
+                        <FeatherIcon
+                            name="chevron-right"
+                            size={25}
+                            color={HiFiColors.White}
+                        />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.accountCard}>
                     <View>
                         <Text style={styles.captionTitle}>Wallet</Text>
-                        <Text style={styles.captionDescription}>Manage payment methods</Text>
+                        <Text style={styles.captionDescription}>
+                            Manage payment methods
+                        </Text>
                     </View>
                     <TouchableOpacity>
-                        <FeatherIcon name="chevron-right" size={25} color={HiFiColors.White} />
+                        <FeatherIcon
+                            name="chevron-right"
+                            size={25}
+                            color={HiFiColors.White}
+                        />
                     </TouchableOpacity>
                 </View>
                 <View style={styles.accountCard}>
                     <View>
-                        <Text style={styles.captionTitle}>Deactivate Account</Text>
-                        <Text style={styles.captionDescription}>Manage closure of your account</Text>
+                        <Text style={styles.captionTitle}>
+                            Deactivate Account
+                        </Text>
+                        <Text style={styles.captionDescription}>
+                            Manage closure of your account
+                        </Text>
                     </View>
                     <TouchableOpacity>
-                        <FeatherIcon name="chevron-right" size={25} color={HiFiColors.White} />
+                        <FeatherIcon
+                            name="chevron-right"
+                            size={25}
+                            color={HiFiColors.White}
+                        />
                     </TouchableOpacity>
                 </View>
-                <View style={{ alignSelf: 'stretch', marginTop: 30, marginBottom: 100, width: '100%' }}>
-                    <TouchableOpacity >
+                <View
+                    style={{
+                        alignSelf: 'stretch',
+                        marginTop: 30,
+                        marginBottom: 100,
+                        width: '100%',
+                    }}>
+                    <TouchableOpacity>
                         <LinearGradient
-                            start={{ x: 0.0, y: 0.0 }}
-                            end={{ x: 1.0, y: 1.0 }}
+                            start={{x: 0.0, y: 0.0}}
+                            end={{x: 1.0, y: 1.0}}
                             colors={['#991450', '#40799D']}
-                            style={[globalStyles.filledButton, { width: '95%' }]}
-                        >
+                            style={[globalStyles.filledButton, {width: '95%'}]}>
                             <Text style={globalStyles.buttonLabel}>Logout</Text>
                         </LinearGradient>
                     </TouchableOpacity>
                 </View>
             </View>
         </View>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
     whiteCard: {
@@ -84,7 +139,7 @@ const styles = StyleSheet.create({
         marginHorizontal: 15,
         paddingVertical: 15,
         alignItems: 'center',
-        justifyContent: 'flex-start'
+        justifyContent: 'flex-start',
     },
     avatar: {
         width: 50,
@@ -128,5 +183,5 @@ const styles = StyleSheet.create({
         fontWeight: '600',
         marginVertical: 2,
         fontFamily: fonts.primary,
-    }
-})
+    },
+});

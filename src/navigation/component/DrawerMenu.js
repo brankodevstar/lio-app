@@ -1,79 +1,185 @@
-import React from "react";
-import { View, Text, Image, TouchableOpacity, } from 'react-native';
-import { StyleSheet } from "react-native";
+import React from 'react';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
+import {StyleSheet} from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 
-import globalStyles from "../../styles/style";
-import HiFiColors from "../../styles/colors";
-import { useSelector } from 'react-redux';
-import { ADMIN_API_URL } from '@env';
+import globalStyles from '../../styles/style';
+import HiFiColors from '../../styles/colors';
+import {useSelector} from 'react-redux';
+import {ADMIN_API_URL} from '../../../config';
+
 import ChatScreen from '../../screens/members/Chat';
 
-export default DrawerMenu = (props) => {
-    const currentUser = useSelector(state => state.CurrentUser)
+export default DrawerMenu = props => {
+    const currentUser = useSelector(state => state.CurrentUser);
 
     return (
         <View style={globalStyles.container}>
-            <View style={[globalStyles.headerContainer, { justifyContent: 'flex-start', borderBottomWidth: 0, }]}>
-                <TouchableOpacity onPress={() => { props.navigation.closeDrawer() }}>
-                    <FeatherIcon name="x" size={20} color={HiFiColors.White} style={styles.headerIcon} />
+            <View
+                style={[
+                    globalStyles.headerContainer,
+                    {justifyContent: 'flex-start', borderBottomWidth: 0},
+                ]}>
+                <TouchableOpacity
+                    onPress={() => {
+                        props.navigation.closeDrawer();
+                    }}>
+                    <FeatherIcon
+                        name="x"
+                        size={20}
+                        color={HiFiColors.White}
+                        style={styles.headerIcon}
+                    />
                 </TouchableOpacity>
             </View>
             <View style={styles.imageSection}>
-                <Image style={styles.image}
-                    source={require('../../../assets/images/fdd9945619a0269dd7ba72d1167f72e6.png')} />
-                <Text style={[globalStyles.mediumBoldLabel, { marginTop: 40, marginLeft: 20 }]}>Leaders Of India</Text>
+                <Image
+                    style={styles.image}
+                    source={require('../../../assets/images/fdd9945619a0269dd7ba72d1167f72e6.png')}
+                />
+                <Text
+                    style={[
+                        globalStyles.mediumBoldLabel,
+                        {marginTop: 40, marginLeft: 20},
+                    ]}>
+                    Leaders Of India
+                </Text>
             </View>
             <View style={styles.textSection}>
-                <TouchableOpacity onPress={() => { props.navigation.navigate("HomeScreen") }}>
-                    <Text style={[globalStyles.mediumBoldLabel, { paddingVertical: 10 }]}>Home</Text>
+                <TouchableOpacity
+                    onPress={() => {
+                        props.navigation.navigate('HomeScreen');
+                    }}>
+                    <Text
+                        style={[
+                            globalStyles.mediumBoldLabel,
+                            {paddingVertical: 10},
+                        ]}>
+                        Home
+                    </Text>
                 </TouchableOpacity>
                 {/* <TouchableOpacity onPress={() => { props.navigation.navigate("BenefitsList") }}>
                     <Text style={[globalStyles.mediumBoldLabel, { paddingVertical: 10 }]}>Benefits List</Text>
                 </TouchableOpacity> */}
-                <TouchableOpacity onPress={() => { props.navigation.navigate("OpenInvestmentsScreen") }}>
-                    <Text style={[globalStyles.mediumBoldLabel, { paddingVertical: 10 }]}>Investments</Text>
+                <TouchableOpacity
+                    onPress={() => {
+                        props.navigation.navigate('OpenInvestmentsScreen');
+                    }}>
+                    <Text
+                        style={[
+                            globalStyles.mediumBoldLabel,
+                            {paddingVertical: 10},
+                        ]}>
+                        Investments
+                    </Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => { props.navigation.navigate("MyInvestmentsScreen") }}>
-                    <Text style={[globalStyles.mediumBoldLabel, { paddingVertical: 10 }]}>My Investments</Text>
+                <TouchableOpacity
+                    onPress={() => {
+                        props.navigation.navigate('MyInvestmentsScreen');
+                    }}>
+                    <Text
+                        style={[
+                            globalStyles.mediumBoldLabel,
+                            {paddingVertical: 10},
+                        ]}>
+                        My Investments
+                    </Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => { props.navigation.navigate("EventDetails") }}>
-                    <Text style={[globalStyles.mediumBoldLabel, { paddingVertical: 10 }]}>Event Details</Text>
+                <TouchableOpacity
+                    onPress={() => {
+                        props.navigation.navigate('EventDetails');
+                    }}>
+                    <Text
+                        style={[
+                            globalStyles.mediumBoldLabel,
+                            {paddingVertical: 10},
+                        ]}>
+                        Event Details
+                    </Text>
                 </TouchableOpacity>
                 {/* <TouchableOpacity onPress={() => { props.navigation.navigate("CalendarPartnerDetail") }}>
                     <Text style={[globalStyles.mediumBoldLabel, { paddingVertical: 10 }]}>Calendar & Partner Detail</Text>
                 </TouchableOpacity> */}
-                <TouchableOpacity onPress={() => { props.navigation.navigate("Gallery") }}>
-                    <Text style={[globalStyles.mediumBoldLabel, { paddingVertical: 10 }]}>Gallery</Text>
+                <TouchableOpacity
+                    onPress={() => {
+                        props.navigation.navigate('Gallery');
+                    }}>
+                    <Text
+                        style={[
+                            globalStyles.mediumBoldLabel,
+                            {paddingVertical: 10},
+                        ]}>
+                        Gallery
+                    </Text>
                 </TouchableOpacity>
-                <TouchableOpacity onPress={() => { props.navigation.navigate("Chat") }}>
-                    <Text style={[globalStyles.mediumBoldLabel, { paddingVertical: 10 }]}>Chat</Text>
+                <TouchableOpacity
+                    onPress={() => {
+                        props.navigation.navigate('Chat');
+                    }}>
+                    <Text
+                        style={[
+                            globalStyles.mediumBoldLabel,
+                            {paddingVertical: 10},
+                        ]}>
+                        Chat
+                    </Text>
                 </TouchableOpacity>
                 {/* <TouchableOpacity onPress={() => { props.navigation.navigate("GroupChatRooms") }}>
                     <Text style={[globalStyles.mediumBoldLabel, { paddingVertical: 10 }]}>Group Chats</Text>
                 </TouchableOpacity> */}
-                <TouchableOpacity onPress={() => { props.navigation.navigate("Profile") }}>
-                    <Text style={[globalStyles.mediumBoldLabel, { paddingVertical: 10 }]}>My Profile</Text>
+                <TouchableOpacity
+                    onPress={() => {
+                        props.navigation.navigate('Profile');
+                    }}>
+                    <Text
+                        style={[
+                            globalStyles.mediumBoldLabel,
+                            {paddingVertical: 10},
+                        ]}>
+                        My Profile
+                    </Text>
                 </TouchableOpacity>
             </View>
             <View style={styles.footSection}>
-                <View style={{ flexDirection: 'row', alignItems: 'center', justifyContent: 'center' }}>
-                    <Image style={styles.footImage}
-                        source={{ uri: `${ADMIN_API_URL}upload/${currentUser.user.avatarUrl}` }} />
+                <View
+                    style={{
+                        flexDirection: 'row',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }}>
+                    <Image
+                        style={styles.footImage}
+                        source={{
+                            uri: `${ADMIN_API_URL}upload/${currentUser.user.avatarUrl}`,
+                        }}
+                    />
                     <View style={styles.footText}>
-                        <Text style={globalStyles.boldLabel}>{currentUser.user.firstName + ' ' + currentUser.user.lastName}</Text>
-                        <Text style={[globalStyles.boldLabel, { color: HiFiColors.Blue }]}>{currentUser.user.email}</Text>
+                        <Text style={globalStyles.boldLabel}>
+                            {currentUser.user.firstName +
+                                ' ' +
+                                currentUser.user.lastName}
+                        </Text>
+                        <Text
+                            style={[
+                                globalStyles.boldLabel,
+                                {color: HiFiColors.Blue},
+                            ]}>
+                            {currentUser.user.email}
+                        </Text>
                     </View>
                 </View>
-                <TouchableOpacity onPress={() => { props.navigation.navigate("SplashScreen") }}>
+                <TouchableOpacity
+                    onPress={() => {
+                        props.navigation.navigate('SplashScreen');
+                    }}>
                     <View style={styles.logout}>
                         <Text style={globalStyles.boldSmallLabel}>Logout</Text>
                     </View>
                 </TouchableOpacity>
             </View>
         </View>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
     headerIcon: {
@@ -93,7 +199,7 @@ const styles = StyleSheet.create({
     textSection: {
         marginTop: 20,
         marginLeft: 30,
-        flex: 1
+        flex: 1,
     },
     footSection: {
         paddingVertical: 10,
@@ -105,7 +211,7 @@ const styles = StyleSheet.create({
         alignSelf: 'stretch',
         marginHorizontal: 20,
         paddingHorizontal: 15,
-        marginBottom: 20
+        marginBottom: 20,
     },
     footImage: {
         width: 35,
@@ -113,7 +219,7 @@ const styles = StyleSheet.create({
         borderRadius: 50,
     },
     footText: {
-        marginLeft: 15
+        marginLeft: 15,
     },
     logout: {
         backgroundColor: HiFiColors.LightAccent,
@@ -122,5 +228,5 @@ const styles = StyleSheet.create({
         paddingHorizontal: 20,
         justifyContent: 'center',
         alignItems: 'center',
-    }
-})
+    },
+});

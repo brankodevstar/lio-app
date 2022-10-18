@@ -6,7 +6,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
 import MenuButton from '../../components/MenuButton';
-import {ADMIN_API_URL} from '@env';
+import {ADMIN_API_URL} from '../../../config';
 import Action from '../../service';
 import moment from 'moment';
 

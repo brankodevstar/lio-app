@@ -18,7 +18,7 @@ import HiFiColors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import MenuButton from '../../components/MenuButton';
 import Action from '../../service';
-import {ADMIN_API_URL} from '@env';
+import { ADMIN_API_URL } from "../../../config";
 
 export default InvestmentDetail = ({route, navigation}) => {
     const {id} = route.params;
