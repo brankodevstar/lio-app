@@ -1,7 +1,7 @@
 import React from 'react';
 import {NavigationContainer} from '@react-navigation/native';
 import {createStackNavigator} from '@react-navigation/stack';
-
+import {enableLatestRenderer} from 'react-native-maps';
 import {Provider} from 'react-redux';
 import store from './src/redux/store';
 
@@ -14,6 +14,7 @@ import MainNavigator from './src/navigation/MainNavigator';
 const Stack = createStackNavigator();
 
 export default App = () => {
+    enableLatestRenderer();
     return (
         <Provider store={store}>
             <NavigationContainer>

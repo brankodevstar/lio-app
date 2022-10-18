@@ -1,7 +1,7 @@
 import APIServer from './APIService';
 
-const list = async () => {
-    const response = await APIServer.get('benefits');
+const list = async param => {
+    const response = await APIServer.get('benefits', {params: param});
     return response;
 };
 

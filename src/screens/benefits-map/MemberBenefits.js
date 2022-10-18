@@ -15,10 +15,10 @@ import {TouchableOpacity} from 'react-native-gesture-handler';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import LinearGradient from 'react-native-linear-gradient';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
-import {color} from 'react-native-reanimated';
 import MenuButton from '../../components/MenuButton';
 import Action from '../../service';
 import {ADMIN_API_URL} from '../../../config';
+import {TYPE_NAME} from '../../constant';
 
 export default MemberBenefits = ({navigation}) => {
     const [category, setCategory] = useState(1);
@@ -135,75 +135,40 @@ export default MemberBenefits = ({navigation}) => {
                 <Text style={styles.categoriesTitle}>Categories</Text>
                 <View style={styles.buttonGroup}>
                     <ScrollView horizontal>
-                        <TouchableOpacity
-                            onPress={() => {
-                                setCategory(1);
-                                getBenefits(1);
-                            }}>
-                            <View
-                                style={[
-                                    styles.buttonBack,
-                                    category === 1
-                                        ? {backgroundColor: HiFiColors.White}
-                                        : {},
-                                ]}>
-                                <Text
-                                    style={[
-                                        globalStyles.selectedBoldLabel,
-                                        category === 1
-                                            ? {color: HiFiColors.Accent}
-                                            : {},
-                                    ]}>
-                                    Featured
-                                </Text>
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => {
-                                setCategory(2);
-                                getBenefits(2);
-                            }}>
-                            <View
-                                style={[
-                                    styles.buttonBack,
-                                    category === 2
-                                        ? {backgroundColor: HiFiColors.White}
-                                        : {},
-                                ]}>
-                                <Text
-                                    style={[
-                                        globalStyles.selectedBoldLabel,
-                                        category === 2
-                                            ? {color: HiFiColors.Accent}
-                                            : {},
-                                    ]}>
-                                    Sports
-                                </Text>
-                            </View>
-                        </TouchableOpacity>
-                        <TouchableOpacity
-                            onPress={() => {
-                                setCategory(3);
-                                getBenefits(3);
-                            }}>
-                            <View
-                                style={[
-                                    styles.buttonBack,
-                                    category === 3
-                                        ? {backgroundColor: HiFiColors.White}
-                                        : {},
-                                ]}>
-                                <Text
-                                    style={[
-                                        globalStyles.selectedBoldLabel,
-                                        category === 3
-                                            ? {color: HiFiColors.Accent}
-                                            : {},
-                                    ]}>
-                                    Food
-                                </Text>
-                            </View>
-                        </TouchableOpacity>
+                        {TYPE_NAME.map(
+                            (item, index) =>
+                                item && (
+                                    <TouchableOpacity
+                                        key={index}
+                                        onPress={() => {
+                                            setCategory(index);
+                                            getBenefits(index);
+                                        }}>
+                                        <View
+                                            style={[
+                                                styles.buttonBack,
+                                                category === index
+                                                    ? {
+                                                          backgroundColor:
+                                                              HiFiColors.White,
+                                                      }
+                                                    : {},
+                                            ]}>
+                                            <Text
+                                                style={[
+                                                    globalStyles.selectedBoldLabel,
+                                                    category === index
+                                                        ? {
+                                                              color: HiFiColors.Accent,
+                                                          }
+                                                        : {},
+                                                ]}>
+                                                {item}
+                                            </Text>
+                                        </View>
+                                    </TouchableOpacity>
+                                ),
+                        )}
                     </ScrollView>
                 </View>
                 <View style={styles.categoriesView}>
@@ -216,31 +181,39 @@ export default MemberBenefits = ({navigation}) => {
                                 <View style={styles.categoryView}>
                                     <ImageBackground
                                         source={{
-                                            uri: `${ADMIN_API_URL}upload/${item.imageUrl}`,
+                                            uri: `${ADMIN_API_URL}upload/${item.imgUrl}`,
                                         }}
                                         resizeMode="stretch"
                                         style={styles.categoryImage}>
-                                        <View style={{alignSelf: 'flex-end'}}>
+                                        <View
+                                            style={{
+                                                position: 'absolute',
+                                                top: 5,
+                                                right: 5,
+                                            }}>
                                             <TouchableOpacity>
                                                 <FeatherIcon
                                                     name="heart"
                                                     size={25}
-                                                    color={HiFiColors.White}
+                                                    color={HiFiColors.Primary}
                                                     style={styles.headerIcon}
                                                 />
                                             </TouchableOpacity>
                                         </View>
+                                        <Text
+                                            style={[
+                                                globalStyles.mediumBoldLabel,
+                                                {
+                                                    position: 'absolute',
+                                                    bottom: 5,
+                                                    right: 10,
+                                                    fontWeight: '700',
+                                                    color: HiFiColors.Primary,
+                                                },
+                                            ]}>
+                                            {item.discountText}
+                                        </Text>
                                     </ImageBackground>
-                                    <Text
-                                        style={[
-                                            globalStyles.mediumBoldLabel,
-                                            {
-                                                alignSelf: 'flex-end',
-                                                marginTop: 25,
-                                            },
-                                        ]}>
-                                        30% Off
-                                    </Text>
                                 </View>
                             </TouchableOpacity>
                             <View style={styles.captionView}>
@@ -249,20 +222,21 @@ export default MemberBenefits = ({navigation}) => {
                                         flexDirection: 'row',
                                         marginVertical: 5,
                                         justifyContent: 'space-between',
+                                        paddingHorizontal: 5,
                                     }}>
                                     <View>
                                         <Text
                                             style={
                                                 globalStyles.mediumBoldLabel
                                             }>
-                                            Adidas
+                                            {item.name}
                                         </Text>
                                         <Text
                                             style={[
                                                 globalStyles.label,
                                                 {color: HiFiColors.Label},
                                             ]}>
-                                            Jubilee Hills
+                                            {item.locationName}
                                         </Text>
                                     </View>
                                     <LinearGradient
@@ -287,13 +261,14 @@ export default MemberBenefits = ({navigation}) => {
                                         flexDirection: 'row',
                                         marginVertical: 5,
                                         justifyContent: 'space-between',
+                                        paddingHorizontal: 5,
                                     }}>
                                     <Text
                                         style={[
                                             globalStyles.label,
                                             {color: HiFiColors.Label},
                                         ]}>
-                                        1.5 kms away •{' '}
+                                        {item.distance} kms away •{' '}
                                     </Text>
                                     <View
                                         style={{
@@ -308,7 +283,7 @@ export default MemberBenefits = ({navigation}) => {
                                                     fontWeight: '100',
                                                 },
                                             ]}>
-                                            4.8{' '}
+                                            {item.rating}{' '}
                                         </Text>
                                         <TouchableOpacity>
                                             <FontAwesomeIcon
@@ -424,16 +399,18 @@ const styles = StyleSheet.create({
         backgroundColor: HiFiColors.Black,
         borderRadius: 10,
         alignItems: 'center',
-        paddingHorizontal: 15,
-        paddingVertical: 15,
+        paddingHorizontal: 5,
+        paddingVertical: 5,
     },
     categoryCard: {
         flexBasis: '50%',
         paddingHorizontal: 8,
+        marginVertical: 10,
     },
     categoryImage: {
         width: '100%',
-        height: 100,
+        height: 150,
+        borderRadius: 10,
     },
     iconBack: {
         padding: 5,

@@ -72,5 +72,7 @@
 		<string>times new roman italic.ttf</string>
 		<string>times new roman.ttf</string>
 	</array>
+	<key>NSLocationWhenInUseUsageDescription </key>
+	<true/>
 </dict>
 </plist>

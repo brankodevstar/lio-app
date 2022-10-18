@@ -6,6 +6,7 @@ import {
     Image,
     TouchableOpacity,
     ScrollView,
+    Dimensions,
 } from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 
@@ -15,6 +16,7 @@ import fonts from '../../styles/fonts';
 import MenuButton from '../../components/MenuButton';
 import {ADMIN_API_URL} from '../../../config';
 import Action from '../../service';
+import {TYPE_NAME} from '../../constant';
 
 export default Investments = ({navigation}) => {
     const [investments, setInvestments] = useState([]);
@@ -48,75 +50,37 @@ export default Investments = ({navigation}) => {
             </View>
             <View>
                 <ScrollView horizontal style={styles.categoryScroll}>
-                    <TouchableOpacity
-                        onPress={() => {
-                            setCategory(1);
-                            getInvestments(1);
-                        }}>
-                        <View
-                            style={[
-                                styles.investmentCategory,
-                                category === 1
-                                    ? {backgroundColor: HiFiColors.White}
-                                    : {},
-                            ]}>
-                            <Text
-                                style={[
-                                    globalStyles.selectedBoldLabel,
-                                    category === 1
-                                        ? {color: HiFiColors.Accent}
-                                        : {},
-                                ]}>
-                                Featured
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => {
-                            setCategory(2);
-                            getInvestments(2);
-                        }}>
-                        <View
-                            style={[
-                                styles.investmentCategory,
-                                category === 2
-                                    ? {backgroundColor: HiFiColors.White}
-                                    : {},
-                            ]}>
-                            <Text
-                                style={[
-                                    globalStyles.selectedBoldLabel,
-                                    category === 2
-                                        ? {color: HiFiColors.Accent}
-                                        : {},
-                                ]}>
-                                Sports
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        onPress={() => {
-                            setCategory(3);
-                            getInvestments(3);
-                        }}>
-                        <View
-                            style={[
-                                styles.investmentCategory,
-                                category === 3
-                                    ? {backgroundColor: HiFiColors.White}
-                                    : {},
-                            ]}>
-                            <Text
-                                style={[
-                                    globalStyles.selectedBoldLabel,
-                                    category === 3
-                                        ? {color: HiFiColors.Accent}
-                                        : {},
-                                ]}>
-                                Food
-                            </Text>
-                        </View>
-                    </TouchableOpacity>
+                    {TYPE_NAME.map(
+                        (item, index) =>
+                            item && (
+                                <TouchableOpacity
+                                    onPress={() => {
+                                        setCategory(index);
+                                        getInvestments(index);
+                                    }}>
+                                    <View
+                                        style={[
+                                            styles.investmentCategory,
+                                            category === index
+                                                ? {
+                                                      backgroundColor:
+                                                          HiFiColors.White,
+                                                  }
+                                                : {},
+                                        ]}>
+                                        <Text
+                                            style={[
+                                                globalStyles.selectedBoldLabel,
+                                                category === index
+                                                    ? {color: HiFiColors.Accent}
+                                                    : {},
+                                            ]}>
+                                            {item}
+                                        </Text>
+                                    </View>
+                                </TouchableOpacity>
+                            ),
+                    )}
                 </ScrollView>
             </View>
             <View style={{flex: 1}}>
@@ -213,7 +177,7 @@ const styles = StyleSheet.create({
         borderRadius: 20,
         backgroundColor: HiFiColors.AccentFade,
         marginHorizontal: 10,
-        width: 100,
+        width: Dimensions.get('window').width / 3 - 20,
         alignItems: 'center',
         justifyContent: 'center',
     },
