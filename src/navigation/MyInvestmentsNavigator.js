@@ -1,11 +1,10 @@
-import React from 'react'
-import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
+import {createStackNavigator} from '@react-navigation/stack';
 
 import MyInvestmentScreen from '../screens/my-investment/MyInvestment';
 import MyInvestmentDetailScreen from '../screens/my-investment/MyInvestmentDetail';
 
 const Stack = createStackNavigator();
-
 
 export default MyInvestmentsNavigator = () => {
     return (
@@ -16,8 +15,7 @@ export default MyInvestmentsNavigator = () => {
                 cardStyle: {
                     backgroundColor: 'white',
                 },
-            }}
-        >
+            }}>
             <Stack.Screen
                 name="MyInvestmentScreen"
                 component={MyInvestmentScreen}
@@ -26,7 +24,6 @@ export default MyInvestmentsNavigator = () => {
                 name="MyInvestmentDetailScreen"
                 component={MyInvestmentDetailScreen}
             />
-
         </Stack.Navigator>
-    )
-}
+    );
+};

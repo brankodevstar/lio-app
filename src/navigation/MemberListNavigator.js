@@ -1,5 +1,5 @@
-import React from 'react'
-import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
+import {createStackNavigator} from '@react-navigation/stack';
 
 import ChatScreen from '../screens/members/Chat';
 import GroupChatScreen from '../screens/members/GroupChat';
@@ -8,7 +8,6 @@ import MemberInfoScreen from '../screens/members/MemberInfo';
 import MemberListScreen from '../screens/members/MemberList';
 
 const Stack = createStackNavigator();
-
 
 export default MemberNavigator = () => {
     return (
@@ -19,20 +18,13 @@ export default MemberNavigator = () => {
                 cardStyle: {
                     backgroundColor: 'white',
                 },
-            }}
-        >
+            }}>
             <Stack.Screen
                 name="MemberListScreen"
                 component={MemberListScreen}
             />
-            <Stack.Screen
-                name="ChatScreen"
-                component={ChatScreen}
-            />
-            <Stack.Screen
-                name="GroupChatScreen"
-                component={GroupChatScreen}
-            />
+            <Stack.Screen name="ChatScreen" component={ChatScreen} />
+            <Stack.Screen name="GroupChatScreen" component={GroupChatScreen} />
             <Stack.Screen
                 name="IndividualChatScreen"
                 component={IndividualChatScreen}
@@ -41,7 +33,6 @@ export default MemberNavigator = () => {
                 name="MemberInfoScreen"
                 component={MemberInfoScreen}
             />
-
         </Stack.Navigator>
-    )
-}
+    );
+};

@@ -1,11 +1,11 @@
-import { Dimensions, StyleSheet } from 'react-native';
+import {Dimensions, StyleSheet} from 'react-native';
 import HiFiColors from './colors';
 import fonts from './fonts';
 
 const globalStyles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: HiFiColors.Accent
+        backgroundColor: HiFiColors.Accent,
     },
     title: {
         color: HiFiColors.White,
@@ -17,7 +17,7 @@ const globalStyles = StyleSheet.create({
         color: HiFiColors.White,
         fontFamily: fonts.primary,
         fontSize: 14,
-        fontWeight: '600'
+        fontWeight: '600',
     },
     filledButton: {
         alignItems: 'center',
@@ -25,19 +25,19 @@ const globalStyles = StyleSheet.create({
         alignSelf: 'center',
         paddingVertical: 10,
         borderRadius: 76,
-        width: "80%",
+        width: '80%',
     },
     buttonLabel: {
         color: HiFiColors.White,
         fontSize: 12,
-        fontWeight: '600'
+        fontWeight: '600',
     },
     pageTitle: {
         fontFamily: fonts.primary,
         color: HiFiColors.White,
         fontSize: 36,
         fontWeight: '700',
-        marginVertical: 10
+        marginVertical: 10,
     },
     littleTinyLabel: {
         fontFamily: fonts.primary,
@@ -49,19 +49,19 @@ const globalStyles = StyleSheet.create({
         fontFamily: fonts.primary,
         color: HiFiColors.White,
         fontSize: 10,
-        fontWeight: '600'
+        fontWeight: '600',
     },
     smallLabel: {
         fontFamily: fonts.primary,
         color: HiFiColors.White,
         fontSize: 12,
-        fontWeight: '500'
+        fontWeight: '500',
     },
     boldSmallLabel: {
         fontFamily: fonts.primary,
         color: HiFiColors.White,
         fontSize: 12,
-        fontWeight: '600'
+        fontWeight: '600',
     },
     label: {
         fontFamily: fonts.primary,
@@ -73,37 +73,37 @@ const globalStyles = StyleSheet.create({
         fontFamily: fonts.primary,
         color: HiFiColors.White,
         fontSize: 14,
-        fontWeight: '600'
+        fontWeight: '600',
     },
     selectedBoldLabel: {
         fontFamily: fonts.primary,
         color: HiFiColors.White,
         fontSize: 14,
-        fontWeight: '800'
+        fontWeight: '800',
     },
     strongLabel: {
         fontFamily: fonts.primary,
         color: HiFiColors.White,
         fontSize: 14,
-        fontWeight: '800'
+        fontWeight: '800',
     },
     mediumLabel: {
         fontFamily: fonts.primary,
         color: HiFiColors.White,
         fontSize: 18,
-        fontWeight: '500'
+        fontWeight: '500',
     },
     mediumBoldLabel: {
         fontFamily: fonts.primary,
         color: HiFiColors.White,
         fontSize: 18,
-        fontWeight: '600'
+        fontWeight: '600',
     },
     mediumStrongLabel: {
         fontFamily: fonts.primary,
         color: HiFiColors.White,
         fontSize: 18,
-        fontWeight: '800'
+        fontWeight: '800',
     },
     headerContainer: {
         flexDirection: 'row',
@@ -118,6 +118,6 @@ const globalStyles = StyleSheet.create({
         justifyContent: 'flex-end',
         margin: 0,
     },
-})
+});
 
 export default globalStyles;

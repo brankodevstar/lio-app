@@ -1,8 +1,8 @@
-import { LOG_OUT, SET_USER } from "../actions/ActionType";
+import {LOG_OUT, SET_USER} from '../actions/ActionType';
 
 const InitialState = {
     loggedIn: false,
-    user: {}
+    user: {},
 };
 
 const CurrentUser = (state = InitialState, action) => {
@@ -11,16 +11,16 @@ const CurrentUser = (state = InitialState, action) => {
             return {
                 ...state,
                 user: action.payload,
-                loggedIn: true
-            }
+                loggedIn: true,
+            };
         case LOG_OUT:
             return {
                 ...state,
                 user: {},
-                loggedIn: false
-            }
+                loggedIn: false,
+            };
         default:
-            return state
+            return state;
     }
 };
 

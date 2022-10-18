@@ -1,19 +1,19 @@
-import { GET_USER, SET_USER } from "./ActionType";
+import {GET_USER, SET_USER} from './ActionType';
 
-const setUser = (userObj) => {
+const setUser = userObj => {
     return {
         type: SET_USER,
-        payload: userObj
-    }
+        payload: userObj,
+    };
 };
 
 const getUser = () => {
     return {
-        type: GET_USER
-    }
+        type: GET_USER,
+    };
 };
 
 export default {
     setUser,
-    getUser
+    getUser,
 };

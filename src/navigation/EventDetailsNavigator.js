@@ -1,12 +1,11 @@
-import React from 'react'
-import { createStackNavigator } from '@react-navigation/stack';
+import React from 'react';
+import {createStackNavigator} from '@react-navigation/stack';
 
 import ConfirmDetailScreen from '../screens/events-detail/ConfirmDetail';
 import EventsDetailScreen from '../screens/events-detail/EventsDetail';
 import ReserveScreen from '../screens/events-detail/Reserve';
 
 const Stack = createStackNavigator();
-
 
 export default EventDetailsNavigator = () => {
     return (
@@ -17,8 +16,7 @@ export default EventDetailsNavigator = () => {
                 cardStyle: {
                     backgroundColor: 'white',
                 },
-            }}
-        >
+            }}>
             <Stack.Screen
                 name="EventsDetailScreen"
                 component={EventsDetailScreen}
@@ -27,11 +25,7 @@ export default EventDetailsNavigator = () => {
                 name="ConfirmDetailScreen"
                 component={ConfirmDetailScreen}
             />
-            <Stack.Screen
-                name="ReserveScreen"
-                component={ReserveScreen}
-            />
-
+            <Stack.Screen name="ReserveScreen" component={ReserveScreen} />
         </Stack.Navigator>
-    )
-}
+    );
+};

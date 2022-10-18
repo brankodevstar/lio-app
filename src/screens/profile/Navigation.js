@@ -1,34 +1,59 @@
-import React from "react";
-import { View, Text, Image, TouchableOpacity, } from 'react-native';
-import { StyleSheet } from "react-native";
+import React from 'react';
+import {View, Text, Image, TouchableOpacity} from 'react-native';
+import {StyleSheet} from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 
-import globalStyles from "../../styles/style";
-import HiFiColors from "../../styles/colors";
+import globalStyles from '../../styles/style';
+import HiFiColors from '../../styles/colors';
 
-export default Navigation = ({ navigation }) => {
+export default Navigation = ({navigation}) => {
     return (
         <View style={globalStyles.container}>
-            <View style={[globalStyles.headerContainer, { justifyContent: 'flex-start', borderBottomWidth: 0, }]}>
+            <View
+                style={[
+                    globalStyles.headerContainer,
+                    {justifyContent: 'flex-start', borderBottomWidth: 0},
+                ]}>
                 <TouchableOpacity onPress={() => navigation.goBack()}>
-                    <FeatherIcon name="x" size={20} color={HiFiColors.White} style={styles.headerIcon} />
+                    <FeatherIcon
+                        name="x"
+                        size={20}
+                        color={HiFiColors.White}
+                        style={styles.headerIcon}
+                    />
                 </TouchableOpacity>
             </View>
             <View style={styles.imageSection}>
-                <Image style={styles.image}
-                    source={require('../../../assets/images/fdd9945619a0269dd7ba72d1167f72e6.png')} />
-                <Text style={[globalStyles.mediumBoldLabel, { marginTop: 40, marginLeft: 20, }]}>Leaders Of India</Text>
+                <Image
+                    style={styles.image}
+                    source={require('../../../assets/images/fdd9945619a0269dd7ba72d1167f72e6.png')}
+                />
+                <Text
+                    style={[
+                        globalStyles.mediumBoldLabel,
+                        {marginTop: 40, marginLeft: 20},
+                    ]}>
+                    Leaders Of India
+                </Text>
             </View>
             <View style={styles.textSection}>
                 <Text style={globalStyles.mediumBoldLabel}>My Profile</Text>
                 <Text style={globalStyles.mediumBoldLabel}>My Bookings</Text>
             </View>
             <View style={styles.footSection}>
-                <Image style={styles.footImage}
-                    source={require('../../../assets/images/avatars/avatar.jpg')} />
+                <Image
+                    style={styles.footImage}
+                    source={require('../../../assets/images/avatars/avatar.jpg')}
+                />
                 <View style={styles.footText}>
                     <Text style={globalStyles.boldLabel}>Roger Sanchez</Text>
-                    <Text style={[globalStyles.boldLabel, { color: HiFiColors.Blue }]}>R.Sanchez@email.com</Text>
+                    <Text
+                        style={[
+                            globalStyles.boldLabel,
+                            {color: HiFiColors.Blue},
+                        ]}>
+                        R.Sanchez@email.com
+                    </Text>
                 </View>
                 <TouchableOpacity>
                     <View style={styles.logout}>
@@ -37,8 +62,8 @@ export default Navigation = ({ navigation }) => {
                 </TouchableOpacity>
             </View>
         </View>
-    )
-}
+    );
+};
 
 const styles = StyleSheet.create({
     headerIcon: {
@@ -87,5 +112,5 @@ const styles = StyleSheet.create({
         height: 40,
         justifyContent: 'center',
         alignItems: 'center',
-    }
-})
+    },
+});
