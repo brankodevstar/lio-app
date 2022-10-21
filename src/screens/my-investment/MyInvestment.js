@@ -1,32 +1,73 @@
-import React, {useState} from 'react';
-import {
-    View,
-    Text,
-    StyleSheet,
-    Image,
-    Dimensions,
-    TouchableOpacity,
-} from 'react-native';
+import React, {useEffect, useState} from 'react';
+import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
-import PieChart from 'react-native-pie-chart';
 import {VictoryPie} from 'victory-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 import HiFiColors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import globalStyles from '../../styles/style';
 import MenuButton from '../../components/MenuButton';
+import Action from '../../service';
+import {ADMIN_API_URL} from '../../../config';
+
+const sum = (items, prop) => {
+    return items.reduce((a, b) => {
+        return a + b[prop];
+    }, 0);
+};
 
 export default MyInvestment = ({navigation}) => {
-    const series = [21.4, 14.3, 28.6, 21.4, 14.3];
-    const sampleData = [
-        {x: 'Sports', y: 21.4},
-        {x: 'Fin Tech', y: 14.3},
-        {x: 'Travel', y: 28.6},
-        {x: 'Agri Tech', y: 21.4},
-        {x: 'Food', y: 14.3},
-    ];
-    const sliceColor = ['#31356E', '#2F5F98', '#941149', '#41B8D5', '#3A7E9F'];
+    const [chartData, setChartData] = useState([]);
+    const [sliceColor, setSliceColor] = useState([]);
+    const [investmentSum, setInvestmentSum] = useState(0);
+    const [userInfo, setUserInfo] = useState({});
+
+    const dynamicColors = function () {
+        var r = Math.floor(Math.random() * 255);
+        var g = Math.floor(Math.random() * 255);
+        var b = Math.floor(Math.random() * 255);
+        return 'rgb(' + r + ',' + g + ',' + b + ')';
+    };
+
+    const initChartData = async () => {
+        const userData = await AsyncStorage.getItem('USER_DATA');
+        Action.members
+            .list({phone: userData})
+            .then(response => {
+                if (response.data.length > 0) {
+                    const currentUser = response.data[0];
+                    setUserInfo(currentUser);
+                    const tempInvestmentSum = sum(
+                        currentUser.investmentCompany,
+                        'currentValue',
+                    );
+                    let tempChartData = [];
+                    let tempColors = [];
+                    currentUser.investmentCompany.map((item, index) => {
+                        tempChartData.push({
+                            x: item.companyName,
+                            y: Number.parseFloat(
+                                (
+                                    (item.currentValue / tempInvestmentSum) *
+                                    100
+                                ).toFixed(1),
+                            ),
+                        });
+                        tempColors.push(dynamicColors());
+                    });
+                    setInvestmentSum(tempInvestmentSum);
+                    setSliceColor(tempColors);
+                    setChartData(tempChartData);
+                }
+            })
+            .catch(err => {});
+    };
+
+    useEffect(() => {
+        initChartData();
+    }, []);
 
     return (
         <ScrollView style={globalStyles.container}>
@@ -61,7 +102,7 @@ export default MyInvestment = ({navigation}) => {
                             My Investments
                         </Text>
                         <Text style={[styles.mainInfoTitle, {marginLeft: 40}]}>
-                            ₹900,000
+                            ₹{investmentSum.toLocaleString()}
                         </Text>
                     </LinearGradient>
                 </View>
@@ -71,13 +112,13 @@ export default MyInvestment = ({navigation}) => {
                         Investment Split
                     </Text>
                     <VictoryPie
-                        data={sampleData}
+                        data={chartData}
                         colorScale={sliceColor}
                         labels={({datum}) => datum.x + '\n' + datum.y + '%'}
                         style={{
                             labels: {
                                 fill: HiFiColors.Label,
-                                fontSize: 8,
+                                fontSize: 14,
                                 fontWeight: '300',
                                 fontFamily: fonts.primary,
                             },
@@ -94,166 +135,44 @@ export default MyInvestment = ({navigation}) => {
                         ]}>
                         My List
                     </Text>
-                    <View style={styles.investContainer}>
-                        <TouchableOpacity
-                            style={{flexDirection: 'row', alignItems: 'center'}}
-                            onPress={() => {
-                                navigation.navigate('MyInvestmentDetailScreen');
-                            }}>
-                            <Text
-                                style={[styles.chartTitle, {marginRight: 10}]}>
-                                1.
-                            </Text>
-                            <Image
-                                source={{
-                                    uri: 'https://s3-alpha-sig.figma.com/img/9430/b221/89993a64dea4336dbfc07dfbcc947e82?Expires=1664755200&Signature=T2ct2kS~LQaG7mvWHwxnLm1bPTRxDH8ctD6R3gQ3-o~gc6xKO9f3vw0BiKKMiBWVTc959sIgjVDr5fqVApqVimVXjfhR-99BrlbnakS8ehoVA4LphFasJUXuwVc2h8vSlNnDwwStMwRY4-7~KG2syrzyi-RTGdnF8m4RhT7WOCElYvd2RhxN2D~lUXFe~f1QijRqQBlZFxZSD5rQynA79te~EMoJCSjF4bpVO~48KlB2w7yF03JPxppc8gPXES5GNRkjDfJQUtGMiz7aQkAE~kKhEoNdWu6xwKjVn8PXnuSrDVP-j5BqWtYr4UbjnnlY5I7NXIPJi7mjyB3WRLaibQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
+                    {userInfo?.investmentCompany?.map((item, index) => (
+                        <View key={index} style={styles.investContainer}>
+                            <TouchableOpacity
+                                style={{
+                                    flexDirection: 'row',
+                                    alignItems: 'center',
                                 }}
-                                style={styles.investImage}
-                            />
-                            <Text style={styles.investLabel}>Step Change</Text>
-                            <Text
-                                style={[
-                                    globalStyles.tinyLabel,
-                                    styles.myInvestCategory,
-                                ]}>
-                                Environment
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.investContainer}>
-                        <TouchableOpacity
-                            style={{flexDirection: 'row', alignItems: 'center'}}
-                            onPress={() => {
-                                navigation.navigate('MyInvestmentDetailScreen');
-                            }}>
-                            <Text
-                                style={[styles.chartTitle, {marginRight: 10}]}>
-                                2.
-                            </Text>
-                            <Image
-                                source={{
-                                    uri: 'https://s3-alpha-sig.figma.com/img/5543/7311/19585c65b08e7c3b133264559ea04520?Expires=1664755200&Signature=BCiBzpVgxfb1XVqbgfaSNefB~PP6bt-iweYM9j3jb~nrdKINz3XrIZZlvPX1D8LkJqncVNcW0f0~Vs~X1dA6mLR1j6V1lgbasUH8cMoq36-XPzGsAia8CbrAVVw1uzvKzsxkLRs7uSGOaorJ1vwfyctznh6x6rxV8jtLCbflvGsocq8GXLfD1vqCx65bkUOJIcM8ub~4BfgE~5FN2dEovIBxurB4Sn9Ldfa4oGvod0zI7ufLbw8IH4aPxX2avxXKpGJ5STqreAkwTo3Cdl1wawJZBj4xbdMfCtx64UeEQ3rbZLC6-FsVVY2xx9CmI3PsRs0MxbRkbng1JkiEnHrayg__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
-                                }}
-                                style={styles.investImage}
-                            />
-                            <Text style={styles.investLabel}>Clickup</Text>
-                            <Text
-                                style={[
-                                    globalStyles.tinyLabel,
-                                    styles.myInvestCategory,
-                                ]}>
-                                SaaS tool
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.investContainer}>
-                        <TouchableOpacity
-                            style={{flexDirection: 'row', alignItems: 'center'}}
-                            onPress={() => {
-                                navigation.navigate('MyInvestmentDetailScreen');
-                            }}>
-                            <Text
-                                style={[styles.chartTitle, {marginRight: 10}]}>
-                                3.
-                            </Text>
-                            <Image
-                                source={{
-                                    uri: 'https://s3-alpha-sig.figma.com/img/8016/5a20/745a66de3321c1eaff9ce85ffb6b5ddb?Expires=1664755200&Signature=HGghXcI8pjwGv7Szlzf98eJFELaJRSzbO6FIJ9OYh1KrzZkTFoHnRFe0emXTZi2Zv5c3~c~hGHUjgTTbXFA-h5TtxyydfWturw2J8K3aO8G6m7vvh83pZF1Xsw6CcTjz3Jvvgepozcu2BtZq4zzcvb03PU9r0MuooOvamUMM4R37pPw~TgRxInvILvsr~2EZ~Q-dwFJtgi~gjuAJk~T~R5dVyAIcv7Qn3yR1rMKuSiDgbJMgIgTRU0oXXxnMKd~Do1b--XIdlhSL1UB-qykEB4WBFZWmoG4Aj015LF2MsHjLO6nNbjCaXCTtyVPvY8JJFR8tJbbDNQLeQDbIwlTa7A__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
-                                }}
-                                style={styles.investImage}
-                            />
-                            <Text style={styles.investLabel}>
-                                Dynamo Softwares
-                            </Text>
-                            <Text
-                                style={[
-                                    globalStyles.tinyLabel,
-                                    styles.myInvestCategory,
-                                ]}>
-                                Software Development
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.investContainer}>
-                        <TouchableOpacity
-                            style={{flexDirection: 'row', alignItems: 'center'}}
-                            onPress={() => {
-                                navigation.navigate('MyInvestmentDetailScreen');
-                            }}>
-                            <Text
-                                style={[styles.chartTitle, {marginRight: 10}]}>
-                                4.
-                            </Text>
-                            <Image
-                                source={{
-                                    uri: 'https://s3-alpha-sig.figma.com/img/9430/b221/89993a64dea4336dbfc07dfbcc947e82?Expires=1664755200&Signature=T2ct2kS~LQaG7mvWHwxnLm1bPTRxDH8ctD6R3gQ3-o~gc6xKO9f3vw0BiKKMiBWVTc959sIgjVDr5fqVApqVimVXjfhR-99BrlbnakS8ehoVA4LphFasJUXuwVc2h8vSlNnDwwStMwRY4-7~KG2syrzyi-RTGdnF8m4RhT7WOCElYvd2RhxN2D~lUXFe~f1QijRqQBlZFxZSD5rQynA79te~EMoJCSjF4bpVO~48KlB2w7yF03JPxppc8gPXES5GNRkjDfJQUtGMiz7aQkAE~kKhEoNdWu6xwKjVn8PXnuSrDVP-j5BqWtYr4UbjnnlY5I7NXIPJi7mjyB3WRLaibQ__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
-                                }}
-                                style={styles.investImage}
-                            />
-                            <Text style={styles.investLabel}>Step Change</Text>
-                            <Text
-                                style={[
-                                    globalStyles.tinyLabel,
-                                    styles.myInvestCategory,
-                                ]}>
-                                Environment
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.investContainer}>
-                        <TouchableOpacity
-                            style={{flexDirection: 'row', alignItems: 'center'}}
-                            onPress={() => {
-                                navigation.navigate('MyInvestmentDetailScreen');
-                            }}>
-                            <Text
-                                style={[styles.chartTitle, {marginRight: 10}]}>
-                                5.
-                            </Text>
-                            <Image
-                                source={{
-                                    uri: 'https://s3-alpha-sig.figma.com/img/5543/7311/19585c65b08e7c3b133264559ea04520?Expires=1664755200&Signature=BCiBzpVgxfb1XVqbgfaSNefB~PP6bt-iweYM9j3jb~nrdKINz3XrIZZlvPX1D8LkJqncVNcW0f0~Vs~X1dA6mLR1j6V1lgbasUH8cMoq36-XPzGsAia8CbrAVVw1uzvKzsxkLRs7uSGOaorJ1vwfyctznh6x6rxV8jtLCbflvGsocq8GXLfD1vqCx65bkUOJIcM8ub~4BfgE~5FN2dEovIBxurB4Sn9Ldfa4oGvod0zI7ufLbw8IH4aPxX2avxXKpGJ5STqreAkwTo3Cdl1wawJZBj4xbdMfCtx64UeEQ3rbZLC6-FsVVY2xx9CmI3PsRs0MxbRkbng1JkiEnHrayg__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
-                                }}
-                                style={styles.investImage}
-                            />
-                            <Text style={styles.investLabel}>Clickup</Text>
-                            <Text
-                                style={[
-                                    globalStyles.tinyLabel,
-                                    styles.myInvestCategory,
-                                ]}>
-                                SaaS tool
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
-                    <View style={styles.investContainer}>
-                        <TouchableOpacity
-                            style={{flexDirection: 'row', alignItems: 'center'}}
-                            onPress={() => {
-                                navigation.navigate('MyInvestmentDetailScreen');
-                            }}>
-                            <Text
-                                style={[styles.chartTitle, {marginRight: 10}]}>
-                                6.
-                            </Text>
-                            <Image
-                                source={{
-                                    uri: 'https://s3-alpha-sig.figma.com/img/8016/5a20/745a66de3321c1eaff9ce85ffb6b5ddb?Expires=1664755200&Signature=HGghXcI8pjwGv7Szlzf98eJFELaJRSzbO6FIJ9OYh1KrzZkTFoHnRFe0emXTZi2Zv5c3~c~hGHUjgTTbXFA-h5TtxyydfWturw2J8K3aO8G6m7vvh83pZF1Xsw6CcTjz3Jvvgepozcu2BtZq4zzcvb03PU9r0MuooOvamUMM4R37pPw~TgRxInvILvsr~2EZ~Q-dwFJtgi~gjuAJk~T~R5dVyAIcv7Qn3yR1rMKuSiDgbJMgIgTRU0oXXxnMKd~Do1b--XIdlhSL1UB-qykEB4WBFZWmoG4Aj015LF2MsHjLO6nNbjCaXCTtyVPvY8JJFR8tJbbDNQLeQDbIwlTa7A__&Key-Pair-Id=APKAINTVSUGEWH5XD5UA',
-                                }}
-                                style={styles.investImage}
-                            />
-                            <Text style={styles.investLabel}>
-                                Dynamo Softwares
-                            </Text>
-                            <Text
-                                style={[
-                                    globalStyles.tinyLabel,
-                                    styles.myInvestCategory,
-                                ]}>
-                                Software Development
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
+                                onPress={() => {
+                                    navigation.navigate(
+                                        'MyInvestmentDetailScreen',
+                                    );
+                                }}>
+                                <Text
+                                    style={[
+                                        styles.chartTitle,
+                                        {marginRight: 20},
+                                    ]}>
+                                    {index + 1}
+                                </Text>
+                                <Image
+                                    source={{
+                                        uri: `${ADMIN_API_URL}upload/${item.companyAvatarUrl}`,
+                                    }}
+                                    style={styles.investImage}
+                                />
+                                <Text style={styles.investLabel}>
+                                    {item.companyName}
+                                </Text>
+                                {/* <Text
+                                    style={[
+                                        globalStyles.tinyLabel,
+                                        styles.myInvestCategory,
+                                    ]}>
+                                    Environment
+                                </Text> */}
+                            </TouchableOpacity>
+                        </View>
+                    ))}
                 </View>
             </View>
         </ScrollView>
@@ -316,7 +235,7 @@ const styles = StyleSheet.create({
         height: 30,
         borderRadius: 50,
         backgroundColor: HiFiColors.White,
-        marginRight: 10,
+        marginRight: 25,
     },
     investLabel: {
         fontSize: 16,

@@ -9,9 +9,15 @@ import {useSelector} from 'react-redux';
 import {ADMIN_API_URL} from '../../../config';
 
 import ChatScreen from '../../screens/members/Chat';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default DrawerMenu = props => {
     const currentUser = useSelector(state => state.CurrentUser);
+
+    const logout = async () => {
+        await AsyncStorage.removeItem('USER_DATA');
+        props.navigation.navigate('SplashScreen');
+    };
 
     return (
         <View style={globalStyles.container}>
@@ -168,10 +174,7 @@ export default DrawerMenu = props => {
                         </Text>
                     </View>
                 </View>
-                <TouchableOpacity
-                    onPress={() => {
-                        props.navigation.navigate('SplashScreen');
-                    }}>
+                <TouchableOpacity onPress={() => logout()}>
                     <View style={styles.logout}>
                         <Text style={globalStyles.boldSmallLabel}>Logout</Text>
                     </View>

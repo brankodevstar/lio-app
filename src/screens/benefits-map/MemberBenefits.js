@@ -34,6 +34,12 @@ export default MemberBenefits = ({navigation}) => {
         }
     };
 
+    const handleBenefitClick = index => {
+        navigation.navigate('VenueMapScreen', {
+            mapInfo: {benefits: benefits, clickedIndex: index},
+        });
+    };
+
     useEffect(() => {
         navigation.addListener('focus', () => {
             getBenefits(category);
@@ -175,9 +181,7 @@ export default MemberBenefits = ({navigation}) => {
                     {benefits.map((item, index) => (
                         <View key={index} style={styles.categoryCard}>
                             <TouchableOpacity
-                                onPress={() => {
-                                    navigation.navigate('VenueMapScreen');
-                                }}>
+                                onPress={() => handleBenefitClick(index)}>
                                 <View style={styles.categoryView}>
                                     <ImageBackground
                                         source={{

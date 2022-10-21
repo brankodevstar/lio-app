@@ -15,6 +15,7 @@ const Stack = createStackNavigator();
 
 export default App = () => {
     enableLatestRenderer();
+
     return (
         <Provider store={store}>
             <NavigationContainer>
