@@ -19,6 +19,7 @@ import BenefitsNavigator from './BenefitsNavigator';
 import EventDetailsNavigator from './EventDetailsNavigator';
 import ProfileNavigator from './ProfileNavigator';
 import GalleryNavigator from './GalleryNavigator';
+import EventNavigator from './EventNavigator';
 import CalendarPartnerDetailNavigator from './CalendarPartnerDetailNavigator';
 import GroupChatScreen from '../screens/members/GroupChat';
 import GroupChatRoomsScreen from '../screens/members/GroupChatRooms';
@@ -92,7 +93,13 @@ export default function DrawerNavigator(props) {
                     drawerLabel: 'Event Details',
                 }}
             />
-
+            <Drawer.Screen
+                name="Events"
+                component={EventNavigator}
+                options={{
+                    drawerLabel: 'Events',
+                }}
+            />
             <Drawer.Screen
                 name="Gallery"
                 component={GalleryNavigator}

@@ -1,13 +1,13 @@
 import React from 'react';
 import {createStackNavigator} from '@react-navigation/stack';
 
-import ImageGalleryInfoScreen from '../screens/image-gallery/ImageGalleryInfo';
-import GalleryScreen from '../screens/image-gallery/Gallery';
-import ViewPictureScreen from '../screens/image-gallery/ViewPicture';
+import EventInfoGalleryScreen from '../screens/profile-gallery/EventInfoGallery';
+import GalleryScreen from '../screens/profile-gallery/Gallery';
+import ViewPictureScreen from '../screens/profile-gallery/ViewPicture';
 
 const Stack = createStackNavigator();
 
-export default GalleryNavigator = () => {
+export default EventNavigator = () => {
     return (
         <Stack.Navigator
             screenOptions={{
@@ -17,10 +17,10 @@ export default GalleryNavigator = () => {
                     backgroundColor: 'white',
                 },
             }}>
-            <Stack.Screen name="ImageGalleryScreen" component={GalleryScreen} />
+            <Stack.Screen name="GalleryScreen" component={GalleryScreen} />
             <Stack.Screen
-                name="ImageGalleryInfoScreen"
-                component={ImageGalleryInfoScreen}
+                name="EventInfoGalleryScreen"
+                component={EventInfoGalleryScreen}
             />
             <Stack.Screen
                 name="ViewPictureScreen"

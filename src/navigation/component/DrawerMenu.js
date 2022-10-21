@@ -106,6 +106,18 @@ export default DrawerMenu = props => {
                 {/* <TouchableOpacity onPress={() => { props.navigation.navigate("CalendarPartnerDetail") }}>
                     <Text style={[globalStyles.mediumBoldLabel, { paddingVertical: 10 }]}>Calendar & Partner Detail</Text>
                 </TouchableOpacity> */}
+                {/* <TouchableOpacity
+                    onPress={() => {
+                        props.navigation.navigate('Events');
+                    }}>
+                    <Text
+                        style={[
+                            globalStyles.mediumBoldLabel,
+                            {paddingVertical: 10},
+                        ]}>
+                        Events
+                    </Text>
+                </TouchableOpacity> */}
                 <TouchableOpacity
                     onPress={() => {
                         props.navigation.navigate('Gallery');
