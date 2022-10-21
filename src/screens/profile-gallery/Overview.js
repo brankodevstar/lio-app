@@ -9,9 +9,16 @@ import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import MenuButton from '../../components/MenuButton';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default Overview = ({navigation}) => {
     const currentUser = useSelector(state => state.CurrentUser);
+
+    const logout = async () => {
+        await AsyncStorage.removeItem('USER_DATA');
+        navigation.navigate('SplashScreen');
+    };
+
     return (
         <View style={globalStyles.container}>
             <View style={{paddingHorizontal: 10, flexDirection: 'row'}}>
@@ -112,7 +119,7 @@ export default Overview = ({navigation}) => {
                         marginBottom: 100,
                         width: '100%',
                     }}>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => logout()}>
                         <LinearGradient
                             start={{x: 0.0, y: 0.0}}
                             end={{x: 1.0, y: 1.0}}
