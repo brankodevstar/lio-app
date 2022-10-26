@@ -33,7 +33,7 @@ export default Navigation = ({navigation}) => {
                         globalStyles.mediumBoldLabel,
                         {marginTop: 40, marginLeft: 20},
                     ]}>
-                    Leaders Of India
+                    Leaders for India Organization
                 </Text>
             </View>
             <View style={styles.textSection}>

@@ -54,6 +54,7 @@ export default Investments = ({navigation}) => {
                         (item, index) =>
                             item && (
                                 <TouchableOpacity
+                                    key={index}
                                     onPress={() => {
                                         setCategory(index);
                                         getInvestments(index);

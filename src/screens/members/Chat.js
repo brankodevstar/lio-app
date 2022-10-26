@@ -185,46 +185,57 @@ export default Chat = ({navigation}) => {
             </View>
             <ScrollView>
                 {members.map((item, index) => (
-                    <View key={index} style={styles.chatItemContainer}>
-                        <View style={{flexDirection: 'row'}}>
-                            <View style={styles.memberAvatarContainer}>
-                                <Image
-                                    source={{
-                                        uri: `${ADMIN_API_URL}upload/${item.avatarUrl}`,
-                                    }}
-                                    style={styles.avatarImage}
-                                />
-                                <FontistoIcon
-                                    name="ellipse"
-                                    size={8}
-                                    color={HiFiColors.Green}
-                                    style={styles.onlineCheckTag}
-                                />
-                            </View>
-                            <View>
-                                <Text style={globalStyles.selectedBoldLabel}>
-                                    {item.firstName + ' ' + item.lastName}
-                                </Text>
-                                <View
-                                    style={{
-                                        flexDirection: 'row',
-                                        alignItems: 'center',
-                                    }}>
-                                    <Ionicons
-                                        name="checkmark-done-sharp"
-                                        size={15}
-                                        color={HiFiColors.Blue}
-                                        style={{marginRight: 5}}
+                    <TouchableOpacity
+                        key={index}
+                        onPress={() =>
+                            navigation.navigate('IndividualChatScreen', {
+                                partner: item,
+                            })
+                        }>
+                        <View style={styles.chatItemContainer}>
+                            <View style={{flexDirection: 'row'}}>
+                                <View style={styles.memberAvatarContainer}>
+                                    <Image
+                                        source={{
+                                            uri: `${ADMIN_API_URL}upload/${item.avatarUrl}`,
+                                        }}
+                                        style={styles.avatarImage}
                                     />
-                                    <Text style={globalStyles.boldSmallLabel}>
-                                        Lorem ipsum dolor sit amet
+                                    <FontistoIcon
+                                        name="ellipse"
+                                        size={8}
+                                        color={HiFiColors.Green}
+                                        style={styles.onlineCheckTag}
+                                    />
+                                </View>
+                                <View>
+                                    <Text
+                                        style={globalStyles.selectedBoldLabel}>
+                                        {item.firstName + ' ' + item.lastName}
                                     </Text>
+                                    <View
+                                        style={{
+                                            flexDirection: 'row',
+                                            alignItems: 'center',
+                                        }}>
+                                        <Ionicons
+                                            name="checkmark-done-sharp"
+                                            size={15}
+                                            color={HiFiColors.Blue}
+                                            style={{marginRight: 5}}
+                                        />
+                                        <Text
+                                            style={globalStyles.boldSmallLabel}>
+                                            Lorem ipsum dolor sit amet
+                                        </Text>
+                                    </View>
                                 </View>
                             </View>
-                        </View>
-                        <View style={{alignItems: 'center'}}>
-                            <Text style={globalStyles.smallLabel}>4:44 PM</Text>
-                            {/* <LinearGradient
+                            <View style={{alignItems: 'center'}}>
+                                <Text style={globalStyles.smallLabel}>
+                                    4:44 PM
+                                </Text>
+                                {/* <LinearGradient
                             start={{ x: 0.0, y: 0.0 }}
                             end={{ x: 1.0, y: 1.0 }}
                             colors={['#7B61FF', '#991450', '#40799D']}
@@ -232,8 +243,9 @@ export default Chat = ({navigation}) => {
                         >
                             <Text style={globalStyles.smallLabel}>3</Text>
                         </LinearGradient> */}
+                            </View>
                         </View>
-                    </View>
+                    </TouchableOpacity>
                 ))}
             </ScrollView>
 
@@ -252,14 +264,14 @@ export default Chat = ({navigation}) => {
                         ]}>
                         Chat
                     </Text>
-                    <TouchableOpacity
+                    {/* <TouchableOpacity
                         style={{marginBottom: 10}}
                         onPress={() => {
                             setSettingModalVisible(false);
                             navigation.navigate('IndividualChatScreen');
                         }}>
                         <Text style={globalStyles.boldLabel}>New Chat</Text>
-                    </TouchableOpacity>
+                    </TouchableOpacity> */}
                     <TouchableOpacity
                         onPress={() => {
                             toggleSettingModal();

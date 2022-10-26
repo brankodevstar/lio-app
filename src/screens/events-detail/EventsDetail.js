@@ -34,7 +34,7 @@ export default Home = ({navigation}) => {
                         <View style={{position: 'absolute', left: 20, top: 15}}>
                             <MenuButton navigation={navigation} />
                         </View>
-                        <View style={[styles.headerIconBack, {left: 60}]}>
+                        {/* <View style={[styles.headerIconBack, {left: 60}]}>
                             <TouchableOpacity>
                                 <FeatherIcon
                                     name="arrow-left"
@@ -43,7 +43,7 @@ export default Home = ({navigation}) => {
                                     style={styles.headerIcon}
                                 />
                             </TouchableOpacity>
-                        </View>
+                        </View> */}
                         <View style={[styles.headerIconBack, {right: 60}]}>
                             <TouchableOpacity>
                                 <FontAwesomeIcon

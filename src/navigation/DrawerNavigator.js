@@ -28,6 +28,7 @@ import InvestmentsNavigator from './InvestmentsNavigator';
 
 import HiFiColors from '../styles/colors';
 import DrawerMenu from './component/DrawerMenu';
+import IndividualChatScreen from '../screens/members/IndividualChat';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 
 const HeaderMenu = props => {
@@ -125,6 +126,10 @@ export default function DrawerNavigator(props) {
             <Drawer.Screen
                 name="GroupChatRooms"
                 component={GroupChatRoomsScreen}
+            />
+            <Drawer.Screen
+                name="IndividualChatScreen"
+                component={IndividualChatScreen}
             />
         </Drawer.Navigator>
     );

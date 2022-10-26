@@ -40,7 +40,7 @@ export default MemberInfo = ({navigation}) => {
                 ]}>
                 <MenuButton navigation={navigation} />
                 <Text style={globalStyles.mediumStrongLabel}>
-                    Leaders Of India
+                Leaders for India Organization
                 </Text>
                 <View style={styles.headerRightPart}>
                     {/* <TouchableOpacity onPress={() => { navigation.navigate("NavigationScreen") }}>
