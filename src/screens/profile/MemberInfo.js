@@ -209,14 +209,14 @@ export default MemberInfo = ({navigation}) => {
                             <View style={styles.cardHeader}>
                                 <View style={styles.userNameContainer}>
                                     <Image
-                                        source={require('../../../assets/images/fdd9945619a0269dd7ba72d1167f72e6.png')}
+                                        source={require('../../../assets/images/logo.png')}
                                         style={styles.avatarImage}
                                     />
                                     <Text style={styles.userNameLabel}>
-                                        Leaders for India
+                                        Leaders for India Organization
                                     </Text>
                                 </View>
-                                <View>
+                                {/* <View>
                                     <TouchableOpacity>
                                         <FeatherIcon
                                             name="more-vertical"
@@ -224,7 +224,7 @@ export default MemberInfo = ({navigation}) => {
                                             color={HiFiColors.White}
                                         />
                                     </TouchableOpacity>
-                                </View>
+                                </View> */}
                             </View>
                             <View style={styles.discriptionContainer}>
                                 <Text style={globalStyles.label}>

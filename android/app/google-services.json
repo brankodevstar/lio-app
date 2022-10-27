@@ -1,33 +1,41 @@
 {
   "project_info": {
-    "project_number": "1009873761544",
-    "project_id": "lio-for-india-76480",
-    "storage_bucket": "lio-for-india-76480.appspot.com"
+    "project_number": "1019091276543",
+    "project_id": "lio-project-2ccac",
+    "storage_bucket": "lio-project-2ccac.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:1009873761544:android:219ca6c0ae8a3a341ca8bd",
+        "mobilesdk_app_id": "1:1019091276543:android:e73e36857b6668b6e7f2ca",
         "android_client_info": {
           "package_name": "com.lio"
         }
       },
       "oauth_client": [
         {
-          "client_id": "1009873761544-gmdlh4m6gbvv0q7v8g4c6pcj2jduc1du.apps.googleusercontent.com",
+          "client_id": "1019091276543-an652aeq6a4f6lukp50ocrgbevu7ph91.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.lio",
+            "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
+          }
+        },
+        {
+          "client_id": "1019091276543-kevu3ss3dg8k1p80oh0uphhnb3sm2rvh.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA-fDURfaE5eB1eUk6pMh24BaL6uyYhNXA"
+          "current_key": "AIzaSyBpxuhn8hvjmcgYsS1BiyV_qL5DeLG7cqQ"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "1009873761544-gmdlh4m6gbvv0q7v8g4c6pcj2jduc1du.apps.googleusercontent.com",
+              "client_id": "1019091276543-kevu3ss3dg8k1p80oh0uphhnb3sm2rvh.apps.googleusercontent.com",
               "client_type": 3
             }
           ]

@@ -6,29 +6,26 @@ import {
     Dimensions,
     ImageBackground,
     ScrollView,
+    StyleSheet,
 } from 'react-native';
-import globalStyles from '../../styles/style';
-import {StyleSheet} from 'react-native';
-import HiFiColors from '../../styles/colors';
-import fonts from '../../styles/fonts';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import LinearGradient from 'react-native-linear-gradient';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
+import call from 'react-native-phone-call';
+
+import globalStyles from '../../styles/style';
+import HiFiColors from '../../styles/colors';
+import fonts from '../../styles/fonts';
 import MenuButton from '../../components/MenuButton';
 import Action from '../../service';
 import {ADMIN_API_URL} from '../../../config';
-import {TYPE_NAME} from '../../constant';
 
 export default MemberBenefits = ({navigation}) => {
-    const [category, setCategory] = useState(1);
     const [benefits, setBenefits] = useState([]);
 
-    const getBenefits = async categoryId => {
-        const param = {
-            type: categoryId,
-        };
-        const response = await Action.benefits.list(param);
+    const getBenefits = async () => {
+        const response = await Action.benefits.list();
         if (response.data) {
             setBenefits(response.data);
         }
@@ -40,9 +37,16 @@ export default MemberBenefits = ({navigation}) => {
         });
     };
 
+    const phoneCall = phoneNumber => {
+        call({
+            number: phoneNumber,
+            prompt: false,
+        }).catch(console.error);
+    };
+
     useEffect(() => {
         navigation.addListener('focus', () => {
-            getBenefits(category);
+            getBenefits();
         });
     }, [navigation]);
 
@@ -138,45 +142,6 @@ export default MemberBenefits = ({navigation}) => {
                 </Text>
             </View>
             <View style={styles.categories}>
-                <Text style={styles.categoriesTitle}>Categories</Text>
-                <View style={styles.buttonGroup}>
-                    <ScrollView horizontal>
-                        {TYPE_NAME.map(
-                            (item, index) =>
-                                item && (
-                                    <TouchableOpacity
-                                        key={index}
-                                        onPress={() => {
-                                            setCategory(index);
-                                            getBenefits(index);
-                                        }}>
-                                        <View
-                                            style={[
-                                                styles.buttonBack,
-                                                category === index
-                                                    ? {
-                                                          backgroundColor:
-                                                              HiFiColors.White,
-                                                      }
-                                                    : {},
-                                            ]}>
-                                            <Text
-                                                style={[
-                                                    globalStyles.selectedBoldLabel,
-                                                    category === index
-                                                        ? {
-                                                              color: HiFiColors.Accent,
-                                                          }
-                                                        : {},
-                                                ]}>
-                                                {item}
-                                            </Text>
-                                        </View>
-                                    </TouchableOpacity>
-                                ),
-                        )}
-                    </ScrollView>
-                </View>
                 <View style={styles.categoriesView}>
                     {benefits.map((item, index) => (
                         <View key={index} style={styles.categoryCard}>
@@ -227,6 +192,8 @@ export default MemberBenefits = ({navigation}) => {
                                         marginVertical: 5,
                                         justifyContent: 'space-between',
                                         paddingHorizontal: 5,
+                                        alignItems: 'center',
+                                        marginTop: 15,
                                     }}>
                                     <View>
                                         <Text
@@ -235,32 +202,37 @@ export default MemberBenefits = ({navigation}) => {
                                             }>
                                             {item.name}
                                         </Text>
-                                        <Text
+                                        {/* <Text
                                             style={[
                                                 globalStyles.label,
                                                 {color: HiFiColors.Label},
                                             ]}>
                                             {item.locationName}
-                                        </Text>
+                                        </Text> */}
                                     </View>
-                                    <LinearGradient
-                                        start={{x: 0.0, y: 0.0}}
-                                        end={{x: 0.0, y: 1.0}}
-                                        colors={[
-                                            '#7B61FF',
-                                            '#991450',
-                                            '#40799D',
-                                        ]}
-                                        style={styles.iconBack}
-                                        alignSelf="flex-end">
-                                        <FeatherIcon
-                                            name="phone-call"
-                                            size={20}
-                                            color={HiFiColors.White}
-                                        />
-                                    </LinearGradient>
+                                    <TouchableOpacity
+                                        onPress={() =>
+                                            phoneCall(item.phoneNumber)
+                                        }>
+                                        <LinearGradient
+                                            start={{x: 0.0, y: 0.0}}
+                                            end={{x: 0.0, y: 1.0}}
+                                            colors={[
+                                                '#7B61FF',
+                                                '#991450',
+                                                '#40799D',
+                                            ]}
+                                            style={styles.iconBack}
+                                            alignSelf="flex-end">
+                                            <FeatherIcon
+                                                name="phone-call"
+                                                size={25}
+                                                color={HiFiColors.White}
+                                            />
+                                        </LinearGradient>
+                                    </TouchableOpacity>
                                 </View>
-                                <View
+                                {/* <View
                                     style={{
                                         flexDirection: 'row',
                                         marginVertical: 5,
@@ -297,7 +269,7 @@ export default MemberBenefits = ({navigation}) => {
                                             />
                                         </TouchableOpacity>
                                     </View>
-                                </View>
+                                </View> */}
                             </View>
                         </View>
                     ))}

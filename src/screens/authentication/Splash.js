@@ -91,7 +91,7 @@ export default Splash = ({navigation}) => {
                     <Text style={globalStyles.title}>India Organization</Text>
                 </View>
                 <Text style={[globalStyles.content, {marginVertical: 20}]}>
-                    Some amazing tag line here lorem ipsum
+                    Invest | Innovate | Impact
                 </Text>
                 {activityIndicator && (
                     <ActivityIndicator

@@ -9,6 +9,7 @@ import MenuButton from '../../components/MenuButton';
 import {ADMIN_API_URL} from '../../../config';
 import Action from '../../service';
 import moment from 'moment';
+import {ScrollView} from 'react-native-gesture-handler';
 
 export default MemberInfo = ({route, navigation}) => {
     const {id} = route.params;
@@ -17,6 +18,7 @@ export default MemberInfo = ({route, navigation}) => {
     getUserData = async () => {
         const response = await Action.members.getById(id);
         if (response.data) {
+            console.log('user data ===========> ', response.data);
             setUser(response.data);
         }
     };
@@ -92,9 +94,33 @@ export default MemberInfo = ({route, navigation}) => {
                             </View>
                         </View>
                         <Image
-                            source={require('../../../assets/images/fdd9945619a0269dd7ba72d1167f72e6.png')}
+                            source={require('../../../assets/images/logo.png')}
                             style={styles.memberDetailImage}
                         />
+                    </View>
+                    <View style={styles.companyInfoContainer}>
+                        <Text
+                            style={[
+                                globalStyles.strongLabel,
+                                {marginBottom: 10},
+                            ]}>
+                            Company List
+                        </Text>
+                        <ScrollView style={{flex: 1}}>
+                            {user?.investmentCompany?.map((item, index) => (
+                                <View key={index} style={styles.companyInfo}>
+                                    <Image
+                                        source={{
+                                            uri: `${ADMIN_API_URL}upload/${item.companyAvatarUrl}`,
+                                        }}
+                                        style={styles.companyAvatar}
+                                    />
+                                    <Text style={globalStyles.boldLabel}>
+                                        {item.companyName}
+                                    </Text>
+                                </View>
+                            ))}
+                        </ScrollView>
                     </View>
                 </View>
                 <View style={styles.chatButtonContainer}>
@@ -126,8 +152,10 @@ const styles = StyleSheet.create({
     contentContainer: {
         flex: 1,
         paddingHorizontal: 15,
+        paddingVertical: 20,
     },
     memberProfileContainer: {
+        flex: 1,
         backgroundColor: HiFiColors.AccentFade,
         marginTop: 10,
         paddingVertical: 10,
@@ -158,13 +186,32 @@ const styles = StyleSheet.create({
         borderRadius: 200,
     },
     chatButtonContainer: {
-        flex: 1,
+        position: 'absolute',
+        bottom: 10,
+        right: 10,
         alignItems: 'flex-end',
         justifyContent: 'flex-end',
-        marginBottom: 30,
     },
     chatButtonBack: {
         padding: 15,
         borderRadius: 100,
+    },
+    companyInfoContainer: {
+        flex: 1,
+        borderTopWidth: 1,
+        borderColor: HiFiColors.Label,
+        marginTop: 10,
+        paddingVertical: 10,
+    },
+    companyInfo: {
+        flexDirection: 'row',
+        alignItems: 'center',
+        marginVertical: 5,
+    },
+    companyAvatar: {
+        width: 30,
+        height: 30,
+        borderRadius: 50,
+        marginRight: 15,
     },
 });

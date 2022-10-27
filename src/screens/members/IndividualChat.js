@@ -64,7 +64,7 @@ export default IndividualChat = ({route, navigation}) => {
             from: doc.data().from,
             to: doc.data().to,
             createdAt: moment(doc.data().createdAt.toDate()).format(
-                'yyyy-MM-DD hh.mm',
+                'hh.mm',
             ),
             message: doc.data().text,
             type: doc.data().from === myId ? 'out' : 'in',
@@ -122,7 +122,7 @@ export default IndividualChat = ({route, navigation}) => {
                     <Text style={styles.headerTitle}>
                         {partner.firstName + ' ' + partner.lastName}
                     </Text>
-                    <Text style={globalStyles.label}>{partner.email}</Text>
+                    {/* <Text style={globalStyles.label}>{partner.email}</Text> */}
                 </View>
             </View>
             <ScrollView
