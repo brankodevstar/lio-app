@@ -231,7 +231,7 @@ export default InvestmentDetail = ({route, navigation}) => {
                             />
                         </TouchableOpacity>
                     </View>
-                    <View style={[styles.headerIconBack, {right: 60}]}>
+                    {/* <View style={[styles.headerIconBack, {right: 60}]}>
                         <TouchableOpacity>
                             <FontAwesomeIcon
                                 name="heart"
@@ -250,7 +250,7 @@ export default InvestmentDetail = ({route, navigation}) => {
                                 style={styles.headerIcon}
                             />
                         </TouchableOpacity>
-                    </View>
+                    </View> */}
                 </ImageBackground>
             </View>
             <View style={styles.content}>

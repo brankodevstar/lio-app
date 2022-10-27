@@ -1,5 +1,12 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {
+    View,
+    Text,
+    StyleSheet,
+    Image,
+    TouchableOpacity,
+    Dimensions,
+} from 'react-native';
 import {ScrollView} from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
 import {VictoryPie} from 'victory-native';
@@ -66,8 +73,10 @@ export default MyInvestment = ({navigation}) => {
     };
 
     useEffect(() => {
-        initChartData();
-    }, []);
+        navigation.addListener('focus', () => {
+            initChartData();
+        });
+    }, [navigation]);
 
     return (
         <ScrollView style={globalStyles.container}>
@@ -112,18 +121,20 @@ export default MyInvestment = ({navigation}) => {
                         Investment Split
                     </Text>
                     <VictoryPie
+                        radius={Dimensions.get('window').width / 5}
                         data={chartData}
                         colorScale={sliceColor}
                         labels={({datum}) => datum.x + '\n' + datum.y + '%'}
                         style={{
                             labels: {
                                 fill: HiFiColors.Label,
-                                fontSize: 14,
+                                fontSize: 12,
                                 fontWeight: '300',
                                 fontFamily: fonts.primary,
+                                borderWidth: 1,
+                                borderColor: 'red',
                             },
                         }}
-                        width={300}
                         height={300}
                     />
                 </View>
