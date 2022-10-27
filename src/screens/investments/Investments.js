@@ -20,13 +20,9 @@ import {TYPE_NAME} from '../../constant';
 
 export default Investments = ({navigation}) => {
     const [investments, setInvestments] = useState([]);
-    const [category, setCategory] = useState(1);
 
     const getInvestments = async categoryId => {
-        const param = {
-            type: categoryId,
-        };
-        const response = await Action.investments.list(param);
+        const response = await Action.investments.list();
         if (response.data) {
             setInvestments(response.data);
         }
@@ -34,7 +30,7 @@ export default Investments = ({navigation}) => {
 
     useEffect(() => {
         navigation.addListener('focus', () => {
-            getInvestments(category);
+            getInvestments();
         });
     }, [navigation]);
 
@@ -47,42 +43,6 @@ export default Investments = ({navigation}) => {
                 <Text style={globalStyles.mediumStrongLabel}>
                     Open Investments
                 </Text>
-            </View>
-            <View>
-                <ScrollView horizontal style={styles.categoryScroll}>
-                    {TYPE_NAME.map(
-                        (item, index) =>
-                            item && (
-                                <TouchableOpacity
-                                    key={index}
-                                    onPress={() => {
-                                        setCategory(index);
-                                        getInvestments(index);
-                                    }}>
-                                    <View
-                                        style={[
-                                            styles.investmentCategory,
-                                            category === index
-                                                ? {
-                                                      backgroundColor:
-                                                          HiFiColors.White,
-                                                  }
-                                                : {},
-                                        ]}>
-                                        <Text
-                                            style={[
-                                                globalStyles.selectedBoldLabel,
-                                                category === index
-                                                    ? {color: HiFiColors.Accent}
-                                                    : {},
-                                            ]}>
-                                            {item}
-                                        </Text>
-                                    </View>
-                                </TouchableOpacity>
-                            ),
-                    )}
-                </ScrollView>
             </View>
             <View style={{flex: 1}}>
                 <ScrollView

@@ -2,8 +2,8 @@ import axios from 'axios';
 import APIServer from './APIService';
 import {ADMIN_API_URL} from '../../../config';
 
-const list = async param => {
-    const response = await APIServer.get('investments', {params: param});
+const list = async () => {
+    const response = await APIServer.get('investments');
     return response;
 };
 
