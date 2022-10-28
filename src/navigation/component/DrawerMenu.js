@@ -41,7 +41,7 @@ export default DrawerMenu = props => {
             <View style={styles.imageSection}>
                 <Image
                     style={styles.image}
-                    source={require('../../../assets/images/fdd9945619a0269dd7ba72d1167f72e6.png')}
+                    source={require('../../../assets/images/logo.png')}
                 />
                 <Text
                     style={[
@@ -100,7 +100,7 @@ export default DrawerMenu = props => {
                             globalStyles.mediumBoldLabel,
                             {paddingVertical: 10},
                         ]}>
-                        Event Details
+                        Events
                     </Text>
                 </TouchableOpacity>
                 {/* <TouchableOpacity onPress={() => { props.navigation.navigate("CalendarPartnerDetail") }}>

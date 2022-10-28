@@ -1,9 +1,22 @@
 import React, {useEffect, useState} from 'react';
-import {View, Text, Image, StyleSheet, ImageBackground} from 'react-native';
-import {TouchableOpacity, ScrollView} from 'react-native-gesture-handler';
+import {
+    View,
+    Text,
+    Image,
+    StyleSheet,
+    ImageBackground,
+    TouchableWithoutFeedback,
+    ActivityIndicator,
+    Dimensions,
+    TextInput,
+    TouchableOpacity,
+    ScrollView,
+} from 'react-native';
 import LinearGradient from 'react-native-linear-gradient';
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import FeatherIcon from 'react-native-vector-icons/Feather';
+import MaterialCommunityIcon from 'react-native-vector-icons/MaterialCommunityIcons';
+import Modal from 'react-native-modal';
 
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
@@ -17,12 +30,66 @@ import {useSelector} from 'react-redux';
 export default MemberInfo = ({navigation}) => {
     const [announcements, setAnnouncements] = useState([]);
     const currentUser = useSelector(state => state.CurrentUser);
+    const [isModalVisible, setModalVisible] = useState(false);
+    const [selectedAnnouncement, setSelectedAnnouncement] = useState({});
+    const [activityIndicator, setActivityIndicator] = useState(false);
+    const [comment, setComment] = useState('');
 
     const getAnnouncements = async () => {
         const response = await Action.announcements.list();
         if (response.data) {
             setAnnouncements(response.data);
         }
+    };
+
+    const getById = async id => {
+        const response = await Action.announcements.getById(id);
+        console.log('announcement =====> ', response.data);
+        setSelectedAnnouncement(response.data);
+    };
+
+    const handleLikeClick = async id => {
+        const response = await Action.announcements.increaseLike(id);
+        if (response.data) {
+            getAnnouncements();
+        }
+    };
+
+    const toggleModal = () => {
+        setModalVisible(!isModalVisible);
+    };
+
+    const showCommentDialog = async id => {
+        setModalVisible(true);
+        getById(id);
+    };
+
+    const addComment = () => {
+        console.log('add comment clicked!!!');
+        setActivityIndicator(true);
+        const data = selectedAnnouncement;
+        const commentData = {
+            commenterFirstName: currentUser.user.firstName,
+            commenterLastName: currentUser.user.lastName,
+            commenterEmailAddress: currentUser.user.email,
+            commenterAvatarUrl: currentUser.user.avatarUrl,
+            commentDescription: comment,
+        };
+        data.comments.push(commentData);
+        console.log('data comment added!!!', data);
+        Action.announcements
+            .update(data._id, data)
+            .then(response => {
+                if (response.data) {
+                    getById(data._id);
+                    setComment('');
+                }
+                setActivityIndicator(false);
+            })
+            .catch(error => {
+                console.log('error ===> ', error);
+                setActivityIndicator(false);
+            });
     };
 
     useEffect(() => {
@@ -40,7 +107,7 @@ export default MemberInfo = ({navigation}) => {
                 ]}>
                 <MenuButton navigation={navigation} />
                 <Text style={globalStyles.mediumStrongLabel}>
-                Leaders for India Organization
+                    Leaders for India Organization
                 </Text>
                 <View style={styles.headerRightPart}>
                     {/* <TouchableOpacity onPress={() => { navigation.navigate("NavigationScreen") }}>
@@ -238,13 +305,22 @@ export default MemberInfo = ({navigation}) => {
                                 style={styles.cardImage}
                             />
                             <View style={styles.cardFooter}>
-                                <View style={{flexDirection: 'row'}}>
-                                    <FeatherIcon
-                                        name="heart"
-                                        size={15}
-                                        color={HiFiColors.White}
-                                        style={styles.labelSpace}
-                                    />
+                                <View
+                                    style={{
+                                        flexDirection: 'row',
+                                        alignItems: 'center',
+                                    }}>
+                                    <TouchableOpacity
+                                        onPress={() =>
+                                            handleLikeClick(item._id)
+                                        }>
+                                        <FeatherIcon
+                                            name="heart"
+                                            size={20}
+                                            color={HiFiColors.White}
+                                            style={styles.labelSpace}
+                                        />
+                                    </TouchableOpacity>
                                     <Text
                                         style={[
                                             globalStyles.boldLabel,
@@ -252,14 +328,19 @@ export default MemberInfo = ({navigation}) => {
                                         ]}>
                                         {item.clickCount.toLocaleString()}
                                     </Text>
-                                    <FeatherIcon
-                                        name="message-circle"
-                                        size={15}
-                                        color={HiFiColors.White}
-                                        style={styles.labelSpace}
-                                    />
+                                    <TouchableOpacity
+                                        onPress={() => {
+                                            showCommentDialog(item._id);
+                                        }}>
+                                        <FeatherIcon
+                                            name="message-circle"
+                                            size={20}
+                                            color={HiFiColors.White}
+                                            style={styles.labelSpace}
+                                        />
+                                    </TouchableOpacity>
                                     <Text style={globalStyles.boldLabel}>
-                                        {item.commentCount.toLocaleString()}
+                                        {item.comments.length.toLocaleString()}
                                     </Text>
                                 </View>
                                 <Text style={styles.timeLabel}>
@@ -298,6 +379,115 @@ export default MemberInfo = ({navigation}) => {
                     ))}
                 </View>
             </View>
+
+            <Modal
+                isVisible={isModalVisible}
+                onSwipeComplete={() => {
+                    setModalVisible(false);
+                    getAnnouncements();
+                }}
+                swipeDirection={['down']}
+                propagateSwipe={true}
+                style={globalStyles.modalContainer}>
+                <View style={styles.modalContentContainer}>
+                    {activityIndicator && (
+                        <ActivityIndicator
+                            size="large"
+                            style={{
+                                position: 'absolute',
+                                left: '50%',
+                                top: '50%',
+                            }}
+                        />
+                    )}
+                    <Text style={styles.modalCommentTitle}>Comments</Text>
+                    <ScrollView style={styles.commentScroll}>
+                        <TouchableOpacity>
+                            <TouchableWithoutFeedback>
+                                <View>
+                                    {selectedAnnouncement?.comments?.map(
+                                        (item, index) => (
+                                            <View
+                                                key={index}
+                                                style={styles.commentsTag}>
+                                                <Image
+                                                    source={{
+                                                        uri: `${ADMIN_API_URL}upload/${item.commenterAvatarUrl}`,
+                                                    }}
+                                                    style={
+                                                        styles.commenterAvartar
+                                                    }
+                                                />
+                                                <View>
+                                                    <View
+                                                        style={{
+                                                            flexDirection:
+                                                                'row',
+                                                        }}>
+                                                        <Text
+                                                            style={
+                                                                globalStyles.boldLabel
+                                                            }>
+                                                            {item.commenterFirstName +
+                                                                ' ' +
+                                                                item.commenterLastName}
+                                                        </Text>
+                                                        <Text
+                                                            style={[
+                                                                globalStyles.boldLabel,
+                                                                {
+                                                                    color: HiFiColors.Primary,
+                                                                    marginLeft: 10,
+                                                                },
+                                                            ]}>
+                                                            {
+                                                                item.commenterEmailAddress
+                                                            }
+                                                        </Text>
+                                                    </View>
+                                                    <Text
+                                                        style={
+                                                            globalStyles.boldLabel
+                                                        }>
+                                                        {
+                                                            item.commentDescription
+                                                        }
+                                                    </Text>
+                                                </View>
+                                            </View>
+                                        ),
+                                    )}
+                                </View>
+                            </TouchableWithoutFeedback>
+                        </TouchableOpacity>
+                    </ScrollView>
+                    <View style={styles.addCommentBack}>
+                        <TouchableOpacity>
+                            <MaterialCommunityIcon
+                                name="emoticon-happy-outline"
+                                size={30}
+                                color={HiFiColors.Label}
+                            />
+                        </TouchableOpacity>
+                        <TextInput
+                            placeholder="Write your comments"
+                            placeholderTextColor={HiFiColors.Label}
+                            value={comment}
+                            onChangeText={value => {
+                                setComment(value);
+                            }}
+                            style={styles.addCommentTextInput}
+                        />
+                        <TouchableOpacity onPress={addComment}>
+                            <FeatherIcon
+                                name="send"
+                                size={25}
+                                color={HiFiColors.Label}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                </View>
+            </Modal>
         </ScrollView>
     );
 };
@@ -417,5 +607,48 @@ const styles = StyleSheet.create({
         color: HiFiColors.White,
         fontSize: 16,
         fontWeight: '700',
+    },
+    modalCommentTitle: {
+        fontFamily: fonts.primary,
+        color: HiFiColors.White,
+        fontSize: 20,
+        fontWeight: '700',
+    },
+    modalContentContainer: {
+        backgroundColor: HiFiColors.Accent,
+        paddingVertical: 30,
+        paddingHorizontal: 20,
+        height: (Dimensions.get('window').height / 5) * 3,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+    },
+    commentScroll: {
+        marginTop: 20,
+    },
+    commentsTag: {
+        flexDirection: 'row',
+        marginBottom: 15,
+    },
+    addCommentBack: {
+        backgroundColor: HiFiColors.AccentFade,
+        paddingVertical: 5,
+        paddingHorizontal: 20,
+        borderRadius: 30,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        marginTop: 10,
+    },
+    addCommentTextInput: {
+        alignSelf: 'stretch',
+        flex: 1,
+        marginHorizontal: 10,
+        color: HiFiColors.White,
+    },
+    commenterAvartar: {
+        width: 45,
+        height: 45,
+        borderRadius: 50,
+        marginRight: 10,
     },
 });

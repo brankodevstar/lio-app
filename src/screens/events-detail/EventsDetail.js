@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {
     View,
     Text,
@@ -17,13 +17,33 @@ import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import MenuButton from '../../components/MenuButton';
+import Action from '../../service';
+import {ADMIN_API_URL} from '../../../config';
 
-export default Home = ({navigation}) => {
+export default EventDetail = ({route, navigation}) => {
+    const {id} = route.params;
+    const [eventItem, setEventItem] = useState({});
+
+    const getEvent = async () => {
+        const response = await Action.gallery.getById(id);
+        setEventItem(response.data);
+    };
+
+    useEffect(() => {
+        navigation.addListener('focus', () => {
+            getEvent();
+        });
+    }, [navigation]);
+
     return (
         <ScrollView style={styles.container}>
             <View>
                 <ImageBackground
-                    source={require('../../../assets/images/baner-1.png')}
+                    source={{
+                        uri: `${ADMIN_API_URL}upload/${
+                            eventItem?.photos?.length && eventItem?.photos[0]
+                        }`,
+                    }}
                     resizeMode="stretch"
                     style={styles.bannerImage}>
                     <LinearGradient
@@ -293,7 +313,7 @@ export default Home = ({navigation}) => {
                                 <Text style={globalStyles.mediumLabel}>
                                     Post C-19 Reopening
                                 </Text>
-                                <View style={styles.reverseButtonBack}>
+                                {/* <View style={styles.reverseButtonBack}>
                                     <TouchableOpacity
                                         onPress={() =>
                                             navigation.navigate('ReserveScreen')
@@ -318,7 +338,7 @@ export default Home = ({navigation}) => {
                                             </Text>
                                         </LinearGradient>
                                     </TouchableOpacity>
-                                </View>
+                                </View> */}
                             </LinearGradient>
                         </ImageBackground>
                     </View>
@@ -355,7 +375,7 @@ export default Home = ({navigation}) => {
                     </View>
                 </View>
             </View>
-            <View style={styles.footer}>
+            {/* <View style={styles.footer}>
                 <View style={styles.footerContentContainer}>
                     <Text style={globalStyles.label}>
                         From{' '}
@@ -385,7 +405,7 @@ export default Home = ({navigation}) => {
                         </LinearGradient>
                     </TouchableOpacity>
                 </View>
-            </View>
+            </View> */}
         </ScrollView>
     );
 };

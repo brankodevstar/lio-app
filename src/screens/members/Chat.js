@@ -53,31 +53,6 @@ const unCheckedIconTag = () => (
         }}></View>
 );
 
-const checkedUser = () => (
-    <View style={styles.checkedUserContainer}>
-        <Image
-            source={require('../../../assets/images/avatars/7fe1a020fdff606843aff1544b1b36b8.png')}
-            style={styles.checkedUserAvatar}
-        />
-        <Text style={globalStyles.smallLabel}>Hemant</Text>
-        <View
-            style={{
-                position: 'absolute',
-                top: -2,
-                right: -2,
-            }}>
-            <TouchableOpacity>
-                <FeatherIcon
-                    name="x"
-                    size={15}
-                    color={HiFiColors.White}
-                    style={styles.checkedUserCancel}
-                />
-            </TouchableOpacity>
-        </View>
-    </View>
-);
-
 export default Chat = ({navigation}) => {
     const [isSettingModalVisible, setSettingModalVisible] = useState(false);
     const [isParticipantModalVisible, setParticipantModalVisible] =
@@ -88,9 +63,14 @@ export default Chat = ({navigation}) => {
     const [checkedMembers, setCheckedMembers] = useState([]);
     const [groupName, setGroupName] = useState('');
     const [description, setDescription] = useState('');
+    const [userName, setUserName] = useState('');
 
-    const getMembers = async () => {
-        const response = await Action.members.list({});
+    const onSearch = () => {
+        getMembers({username: userName});
+    };
+
+    const getMembers = async param => {
+        const response = await Action.members.list(param);
         if (response.data) {
             setMembers(
                 response.data.filter(item => item._id != currentUser.user._id),
@@ -100,7 +80,7 @@ export default Chat = ({navigation}) => {
 
     useEffect(() => {
         navigation.addListener('focus', () => {
-            getMembers();
+            getMembers({});
         });
     }, [navigation]);
 
@@ -150,7 +130,6 @@ export default Chat = ({navigation}) => {
                     globalStyles.headerContainer,
                     {justifyContent: 'space-between'},
                 ]}>
-                <MenuButton navigation={navigation} />
                 <View
                     style={{
                         flex: 1,
@@ -158,14 +137,7 @@ export default Chat = ({navigation}) => {
                         justifyContent: 'space-between',
                         alignItems: 'center',
                     }}>
-                    <TouchableOpacity>
-                        <FeatherIcon
-                            name="search"
-                            size={20}
-                            color={HiFiColors.White}
-                            style={styles.headerButton}
-                        />
-                    </TouchableOpacity>
+                    <MenuButton navigation={navigation} />
                     <Text style={globalStyles.mediumStrongLabel}>Chats</Text>
                     <TouchableOpacity
                         onPress={() => {
@@ -179,6 +151,29 @@ export default Chat = ({navigation}) => {
                             size={20}
                             color={HiFiColors.White}
                             style={styles.headerButton}
+                        />
+                    </TouchableOpacity>
+                </View>
+            </View>
+            <View style={styles.searchBoxContainer}>
+                <TextInput
+                    style={styles.searchBox}
+                    placeholder="Search Members"
+                    placeholderTextColor={HiFiColors.Label}
+                    value={userName}
+                    onChangeText={val => setUserName(val)}
+                />
+                <View
+                    style={{
+                        position: 'absolute',
+                        right: 25,
+                    }}>
+                    <TouchableOpacity onPress={onSearch}>
+                        <FeatherIcon
+                            name="search"
+                            size={20}
+                            color={HiFiColors.White}
+                            style={[styles.headerButton, styles.searchButton]}
                         />
                     </TouchableOpacity>
                 </View>
@@ -695,5 +690,25 @@ const styles = StyleSheet.create({
         borderWidth: 0,
         color: HiFiColors.White,
         textAlignVertical: 'top',
+    },
+    searchBoxContainer: {
+        flexDirection: 'row',
+        marginVertical: 15,
+        alignItems: 'center',
+        paddingHorizontal: 20,
+    },
+    searchBox: {
+        borderWidth: 1,
+        flex: 1,
+        borderColor: HiFiColors.Label,
+        color: HiFiColors.White,
+        borderRadius: 50,
+        paddingLeft: 20,
+        paddingRight: 40,
+    },
+    searchButton: {
+        padding: 10,
+        backgroundColor: HiFiColors.AccentFade,
+        borderRadius: 100,
     },
 });

@@ -11,7 +11,6 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useSelector} from 'react-redux';
-// import Search from 'react-native-search-box';
 
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';

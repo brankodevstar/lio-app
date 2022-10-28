@@ -60,42 +60,39 @@ export default Overview = ({navigation}) => {
             </View>
             <View style={styles.accountPanel}>
                 <Text style={styles.account}>Account</Text>
-                <View style={styles.accountCard}>
-                    <View>
-                        <Text style={styles.captionTitle}>
-                            Account Information
-                        </Text>
-                        <Text style={styles.captionDescription}>
-                            Change your account information
-                        </Text>
-                    </View>
-                    <TouchableOpacity
-                        onPress={() => {
-                            navigation.navigate('AccountInfoScreen');
-                        }}>
+                <TouchableOpacity
+                    onPress={() => {
+                        navigation.navigate('AccountInfoScreen');
+                    }}>
+                    <View style={styles.accountCard}>
+                        <View>
+                            <Text style={styles.captionTitle}>
+                                Account Information
+                            </Text>
+                            <Text style={styles.captionDescription}>
+                                Change your account information
+                            </Text>
+                        </View>
+
                         <FeatherIcon
                             name="chevron-right"
                             size={25}
                             color={HiFiColors.White}
                         />
-                    </TouchableOpacity>
-                </View>
+                    </View>
+                </TouchableOpacity>
                 <View style={styles.accountCard}>
                     <View>
-                        <Text style={styles.captionTitle}>Wallet</Text>
-                        <Text style={styles.captionDescription}>
-                            Manage payment methods
-                        </Text>
+                        <Text style={styles.captionTitle}>Contact Admins</Text>
+                        
                     </View>
-                    <TouchableOpacity>
-                        <FeatherIcon
-                            name="chevron-right"
-                            size={25}
-                            color={HiFiColors.White}
-                        />
-                    </TouchableOpacity>
+                    <FeatherIcon
+                        name="chevron-right"
+                        size={25}
+                        color={HiFiColors.White}
+                    />
                 </View>
-                <View style={styles.accountCard}>
+                {/* <View style={styles.accountCard}>
                     <View>
                         <Text style={styles.captionTitle}>
                             Deactivate Account
@@ -104,14 +101,12 @@ export default Overview = ({navigation}) => {
                             Manage closure of your account
                         </Text>
                     </View>
-                    <TouchableOpacity>
-                        <FeatherIcon
-                            name="chevron-right"
-                            size={25}
-                            color={HiFiColors.White}
-                        />
-                    </TouchableOpacity>
-                </View>
+                    <FeatherIcon
+                        name="chevron-right"
+                        size={25}
+                        color={HiFiColors.White}
+                    />
+                </View> */}
                 <View
                     style={{
                         alignSelf: 'stretch',

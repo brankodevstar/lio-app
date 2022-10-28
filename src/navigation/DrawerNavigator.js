@@ -91,7 +91,7 @@ export default function DrawerNavigator(props) {
                 name="EventDetails"
                 component={EventDetailsNavigator}
                 options={{
-                    drawerLabel: 'Event Details',
+                    drawerLabel: 'Events',
                 }}
             />
             <Drawer.Screen
