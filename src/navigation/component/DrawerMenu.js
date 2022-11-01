@@ -159,38 +159,35 @@ export default DrawerMenu = props => {
                 </TouchableOpacity>
             </View>
             <View style={styles.footSection}>
-                <View
-                    style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        justifyContent: 'center',
-                    }}>
-                    <Image
-                        style={styles.footImage}
-                        source={{
-                            uri: `${ADMIN_API_URL}upload/${currentUser.user.avatarUrl}`,
-                        }}
-                    />
-                    <View style={styles.footText}>
-                        <Text style={globalStyles.boldLabel}>
-                            {currentUser.user.firstName +
-                                ' ' +
-                                currentUser.user.lastName}
-                        </Text>
-                        <Text
-                            style={[
-                                globalStyles.boldLabel,
-                                {color: HiFiColors.Blue},
-                            ]}>
-                            {currentUser.user.email}
-                        </Text>
-                    </View>
+                <Image
+                    style={styles.footImage}
+                    source={{
+                        uri: `${ADMIN_API_URL}upload/${currentUser.user.avatarUrl}`,
+                    }}
+                />
+                <View style={styles.footText}>
+                    <Text style={globalStyles.boldLabel}>
+                        {currentUser.user.firstName +
+                            ' ' +
+                            currentUser.user.lastName}
+                    </Text>
+                    <Text
+                        style={[
+                            globalStyles.boldLabel,
+                            {color: HiFiColors.Blue},
+                        ]}>
+                        {currentUser.user.email}
+                    </Text>
                 </View>
-                <TouchableOpacity onPress={() => logout()}>
-                    <View style={styles.logout}>
-                        <Text style={globalStyles.boldSmallLabel}>Logout</Text>
-                    </View>
-                </TouchableOpacity>
+                <View>
+                    <TouchableOpacity onPress={() => logout()}>
+                        <View style={styles.logout}>
+                            <Text style={globalStyles.boldSmallLabel}>
+                                Logout
+                            </Text>
+                        </View>
+                    </TouchableOpacity>
+                </View>
             </View>
         </View>
     );
@@ -224,8 +221,8 @@ const styles = StyleSheet.create({
         justifyContent: 'space-between',
         alignItems: 'center',
         alignSelf: 'stretch',
-        marginHorizontal: 20,
-        paddingHorizontal: 15,
+        marginHorizontal: 15,
+        paddingHorizontal: 10,
         marginBottom: 20,
     },
     footImage: {
@@ -234,7 +231,8 @@ const styles = StyleSheet.create({
         borderRadius: 50,
     },
     footText: {
-        marginLeft: 15,
+        marginHorizontal: 10,
+        flex: 1,
     },
     logout: {
         backgroundColor: HiFiColors.LightAccent,

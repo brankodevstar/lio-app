@@ -32,6 +32,13 @@ export default MemberList = ({navigation}) => {
         getMembers({username: userName});
     };
 
+    const handleKeyDown = e => {
+        console.log('event ===> ', e.nativeEvent.key);
+        if (e.nativeEvent.key == 'Enter') {
+            console.log('enter key clicked!!!');
+        }
+    };
+
     useEffect(() => {
         navigation.addListener('focus', () => {
             getMembers({});
@@ -71,6 +78,7 @@ export default MemberList = ({navigation}) => {
                     placeholderTextColor={HiFiColors.Label}
                     value={userName}
                     onChangeText={val => setUserName(val)}
+                    onSubmitEditing={onSearch}
                 />
                 <View
                     style={{

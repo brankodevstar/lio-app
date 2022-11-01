@@ -98,7 +98,7 @@ export default MemberInfo = ({route, navigation}) => {
                             style={styles.memberDetailImage}
                         />
                     </View>
-                    <View style={styles.companyInfoContainer}>
+                    {/* <View style={styles.companyInfoContainer}>
                         <Text
                             style={[
                                 globalStyles.strongLabel,
@@ -121,7 +121,7 @@ export default MemberInfo = ({route, navigation}) => {
                                 </View>
                             ))}
                         </ScrollView>
-                    </View>
+                    </View> */}
                 </View>
                 <View style={styles.chatButtonContainer}>
                     <TouchableOpacity
@@ -155,10 +155,9 @@ const styles = StyleSheet.create({
         paddingVertical: 20,
     },
     memberProfileContainer: {
-        flex: 1,
         backgroundColor: HiFiColors.AccentFade,
         marginTop: 10,
-        paddingVertical: 10,
+        paddingVertical: 20,
         paddingHorizontal: 10,
         borderRadius: 10,
     },
@@ -187,8 +186,8 @@ const styles = StyleSheet.create({
     },
     chatButtonContainer: {
         position: 'absolute',
-        bottom: 10,
-        right: 10,
+        bottom: 20,
+        right: 20,
         alignItems: 'flex-end',
         justifyContent: 'flex-end',
     },
