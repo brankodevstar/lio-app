@@ -25,10 +25,10 @@ export default MemberNavigator = () => {
             />
             <Stack.Screen name="ChatScreen" component={ChatScreen} />
             <Stack.Screen name="GroupChatScreen" component={GroupChatScreen} />
-            {/* <Stack.Screen
+            <Stack.Screen
                 name="IndividualChatScreen"
                 component={IndividualChatScreen}
-            /> */}
+            />
             <Stack.Screen
                 name="MemberInfoScreen"
                 component={MemberInfoScreen}

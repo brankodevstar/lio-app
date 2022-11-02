@@ -42,6 +42,7 @@ export default MemberList = ({navigation}) => {
     useEffect(() => {
         navigation.addListener('focus', () => {
             getMembers({});
+            setUserName('');
         });
     }, [navigation]);
 

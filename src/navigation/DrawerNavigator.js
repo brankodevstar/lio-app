@@ -25,6 +25,7 @@ import GroupChatScreen from '../screens/members/GroupChat';
 import GroupChatRoomsScreen from '../screens/members/GroupChatRooms';
 import MyInvestmentsNavigator from './MyInvestmentsNavigator';
 import InvestmentsNavigator from './InvestmentsNavigator';
+import ChatNavigator from './ChatNavigator';
 
 import HiFiColors from '../styles/colors';
 import DrawerMenu from './component/DrawerMenu';
@@ -110,7 +111,7 @@ export default function DrawerNavigator(props) {
             />
             <Drawer.Screen
                 name="Chat"
-                component={ChatScreen}
+                component={ChatNavigator}
                 options={{
                     drawerLabel: 'Chat',
                 }}
@@ -122,15 +123,15 @@ export default function DrawerNavigator(props) {
                     drawerLabel: 'My Profile',
                 }}
             />
-            <Drawer.Screen name="GroupChatScreen" component={GroupChatScreen} />
-            <Drawer.Screen
+            {/* <Drawer.Screen name="GroupChatScreen" component={GroupChatScreen} /> */}
+            {/* <Drawer.Screen
                 name="GroupChatRooms"
                 component={GroupChatRoomsScreen}
             />
             <Drawer.Screen
                 name="IndividualChatScreen"
                 component={IndividualChatScreen}
-            />
+            /> */}
         </Drawer.Navigator>
     );
 }

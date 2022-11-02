@@ -49,10 +49,13 @@ export default AddPost = ({navigation}) => {
                         'Content-Type': 'multipart/form-data',
                     },
                 })
-                    .then(response => response.json())
                     .then(response => {
-                        setPhoto(response.filename);
+                        console.log('upload result  =====> ', response);
+                        response.json();
                     })
+                    // .then(response => {
+                    //     setPhoto(response.filename);
+                    // })
                     .catch(error => {
                         console.log('error', error);
                     });
@@ -117,11 +120,11 @@ export default AddPost = ({navigation}) => {
                 <Text style={globalStyles.mediumStrongLabel}>Create Post</Text>
             </View>
             <View style={{alignItems: 'center', paddingHorizontal: 15}}>
-                <Image
+                {/* <Image
                     source={{uri: `${ADMIN_API_URL}upload/${photo}`}}
                     style={styles.backImage}
                     resizeMode="stretch"
-                />
+                /> */}
             </View>
 
             <View style={styles.postInputContainer}>

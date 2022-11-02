@@ -1,5 +1,12 @@
 import React, {useState, useRef, useEffect} from 'react';
-import {View, Text, StyleSheet, Image, TouchableOpacity} from 'react-native';
+import {
+    View,
+    Text,
+    StyleSheet,
+    Image,
+    TouchableOpacity,
+    ActivityIndicator,
+} from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 
 import globalStyles from '../../styles/style';
@@ -16,36 +23,6 @@ import {useSelector} from 'react-redux';
 import {ADMIN_API_URL} from '../../../config';
 import Action from '../../service';
 
-const inMessage = (messageData, index) => {
-    return (
-        <View style={styles.chatRow} key={index}>
-            <Image
-                source={{uri: messageData.avatar}}
-                style={styles.memberAvatar}
-            />
-            <View style={styles.messageContainer}>
-                <Text style={globalStyles.boldLabel}>
-                    {messageData.message}
-                </Text>
-            </View>
-            <View style={styles.timeContainer}>
-                <Text style={globalStyles.label}>{messageData.createdAt}</Text>
-            </View>
-        </View>
-    );
-};
-
-const outMessage = (messageData, index) => (
-    <View style={[styles.chatRow, {justifyContent: 'flex-end'}]} key={index}>
-        <View style={[styles.timeContainer, {alignItems: 'flex-end'}]}>
-            <Text style={globalStyles.label}>{messageData.createdAt}</Text>
-        </View>
-        <View style={styles.myMessageContainer}>
-            <Text style={globalStyles.boldLabel}>{messageData.message}</Text>
-        </View>
-    </View>
-);
-
 export default GroupChat = ({route, navigation}) => {
     const {name, members, allUsers} = route.params.groupInfo;
     const currentUser = useSelector(state => state.CurrentUser);
@@ -56,6 +33,157 @@ export default GroupChat = ({route, navigation}) => {
     const [messages, setMessages] = useState([]);
     const [users, setUsers] = useState(allUsers);
     const collectionName = 'group-chat';
+    const [activityIndicator, setActivityIndicator] = useState(false);
+
+    const checkPermission = async (fileUrl, originalname) => {
+        // Function to check the platform
+        // If Platform is Android then check for permissions.
+        if (Platform.OS === 'ios') {
+            downloadFile(fileUrl, originalname);
+        } else {
+            try {
+                const granted = await PermissionsAndroid.request(
+                    PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE,
+                    {
+                        title: 'Storage Permission Required',
+                        message:
+                            'Application needs access to your storage to download File',
+                    },
+                );
+                if (granted === PermissionsAndroid.RESULTS.GRANTED) {
+                    // Start downloading
+                    downloadFile(fileUrl, originalname);
+                    console.log('Storage Permission Granted.');
+                } else {
+                    // If permission denied then show alert
+                    Alert.alert('Error', 'Storage Permission Not Granted');
+                }
+            } catch (err) {
+                // To handle permission related exception
+                console.log('++++' + err);
+            }
+        }
+    };
+
+    const downloadFile = (fileUrl, originalname) => {
+        setActivityIndicator(true);
+        // Get today's date to add the time suffix in filename
+        let date = new Date();
+        // File URL which we want to download
+        // Function to get extention of the file url
+        let file_ext = getFileExtention(fileUrl);
+
+        file_ext = '.' + file_ext[0];
+
+        // config: To get response by passing the downloading related options
+        // fs: Root directory path to download
+        const {config, fs} = RNFetchBlob;
+        let RootDir = fs.dirs.DownloadDir;
+        let options = {
+            fileCache: true,
+            addAndroidDownloads: {
+                path:
+                    RootDir +
+                    // '/file_' +
+                    // Math.floor(date.getTime() + date.getSeconds() / 2) +
+                    // file_ext,
+                    '/' +
+                    originalname,
+                description: 'downloading file...',
+                notification: true,
+                // useDownloadManager works with Android only
+                useDownloadManager: true,
+            },
+        };
+        config(options)
+            .fetch('GET', fileUrl)
+            .then(res => {
+                // Alert after successful downloading
+                console.log('res -> ', JSON.stringify(res));
+                alert('File Downloaded Successfully.');
+                setActivityIndicator(false);
+            })
+            .catch(err => {
+                setActivityIndicator(false);
+            });
+    };
+
+    const getFileExtention = fileUrl => {
+        // To get the file extension
+        return /[.]/.exec(fileUrl) ? /[^.]+$/.exec(fileUrl) : undefined;
+    };
+
+    const inMessage = (messageData, index) => {
+        return (
+            <View style={styles.chatRow} key={index}>
+                <Image
+                    source={{uri: messageData.avatar}}
+                    style={styles.memberAvatar}
+                />
+                <View style={styles.messageContainer}>
+                    {messageData.attachedFile ? (
+                        <TouchableOpacity
+                            onPress={() => {
+                                checkPermission(
+                                    `${ADMIN_API_URL}upload/${messageData.attachedFile}`,
+                                    messageData.message,
+                                );
+                            }}>
+                            <Text
+                                style={[
+                                    globalStyles.boldLabel,
+                                    {color: HiFiColors.Blue},
+                                ]}>
+                                {messageData.message}
+                            </Text>
+                        </TouchableOpacity>
+                    ) : (
+                        <Text style={globalStyles.boldLabel}>
+                            {messageData.message}
+                        </Text>
+                    )}
+                </View>
+                <View style={styles.timeContainer}>
+                    <Text style={globalStyles.label}>
+                        {messageData.createdAt}
+                    </Text>
+                </View>
+            </View>
+        );
+    };
+
+    const outMessage = (messageData, index) => (
+        <View
+            style={[styles.chatRow, {justifyContent: 'flex-end'}]}
+            key={index}>
+            <View style={[styles.timeContainer, {alignItems: 'flex-end'}]}>
+                <Text style={globalStyles.label}>{messageData.createdAt}</Text>
+            </View>
+            <View style={styles.myMessageContainer}>
+                {messageData.attachedFile ? (
+                    <TouchableOpacity
+                        onPress={() => {
+                            checkPermission(
+                                `${ADMIN_API_URL}upload/${messageData.attachedFile}`,
+                                messageData.message,
+                            );
+                        }}>
+                        <Text
+                            style={[
+                                globalStyles.boldLabel,
+                                {color: HiFiColors.Blue},
+                            ]}>
+                            {messageData.message}
+                        </Text>
+                    </TouchableOpacity>
+                ) : (
+                    <Text style={globalStyles.boldLabel}>
+                        {messageData.message}
+                    </Text>
+                )}
+            </View>
+        </View>
+    );
 
     const onSend = message => {
         const messageData = {
@@ -116,6 +244,16 @@ export default GroupChat = ({route, navigation}) => {
 
     return (
         <View style={globalStyles.container}>
+            {activityIndicator && (
+                <ActivityIndicator
+                    size="large"
+                    style={{
+                        position: 'absolute',
+                        left: Dimensions.get('window').width / 2 - 20,
+                        bottom: Dimensions.get('window').height / 2 - 20,
+                    }}
+                />
+            )}
             <View style={styles.chatBoxHeader}>
                 <MenuButton navigation={navigation} />
                 <TouchableOpacity onPress={() => navigation.goBack()}>

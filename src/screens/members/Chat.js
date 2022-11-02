@@ -183,7 +183,7 @@ export default Chat = ({navigation}) => {
                     <TouchableOpacity
                         key={index}
                         onPress={() =>
-                            navigation.navigate('IndividualChatScreen', {
+                            navigation.navigate('IndividualChat', {
                                 partner: item,
                             })
                         }>
@@ -263,7 +263,7 @@ export default Chat = ({navigation}) => {
                         style={{marginBottom: 10}}
                         onPress={() => {
                             setSettingModalVisible(false);
-                            navigation.navigate('IndividualChatScreen');
+                            navigation.navigate('IndividualChat');
                         }}>
                         <Text style={globalStyles.boldLabel}>New Chat</Text>
                     </TouchableOpacity> */}

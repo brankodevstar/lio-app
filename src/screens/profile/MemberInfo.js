@@ -44,7 +44,6 @@ export default MemberInfo = ({navigation}) => {
 
     const getById = async id => {
         const response = await Action.announcements.getById(id);
-        console.log('announcement =====> ', response.data);
         setSelectedAnnouncement(response.data);
     };
 
@@ -65,7 +64,6 @@ export default MemberInfo = ({navigation}) => {
     };
 
     const addComment = () => {
-        console.log('add comment clicked!!!');
         setActivityIndicator(true);
         const data = selectedAnnouncement;
         const commentData = {
@@ -76,7 +74,6 @@ export default MemberInfo = ({navigation}) => {
             commentDescription: comment,
         };
         data.comments.push(commentData);
-        console.log('data comment added!!!', data);
         Action.announcements
             .update(data._id, data)
             .then(response => {
@@ -87,9 +84,27 @@ export default MemberInfo = ({navigation}) => {
                 setActivityIndicator(false);
             })
             .catch(error => {
-                console.log('error ===> ', error);
                 setActivityIndicator(false);
             });
+    };
+
+    const timeCalculator = timestamp => {
+        let minDiff = Math.ceil(
+            moment
+                .duration(moment(new Date()).diff(moment(timestamp)))
+                .asMinutes(),
+        );
+        let dayDiff = Math.floor(minDiff / 1440);
+        let remainderMins = minDiff % 1440;
+        let hourDiff = Math.floor(remainderMins / 60);
+        remainderMins = remainderMins % 60;
+        minDiff = remainderMins;
+        let timeStr =
+            (dayDiff !== 0 ? dayDiff + 'Days ' : '') +
+            (hourDiff !== 0 ? hourDiff + 'Hours ' : '') +
+            minDiff +
+            'Minutes ago';
+        return timeStr;
     };
 
     useEffect(() => {
@@ -344,35 +359,7 @@ export default MemberInfo = ({navigation}) => {
                                     </Text>
                                 </View>
                                 <Text style={styles.timeLabel}>
-                                    {moment
-                                        .duration(
-                                            moment(new Date()).diff(
-                                                moment(item.createdDt),
-                                            ),
-                                        )
-                                        .asHours() > 1
-                                        ? Math.ceil(
-                                              moment
-                                                  .duration(
-                                                      moment(new Date()).diff(
-                                                          moment(
-                                                              item.createdDt,
-                                                          ),
-                                                      ),
-                                                  )
-                                                  .asHours(),
-                                          ) + ' Hours ago'
-                                        : Math.ceil(
-                                              moment
-                                                  .duration(
-                                                      moment(new Date()).diff(
-                                                          moment(
-                                                              item.createdDt,
-                                                          ),
-                                                      ),
-                                                  )
-                                                  .asMinutes(),
-                                          ) + ' Minutes ago'}
+                                    {timeCalculator(item.createdDt)}
                                 </Text>
                             </View>
                         </View>
@@ -551,12 +538,12 @@ const styles = StyleSheet.create({
         borderRadius: 7,
     },
     discriptionContainer: {
-        marginVertical: 10,
+        marginVertical: 20,
     },
     cardImage: {
         borderRadius: 10,
         width: '100%',
-        height: 150,
+        height: 120,
         marginBottom: 15,
     },
 
@@ -597,8 +584,8 @@ const styles = StyleSheet.create({
         alignItems: 'center',
     },
     avatarImage: {
-        width: 70,
-        height: 70,
+        width: 60,
+        height: 60,
         borderRadius: 50,
         marginRight: 10,
     },

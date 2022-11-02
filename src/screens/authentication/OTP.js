@@ -37,6 +37,7 @@ export default OTP = ({route, navigation}) => {
         Action.members
             .list({phone: phoneNumber.replace('+', '')})
             .then(response => {
+                console.log('login response ====> ', response.data);
                 if (response.data.length > 0) {
                     dispatch(allActions.UserAction.setUser(response.data[0]));
                     storeData(response.data[0]);

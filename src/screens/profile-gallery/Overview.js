@@ -153,6 +153,7 @@ const styles = StyleSheet.create({
     },
     caption: {
         marginLeft: 10,
+        flex: 1
     },
     account: {
         marginLeft: 10,

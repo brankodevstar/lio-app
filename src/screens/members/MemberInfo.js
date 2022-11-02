@@ -18,7 +18,6 @@ export default MemberInfo = ({route, navigation}) => {
     getUserData = async () => {
         const response = await Action.members.getById(id);
         if (response.data) {
-            console.log('user data ===========> ', response.data);
             setUser(response.data);
         }
     };
