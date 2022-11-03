@@ -14,24 +14,32 @@ import Action from '../../service';
 
 export default EventCalendar = ({navigation}) => {
     const [moreDetail, setMoreDetail] = useState(true);
-    const [events, setEvents] = useState([]);
+    // const [events, setEvents] = useState([]);
     const [markDates, setMarkDates] = useState({});
     const [upcomingEvents, setUpcomingEvents] = useState([]);
 
     const getEvents = async () => {
         const response = await Action.events.list();
         if (response.data) {
-            setEvents(response.data);
+            let eventsClone = response.data.sort((a, b) => {
+                return Number.parseInt(new Date(a.activeTime).getTime()) >
+                    Number.parseInt(new Date(b.activeTime).getTime())
+                    ? 1
+                    : -1;
+            });
+            // setEvents(eventsClone);
             let markedDatesTemp = {};
             const markStyle = {marked: true, dotColor: '#50cebb'};
             let upcomingEventsTemp = [];
-            response.data.map(item => {
+            eventsClone.map(item => {
                 if (
                     new Date().getTime() < new Date(item.activeTime).getTime()
                 ) {
                     upcomingEventsTemp.push(item);
                 }
-                markedDatesTemp[item.activeTime.slice(0, 10)] = markStyle;
+                markedDatesTemp[
+                    moment(new Date(item.activeTime)).format('yyyy-MM-DD')
+                ] = markStyle;
             });
             setMarkDates(markedDatesTemp);
             setUpcomingEvents(upcomingEventsTemp);
