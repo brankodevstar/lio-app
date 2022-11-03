@@ -26,7 +26,7 @@ export default Navigation = ({navigation}) => {
             <View style={styles.imageSection}>
                 <Image
                     style={styles.image}
-                    source={require('../../../assets/images/fdd9945619a0269dd7ba72d1167f72e6.png')}
+                    source={require('../../../assets/images/logo.png')}
                 />
                 <Text
                     style={[
@@ -41,10 +41,10 @@ export default Navigation = ({navigation}) => {
                 <Text style={globalStyles.mediumBoldLabel}>My Bookings</Text>
             </View>
             <View style={styles.footSection}>
-                <Image
+                {/* <Image
                     style={styles.footImage}
                     source={require('../../../assets/images/avatars/avatar.jpg')}
-                />
+                /> */}
                 <View style={styles.footText}>
                     <Text style={globalStyles.boldLabel}>Roger Sanchez</Text>
                     <Text

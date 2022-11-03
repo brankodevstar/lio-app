@@ -105,7 +105,7 @@ export default ConfirmDetail = ({navigation}) => {
                             paddingVertical: 5,
                         },
                     ]}>
-                    <Image
+                    {/* <Image
                         source={require('../../../assets/images/my-avatar.png')}
                         style={styles.avatarImage}
                     />
@@ -115,7 +115,7 @@ export default ConfirmDetail = ({navigation}) => {
                             styles.avatarImage,
                             {marginLeft: -10, marginRight: 10},
                         ]}
-                    />
+                    /> */}
                     <Text style={globalStyles.boldSmallLabel}>
                         You & 300 others are going
                     </Text>
