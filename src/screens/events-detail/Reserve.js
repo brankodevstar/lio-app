@@ -3,7 +3,7 @@ import {View, Text, StyleSheet, TextInput, Dimensions} from 'react-native';
 import {ScrollView, TouchableOpacity} from 'react-native-gesture-handler';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import LinearGradient from 'react-native-linear-gradient';
-import CalendarPicker from 'react-native-calendar-picker';
+// import CalendarPicker from 'react-native-calendar-picker';
 
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
@@ -87,7 +87,7 @@ export default Reserve = ({navigation}) => {
                     </View>
                 </View>
                 <View style={styles.calendarContainer}>
-                    <CalendarPicker
+                    {/* <CalendarPicker
                         weekdays={['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']}
                         textStyle={globalStyles.label}
                         width={Dimensions.get('screen').width - 50}
@@ -115,7 +115,7 @@ export default Reserve = ({navigation}) => {
                         }}
                         yearTitleStyle={globalStyles.mediumStrongLabel}
                         monthTitleStyle={globalStyles.mediumStrongLabel}
-                    />
+                    /> */}
                 </View>
             </View>
             <View style={{flex: 1, paddingVertical: 20, paddingHorizontal: 20}}>

@@ -91,7 +91,7 @@ export default function TabNavigator() {
                     ),
                 }}
             />
-            <Tab.Screen
+            {/* <Tab.Screen
                 name="Forum"
                 component={ForumNavigator}
                 options={{
@@ -100,7 +100,7 @@ export default function TabNavigator() {
                     ),
                     tabBarLabel: ({ focused, color }) => (<Text style={[globalStyles.littleTinyLabel, { color: color, marginBottom: 5 }]}>Forum</Text>),
                 }}
-            />
+            /> */}
             <Tab.Screen
                 name="CalendarPartnerDetail"
                 component={CalendarPartnerDetailNavigator}

@@ -1,15 +1,53 @@
-import React from 'react';
+import React, {useState, useEffect} from 'react';
 import {View, Text, StyleSheet, Image, Dimensions} from 'react-native';
-import CalendarPicker from 'react-native-calendar-picker';
+import {Calendar} from 'react-native-calendars';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import {TouchableOpacity, ScrollView} from 'react-native-gesture-handler';
+import moment from 'moment';
 
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
 import Navigation from '../profile/Navigation';
 import MenuButton from '../../components/MenuButton';
+import {ADMIN_API_URL} from '../../../config';
+import Action from '../../service';
 
-export default Calendar = ({navigation}) => {
+export default EventCalendar = ({navigation}) => {
+    const [moreDetail, setMoreDetail] = useState(true);
+    const [events, setEvents] = useState([]);
+    const [markDates, setMarkDates] = useState({});
+    const [upcomingEvents, setUpcomingEvents] = useState([]);
+
+    const getEvents = async () => {
+        const response = await Action.events.list();
+        if (response.data) {
+            setEvents(response.data);
+            let markedDatesTemp = {};
+            const markStyle = {marked: true, dotColor: '#50cebb'};
+            let upcomingEventsTemp = [];
+            response.data.map(item => {
+                if (
+                    new Date().getTime() < new Date(item.activeTime).getTime()
+                ) {
+                    upcomingEventsTemp.push(item);
+                }
+                markedDatesTemp[item.activeTime.slice(0, 10)] = markStyle;
+            });
+            setMarkDates(markedDatesTemp);
+            setUpcomingEvents(upcomingEventsTemp);
+        }
+    };
+
+    const toggleMoreDetail = () => {
+        setMoreDetail(!moreDetail);
+    };
+
+    useEffect(() => {
+        navigation.addListener('focus', () => {
+            getEvents();
+        });
+    }, [navigation]);
+
     return (
         <View style={globalStyles.container}>
             <View style={[globalStyles.headerContainer]}>
@@ -20,11 +58,38 @@ export default Calendar = ({navigation}) => {
             </View>
             <View style={styles.section}>
                 <View style={styles.calendarContainer}>
-                    <CalendarPicker
+                    <Calendar
+                        markedDates={markDates}
+                        theme={{
+                            calendarBackground: HiFiColors.AccentFade,
+                            selectedDayBackgroundColor: HiFiColors.AccentFade,
+                            indicatorColor: HiFiColors.AccentFade,
+                            selectedDayTextColor: HiFiColors.White,
+                            todayTextColor: HiFiColors.White,
+                            todayBackgroundColor: HiFiColors.Primary,
+                            dayTextColor: HiFiColors.White,
+                            textDisabledColor: HiFiColors.Label,
+                            arrowColor: HiFiColors.White,
+                            indicatorColor: HiFiColors.White,
+                            monthTextColor: HiFiColors.White,
+                            textDayFontFamily: 'monospace',
+                            textMonthFontFamily: 'monospace',
+                            textDayHeaderFontFamily: 'monospace',
+                            textDayFontWeight: '300',
+                            textMonthFontWeight: 'bold',
+                            textDayHeaderFontWeight: '300',
+                            textDayFontSize: 14,
+                            textMonthFontSize: 16,
+                            textDayHeaderFontSize: 14,
+                        }}
+                        hideExtraDays={true}
+                    />
+                    {/* <CalendarPicker
                         weekdays={['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']}
                         textStyle={globalStyles.label}
                         width={Dimensions.get('screen').width - 50}
                         startFromMonday={true}
+                        marking
                         previousComponent={
                             <FeatherIcon
                                 name="chevron-left"
@@ -42,15 +107,16 @@ export default Calendar = ({navigation}) => {
                             />
                         }
                         selectedDayStyle={{backgroundColor: HiFiColors.Primary}}
+                        selectedDate
                         dayLabelsWrapper={{
                             borderBottomWidth: 0,
                             borderTopWidth: 0,
                         }}
                         yearTitleStyle={globalStyles.mediumStrongLabel}
                         monthTitleStyle={globalStyles.mediumStrongLabel}
-                    />
+                    /> */}
                 </View>
-                <View style={styles.buttonGroup}>
+                {/* <View style={styles.buttonGroup}>
                     <TouchableOpacity>
                         <View style={styles.buttonBack}>
                             <Text style={globalStyles.boldLabel}>Ongoing</Text>
@@ -76,99 +142,93 @@ export default Calendar = ({navigation}) => {
                             </Text>
                         </View>
                     </TouchableOpacity>
-                </View>
+                </View> */}
                 <View style={styles.eventsLabelContainer}>
                     <Text style={globalStyles.mediumBoldLabel}>
-                        6 Upcoming Events
+                        {upcomingEvents.length} Upcoming Events
                     </Text>
-                    <TouchableOpacity>
-                        <FeatherIcon
-                            name="chevron-up"
-                            size={15}
-                            color={HiFiColors.White}
-                        />
+                    <TouchableOpacity onPress={toggleMoreDetail}>
+                        {moreDetail ? (
+                            <FeatherIcon
+                                name="chevron-up"
+                                size={15}
+                                color={HiFiColors.White}
+                            />
+                        ) : (
+                            <FeatherIcon
+                                name="chevron-down"
+                                size={15}
+                                color={HiFiColors.White}
+                            />
+                        )}
                     </TouchableOpacity>
                 </View>
             </View>
-            <ScrollView style={styles.eventsContainer}>
-                <View style={styles.eventCard}>
-                    <Text
-                        style={[
-                            globalStyles.tinyLabel,
-                            {color: HiFiColors.Label, marginRight: 20},
-                        ]}>
-                        09:00 PM
-                    </Text>
-                    <View style={{flex: 1}}>
-                        <TouchableOpacity
-                            style={[styles.eventPanel]}
-                            onPress={() => {
-                                navigation.navigate('PartnerDetailScreen');
-                            }}>
-                            <Image
-                                source={require('../../../assets/images/event-001.png')}
-                                style={styles.eventImage}
-                                resizeMode="stretch"
-                            />
-                            <View>
-                                <Text style={globalStyles.mediumBoldLabel}>
-                                    Start Up Grind
-                                </Text>
-                                <Text style={globalStyles.tinyLabel}>
-                                    Networking Event
-                                </Text>
+            {moreDetail && (
+                <ScrollView style={styles.eventsContainer}>
+                    {upcomingEvents.map((item, index) => (
+                        <View key={index} style={styles.eventCard}>
+                            <Text
+                                style={[
+                                    globalStyles.tinyLabel,
+                                    {color: HiFiColors.Label, marginRight: 10},
+                                ]}>
+                                {moment(new Date(item.activeTime)).format(
+                                    'yyyy-MM-DD HH.mm A',
+                                )}
+                            </Text>
+                            <View style={{flex: 1}}>
+                                <TouchableOpacity
+                                    style={[styles.eventPanel]}
+                                    onPress={() => {
+                                        navigation.navigate(
+                                            'PartnerDetailScreen',
+                                        );
+                                    }}>
+                                    <Image
+                                        source={{
+                                            uri: `${ADMIN_API_URL}upload/${item.photos[0]}`,
+                                        }}
+                                        style={styles.eventImage}
+                                        resizeMode="stretch"
+                                    />
+                                    <View>
+                                        <Text
+                                            style={
+                                                globalStyles.mediumBoldLabel
+                                            }>
+                                            {item.title}
+                                        </Text>
+                                        <Text style={globalStyles.tinyLabel}>
+                                            {item.category}
+                                        </Text>
+                                    </View>
+                                </TouchableOpacity>
                             </View>
-                        </TouchableOpacity>
-                    </View>
-                </View>
-                <View style={styles.eventCard}>
-                    <Text
-                        style={[
-                            globalStyles.tinyLabel,
-                            {color: HiFiColors.Label, marginRight: 20},
-                        ]}>
-                        10:00 PM
-                    </Text>
-                    <View
-                        style={[
-                            styles.eventPanel,
-                            {backgroundColor: HiFiColors.AccentFade},
-                        ]}>
-                        <Image
-                            source={require('../../../assets/images/timeline.png')}
-                            style={{marginLeft: -10}}
-                        />
-                    </View>
-                </View>
-                <View style={styles.eventCard}>
-                    <Text
-                        style={[
-                            globalStyles.tinyLabel,
-                            {color: HiFiColors.Label, marginRight: 20},
-                        ]}>
-                        11:00 PM
-                    </Text>
-                    <View
-                        style={[
-                            styles.eventPanel,
-                            {backgroundColor: HiFiColors.AccentFade},
-                        ]}></View>
-                </View>
-                <View style={styles.eventCard}>
-                    <Text
-                        style={[
-                            globalStyles.tinyLabel,
-                            {color: HiFiColors.Label, marginRight: 20},
-                        ]}>
-                        12:00 AM
-                    </Text>
-                    <View
-                        style={[
-                            styles.eventPanel,
-                            {backgroundColor: HiFiColors.AccentFade},
-                        ]}></View>
-                </View>
-            </ScrollView>
+                        </View>
+                    ))}
+
+                    {/* <View style={styles.eventCard}>
+                        <Text
+                            style={[
+                                globalStyles.tinyLabel,
+                                {color: HiFiColors.Label, marginRight: 20},
+                            ]}>
+                            10:00 PM
+                        </Text>
+                        <View
+                            style={[
+                                styles.eventPanel,
+                                {backgroundColor: HiFiColors.AccentFade},
+                            ]}>
+                            <Image
+                                source={require('../../../assets/images/timeline.png')}
+                                style={{marginLeft: -10}}
+                            />
+                        </View>
+                    </View> */}
+                </ScrollView>
+            )}
         </View>
     );
 };
@@ -202,6 +262,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'space-between',
         alignItems: 'center',
+        marginTop: 20,
     },
     eventsContainer: {
         paddingHorizontal: 20,
@@ -219,7 +280,7 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'flex-start',
         alignItems: 'center',
-        backgroundColor: HiFiColors.Primary,
+        backgroundColor: HiFiColors.AccentFade,
         borderRadius: 10,
         paddingHorizontal: 10,
         height: 70,

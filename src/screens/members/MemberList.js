@@ -6,37 +6,112 @@ import {
     Image,
     TouchableOpacity,
     TextInput,
+    Dimensions,
 } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import FontAwesome5Icon from 'react-native-vector-icons/FontAwesome5';
 import {ScrollView} from 'react-native-gesture-handler';
 import {useSelector} from 'react-redux';
+import {CheckBox} from 'react-native-elements';
 
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
 import MenuButton from '../../components/MenuButton';
 import {ADMIN_API_URL} from '../../../config';
 import Action from '../../service';
+import Modal from 'react-native-modal';
+import fonts from '../../styles/fonts';
+
+const checkedIconTag = () => (
+    <View
+        style={{
+            backgroundColor: HiFiColors.Accent,
+            width: 30,
+            height: 30,
+            borderRadius: 50,
+            borderWidth: 2,
+            borderColor: HiFiColors.Label,
+            alignItems: 'center',
+            justifyContent: 'center',
+        }}>
+        <FeatherIcon name="check" size={20} color={HiFiColors.White} />
+    </View>
+);
+
+const unCheckedIconTag = () => (
+    <View
+        style={{
+            width: 30,
+            height: 30,
+            borderWidth: 2,
+            borderColor: HiFiColors.Label,
+            borderRadius: 50,
+        }}></View>
+);
 
 export default MemberList = ({navigation}) => {
     const [members, setMembers] = useState([]);
     const currentUser = useSelector(state => state.CurrentUser);
     const [userName, setUserName] = useState('');
+    const [captions, setCaptions] = useState([]);
+    const [isModalVisible, setModalVisible] = useState(false);
+    const [checkedRoles, setCheckedRoles] = useState([]);
+    const [checkAll, setCheckAll] = useState(false);
 
     const getMembers = async param => {
         const response = await Action.members.list(param);
         setMembers(response.data);
+        if (!captions.length > 0) {
+            let captionsTemp = [];
+            response.data.map(item => {
+                captionsTemp.push(item.caption);
+            });
+            console.log('captions =====> ', captionsTemp);
+            captionsTemp = captionsTemp.filter(onlyUnique);
+            setCaptions(captionsTemp);
+        }
     };
 
     const onSearch = () => {
         getMembers({username: userName});
     };
 
-    const handleKeyDown = e => {
-        console.log('event ===> ', e.nativeEvent.key);
-        if (e.nativeEvent.key == 'Enter') {
-            console.log('enter key clicked!!!');
+    const filterMembersByRole = async () => {
+        const response = await Action.members.list({username: userName});
+        if (checkedRoles.length > 0) {
+            let membersClone = response.data;
+            membersClone = membersClone.filter(
+                item => checkedRoles.indexOf(item.caption) > -1,
+            );
+            setMembers(membersClone);
+        } else {
+            setMembers(response.data);
         }
+    };
+
+    const roleCheck = role => {
+        let checkedRolesClone = checkedRoles;
+        if (checkedRolesClone.indexOf(role) > -1) {
+            checkedRolesClone = checkedRolesClone.filter(item => item != role);
+        } else {
+            checkedRolesClone.push(role);
+        }
+        setCheckedRoles(Object.assign([], checkedRolesClone));
+        setCheckAll(checkedRolesClone.length === captions.length);
+    };
+
+    const toggleCheckAll = () => {
+        console.log('check all clicked!');
+        if (checkAll) {
+            setCheckedRoles([]);
+        } else {
+            setCheckedRoles(captions);
+        }
+        setCheckAll(!checkAll);
+    };
+
+    const onlyUnique = (value, index, self) => {
+        return self.indexOf(value) === index;
     };
 
     useEffect(() => {
@@ -62,7 +137,7 @@ export default MemberList = ({navigation}) => {
                     }}>
                     <MenuButton navigation={navigation} />
                     <Text style={globalStyles.mediumStrongLabel}>Members</Text>
-                    <TouchableOpacity>
+                    <TouchableOpacity onPress={() => setModalVisible(true)}>
                         <FontAwesome5Icon
                             name="sliders-h"
                             size={15}
@@ -135,6 +210,61 @@ export default MemberList = ({navigation}) => {
                     </TouchableOpacity>
                 ))}
             </ScrollView>
+
+            <Modal
+                isVisible={isModalVisible}
+                onSwipeComplete={() => {
+                    setModalVisible(false);
+                    filterMembersByRole();
+                }}
+                swipeDirection={['down']}
+                propagateSwipe={true}
+                style={globalStyles.modalContainer}>
+                <View style={styles.modalContentContainer}>
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                        }}>
+                        <Text style={styles.modalCommentTitle}>
+                            Member Roles
+                        </Text>
+                        <View style={styles.memberRoleCheckbox}>
+                            <CheckBox
+                                checkedIcon={checkedIconTag()}
+                                uncheckedIcon={unCheckedIconTag()}
+                                onPress={toggleCheckAll}
+                                checked={checkAll}
+                            />
+                            <Text style={globalStyles.strongLabel}>
+                                CheckAll
+                            </Text>
+                        </View>
+                    </View>
+                    <ScrollView>
+                        {captions.map((item, index) => (
+                            <View key={index} style={styles.memberRoleCheckbox}>
+                                <CheckBox
+                                    checkedIcon={checkedIconTag()}
+                                    uncheckedIcon={unCheckedIconTag()}
+                                    onPress={() => {
+                                        roleCheck(item);
+                                    }}
+                                    checked={
+                                        checkedRoles.indexOf(item) > -1
+                                            ? true
+                                            : false
+                                    }
+                                />
+                                <Text style={globalStyles.strongLabel}>
+                                    {item}
+                                </Text>
+                            </View>
+                        ))}
+                    </ScrollView>
+                </View>
+            </Modal>
         </View>
     );
 };
@@ -183,5 +313,23 @@ const styles = StyleSheet.create({
         padding: 10,
         backgroundColor: HiFiColors.AccentFade,
         borderRadius: 100,
+    },
+    modalContentContainer: {
+        backgroundColor: HiFiColors.Accent,
+        paddingVertical: 30,
+        paddingHorizontal: 20,
+        height: (Dimensions.get('window').height / 5) * 3,
+        borderTopLeftRadius: 20,
+        borderTopRightRadius: 20,
+    },
+    modalCommentTitle: {
+        fontFamily: fonts.primary,
+        color: HiFiColors.White,
+        fontSize: 20,
+        fontWeight: '700',
+    },
+    memberRoleCheckbox: {
+        flexDirection: 'row',
+        alignItems: 'center',
     },
 });
