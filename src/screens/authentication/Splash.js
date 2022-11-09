@@ -87,8 +87,8 @@ export default Splash = ({navigation}) => {
                     style={styles.logo}
                 />
                 <View style={{alignItems: 'center', marginVertical: 8}}>
-                    <Text style={globalStyles.title}>Leaders for</Text>
-                    <Text style={globalStyles.title}>India Organization</Text>
+                    <Text style={[globalStyles.title, { fontSize: 24 }]}>Leaders for</Text>
+                    <Text style={[globalStyles.title, { fontSize: 24 }]}>India Organization</Text>
                 </View>
                 <Text style={[globalStyles.content, {marginVertical: 20}]}>
                     Invest | Innovate | Impact
@@ -128,7 +128,7 @@ const styles = StyleSheet.create({
         opacity: 0.8,
     },
     logo: {
-        width: 100,
-        height: 100,
+        width: 150,
+        height: 150,
     },
 });

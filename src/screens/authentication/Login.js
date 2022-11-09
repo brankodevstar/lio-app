@@ -32,32 +32,12 @@ export default Login = ({navigation}) => {
 
     const signInUser = async () => {
         // temp code
-        // try {
-        //     setActivityIndicator(true);
-        //     const argPhone = validatePhoneNumber();
-        //     if (argPhone) {
-        //         navigation.navigate('OTPScreen', {phoneNumber: argPhone});
-        //         setActivityIndicator(false);
-        //     } else {
-        //         setActivityIndicator(false);
-        //     }
-        // } catch (error) {
-        //     console.log(error);
-        //     setActivityIndicator(false);
-        // }
-        // temp code
-
         try {
             setActivityIndicator(true);
             const argPhone = validatePhoneNumber();
             if (argPhone) {
-                if (await sendSmsVerification(argPhone)) {
-                    navigation.navigate('OTPScreen', {phoneNumber: argPhone});
-                    setActivityIndicator(false);
-                } else {
-                    alert('Valid Failed!');
-                    setActivityIndicator(false);
-                }
+                navigation.navigate('OTPScreen', {phoneNumber: argPhone});
+                setActivityIndicator(false);
             } else {
                 setActivityIndicator(false);
             }
@@ -65,6 +45,26 @@ export default Login = ({navigation}) => {
             console.log(error);
             setActivityIndicator(false);
         }
+        // temp code
+
+        // try {
+        //     setActivityIndicator(true);
+        //     const argPhone = validatePhoneNumber();
+        //     if (argPhone) {
+        //         if (await sendSmsVerification(argPhone)) {
+        //             navigation.navigate('OTPScreen', {phoneNumber: argPhone});
+        //             setActivityIndicator(false);
+        //         } else {
+        //             alert('Valid Failed!');
+        //             setActivityIndicator(false);
+        //         }
+        //     } else {
+        //         setActivityIndicator(false);
+        //     }
+        // } catch (error) {
+        //     console.log(error);
+        //     setActivityIndicator(false);
+        // }
     };
 
     return (

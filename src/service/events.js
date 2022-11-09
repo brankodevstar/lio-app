@@ -12,7 +12,13 @@ const getById = async id => {
     return response;
 };
 
+const getFeaturedEvents = async () => {
+    const response = await APIServer.get('events/findFeatured');
+    return response;
+};
+
 export default {
     list,
     getById,
+    getFeaturedEvents,
 };

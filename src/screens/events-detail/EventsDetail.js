@@ -240,15 +240,15 @@ export default EventDetail = ({route, navigation}) => {
                             <Text style={styles.labelText}>Priyanka Bhatt</Text>
                             <Text style={styles.blueMark}>CEO StepChange</Text>
                         </View>
-                        <View style={styles.buttonContainer}>
+                        {/* <View style={styles.buttonContainer}>
                             <TouchableOpacity style={styles.buttonStyle}>
                                 <Text style={globalStyles.strongLabel}>
                                     Show all 10 speakers
                                 </Text>
                             </TouchableOpacity>
-                        </View>
+                        </View> */}
                     </View>
-                    <View style={{marginBottom: 10}}>
+                    {/* <View style={{marginBottom: 10}}>
                         <Text style={[globalStyles.label, {marginBottom: 10}]}>
                             Exhibitors
                         </Text>
@@ -287,7 +287,7 @@ export default EventDetail = ({route, navigation}) => {
                                 </Text>
                             </TouchableOpacity>
                         </View>
-                    </View>
+                    </View> */}
                     <View>
                         <ImageBackground
                             source={require('../../../assets/images/large-banner-1.png')}

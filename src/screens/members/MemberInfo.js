@@ -10,16 +10,22 @@ import {ADMIN_API_URL} from '../../../config';
 import Action from '../../service';
 import moment from 'moment';
 import {ScrollView} from 'react-native-gesture-handler';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export default MemberInfo = ({route, navigation}) => {
     const {id} = route.params;
     const [user, setUser] = useState({});
+    const [mine, setMine] = useState(false);
 
     getUserData = async () => {
         const response = await Action.members.getById(id);
         if (response.data) {
             setUser(response.data);
         }
+        let userInfo = await AsyncStorage.getItem('USER_DATA');
+        setMine(response.data.phone === userInfo);
+        console.log('selectedUser = ', response.data);
+        console.log('userInfo = ', userInfo);
     };
 
     useEffect(() => {
@@ -54,12 +60,12 @@ export default MemberInfo = ({route, navigation}) => {
                         </Text>
                         <Text
                             style={[
-                                globalStyles.boldSmallLabel,
+                                globalStyles.label,
                                 {marginVertical: 5},
                             ]}>
                             {user.caption}
                         </Text>
-                        <Text style={globalStyles.boldLabel}>
+                        <Text style={globalStyles.strongLabel}>
                             {user.company}
                         </Text>
                     </View>
@@ -69,7 +75,7 @@ export default MemberInfo = ({route, navigation}) => {
                                 <Text style={globalStyles.boldLabel}>
                                     Member ID
                                 </Text>
-                                <Text style={globalStyles.boldSmallLabel}>
+                                <Text style={globalStyles.boldLabel}>
                                     {user._id}
                                 </Text>
                             </View>
@@ -77,7 +83,7 @@ export default MemberInfo = ({route, navigation}) => {
                                 <Text style={globalStyles.boldLabel}>
                                     Member Since
                                 </Text>
-                                <Text style={globalStyles.boldSmallLabel}>
+                                <Text style={globalStyles.boldLabel}>
                                     {moment(user.createdDt).format(
                                         'yyyy-MM-DD',
                                     )}
@@ -87,7 +93,7 @@ export default MemberInfo = ({route, navigation}) => {
                                 <Text style={globalStyles.boldLabel}>
                                     Location
                                 </Text>
-                                <Text style={globalStyles.boldSmallLabel}>
+                                <Text style={globalStyles.boldLabel}>
                                     {user.city}
                                 </Text>
                             </View>
@@ -122,26 +128,31 @@ export default MemberInfo = ({route, navigation}) => {
                         </ScrollView>
                     </View> */}
                 </View>
-                <View style={styles.chatButtonContainer}>
-                    <TouchableOpacity
-                        onPress={() =>
-                            navigation.navigate('IndividualChatScreen', {
-                                partner: user,
-                            })
-                        }>
-                        <LinearGradient
-                            start={{x: 0.0, y: 0.0}}
-                            end={{x: 1.0, y: 1.0}}
-                            colors={['#7B61FF', '#991450', '#40799D']}
-                            style={styles.chatButtonBack}>
-                            <EntypoIcon
-                                name="chat"
-                                size={30}
-                                color={HiFiColors.White}
-                            />
-                        </LinearGradient>
-                    </TouchableOpacity>
-                </View>
+                {
+                    !mine && 
+                    (
+                        <View style={styles.chatButtonContainer}>
+                            <TouchableOpacity
+                                onPress={() =>
+                                    navigation.navigate('IndividualChatScreen', {
+                                        partner: user,
+                                    })
+                                }>
+                                <LinearGradient
+                                    start={{x: 0.0, y: 0.0}}
+                                    end={{x: 1.0, y: 1.0}}
+                                    colors={['#7B61FF', '#991450', '#40799D']}
+                                    style={styles.chatButtonBack}>
+                                    <EntypoIcon
+                                        name="chat"
+                                        size={30}
+                                        color={HiFiColors.White}
+                                    />
+                                </LinearGradient>
+                            </TouchableOpacity>
+                        </View>
+                    )
+                }                
             </View>
         </View>
     );

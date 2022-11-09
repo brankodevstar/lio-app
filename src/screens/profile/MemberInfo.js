@@ -29,6 +29,8 @@ import {useSelector} from 'react-redux';
 
 export default MemberInfo = ({navigation}) => {
     const [announcements, setAnnouncements] = useState([]);
+    const [featuredEvents, setFeaturedEvents] = useState([]);
+    const [featuredInvestments, setFeaturedInvestments] = useState([]);
     const currentUser = useSelector(state => state.CurrentUser);
     const [isModalVisible, setModalVisible] = useState(false);
     const [selectedAnnouncement, setSelectedAnnouncement] = useState({});
@@ -42,9 +44,23 @@ export default MemberInfo = ({navigation}) => {
         }
     };
 
+    const getFeaturedEvents = async () => {
+        const response = await Action.events.getFeaturedEvents();
+        if (response.data) {
+            setFeaturedEvents(response.data);
+        }
+    };
+
+    const getFeaturedInvestments = async () => {
+        const response = await Action.investments.getFeaturedInvestments();
+        if (response.data) {
+            setFeaturedInvestments(response.data);
+        }
+    };
+
     const getById = async id => {
         const response = await Action.announcements.getById(id);
-        setSelectedAnnouncement(response.data);
+        setSelectedAnnouncement(response);
     };
 
     const handleLikeClick = async id => {
@@ -100,16 +116,19 @@ export default MemberInfo = ({navigation}) => {
         remainderMins = remainderMins % 60;
         minDiff = remainderMins;
         let timeStr =
-            (dayDiff !== 0 ? dayDiff + 'Days ' : '') +
-            (hourDiff !== 0 ? hourDiff + 'Hours ' : '') +
-            minDiff +
-            'Minutes ago';
+            dayDiff !== 0 ? dayDiff + ' Days ago' : 'Today';
+            //  : '') +
+            // (hourDiff !== 0 ? hourDiff + 'Hours ' : '') +
+            // minDiff +
+            // 'Minutes ago';
         return timeStr;
     };
 
     useEffect(() => {
         navigation.addListener('focus', () => {
             getAnnouncements();
+            getFeaturedEvents();
+            getFeaturedInvestments();
         });
     }, [navigation]);
 
@@ -195,86 +214,29 @@ export default MemberInfo = ({navigation}) => {
                         Featured Start Ups
                     </Text>
                     <ScrollView horizontal style={styles.imagePart}>
-                        <View style={styles.upCard}>
-                            <Image
-                                source={require('../../../assets/images/profile/4d070f25e514471c404c84823a0ff305.png')}
-                                style={styles.upImage}
-                            />
-                            <Text style={globalStyles.mediumStrongLabel}>
-                                AirLift
-                            </Text>
-                            <Text
-                                style={[
-                                    globalStyles.label,
-                                    {color: HiFiColors.Label},
-                                ]}>
-                                Fintech
-                            </Text>
-                        </View>
-                        <View style={styles.upCard}>
-                            <Image
-                                source={require('../../../assets/images/profile/af822be8a49c57f824600cb1740daaa1.png')}
-                                style={styles.upImage}
-                            />
-                            <Text style={globalStyles.mediumStrongLabel}>
-                                AirLift
-                            </Text>
-                            <Text
-                                style={[
-                                    globalStyles.label,
-                                    {color: HiFiColors.Label},
-                                ]}>
-                                Fintech
-                            </Text>
-                        </View>
-                        <View style={styles.upCard}>
-                            <Image
-                                source={require('../../../assets/images/profile/6303cb0dea24fd73e177988f0be5eee0.png')}
-                                style={styles.upImage}
-                            />
-                            <Text style={globalStyles.mediumStrongLabel}>
-                                AirLift
-                            </Text>
-                            <Text
-                                style={[
-                                    globalStyles.label,
-                                    {color: HiFiColors.Label},
-                                ]}>
-                                Fintech
-                            </Text>
-                        </View>
-                        <View style={styles.upCard}>
-                            <Image
-                                source={require('../../../assets/images/profile/af822be8a49c57f824600cb1740daaa1.png')}
-                                style={styles.upImage}
-                            />
-                            <Text style={globalStyles.mediumStrongLabel}>
-                                AirLift
-                            </Text>
-                            <Text
-                                style={[
-                                    globalStyles.label,
-                                    {color: HiFiColors.Label},
-                                ]}>
-                                Fintech
-                            </Text>
-                        </View>
-                        <View style={styles.upCard}>
-                            <Image
-                                source={require('../../../assets/images/profile/6303cb0dea24fd73e177988f0be5eee0.png')}
-                                style={styles.upImage}
-                            />
-                            <Text style={globalStyles.mediumStrongLabel}>
-                                AirLift
-                            </Text>
-                            <Text
-                                style={[
-                                    globalStyles.label,
-                                    {color: HiFiColors.Label},
-                                ]}>
-                                Fintech
-                            </Text>
-                        </View>
+                        {
+                            featuredInvestments.length > 0 &&
+                            featuredInvestments.map((investment, index) => (
+                                <View key={index} style={styles.upCard}>
+                                    <Image
+                                        source={{
+                                            uri: `${ADMIN_API_URL}upload/${investment.imageUrl}`,
+                                        }}
+                                        style={styles.upImage}
+                                    />
+                                    <Text style={globalStyles.mediumStrongLabel}>
+                                        {investment.title.length > 10 ? investment.title.substring(0, 12) + '...' : investment.title }
+                                    </Text>
+                                    <Text
+                                        style={[
+                                            globalStyles.label,
+                                            {color: HiFiColors.Label},
+                                        ]}>
+                                        {investment.title.categoryName > 10 ? investment.categoryName.substring(0, 12) + '...' : investment.categoryName }
+                                    </Text>
+                                </View>
+                            ))
+                        }
                     </ScrollView>
                 </View>
 
@@ -332,7 +294,7 @@ export default MemberInfo = ({navigation}) => {
                                         <FeatherIcon
                                             name="heart"
                                             size={20}
-                                            color={HiFiColors.White}
+                                            color={HiFiColors.Gold}
                                             style={styles.labelSpace}
                                         />
                                     </TouchableOpacity>

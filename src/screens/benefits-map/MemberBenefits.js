@@ -154,7 +154,7 @@ export default MemberBenefits = ({navigation}) => {
                                         }}
                                         resizeMode="stretch"
                                         style={styles.categoryImage}>
-                                        <View
+                                        {/* <View
                                             style={{
                                                 position: 'absolute',
                                                 top: 5,
@@ -168,7 +168,7 @@ export default MemberBenefits = ({navigation}) => {
                                                     style={styles.headerIcon}
                                                 />
                                             </TouchableOpacity>
-                                        </View>
+                                        </View> */}
                                         <Text
                                             style={[
                                                 globalStyles.mediumBoldLabel,
@@ -200,7 +200,7 @@ export default MemberBenefits = ({navigation}) => {
                                             style={
                                                 globalStyles.mediumBoldLabel
                                             }>
-                                            {item.name}
+                                            {item.locationName}
                                         </Text>
                                         {/* <Text
                                             style={[
@@ -226,7 +226,7 @@ export default MemberBenefits = ({navigation}) => {
                                             alignSelf="flex-end">
                                             <FeatherIcon
                                                 name="phone-call"
-                                                size={25}
+                                                size={20}
                                                 color={HiFiColors.White}
                                             />
                                         </LinearGradient>

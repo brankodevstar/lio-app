@@ -17,6 +17,8 @@ const HiFiColors = {
     Green: '#80c652',
     LightGreen: '#52BD94',
     LightAccent: '#45515d',
+    Red: '#ff0000',
+    Gold: '#FFD700'
 };
 
 export default HiFiColors;

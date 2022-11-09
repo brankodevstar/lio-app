@@ -21,7 +21,7 @@ export default DrawerMenu = props => {
 
     return (
         <View style={globalStyles.container}>
-            <View
+            {/* <View
                 style={[
                     globalStyles.headerContainer,
                     {justifyContent: 'flex-start', borderBottomWidth: 0},
@@ -37,19 +37,35 @@ export default DrawerMenu = props => {
                         style={styles.headerIcon}
                     />
                 </TouchableOpacity>
-            </View>
+            </View> */}
             <View style={styles.imageSection}>
                 <Image
                     style={styles.image}
                     source={require('../../../assets/images/logo.png')}
                 />
-                <Text
-                    style={[
-                        globalStyles.mediumBoldLabel,
-                        {marginTop: 40, marginLeft: 20},
-                    ]}>
-                    Leaders for India Organization
-                </Text>
+                <View style={{ flexDirection: 'column', marginLeft: 20, justifyContent: 'center' }}>
+                    <Text
+                        style={[
+                            globalStyles.mediumBoldLabel,
+                            { justifyContent: 'center' },
+                        ]}>
+                        Leaders for
+                    </Text>
+                    <Text
+                        style={[
+                            globalStyles.mediumBoldLabel,
+                            { justifyContent: 'center' },
+                        ]}>
+                        India
+                    </Text>
+                    <Text
+                        style={[
+                            globalStyles.mediumBoldLabel,
+                            { justifyContent: 'center' },
+                        ]}>
+                        Organization
+                    </Text>
+                </View>
             </View>
             <View style={styles.textSection}>
                 <TouchableOpacity

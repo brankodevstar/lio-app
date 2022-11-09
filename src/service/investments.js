@@ -12,7 +12,13 @@ const getById = async id => {
     return response;
 };
 
+const getFeaturedInvestments = async () => {
+    const response = await APIServer.get('investments/findFeatured');
+    return response;
+}
+
 export default {
     list,
     getById,
+    getFeaturedInvestments,
 };
