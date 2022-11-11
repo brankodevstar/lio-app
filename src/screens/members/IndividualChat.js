@@ -95,7 +95,6 @@ export default IndividualChat = ({route, navigation}) => {
                 if (granted === PermissionsAndroid.RESULTS.GRANTED) {
                     // Start downloading
                     downloadFile(fileUrl, originalname);
-                    console.log('Storage Permission Granted.');
                 } else {
                     // If permission denied then show alert
                     Alert.alert('Error', 'Storage Permission Not Granted');
@@ -141,7 +140,6 @@ export default IndividualChat = ({route, navigation}) => {
             .fetch('GET', fileUrl)
             .then(res => {
                 // Alert after successful downloading
-                console.log('res -> ', JSON.stringify(res));
                 alert('File Downloaded Successfully.');
                 setActivityIndicator(false);
             })

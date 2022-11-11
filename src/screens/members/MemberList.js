@@ -66,7 +66,6 @@ export default MemberList = ({navigation}) => {
             response.data.map(item => {
                 captionsTemp.push(item.caption);
             });
-            console.log('captions =====> ', captionsTemp);
             captionsTemp = captionsTemp.filter(onlyUnique);
             setCaptions(captionsTemp);
         }
@@ -101,7 +100,6 @@ export default MemberList = ({navigation}) => {
     };
 
     const toggleCheckAll = () => {
-        console.log('check all clicked!');
         if (checkAll) {
             setCheckedRoles([]);
         } else {

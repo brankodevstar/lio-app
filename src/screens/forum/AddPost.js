@@ -50,7 +50,6 @@ export default AddPost = ({navigation}) => {
                     },
                 })
                     .then(response => {
-                        console.log('upload result  =====> ', response);
                         response.json();
                     })
                     // .then(response => {

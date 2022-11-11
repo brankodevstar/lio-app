@@ -36,13 +36,11 @@ export default EventCalendar = ({navigation}) => {
             //         ? 1
             //         : -1;
             // });
-            // console.log('eventsClone => ', eventsClone);
             // // setEvents(eventsClone);
             // eventsClone.map(item => {
             //     if (
             //         new Date().getTime() < new Date(item.activeTime).getTime()
             //     ) {
-            //         console.log('item.activeTime = ', item.activeTime);
             //         upcomingEventsTemp.push(item);
             //     }
             //     markedDatesTemp[
@@ -69,7 +67,6 @@ export default EventCalendar = ({navigation}) => {
         events.map(item => {
             let dateString = moment(item.activeTime, 'YYYY-MM-DD').format().split('T')[0];
             if (day.dateString === dateString) {
-                console.log('item.activeTime = ', item.activeTime);
                 upcomingEvents.push(item);
             }
         });

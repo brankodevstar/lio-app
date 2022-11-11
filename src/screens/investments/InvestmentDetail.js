@@ -28,7 +28,6 @@ export default InvestmentDetail = ({route, navigation}) => {
     const getInvestments = async () => {
         const response = await Action.investments.getById(id);
         if (response.data) {
-            console.log('responsde.data = ', response.data.overview.investmentDetails);
             setInvestment(response.data);
         }
     };

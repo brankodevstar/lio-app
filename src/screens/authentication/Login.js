@@ -42,7 +42,6 @@ export default Login = ({navigation}) => {
                 setActivityIndicator(false);
             }
         } catch (error) {
-            console.log(error);
             setActivityIndicator(false);
         }
         // temp code
@@ -62,7 +61,6 @@ export default Login = ({navigation}) => {
         //         setActivityIndicator(false);
         //     }
         // } catch (error) {
-        //     console.log(error);
         //     setActivityIndicator(false);
         // }
     };

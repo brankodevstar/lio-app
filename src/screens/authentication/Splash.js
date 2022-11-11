@@ -60,7 +60,6 @@ export default Splash = ({navigation}) => {
     };
 
     const goToLogin = () => {
-        console.log('login button clicked!!!');
         navigation.reset({
             index: 0,
             routes: [{name: 'LoginScreen'}],

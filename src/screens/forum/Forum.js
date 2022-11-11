@@ -82,7 +82,6 @@ export default Forum = ({navigation}) => {
                 setActivityIndicator(false);
             })
             .catch(error => {
-                console.log('error ===> ', error);
                 setActivityIndicator(false);
             });
     };

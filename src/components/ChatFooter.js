@@ -35,13 +35,10 @@ export default ChatFooter = props => {
 
     const handleChooseFile = async () => {
         FilePickerManager.showFilePicker(null, response => {
-            console.log('file choosed!!!!');
             setActivityIndicator(true);
             if (response.didCancel) {
-                console.log('User cancelled file picker');
                 setActivityIndicator(false);
             } else if (response.error) {
-                console.log('FilePickerManager Error: ', response.error);
                 setActivityIndicator(false);
             } else {
                 fetch(`${ADMIN_API_URL}upload`, {
@@ -54,13 +51,11 @@ export default ChatFooter = props => {
                 })
                     .then(res => res.json())
                     .then(res => {
-                        console.log('upload result with json type ====> ', res);
                         setAttachFile(res.filename);
                         props.onSend(res.originalname, res.filename);
                         setActivityIndicator(false);
                     })
                     .catch(error => {
-                        console.log('error ===> ', error);
                         setActivityIndicator(false);
                     });
             }
