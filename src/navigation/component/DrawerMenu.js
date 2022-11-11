@@ -43,25 +43,30 @@ export default DrawerMenu = props => {
                     style={styles.image}
                     source={require('../../../assets/images/logo.png')}
                 />
-                <View style={{ flexDirection: 'column', marginLeft: 20, justifyContent: 'center' }}>
+                <View
+                    style={{
+                        flexDirection: 'column',
+                        marginLeft: 20,
+                        justifyContent: 'center',
+                    }}>
                     <Text
                         style={[
                             globalStyles.mediumBoldLabel,
-                            { justifyContent: 'center' },
+                            {justifyContent: 'center'},
                         ]}>
                         Leaders for
                     </Text>
                     <Text
                         style={[
                             globalStyles.mediumBoldLabel,
-                            { justifyContent: 'center' },
+                            {justifyContent: 'center'},
                         ]}>
                         India
                     </Text>
                     <Text
                         style={[
                             globalStyles.mediumBoldLabel,
-                            { justifyContent: 'center' },
+                            {justifyContent: 'center'},
                         ]}>
                         Organization
                     </Text>
@@ -70,7 +75,10 @@ export default DrawerMenu = props => {
             <View style={styles.textSection}>
                 <TouchableOpacity
                     onPress={() => {
-                        props.navigation.navigate('HomeScreen');
+                        props.navigation.reset({
+                            index: 0,
+                            routes: [{name: 'Home'}],
+                        });
                     }}>
                     <Text
                         style={[

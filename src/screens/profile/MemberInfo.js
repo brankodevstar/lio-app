@@ -26,6 +26,7 @@ import Action from '../../service';
 import {ADMIN_API_URL} from '../../../config';
 import moment from 'moment';
 import {useSelector} from 'react-redux';
+// import Carousel from 'react-native-snap-carousel';
 
 export default MemberInfo = ({navigation}) => {
     const [announcements, setAnnouncements] = useState([]);
@@ -161,50 +162,65 @@ export default MemberInfo = ({navigation}) => {
                 </View>
             </View>
             <View style={styles.contentContainer}>
-                <View style={styles.imageSection}>
-                    <ImageBackground
-                        source={require('../../../assets/images/baner-1.png')}
-                        resizeMode="stretch"
-                        borderRadius={7}
-                        style={styles.bannerImage}>
-                        <LinearGradient
-                            start={{x: 0.5, y: 0.0}}
-                            end={{x: 0.5, y: 1.0}}
-                            colors={['#16253400', '#162534']}
-                            style={styles.bannerMask}>
-                            <View style={styles.innerPanel}>
-                                <View
-                                    style={[
-                                        styles.sportsCaption,
-                                        {
-                                            backgroundColor:
-                                                HiFiColors.LightGreen,
-                                            paddingHorizontal: 10,
-                                            paddingVertical: 2,
-                                        },
-                                    ]}>
-                                    <Text style={globalStyles.boldSmallLabel}>
-                                        Sports
-                                    </Text>
-                                </View>
-                                <View style={styles.sportsCaption}>
-                                    <Text
-                                        style={[
-                                            globalStyles.mediumBoldLabel,
-                                            {fontSize: 20, fontWeight: '700'},
-                                        ]}>
-                                        Featured Events
-                                    </Text>
-                                </View>
-                                <View style={[styles.sportsCaption]}>
-                                    <Text style={globalStyles.boldSmallLabel}>
-                                        22nd Aug 2022
-                                    </Text>
-                                </View>
-                            </View>
-                        </LinearGradient>
-                    </ImageBackground>
-                </View>
+                <ScrollView horizontal style={{ flexDirection: 'row' }}>
+                    {
+                        featuredEvents.length > 0 && 
+                        featuredEvents.map((event, index) => (
+                            <TouchableOpacity
+                                key={index}
+                                onPress={() => {
+                                    navigation.navigate('EventsDetailScreen', {
+                                        id: event._id,
+                                    });
+                                }}>
+                                <ImageBackground
+                                    source={{
+                                        uri: `${ADMIN_API_URL}upload/${event.photos[0]}`,
+                                    }}
+                                    resizeMode="stretch"
+                                    borderRadius={7}
+                                    style={styles.bannerImage}>
+                                    <LinearGradient
+                                        start={{x: 0.5, y: 0.0}}
+                                        end={{x: 0.5, y: 1.0}}
+                                        colors={['#16253400', '#162534']}
+                                        style={styles.bannerMask}>
+                                        <View style={styles.innerPanel}>
+                                            <View
+                                                style={[
+                                                    styles.sportsCaption,
+                                                    {
+                                                        backgroundColor:
+                                                            HiFiColors.LightGreen,
+                                                        paddingHorizontal: 10,
+                                                        paddingVertical: 2,
+                                                    },
+                                                ]}>
+                                                <Text style={globalStyles.boldSmallLabel}>
+                                                    {event.category}
+                                                </Text>
+                                            </View>
+                                            <View style={styles.sportsCaption}>
+                                                <Text
+                                                    style={[
+                                                        globalStyles.mediumBoldLabel,
+                                                        {fontSize: 20, fontWeight: '700'},
+                                                    ]}>
+                                                    {event.title}
+                                                </Text>
+                                            </View>
+                                            <View style={[styles.sportsCaption]}>
+                                                <Text style={globalStyles.boldSmallLabel}>
+                                                    {event.createdDt.split('T')[0]}
+                                                </Text>
+                                            </View>
+                                        </View>
+                                    </LinearGradient>
+                                </ImageBackground>
+                            </TouchableOpacity>
+                        ))
+                    }                    
+                </ScrollView>
                 <View style={styles.featureSection}>
                     <Text
                         style={[
@@ -334,7 +350,6 @@ export default MemberInfo = ({navigation}) => {
                     ))}
                 </View>
             </View>
-
             <Modal
                 isVisible={isModalVisible}
                 onSwipeComplete={() => {
@@ -463,7 +478,7 @@ const styles = StyleSheet.create({
     },
     imageSection: {},
     bannerImage: {
-        width: '100%',
+        width: Dimensions.get('window').width - 40,
         height: 250,
     },
     bannerMask: {
