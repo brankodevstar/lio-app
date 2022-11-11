@@ -4,6 +4,7 @@ import {createStackNavigator} from '@react-navigation/stack';
 import MemberProfileInfoScreen from '../screens/profile/MemberInfo';
 import NavigationScreen from '../screens/profile/Navigation';
 import TransactionHistoryScreen from '../screens/profile/TransactionHistory';
+import InvestmentDetailScreen from '../screens/investments/InvestmentDetail';
 
 const Stack = createStackNavigator();
 
@@ -24,6 +25,10 @@ export default HomeStackNavigator = () => {
             <Stack.Screen
                 name="NavigationScreen"
                 component={NavigationScreen}
+            />
+            <Stack.Screen
+                name="InvestmentDetailScreen"
+                component={InvestmentDetailScreen}
             />
             <Stack.Screen
                 name="TransactionHistoryScreen"

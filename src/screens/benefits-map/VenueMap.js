@@ -62,7 +62,6 @@ export default VenueMap = ({route, navigation}) => {
     const [region, setRegion] = useState(
         benefitToRegion(benefits[clickedIndex]),
     );
-    console.log('region =========> ', region);
     const [markers, setMarkers] = useState(benefits);
 
     const toggleViewState = () => {

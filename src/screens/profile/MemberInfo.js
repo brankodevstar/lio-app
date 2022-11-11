@@ -217,7 +217,14 @@ export default MemberInfo = ({navigation}) => {
                         {
                             featuredInvestments.length > 0 &&
                             featuredInvestments.map((investment, index) => (
-                                <View key={index} style={styles.upCard}>
+                                <TouchableOpacity
+                                    key={index}
+                                    style={styles.upCard}
+                                    onPress={() =>
+                                        navigation.navigate('InvestmentDetailScreen', {
+                                            id: investment._id,
+                                        })
+                                }>
                                     <Image
                                         source={{
                                             uri: `${ADMIN_API_URL}upload/${investment.imageUrl}`,
@@ -234,12 +241,11 @@ export default MemberInfo = ({navigation}) => {
                                         ]}>
                                         {investment.title.categoryName > 10 ? investment.categoryName.substring(0, 12) + '...' : investment.categoryName }
                                     </Text>
-                                </View>
+                                </TouchableOpacity>                                
                             ))
                         }
                     </ScrollView>
                 </View>
-
                 <View style={styles.bottomSection}>
                     <Text
                         style={[

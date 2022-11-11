@@ -14,33 +14,41 @@ import Action from '../../service';
 
 export default EventCalendar = ({navigation}) => {
     const [moreDetail, setMoreDetail] = useState(true);
-    // const [events, setEvents] = useState([]);
+    const [events, setEvents] = useState([]);
     const [markDates, setMarkDates] = useState({});
     const [upcomingEvents, setUpcomingEvents] = useState([]);
 
     const getEvents = async () => {
         const response = await Action.events.list();
         if (response.data) {
-            let eventsClone = response.data.sort((a, b) => {
-                return Number.parseInt(new Date(a.activeTime).getTime()) >
-                    Number.parseInt(new Date(b.activeTime).getTime())
-                    ? 1
-                    : -1;
-            });
-            // setEvents(eventsClone);
+            setEvents(response.data);
             let markedDatesTemp = {};
             const markStyle = {marked: true, dotColor: '#50cebb'};
             let upcomingEventsTemp = [];
-            eventsClone.map(item => {
-                if (
-                    new Date().getTime() < new Date(item.activeTime).getTime()
-                ) {
-                    upcomingEventsTemp.push(item);
-                }
+            response.data.map(item => {
                 markedDatesTemp[
-                    moment(new Date(item.activeTime)).format('yyyy-MM-DD')
+                    moment(item.activeTime, 'YYYY-MM-DD').format().split('T')[0]
                 ] = markStyle;
             });
+            // let eventsClone = response.data.sort((a, b) => {
+            //     return Number.parseInt(new Date(a.activeTime)) >
+            //         Number.parseInt(new Date(b.activeTime))
+            //         ? 1
+            //         : -1;
+            // });
+            // console.log('eventsClone => ', eventsClone);
+            // // setEvents(eventsClone);
+            // eventsClone.map(item => {
+            //     if (
+            //         new Date().getTime() < new Date(item.activeTime).getTime()
+            //     ) {
+            //         console.log('item.activeTime = ', item.activeTime);
+            //         upcomingEventsTemp.push(item);
+            //     }
+            //     markedDatesTemp[
+            //         moment(item.activeTime, 'YYYY-MM-DD').format().split('T')[0]
+            //     ] = markStyle;
+            // });
             setMarkDates(markedDatesTemp);
             setUpcomingEvents(upcomingEventsTemp);
         }
@@ -56,6 +64,18 @@ export default EventCalendar = ({navigation}) => {
         });
     }, [navigation]);
 
+    const clickDate = (day) => {
+        let upcomingEvents = [];
+        events.map(item => {
+            let dateString = moment(item.activeTime, 'YYYY-MM-DD').format().split('T')[0];
+            if (day.dateString === dateString) {
+                console.log('item.activeTime = ', item.activeTime);
+                upcomingEvents.push(item);
+            }
+        });
+        setUpcomingEvents(upcomingEvents);
+    };
+
     return (
         <View style={globalStyles.container}>
             <View style={[globalStyles.headerContainer]}>
@@ -68,6 +88,7 @@ export default EventCalendar = ({navigation}) => {
                 <View style={styles.calendarContainer}>
                     <Calendar
                         markedDates={markDates}
+                        onDayPress={(day) => clickDate(day) }
                         theme={{
                             calendarBackground: HiFiColors.AccentFade,
                             selectedDayBackgroundColor: HiFiColors.AccentFade,
@@ -181,7 +202,8 @@ export default EventCalendar = ({navigation}) => {
                                     globalStyles.tinyLabel,
                                     {color: HiFiColors.Label, marginRight: 10},
                                 ]}>
-                                {moment(new Date(item.activeTime)).format(
+                                {
+                                    moment(new Date(item.activeTime)).format(
                                     'yyyy-MM-DD HH.mm A',
                                 )}
                             </Text>

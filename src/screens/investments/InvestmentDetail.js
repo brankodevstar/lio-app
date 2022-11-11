@@ -28,6 +28,7 @@ export default InvestmentDetail = ({route, navigation}) => {
     const getInvestments = async () => {
         const response = await Action.investments.getById(id);
         if (response.data) {
+            console.log('responsde.data = ', response.data.overview.investmentDetails);
             setInvestment(response.data);
         }
     };
@@ -83,42 +84,37 @@ export default InvestmentDetail = ({route, navigation}) => {
                         </Text>
                         <View style={styles.detailInfoContainer}>
                             <Text style={globalStyles.label}>Target</Text>
-                            <TextInput
-                                value="₹500,000"
-                                style={styles.detailInfo}
-                            />
+                            <Text style={styles.detailInfo}>
+                                {investment.overview && "₹" + investment.overview.investmentDetails.target.toString()}
+                            </Text>
                         </View>
                         <View style={styles.detailInfoContainer}>
                             <Text style={globalStyles.label}>Minimum</Text>
-                            <TextInput
-                                value="₹20,000"
-                                style={styles.detailInfo}
-                            />
+                            <Text style={styles.detailInfo}>
+                                {investment.overview && "₹" + investment.overview.investmentDetails.minimum.toString()}
+                            </Text>
                         </View>
                         <View style={styles.detailInfoContainer}>
                             <Text style={globalStyles.label}>
                                 Investment Raised
                             </Text>
-                            <TextInput
-                                value="₹800,000"
-                                style={styles.detailInfo}
-                            />
+                            <Text style={styles.detailInfo}>
+                                {investment.overview && "₹" + investment.overview.investmentDetails.investmentRaised.toString()}
+                            </Text>
                         </View>
                         <View style={styles.detailInfoContainer}>
                             <Text style={globalStyles.label}>
                                 Previous Rounds
                             </Text>
-                            <TextInput
-                                value="₹900,000"
-                                style={styles.detailInfo}
-                            />
+                            <Text style={styles.detailInfo}>
+                                {investment.overview && "₹" + investment.overview.investmentDetails.previousRound.toString()}
+                            </Text>
                         </View>
                         <View style={styles.detailInfoContainer}>
                             <Text style={globalStyles.label}>Stage</Text>
-                            <TextInput
-                                value="Profitable"
-                                style={styles.detailInfo}
-                            />
+                            <Text style={styles.detailInfo}>
+                                {investment.overview?.investmentDetails.stage}
+                            </Text>
                         </View>
                     </View>
                 </View>
@@ -256,10 +252,10 @@ export default InvestmentDetail = ({route, navigation}) => {
             <View style={styles.content}>
                 <Text style={globalStyles.pageTitle}>{investment.title}</Text>
                 <View style={styles.nameContainer}>
-                    <Text
+                    {/* <Text
                         style={[styles.conferenceTag, globalStyles.smallLabel]}>
                         Conference
-                    </Text>
+                    </Text> */}
                     <Text style={[globalStyles.smallLabel, {marginRight: 10}]}>
                         {' '}
                         • {investment.location}{' '}
@@ -434,8 +430,8 @@ const styles = StyleSheet.create({
     },
     detailInfo: {
         backgroundColor: HiFiColors.AccentFade,
-        borderColor: HiFiColors.Label,
-        borderWidth: 1,
+        // borderColor: HiFiColors.Label,
+        // borderWidth: 1,
         color: HiFiColors.White,
         paddingVertical: 5,
         paddingHorizontal: 10,

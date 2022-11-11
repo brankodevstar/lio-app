@@ -24,8 +24,6 @@ export default MemberInfo = ({route, navigation}) => {
         }
         let userInfo = await AsyncStorage.getItem('USER_DATA');
         setMine(response.data.phone === userInfo);
-        console.log('selectedUser = ', response.data);
-        console.log('userInfo = ', userInfo);
     };
 
     useEffect(() => {

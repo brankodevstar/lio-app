@@ -6,27 +6,64 @@ import {
     ImageBackground,
     Image,
     ScrollView,
+    TouchableWithoutFeedback,
 } from 'react-native';
 import {TouchableOpacity} from 'react-native-gesture-handler';
 import LinearGradient from 'react-native-linear-gradient';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
+import MapView, { Marker} from 'react-native-maps';
+import Geocoder from 'react-native-geocoding';
 
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import MenuButton from '../../components/MenuButton';
 import Action from '../../service';
-import {ADMIN_API_URL} from '../../../config';
+import { ADMIN_API_URL, GOOGLE_API_KEY } from '../../../config';
+
+Geocoder.init(GOOGLE_API_KEY);
 
 export default EventDetail = ({route, navigation}) => {
     const {id} = route.params;
     const [eventItem, setEventItem] = useState({});
+    const [region, setRegion] = useState(null);
+    const [mapLocationName, setMapLocationName] = useState('');
+
+    const eventToRegion = item => {
+        return {
+            latitude: Number.parseFloat(
+                item?.location?.replaceAll(' ', '')?.split(',')[0],
+            ),
+            longitude: Number.parseFloat(
+                item?.location?.replaceAll(' ', '')?.split(',')[1],
+            ),
+            latitudeDelta: 0.3,
+            longitudeDelta: 0.3,
+        };
+    };
+
+    const eventToLocation = item => {
+        return {
+            latitude: Number.parseFloat(
+                item?.location?.replaceAll(' ', '')?.split(',')[0],
+            ),
+            longitude: Number.parseFloat(
+                item?.location?.replaceAll(' ', '')?.split(',')[1],
+            ),
+        };
+    };
 
     const getEvent = async () => {
-        const response = await Action.gallery.getById(id);
+        const response = await Action.events.getById(id);
         setEventItem(response.data);
+        setRegion(eventToRegion(response.data));
+        let lat = response.data.location.replaceAll(' ', '').split(',')[0];
+        let lng = response.data.location.replaceAll(' ', '').split(',')[1];
+        let locationInfo = await Geocoder.from(lat, lng);
+        setMapLocationName(locationInfo.results[0].formatted_address);
+        // console.log('locationInfo result  +++++ ', locationInfo.results[0].formatted_address);
     };
 
     useEffect(() => {
@@ -54,294 +91,39 @@ export default EventDetail = ({route, navigation}) => {
                         <View style={{position: 'absolute', left: 20, top: 15}}>
                             <MenuButton navigation={navigation} />
                         </View>
-                        {/* <View style={[styles.headerIconBack, {left: 60}]}>
-                            <TouchableOpacity>
-                                <FeatherIcon
-                                    name="arrow-left"
-                                    size={20}
-                                    color={HiFiColors.White}
-                                    style={styles.headerIcon}
-                                />
-                            </TouchableOpacity>
-                        </View> */}
-                        <View style={[styles.headerIconBack, {right: 60}]}>
-                            <TouchableOpacity>
-                                <FontAwesomeIcon
-                                    name="heart"
-                                    size={20}
-                                    color={HiFiColors.Primary}
-                                    style={styles.headerIcon}
-                                />
-                            </TouchableOpacity>
-                        </View>
-                        <View style={[styles.headerIconBack, {right: 20}]}>
-                            <TouchableOpacity>
-                                <FeatherIcon
-                                    name="share-2"
-                                    size={20}
-                                    color={HiFiColors.White}
-                                    style={styles.headerIcon}
-                                />
-                            </TouchableOpacity>
-                        </View>
                         <View style={styles.bannerControlBack}>
                             <MaterialIcon
                                 name="photo-album"
                                 size={15}
                                 color={HiFiColors.White}
                             />
-                            <Text style={globalStyles.label}>1/15</Text>
+                            <Text style={globalStyles.label}>
+                                1/{eventItem?.photos?.length}
+                            </Text>
                         </View>
                     </LinearGradient>
                 </ImageBackground>
             </View>
             <View style={styles.content}>
-                <Text style={globalStyles.pageTitle}>Startup Grind</Text>
+                <Text style={globalStyles.pageTitle}>{eventItem?.title}</Text>
                 <View style={styles.nameContainer}>
                     <Text style={[globalStyles.smallLabel, {marginRight: 10}]}>
                         ₹ •{' '}
                     </Text>
                     <Text
                         style={[styles.conferenceTag, globalStyles.smallLabel]}>
-                        Conference
+                        {eventItem?.category}
                     </Text>
-                    <Text style={[globalStyles.smallLabel, {marginRight: 10}]}>
-                        {' '}
-                        • 3 km away{' '}
-                    </Text>
+
                     <Text style={globalStyles.smallLabel}>
                         {' '}
-                        • 20-22 Sep, 2022{' '}
+                        • {eventItem?.createdDt?.split('T')[0]}{' '}
                     </Text>
                 </View>
                 <View style={styles.discriptionContainer}>
                     <Text style={[globalStyles.label, styles.discription]}>
-                        Both a live and online event, Startup Grind is one of
-                        the most renowned startup conferences in North America.
-                        Powered by Microsoft for Startups, this event is a great
-                        opportunity for large-scale and early-phase startups to
-                        come together, meet investors, exchange ideas, and
-                        participate in workshops.
+                        {eventItem?.description}
                     </Text>
-                    <TouchableOpacity style={styles.readMoreButtonBack}>
-                        <Text
-                            style={[
-                                globalStyles.smallLabel,
-                                styles.readMoreButton,
-                            ]}>
-                            Read More
-                        </Text>
-                        <FeatherIcon
-                            name="chevron-down"
-                            size={10}
-                            color={'#0088EF'}
-                        />
-                    </TouchableOpacity>
-                </View>
-                <View style={styles.discriptionContainer}>
-                    <View>
-                        <View style={styles.category}>
-                            <FeatherIcon
-                                name="users"
-                                size={20}
-                                color={HiFiColors.White}
-                                style={styles.icon}
-                            />
-                            <View>
-                                <Text style={globalStyles.boldLabel}>
-                                    3000+ Delegates
-                                </Text>
-                                <Text style={globalStyles.smallLabel}>
-                                    Investors and exhibitors from all over India
-                                </Text>
-                            </View>
-                        </View>
-                        <View style={styles.category}>
-                            <FeatherIcon
-                                name="briefcase"
-                                size={20}
-                                color={HiFiColors.White}
-                                style={styles.icon}
-                            />
-                            <View>
-                                <Text style={globalStyles.boldLabel}>
-                                    Business Services
-                                </Text>
-                                <Text style={globalStyles.smallLabel}>
-                                    Consisting of a rectangular floor with
-                                    tiles.
-                                </Text>
-                            </View>
-                        </View>
-                        <View style={styles.category}>
-                            <FeatherIcon
-                                name="book"
-                                size={20}
-                                color={HiFiColors.White}
-                                style={styles.icon}
-                            />
-                            <View>
-                                <Text style={globalStyles.boldLabel}>
-                                    Education and Training
-                                </Text>
-                                <Text style={globalStyles.smallLabel}>
-                                    In professional or organized basketball.
-                                </Text>
-                            </View>
-                        </View>
-                        <View style={styles.category}>
-                            <FeatherIcon
-                                name="slash"
-                                size={20}
-                                color={HiFiColors.White}
-                                style={styles.icon}
-                            />
-                            <View>
-                                <Text style={globalStyles.boldLabel}>
-                                    Free Cancellation
-                                </Text>
-                                <Text style={globalStyles.smallLabel}>
-                                    Full fee refund but 1 day before
-                                </Text>
-                            </View>
-                        </View>
-                    </View>
-                    <View style={{marginBottom: 10}}>
-                        <Text
-                            style={[
-                                globalStyles.boldLabel,
-                                {marginBottom: 10},
-                            ]}>
-                            Speakers
-                        </Text>
-                        <View style={styles.speackers}>
-                            <Image
-                                source={require('../../../assets/images/avatar-001.png')}
-                                style={styles.avatarImage}
-                            />
-                            <Text style={styles.labelText}>
-                                Mahendra Singh Dhoni
-                            </Text>
-                            <Text style={styles.blueMark}>Former Chairman</Text>
-                        </View>
-                        <View style={styles.speackers}>
-                            <Image
-                                source={require('../../../assets/images/avatar-002.png')}
-                                style={styles.avatarImage}
-                            />
-                            <Text style={styles.labelText}>Yuvraj Singh</Text>
-                            <Text style={styles.blueMark}>Angel Investor</Text>
-                        </View>
-                        <View style={styles.speackers}>
-                            <Image
-                                source={require('../../../assets/images/avatar-003.png')}
-                                style={styles.avatarImage}
-                            />
-                            <Text style={styles.labelText}>Priyanka Bhatt</Text>
-                            <Text style={styles.blueMark}>CEO StepChange</Text>
-                        </View>
-                        {/* <View style={styles.buttonContainer}>
-                            <TouchableOpacity style={styles.buttonStyle}>
-                                <Text style={globalStyles.strongLabel}>
-                                    Show all 10 speakers
-                                </Text>
-                            </TouchableOpacity>
-                        </View> */}
-                    </View>
-                    {/* <View style={{marginBottom: 10}}>
-                        <Text style={[globalStyles.label, {marginBottom: 10}]}>
-                            Exhibitors
-                        </Text>
-                        <View style={styles.speackers}>
-                            <Image
-                                source={require('../../../assets/images/exhibitor-001.png')}
-                                style={styles.avatarImage}
-                            />
-                            <Text style={styles.labelText}>Step Change</Text>
-                            <Text style={styles.redMark}>Environment</Text>
-                        </View>
-                        <View style={styles.speackers}>
-                            <Image
-                                source={require('../../../assets/images/exhibitor-002.png')}
-                                style={styles.avatarImage}
-                            />
-                            <Text style={styles.labelText}>Clickup</Text>
-                            <Text style={styles.redMark}>SasS tool</Text>
-                        </View>
-                        <View style={styles.speackers}>
-                            <Image
-                                source={require('../../../assets/images/exhibitor-003.png')}
-                                style={styles.avatarImage}
-                            />
-                            <Text style={styles.labelText}>
-                                Dynamo Softwares
-                            </Text>
-                            <Text style={styles.redMark}>
-                                Software Development
-                            </Text>
-                        </View>
-                        <View style={styles.buttonContainer}>
-                            <TouchableOpacity style={styles.buttonStyle}>
-                                <Text style={globalStyles.strongLabel}>
-                                    Show all 10 exhibitors
-                                </Text>
-                            </TouchableOpacity>
-                        </View>
-                    </View> */}
-                    <View>
-                        <ImageBackground
-                            source={require('../../../assets/images/large-banner-1.png')}
-                            resizeMode="stretch"
-                            style={styles.bannerImage}>
-                            <LinearGradient
-                                start={{x: 0.5, y: 0.0}}
-                                end={{x: 0.5, y: 1.0}}
-                                colors={['#16253400', '#162534']}
-                                style={styles.bannerMask}>
-                                <Text
-                                    style={{
-                                        color: HiFiColors.White,
-                                        fontSize: 36,
-                                        fontWeight: '700',
-                                        fontFamily: fonts.primary,
-                                    }}>
-                                    50% OFF
-                                </Text>
-                                <Text style={globalStyles.boldLabel}>
-                                    FOR A LIMITED TIME
-                                </Text>
-                                <Text style={globalStyles.mediumLabel}>
-                                    Post C-19 Reopening
-                                </Text>
-                                {/* <View style={styles.reverseButtonBack}>
-                                    <TouchableOpacity
-                                        onPress={() =>
-                                            navigation.navigate('ReserveScreen')
-                                        }>
-                                        <LinearGradient
-                                            start={{x: 0.0, y: 0.0}}
-                                            end={{x: 1.0, y: 1.0}}
-                                            colors={[
-                                                '#7B61FF',
-                                                '#991450',
-                                                '#40799D',
-                                            ]}
-                                            style={[
-                                                globalStyles.filledButton,
-                                                {width: '50%'},
-                                            ]}>
-                                            <Text
-                                                style={
-                                                    globalStyles.buttonLabel
-                                                }>
-                                                Reserve
-                                            </Text>
-                                        </LinearGradient>
-                                    </TouchableOpacity>
-                                </View> */}
-                            </LinearGradient>
-                        </ImageBackground>
-                    </View>
                 </View>
                 <View style={styles.discriptionContainer}>
                     <Text style={[globalStyles.boldLabel, {marginBottom: 10}]}>
@@ -355,57 +137,21 @@ export default EventDetail = ({route, navigation}) => {
                         />
                         <Text
                             style={[globalStyles.smallLabel, {marginLeft: 5}]}>
-                            Marriott Hotel New Delhi Aerocity, New Delhi
+                            {mapLocationName && mapLocationName }
                         </Text>
                     </View>
-                    <Image
-                        source={require('../../../assets/images/location.png')}
-                        style={styles.mapImage}
-                    />
-                    <View style={styles.mapContainer}>
-                        <TouchableOpacity>
-                            <Text
-                                style={[
-                                    globalStyles.boldSmallLabel,
-                                    styles.getDirectionButton,
-                                ]}>
-                                Get Directions
-                            </Text>
-                        </TouchableOpacity>
-                    </View>
+                    {
+                        region && 
+                        (
+                            <MapView style={styles.mapImage} region={region}>
+                                <Marker
+                                    coordinate={eventToLocation(eventItem)}>
+                                </Marker>
+                            </MapView>
+                        )
+                    }
                 </View>
             </View>
-            {/* <View style={styles.footer}>
-                <View style={styles.footerContentContainer}>
-                    <Text style={globalStyles.label}>
-                        From{' '}
-                        <Text style={globalStyles.mediumBoldLabel}>
-                            ₹15 ₹7 /
-                        </Text>{' '}
-                        entry
-                    </Text>
-                    <Text style={globalStyles.tinyLabel}>
-                        Limited time offer. 50% off
-                    </Text>
-                </View>
-                <View style={styles.reverseButtonContainer}>
-                    <TouchableOpacity
-                        onPress={() => navigation.navigate('ReserveScreen')}>
-                        <LinearGradient
-                            start={{x: 0.0, y: 0.0}}
-                            end={{x: 1.0, y: 1.0}}
-                            colors={['#7B61FF', '#991450', '#40799D']}
-                            style={[
-                                globalStyles.filledButton,
-                                styles.reverseButton,
-                            ]}>
-                            <Text style={globalStyles.buttonLabel}>
-                                Reverse
-                            </Text>
-                        </LinearGradient>
-                    </TouchableOpacity>
-                </View>
-            </View> */}
         </ScrollView>
     );
 };
@@ -413,6 +159,7 @@ export default EventDetail = ({route, navigation}) => {
 const styles = StyleSheet.create({
     container: {
         backgroundColor: HiFiColors.Accent,
+        flex: 1,
     },
     bannerImage: {
         width: '100%',
@@ -537,6 +284,8 @@ const styles = StyleSheet.create({
         justifyContent: 'flex-end',
         borderTopLeftRadius: 10,
         borderTopRightRadius: 10,
+        borderWidth: 1,
+        borderColor: 'red',
     },
     mapContainer: {
         backgroundColor: HiFiColors.AccentFade,
