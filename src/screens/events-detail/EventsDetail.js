@@ -63,7 +63,6 @@ export default EventDetail = ({route, navigation}) => {
         let lng = response.data.location.replaceAll(' ', '').split(',')[1];
         let locationInfo = await Geocoder.from(lat, lng);
         setMapLocationName(locationInfo.results[0].formatted_address);
-        // console.log('locationInfo result  +++++ ', locationInfo.results[0].formatted_address);
     };
 
     useEffect(() => {

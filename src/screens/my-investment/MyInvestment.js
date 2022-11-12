@@ -144,11 +144,11 @@ export default MyInvestment = ({navigation}) => {
                             styles.chartTitle,
                             {alignSelf: 'flex-start', marginBottom: 20},
                         ]}>
-                        My List
+                        My Company List
                     </Text>
                     {userInfo?.investmentCompany?.map((item, index) => (
                         <View key={index} style={styles.investContainer}>
-                            <TouchableOpacity
+                            {/* <TouchableOpacity
                                 style={{
                                     flexDirection: 'row',
                                     alignItems: 'center',
@@ -157,7 +157,7 @@ export default MyInvestment = ({navigation}) => {
                                     navigation.navigate(
                                         'MyInvestmentDetailScreen',
                                     );
-                                }}>
+                                }}> */}
                                 <Text
                                     style={[
                                         styles.chartTitle,
@@ -181,7 +181,7 @@ export default MyInvestment = ({navigation}) => {
                                     ]}>
                                     Environment
                                 </Text> */}
-                            </TouchableOpacity>
+                            {/* </TouchableOpacity> */}
                         </View>
                     ))}
                 </View>

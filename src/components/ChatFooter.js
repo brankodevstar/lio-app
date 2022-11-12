@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import {
     View,
     Text,
@@ -7,6 +7,7 @@ import {
     TextInput,
     TouchableOpacity,
     ActivityIndicator,
+    BackHandler,
 } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import FilePickerManager from 'react-native-file-picker';
@@ -61,6 +62,12 @@ export default ChatFooter = props => {
             }
         });
     };
+
+    useEffect(() => {
+        BackHandler.addEventListener('hardwareBackPress', function() {
+            return true;
+        }) 
+    }, [])
 
     return (
         <View style={styles.footerContainer}>
