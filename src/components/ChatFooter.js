@@ -8,6 +8,7 @@ import {
     TouchableOpacity,
     ActivityIndicator,
     BackHandler,
+    Dimensions
 } from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import DocumentPicker from 'react-native-document-picker';
@@ -16,7 +17,6 @@ import globalStyles from '../styles/style';
 import HiFiColors from '../styles/colors';
 import fonts from '../styles/fonts';
 import {ADMIN_API_URL} from '../../config';
-import {Dimensions} from 'react-native';
 
 export default ChatFooter = props => {
     const [message, setMessage] = useState('');

@@ -10,7 +10,13 @@ const getById = async id => {
     return response;
 };
 
+const update = async (id, param) => {
+    const response = await APIServer.put('users/' + id, param);
+    return response;
+};
+
 export default {
     list,
     getById,
+    update,
 };

@@ -116,12 +116,11 @@ export default MemberInfo = ({navigation}) => {
         let hourDiff = Math.floor(remainderMins / 60);
         remainderMins = remainderMins % 60;
         minDiff = remainderMins;
-        let timeStr =
-            dayDiff !== 0 ? dayDiff + ' Days ago' : 'Today';
-            //  : '') +
-            // (hourDiff !== 0 ? hourDiff + 'Hours ' : '') +
-            // minDiff +
-            // 'Minutes ago';
+        let timeStr = dayDiff !== 0 ? dayDiff + ' Days ago' : 'Today';
+        //  : '') +
+        // (hourDiff !== 0 ? hourDiff + 'Hours ' : '') +
+        // minDiff +
+        // 'Minutes ago';
         return timeStr;
     };
 
@@ -138,7 +137,7 @@ export default MemberInfo = ({navigation}) => {
             <View
                 style={[
                     globalStyles.headerContainer,
-                    {justifyContent: 'space-between'},
+                    {justifyContent: 'space-between', flex: 1},
                 ]}>
                 <MenuButton navigation={navigation} />
                 <Text style={globalStyles.mediumStrongLabel}>
@@ -162,9 +161,8 @@ export default MemberInfo = ({navigation}) => {
                 </View>
             </View>
             <View style={styles.contentContainer}>
-                <ScrollView horizontal style={{ flexDirection: 'row' }}>
-                    {
-                        featuredEvents.length > 0 && 
+                <ScrollView horizontal style={{flexDirection: 'row'}}>
+                    {featuredEvents.length > 0 &&
                         featuredEvents.map((event, index) => (
                             <TouchableOpacity
                                 key={index}
@@ -196,7 +194,10 @@ export default MemberInfo = ({navigation}) => {
                                                         paddingVertical: 2,
                                                     },
                                                 ]}>
-                                                <Text style={globalStyles.boldSmallLabel}>
+                                                <Text
+                                                    style={
+                                                        globalStyles.boldSmallLabel
+                                                    }>
                                                     {event.category}
                                                 </Text>
                                             </View>
@@ -204,22 +205,32 @@ export default MemberInfo = ({navigation}) => {
                                                 <Text
                                                     style={[
                                                         globalStyles.mediumBoldLabel,
-                                                        {fontSize: 20, fontWeight: '700'},
+                                                        {
+                                                            fontSize: 20,
+                                                            fontWeight: '700',
+                                                        },
                                                     ]}>
                                                     {event.title}
                                                 </Text>
                                             </View>
-                                            <View style={[styles.sportsCaption]}>
-                                                <Text style={globalStyles.boldSmallLabel}>
-                                                    {event.createdDt.split('T')[0]}
+                                            <View
+                                                style={[styles.sportsCaption]}>
+                                                <Text
+                                                    style={
+                                                        globalStyles.boldSmallLabel
+                                                    }>
+                                                    {
+                                                        event.createdDt.split(
+                                                            'T',
+                                                        )[0]
+                                                    }
                                                 </Text>
                                             </View>
                                         </View>
                                     </LinearGradient>
                                 </ImageBackground>
                             </TouchableOpacity>
-                        ))
-                    }                    
+                        ))}
                 </ScrollView>
                 <View style={styles.featureSection}>
                     <Text
@@ -230,36 +241,48 @@ export default MemberInfo = ({navigation}) => {
                         Featured Start Ups
                     </Text>
                     <ScrollView horizontal style={styles.imagePart}>
-                        {
-                            featuredInvestments.length > 0 &&
+                        {featuredInvestments.length > 0 &&
                             featuredInvestments.map((investment, index) => (
                                 <TouchableOpacity
                                     key={index}
                                     style={styles.upCard}
                                     onPress={() =>
-                                        navigation.navigate('InvestmentDetailScreen', {
-                                            id: investment._id,
-                                        })
-                                }>
+                                        navigation.navigate(
+                                            'InvestmentDetailScreen',
+                                            {
+                                                id: investment._id,
+                                            },
+                                        )
+                                    }>
                                     <Image
                                         source={{
                                             uri: `${ADMIN_API_URL}upload/${investment.imageUrl}`,
                                         }}
                                         style={styles.upImage}
                                     />
-                                    <Text style={globalStyles.mediumStrongLabel}>
-                                        {investment.title.length > 10 ? investment.title.substring(0, 12) + '...' : investment.title }
+                                    <Text
+                                        style={globalStyles.mediumStrongLabel}>
+                                        {investment.title.length > 10
+                                            ? investment.title.substring(
+                                                  0,
+                                                  12,
+                                              ) + '...'
+                                            : investment.title}
                                     </Text>
                                     <Text
                                         style={[
                                             globalStyles.label,
                                             {color: HiFiColors.Label},
                                         ]}>
-                                        {investment.title.categoryName > 10 ? investment.categoryName.substring(0, 12) + '...' : investment.categoryName }
+                                        {investment.title.categoryName > 10
+                                            ? investment.categoryName.substring(
+                                                  0,
+                                                  12,
+                                              ) + '...'
+                                            : investment.categoryName}
                                     </Text>
-                                </TouchableOpacity>                                
-                            ))
-                        }
+                                </TouchableOpacity>
+                            ))}
                     </ScrollView>
                 </View>
                 <View style={styles.bottomSection}>
