@@ -1,5 +1,5 @@
-require_relative '../node_modules/react-native/scripts/react_native_pods'
 require_relative '../node_modules/@react-native-community/cli-platform-ios/native_modules'
+require_relative '../node_modules/react-native/scripts/react_native_pods'
 
 platform :ios, '13.0'
 install! 'cocoapods', :deterministic_uuids => false
@@ -7,7 +7,7 @@ install! 'cocoapods', :deterministic_uuids => false
 target 'LIO' do
   # React Native Maps dependencies
   rn_maps_path = '../node_modules/react-native-maps'
-  pod 'react-native-google-maps', :path => rn_maps_pat
+  pod 'react-native-google-maps', :path => rn_maps_path
   config = use_native_modules!
 
   # Flags change depending on the env values.
