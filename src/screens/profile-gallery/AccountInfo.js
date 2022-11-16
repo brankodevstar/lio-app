@@ -127,6 +127,7 @@ export default AccountInfo = ({navigation}) => {
                 ]}>
                 <MenuButton navigation={navigation} />
                 <TouchableOpacity
+                    style={styles.headerIcon}
                     onPress={() => {
                         navigation.goBack();
                     }}>
@@ -134,7 +135,6 @@ export default AccountInfo = ({navigation}) => {
                         name="arrow-left"
                         size={20}
                         color={HiFiColors.White}
-                        style={styles.headerIcon}
                     />
                 </TouchableOpacity>
             </View>
@@ -441,6 +441,7 @@ const styles = StyleSheet.create({
     },
     inputBox: {
         paddingLeft: 10,
+        paddingVertical: 10,
         marginTop: 10,
         borderRadius: 5,
         color: HiFiColors.White,

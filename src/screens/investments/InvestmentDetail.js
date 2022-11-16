@@ -167,9 +167,17 @@ export default InvestmentDetail = ({route, navigation}) => {
                                 <Text style={globalStyles.boldLabel}>
                                     {item.name}
                                 </Text>
-                                <Text style={styles.memberJob}>
-                                    {item.roleName}
-                                </Text>
+                                <View
+                                    style={{
+                                        marginLeft: 10,
+                                        borderRadius: 20,
+                                        padding: 8,
+                                        backgroundColor: HiFiColors.Secondary,
+                                    }}>
+                                    <Text style={styles.memberJob}>
+                                        {item.roleName}
+                                    </Text>
+                                </View>
                             </View>
                             <Text
                                 style={[
@@ -478,13 +486,9 @@ const styles = StyleSheet.create({
         marginRight: 5,
     },
     memberJob: {
-        padding: 5,
-        borderRadius: 20,
-        backgroundColor: HiFiColors.Secondary,
         fontSize: 10,
         fontWeight: '600',
         color: HiFiColors.White,
-        marginLeft: 5,
         fontFamily: fonts.primary,
     },
     documentContainer: {

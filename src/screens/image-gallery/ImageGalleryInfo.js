@@ -43,6 +43,7 @@ export default ImageGalleryInfo = ({route, navigation}) => {
                 </View>
                 <View style={[styles.headerIconBack, {left: 65}]}>
                     <TouchableOpacity
+                        style={styles.headerIcon}
                         onPress={() => {
                             navigation.goBack();
                         }}>
@@ -50,7 +51,6 @@ export default ImageGalleryInfo = ({route, navigation}) => {
                             name="arrow-left"
                             size={20}
                             color={HiFiColors.White}
-                            style={styles.headerIcon}
                         />
                     </TouchableOpacity>
                 </View>
@@ -381,12 +381,11 @@ const styles = StyleSheet.create({
     },
     columnContainer: {
         width: Dimensions.get('window').width / 2 - 30,
-        marginTop: 20,
+        marginTop: 10,
     },
     primaryImage: {
         width: '100%',
         height: 200,
-        marginHorizontal: 10,
         marginVertical: 10,
         borderRadius: 10,
     },

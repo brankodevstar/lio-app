@@ -156,7 +156,7 @@ export default IndividualChat = ({route, navigation}) => {
 
     const inMessage = (messageData, index) => {
         return (
-            <SafeAreaView style={styles.chatRow} key={index}>
+            <View style={styles.chatRow} key={index}>
                 <View style={styles.messageContainer}>
                     {messageData.attachedFile ? (
                         <TouchableOpacity
@@ -185,7 +185,7 @@ export default IndividualChat = ({route, navigation}) => {
                         {messageData.createdAt}
                     </Text>
                 </View>
-            </SafeAreaView>
+            </View>
         );
     };
 
@@ -230,7 +230,7 @@ export default IndividualChat = ({route, navigation}) => {
     }, [route.params]);
 
     return (
-        <View style={globalStyles.container}>
+        <SafeAreaView style={globalStyles.container}>
             {activityIndicator && (
                 <ActivityIndicator
                     size="large"
@@ -278,7 +278,7 @@ export default IndividualChat = ({route, navigation}) => {
                 })}
             </ScrollView>
             <ChatFooter onSend={onSend} />
-        </View>
+        </SafeAreaView>
     );
 };
 
