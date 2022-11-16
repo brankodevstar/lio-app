@@ -18,6 +18,7 @@ import HiFiColors from '../../styles/colors';
 import MenuButton from '../../components/MenuButton';
 import Action from '../../service';
 import {ADMIN_API_URL} from '../../../config';
+import {SafeAreaView} from 'react-native';
 
 export default EventInfoGallery = ({route, navigation}) => {
     const {id} = route.params;
@@ -35,7 +36,7 @@ export default EventInfoGallery = ({route, navigation}) => {
     }, [navigation]);
 
     return (
-        <View style={styles.container}>
+        <SafeAreaView style={styles.container}>
             <View style={globalStyles.headerContainer}>
                 <View style={[styles.headerIconBack, {left: 20}]}>
                     <MenuButton navigation={navigation} />
@@ -204,7 +205,7 @@ export default EventInfoGallery = ({route, navigation}) => {
                     </View>
                 </View>
             </ScrollView>
-        </View>
+        </SafeAreaView>
     );
 };
 

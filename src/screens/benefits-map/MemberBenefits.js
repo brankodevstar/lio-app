@@ -20,6 +20,7 @@ import fonts from '../../styles/fonts';
 import MenuButton from '../../components/MenuButton';
 import Action from '../../service';
 import {ADMIN_API_URL} from '../../../config';
+import {SafeAreaView} from 'react-native';
 
 export default MemberBenefits = ({navigation}) => {
     const [benefits, setBenefits] = useState([]);
@@ -51,110 +52,111 @@ export default MemberBenefits = ({navigation}) => {
     }, [navigation]);
 
     return (
-        <ScrollView
-            style={{backgroundColor: HiFiColors.Accent}}
-            contentContainerStyle={{paddingVertical: 20}}>
-            <View>
-                <View style={styles.imageRow}>
-                    <View style={styles.imageContainer1}>
-                        <Image
-                            style={styles.imageView}
-                            resizeMode={'stretch'}
-                            source={require('../../../assets/images/member-benefits/8c31e35fbfe0c83a43c165b9134a2047.jpg')}
-                        />
-                        <Image
-                            style={styles.imageView}
-                            resizeMode={'stretch'}
-                            source={require('../../../assets/images/member-benefits/5c5a264257f09ce652c6f7531420197d.jpg')}
-                        />
-                        <Image
-                            style={styles.imageView}
-                            resizeMode={'stretch'}
-                            source={require('../../../assets/images/member-benefits/b4276329cae57635c4ae0550731805d1.jpg')}
-                        />
-                    </View>
-                    <View style={styles.imageContainer2}>
-                        <Image
-                            style={styles.imageView}
-                            resizeMode={'stretch'}
-                            source={require('../../../assets/images/member-benefits/b2a37d28055200c2b7ed1ee99d5229c3.jpg')}
-                        />
-                        <Image
-                            style={styles.imageView}
-                            resizeMode={'stretch'}
-                            source={require('../../../assets/images/member-benefits/66e0b7b5e754b7b5fa7ca4eac619841f.jpg')}
-                        />
-                        <Image
-                            style={styles.imageView}
-                            resizeMode={'stretch'}
-                            source={require('../../../assets/images/member-benefits/eebc71ff474b7592d66fc2ffe8416b7d.jpg')}
-                        />
-                    </View>
-                    <View style={styles.imageContainer3}>
-                        <Image
-                            style={styles.imageView}
-                            resizeMode={'stretch'}
-                            source={require('../../../assets/images/member-benefits/ae0265bcf5f64944ac35825f79149fbe.jpg')}
-                        />
-                        <Image
-                            style={styles.imageView}
-                            resizeMode={'stretch'}
-                            source={require('../../../assets/images/member-benefits/90bb7fbc8257b4114ab01a0bbcf91c64.jpg')}
-                        />
-                        <Image
-                            style={styles.imageView}
-                            resizeMode={'stretch'}
-                            source={require('../../../assets/images/member-benefits/dcaa341b60cd84b8177fd55f5bcb2293.jpg')}
-                        />
-                    </View>
-                    <View style={styles.imageContainer4}>
-                        <Image
-                            style={styles.imageView}
-                            resizeMode={'stretch'}
-                            source={require('../../../assets/images/member-benefits/0ee818a426e850e7df3f97cbd219278b.jpg')}
-                        />
-                        <Image
-                            style={styles.imageView}
-                            resizeMode={'stretch'}
-                            source={require('../../../assets/images/member-benefits/4123d4d62d72c79db6d30bccca2f2b7b.jpg')}
-                        />
-                        <Image
-                            style={styles.imageView}
-                            resizeMode={'stretch'}
-                            source={require('../../../assets/images/member-benefits/ae0265bcf5f64944ac35825f79149fbe.jpg')}
-                        />
+        <SafeAreaView>
+            <ScrollView
+                style={{backgroundColor: HiFiColors.Accent}}
+                contentContainerStyle={{paddingVertical: 20}}>
+                <View>
+                    <View style={styles.imageRow}>
+                        <View style={styles.imageContainer1}>
+                            <Image
+                                style={styles.imageView}
+                                resizeMode={'stretch'}
+                                source={require('../../../assets/images/member-benefits/8c31e35fbfe0c83a43c165b9134a2047.jpg')}
+                            />
+                            <Image
+                                style={styles.imageView}
+                                resizeMode={'stretch'}
+                                source={require('../../../assets/images/member-benefits/5c5a264257f09ce652c6f7531420197d.jpg')}
+                            />
+                            <Image
+                                style={styles.imageView}
+                                resizeMode={'stretch'}
+                                source={require('../../../assets/images/member-benefits/b4276329cae57635c4ae0550731805d1.jpg')}
+                            />
+                        </View>
+                        <View style={styles.imageContainer2}>
+                            <Image
+                                style={styles.imageView}
+                                resizeMode={'stretch'}
+                                source={require('../../../assets/images/member-benefits/b2a37d28055200c2b7ed1ee99d5229c3.jpg')}
+                            />
+                            <Image
+                                style={styles.imageView}
+                                resizeMode={'stretch'}
+                                source={require('../../../assets/images/member-benefits/66e0b7b5e754b7b5fa7ca4eac619841f.jpg')}
+                            />
+                            <Image
+                                style={styles.imageView}
+                                resizeMode={'stretch'}
+                                source={require('../../../assets/images/member-benefits/eebc71ff474b7592d66fc2ffe8416b7d.jpg')}
+                            />
+                        </View>
+                        <View style={styles.imageContainer3}>
+                            <Image
+                                style={styles.imageView}
+                                resizeMode={'stretch'}
+                                source={require('../../../assets/images/member-benefits/ae0265bcf5f64944ac35825f79149fbe.jpg')}
+                            />
+                            <Image
+                                style={styles.imageView}
+                                resizeMode={'stretch'}
+                                source={require('../../../assets/images/member-benefits/90bb7fbc8257b4114ab01a0bbcf91c64.jpg')}
+                            />
+                            <Image
+                                style={styles.imageView}
+                                resizeMode={'stretch'}
+                                source={require('../../../assets/images/member-benefits/dcaa341b60cd84b8177fd55f5bcb2293.jpg')}
+                            />
+                        </View>
+                        <View style={styles.imageContainer4}>
+                            <Image
+                                style={styles.imageView}
+                                resizeMode={'stretch'}
+                                source={require('../../../assets/images/member-benefits/0ee818a426e850e7df3f97cbd219278b.jpg')}
+                            />
+                            <Image
+                                style={styles.imageView}
+                                resizeMode={'stretch'}
+                                source={require('../../../assets/images/member-benefits/4123d4d62d72c79db6d30bccca2f2b7b.jpg')}
+                            />
+                            <Image
+                                style={styles.imageView}
+                                resizeMode={'stretch'}
+                                source={require('../../../assets/images/member-benefits/ae0265bcf5f64944ac35825f79149fbe.jpg')}
+                            />
+                        </View>
                     </View>
                 </View>
-            </View>
-            <View style={styles.caption}>
-                <View
-                    style={{
-                        flexDirection: 'row',
-                        alignItems: 'center',
-                        marginBottom: 20,
-                    }}>
-                    <MenuButton navigation={navigation} />
-                    <Text style={styles.captionTitle}>Member benefits</Text>
+                <View style={styles.caption}>
+                    <View
+                        style={{
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                            marginBottom: 20,
+                        }}>
+                        <MenuButton navigation={navigation} />
+                        <Text style={styles.captionTitle}>Member benefits</Text>
+                    </View>
+                    <Text style={styles.catptionDescription}>
+                        Check out some of these exciting and exclusive member
+                        benefits just for YOU!
+                    </Text>
                 </View>
-                <Text style={styles.catptionDescription}>
-                    Check out some of these exciting and exclusive member
-                    benefits just for YOU!
-                </Text>
-            </View>
-            <View style={styles.categories}>
-                <View style={styles.categoriesView}>
-                    {benefits.map((item, index) => (
-                        <View key={index} style={styles.categoryCard}>
-                            <TouchableOpacity
-                                onPress={() => handleBenefitClick(index)}>
-                                <View style={styles.categoryView}>
-                                    <ImageBackground
-                                        source={{
-                                            uri: `${ADMIN_API_URL}upload/${item.imgUrl}`,
-                                        }}
-                                        resizeMode="stretch"
-                                        style={styles.categoryImage}>
-                                        {/* <View
+                <View style={styles.categories}>
+                    <View style={styles.categoriesView}>
+                        {benefits.map((item, index) => (
+                            <View key={index} style={styles.categoryCard}>
+                                <TouchableOpacity
+                                    onPress={() => handleBenefitClick(index)}>
+                                    <View style={styles.categoryView}>
+                                        <ImageBackground
+                                            source={{
+                                                uri: `${ADMIN_API_URL}upload/${item.imgUrl}`,
+                                            }}
+                                            resizeMode="stretch"
+                                            style={styles.categoryImage}>
+                                            {/* <View
                                             style={{
                                                 position: 'absolute',
                                                 top: 5,
@@ -169,70 +171,70 @@ export default MemberBenefits = ({navigation}) => {
                                                 />
                                             </TouchableOpacity>
                                         </View> */}
-                                        <Text
-                                            style={[
-                                                globalStyles.mediumBoldLabel,
-                                                {
-                                                    position: 'absolute',
-                                                    bottom: 5,
-                                                    right: 10,
-                                                    fontWeight: '700',
-                                                    color: HiFiColors.Primary,
-                                                },
-                                            ]}>
-                                            {item.discountText}
-                                        </Text>
-                                    </ImageBackground>
-                                </View>
-                            </TouchableOpacity>
-                            <View style={styles.captionView}>
-                                <View
-                                    style={{
-                                        flexDirection: 'row',
-                                        marginVertical: 5,
-                                        justifyContent: 'space-between',
-                                        paddingHorizontal: 5,
-                                        alignItems: 'center',
-                                        marginTop: 15,
-                                    }}>
-                                    <View>
-                                        <Text
-                                            style={
-                                                globalStyles.mediumBoldLabel
-                                            }>
-                                            {item.locationName}
-                                        </Text>
-                                        {/* <Text
+                                            <Text
+                                                style={[
+                                                    globalStyles.mediumBoldLabel,
+                                                    {
+                                                        position: 'absolute',
+                                                        bottom: 5,
+                                                        right: 10,
+                                                        fontWeight: '700',
+                                                        color: HiFiColors.Primary,
+                                                    },
+                                                ]}>
+                                                {item.discountText}
+                                            </Text>
+                                        </ImageBackground>
+                                    </View>
+                                </TouchableOpacity>
+                                <View style={styles.captionView}>
+                                    <View
+                                        style={{
+                                            flexDirection: 'row',
+                                            marginVertical: 5,
+                                            justifyContent: 'space-between',
+                                            paddingHorizontal: 5,
+                                            alignItems: 'center',
+                                            marginTop: 15,
+                                        }}>
+                                        <View>
+                                            <Text
+                                                style={
+                                                    globalStyles.mediumBoldLabel
+                                                }>
+                                                {item.locationName}
+                                            </Text>
+                                            {/* <Text
                                             style={[
                                                 globalStyles.label,
                                                 {color: HiFiColors.Label},
                                             ]}>
                                             {item.locationName}
                                         </Text> */}
+                                        </View>
+                                        <TouchableOpacity
+                                            onPress={() =>
+                                                phoneCall(item.phoneNumber)
+                                            }>
+                                            <LinearGradient
+                                                start={{x: 0.0, y: 0.0}}
+                                                end={{x: 0.0, y: 1.0}}
+                                                colors={[
+                                                    '#7B61FF',
+                                                    '#991450',
+                                                    '#40799D',
+                                                ]}
+                                                style={styles.iconBack}
+                                                alignSelf="flex-end">
+                                                <FeatherIcon
+                                                    name="phone-call"
+                                                    size={20}
+                                                    color={HiFiColors.White}
+                                                />
+                                            </LinearGradient>
+                                        </TouchableOpacity>
                                     </View>
-                                    <TouchableOpacity
-                                        onPress={() =>
-                                            phoneCall(item.phoneNumber)
-                                        }>
-                                        <LinearGradient
-                                            start={{x: 0.0, y: 0.0}}
-                                            end={{x: 0.0, y: 1.0}}
-                                            colors={[
-                                                '#7B61FF',
-                                                '#991450',
-                                                '#40799D',
-                                            ]}
-                                            style={styles.iconBack}
-                                            alignSelf="flex-end">
-                                            <FeatherIcon
-                                                name="phone-call"
-                                                size={20}
-                                                color={HiFiColors.White}
-                                            />
-                                        </LinearGradient>
-                                    </TouchableOpacity>
-                                </View>
-                                {/* <View
+                                    {/* <View
                                     style={{
                                         flexDirection: 'row',
                                         marginVertical: 5,
@@ -270,12 +272,13 @@ export default MemberBenefits = ({navigation}) => {
                                         </TouchableOpacity>
                                     </View>
                                 </View> */}
+                                </View>
                             </View>
-                        </View>
-                    ))}
+                        ))}
+                    </View>
                 </View>
-            </View>
-        </ScrollView>
+            </ScrollView>
+        </SafeAreaView>
     );
 };
 

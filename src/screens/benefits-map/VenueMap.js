@@ -12,6 +12,7 @@ import MenuButton from '../../components/MenuButton';
 import MapView, {Callout, Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import MapMarker from '../../components/MapMarker';
 import MapCallout from '../../components/MapCallout';
+import {SafeAreaView} from 'react-native';
 
 const initMarkers = [
     {
@@ -69,7 +70,7 @@ export default VenueMap = ({route, navigation}) => {
     };
 
     return (
-        <View style={globalStyles.container}>
+        <SafeAreaView style={globalStyles.container}>
             <View
                 style={[
                     globalStyles.headerContainer,
@@ -138,7 +139,7 @@ export default VenueMap = ({route, navigation}) => {
                     </View>
                 </TouchableOpacity>
             </View> */}
-        </View>
+        </SafeAreaView>
     );
 };
 

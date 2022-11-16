@@ -8,12 +8,13 @@ import HiFiColors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import {Slider} from 'react-native-elements';
 import MenuButton from '../../components/MenuButton';
+import {SafeAreaView} from 'react-native';
 
 export default Confirmation = ({navigation}) => {
     const [equity, setEquity] = useState(0);
 
     return (
-        <View style={globalStyles.container}>
+        <SafeAreaView style={globalStyles.container}>
             <View
                 style={[
                     globalStyles.headerContainer,
@@ -41,7 +42,7 @@ export default Confirmation = ({navigation}) => {
                     </Text>
                 </View>
             </View>
-        </View>
+        </SafeAreaView>
     );
 };
 

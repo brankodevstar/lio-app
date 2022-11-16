@@ -25,6 +25,7 @@ import {useSelector} from 'react-redux';
 import MenuButton from '../../components/MenuButton';
 import {ADMIN_API_URL} from '../../../config';
 import Action from '../../service';
+import {SafeAreaView} from 'react-native';
 
 const checkedIconTag = () => (
     <View
@@ -124,7 +125,7 @@ export default Chat = ({navigation}) => {
     };
 
     return (
-        <View style={globalStyles.container}>
+        <SafeAreaView style={globalStyles.container}>
             <View
                 style={[
                     globalStyles.headerContainer,
@@ -560,7 +561,7 @@ export default Chat = ({navigation}) => {
                 </View>
             </Modal>
             {/* New Group Modal end */}
-        </View>
+        </SafeAreaView>
     );
 };
 

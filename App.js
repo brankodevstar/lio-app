@@ -10,6 +10,7 @@ import LoginScreen from './src/screens/authentication/Login';
 import OTPScreen from './src/screens/authentication/OTP';
 
 import MainNavigator from './src/navigation/MainNavigator';
+import {SafeAreaView} from 'react-native';
 
 const Stack = createStackNavigator();
 

@@ -11,6 +11,7 @@ import Navigation from '../profile/Navigation';
 import MenuButton from '../../components/MenuButton';
 import {ADMIN_API_URL} from '../../../config';
 import Action from '../../service';
+import {SafeAreaView} from 'react-native';
 
 export default EventCalendar = ({navigation}) => {
     const [moreDetail, setMoreDetail] = useState(true);
@@ -62,10 +63,12 @@ export default EventCalendar = ({navigation}) => {
         });
     }, [navigation]);
 
-    const clickDate = (day) => {
+    const clickDate = day => {
         let upcomingEvents = [];
         events.map(item => {
-            let dateString = moment(item.activeTime, 'YYYY-MM-DD').format().split('T')[0];
+            let dateString = moment(item.activeTime, 'YYYY-MM-DD')
+                .format()
+                .split('T')[0];
             if (day.dateString === dateString) {
                 upcomingEvents.push(item);
             }
@@ -74,7 +77,7 @@ export default EventCalendar = ({navigation}) => {
     };
 
     return (
-        <View style={globalStyles.container}>
+        <SafeAreaView style={globalStyles.container}>
             <View style={[globalStyles.headerContainer]}>
                 <View style={{position: 'absolute', left: 20}}>
                     <MenuButton navigation={navigation} style={{left: 0}} />
@@ -85,7 +88,7 @@ export default EventCalendar = ({navigation}) => {
                 <View style={styles.calendarContainer}>
                     <Calendar
                         markedDates={markDates}
-                        onDayPress={(day) => clickDate(day) }
+                        onDayPress={day => clickDate(day)}
                         theme={{
                             calendarBackground: HiFiColors.AccentFade,
                             selectedDayBackgroundColor: HiFiColors.AccentFade,
@@ -199,8 +202,7 @@ export default EventCalendar = ({navigation}) => {
                                     globalStyles.tinyLabel,
                                     {color: HiFiColors.Label, marginRight: 10},
                                 ]}>
-                                {
-                                    moment(new Date(item.activeTime)).format(
+                                {moment(new Date(item.activeTime)).format(
                                     'yyyy-MM-DD HH.mm A',
                                 )}
                             </Text>
@@ -256,7 +258,7 @@ export default EventCalendar = ({navigation}) => {
                     </View> */}
                 </ScrollView>
             )}
-        </View>
+        </SafeAreaView>
     );
 };
 

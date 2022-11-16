@@ -19,6 +19,7 @@ import fonts from '../../styles/fonts';
 import MenuButton from '../../components/MenuButton';
 import Action from '../../service';
 import {ADMIN_API_URL} from '../../../config';
+import {SafeAreaView} from 'react-native';
 
 export default InvestmentDetail = ({route, navigation}) => {
     const {id} = route.params;
@@ -84,13 +85,17 @@ export default InvestmentDetail = ({route, navigation}) => {
                         <View style={styles.detailInfoContainer}>
                             <Text style={globalStyles.label}>Target</Text>
                             <Text style={styles.detailInfo}>
-                                {investment.overview && "₹" + investment.overview.investmentDetails.target.toString()}
+                                {investment.overview &&
+                                    '₹' +
+                                        investment.overview.investmentDetails.target.toString()}
                             </Text>
                         </View>
                         <View style={styles.detailInfoContainer}>
                             <Text style={globalStyles.label}>Minimum</Text>
                             <Text style={styles.detailInfo}>
-                                {investment.overview && "₹" + investment.overview.investmentDetails.minimum.toString()}
+                                {investment.overview &&
+                                    '₹' +
+                                        investment.overview.investmentDetails.minimum.toString()}
                             </Text>
                         </View>
                         <View style={styles.detailInfoContainer}>
@@ -98,7 +103,9 @@ export default InvestmentDetail = ({route, navigation}) => {
                                 Investment Raised
                             </Text>
                             <Text style={styles.detailInfo}>
-                                {investment.overview && "₹" + investment.overview.investmentDetails.investmentRaised.toString()}
+                                {investment.overview &&
+                                    '₹' +
+                                        investment.overview.investmentDetails.investmentRaised.toString()}
                             </Text>
                         </View>
                         <View style={styles.detailInfoContainer}>
@@ -106,7 +113,9 @@ export default InvestmentDetail = ({route, navigation}) => {
                                 Previous Rounds
                             </Text>
                             <Text style={styles.detailInfo}>
-                                {investment.overview && "₹" + investment.overview.investmentDetails.previousRound.toString()}
+                                {investment.overview &&
+                                    '₹' +
+                                        investment.overview.investmentDetails.previousRound.toString()}
                             </Text>
                         </View>
                         <View style={styles.detailInfoContainer}>
@@ -202,31 +211,32 @@ export default InvestmentDetail = ({route, navigation}) => {
     };
 
     return (
-        <ScrollView style={styles.container}>
-            <View>
-                <ImageBackground
-                    source={{
-                        uri: `${ADMIN_API_URL}upload/${investment.imageUrl}`,
-                    }}
-                    resizeMode="stretch"
-                    style={styles.bannerImage}>
-                    <View style={{position: 'absolute', left: 20, top: 15}}>
-                        <MenuButton navigation={navigation} />
-                    </View>
-                    <View style={[styles.headerIconBack, {left: 60}]}>
-                        <TouchableOpacity
-                            onPress={() => {
-                                navigation.goBack();
-                            }}>
-                            <FeatherIcon
-                                name="arrow-left"
-                                size={20}
-                                color={HiFiColors.White}
-                                style={styles.headerIcon}
-                            />
-                        </TouchableOpacity>
-                    </View>
-                    {/* <View style={[styles.headerIconBack, {right: 60}]}>
+        <SafeAreaView>
+            <ScrollView style={styles.container}>
+                <View>
+                    <ImageBackground
+                        source={{
+                            uri: `${ADMIN_API_URL}upload/${investment.imageUrl}`,
+                        }}
+                        resizeMode="stretch"
+                        style={styles.bannerImage}>
+                        <View style={{position: 'absolute', left: 20, top: 15}}>
+                            <MenuButton navigation={navigation} />
+                        </View>
+                        <View style={[styles.headerIconBack, {left: 60}]}>
+                            <TouchableOpacity
+                                onPress={() => {
+                                    navigation.goBack();
+                                }}>
+                                <FeatherIcon
+                                    name="arrow-left"
+                                    size={20}
+                                    color={HiFiColors.White}
+                                    style={styles.headerIcon}
+                                />
+                            </TouchableOpacity>
+                        </View>
+                        {/* <View style={[styles.headerIconBack, {right: 60}]}>
                         <TouchableOpacity>
                             <FontAwesomeIcon
                                 name="heart"
@@ -246,113 +256,119 @@ export default InvestmentDetail = ({route, navigation}) => {
                             />
                         </TouchableOpacity>
                     </View> */}
-                </ImageBackground>
-            </View>
-            <View style={styles.content}>
-                <Text style={globalStyles.pageTitle}>{investment.title}</Text>
-                <View style={styles.nameContainer}>
-                    {/* <Text
+                    </ImageBackground>
+                </View>
+                <View style={styles.content}>
+                    <Text style={globalStyles.pageTitle}>
+                        {investment.title}
+                    </Text>
+                    <View style={styles.nameContainer}>
+                        {/* <Text
                         style={[styles.conferenceTag, globalStyles.smallLabel]}>
                         Conference
                     </Text> */}
-                    <Text style={[globalStyles.smallLabel, {marginRight: 10}]}>
-                        {' '}
-                        • {investment.location}{' '}
-                    </Text>
-                    <Text style={globalStyles.smallLabel}>
-                        {' '}
-                        {investment.closeDay}{' '}
-                    </Text>
-                </View>
-                <ScrollView horizontal style={styles.categorySelect}>
-                    <TouchableOpacity
-                        style={[
-                            styles.investmentCategory,
-                            category === 'overview'
-                                ? {
-                                      backgroundColor: HiFiColors.White,
-                                      color: HiFiColors.Accent,
-                                  }
-                                : {},
-                        ]}
-                        onPress={() => setCategory('overview')}>
                         <Text
                             style={[
-                                globalStyles.boldLabel,
+                                globalStyles.smallLabel,
+                                {marginRight: 10},
+                            ]}>
+                            {' '}
+                            • {investment.location}{' '}
+                        </Text>
+                        <Text style={globalStyles.smallLabel}>
+                            {' '}
+                            {investment.closeDay}{' '}
+                        </Text>
+                    </View>
+                    <ScrollView horizontal style={styles.categorySelect}>
+                        <TouchableOpacity
+                            style={[
+                                styles.investmentCategory,
                                 category === 'overview'
-                                    ? {color: HiFiColors.Accent}
+                                    ? {
+                                          backgroundColor: HiFiColors.White,
+                                          color: HiFiColors.Accent,
+                                      }
                                     : {},
-                            ]}>
-                            Overview
-                        </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={[
-                            styles.investmentCategory,
-                            category === 'detail'
-                                ? {
-                                      backgroundColor: HiFiColors.White,
-                                      color: HiFiColors.Accent,
-                                  }
-                                : {},
-                        ]}
-                        onPress={() => setCategory('detail')}>
-                        <Text
+                            ]}
+                            onPress={() => setCategory('overview')}>
+                            <Text
+                                style={[
+                                    globalStyles.boldLabel,
+                                    category === 'overview'
+                                        ? {color: HiFiColors.Accent}
+                                        : {},
+                                ]}>
+                                Overview
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
                             style={[
-                                globalStyles.boldLabel,
+                                styles.investmentCategory,
                                 category === 'detail'
-                                    ? {color: HiFiColors.Accent}
+                                    ? {
+                                          backgroundColor: HiFiColors.White,
+                                          color: HiFiColors.Accent,
+                                      }
                                     : {},
-                            ]}>
-                            Pitch Details
-                        </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={[
-                            styles.investmentCategory,
-                            category === 'team'
-                                ? {
-                                      backgroundColor: HiFiColors.White,
-                                      color: HiFiColors.Accent,
-                                  }
-                                : {},
-                        ]}
-                        onPress={() => setCategory('team')}>
-                        <Text
+                            ]}
+                            onPress={() => setCategory('detail')}>
+                            <Text
+                                style={[
+                                    globalStyles.boldLabel,
+                                    category === 'detail'
+                                        ? {color: HiFiColors.Accent}
+                                        : {},
+                                ]}>
+                                Pitch Details
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
                             style={[
-                                globalStyles.boldLabel,
+                                styles.investmentCategory,
                                 category === 'team'
-                                    ? {color: HiFiColors.Accent}
+                                    ? {
+                                          backgroundColor: HiFiColors.White,
+                                          color: HiFiColors.Accent,
+                                      }
                                     : {},
-                            ]}>
-                            Team
-                        </Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity
-                        style={[
-                            styles.investmentCategory,
-                            category === 'documents'
-                                ? {
-                                      backgroundColor: HiFiColors.White,
-                                      color: HiFiColors.Accent,
-                                  }
-                                : {},
-                        ]}
-                        onPress={() => setCategory('documents')}>
-                        <Text
+                            ]}
+                            onPress={() => setCategory('team')}>
+                            <Text
+                                style={[
+                                    globalStyles.boldLabel,
+                                    category === 'team'
+                                        ? {color: HiFiColors.Accent}
+                                        : {},
+                                ]}>
+                                Team
+                            </Text>
+                        </TouchableOpacity>
+                        <TouchableOpacity
                             style={[
-                                globalStyles.boldLabel,
+                                styles.investmentCategory,
                                 category === 'documents'
-                                    ? {color: HiFiColors.Accent}
+                                    ? {
+                                          backgroundColor: HiFiColors.White,
+                                          color: HiFiColors.Accent,
+                                      }
                                     : {},
-                            ]}>
-                            Documents
-                        </Text>
-                    </TouchableOpacity>
-                </ScrollView>
-                {renderWithCategory()}
-                <View style={styles.InvestNowButtonContainer}>
-                    {/* <TouchableOpacity onPress={() => { navigation.navigate("InvestScreen") }}>
+                            ]}
+                            onPress={() => setCategory('documents')}>
+                            <Text
+                                style={[
+                                    globalStyles.boldLabel,
+                                    category === 'documents'
+                                        ? {color: HiFiColors.Accent}
+                                        : {},
+                                ]}>
+                                Documents
+                            </Text>
+                        </TouchableOpacity>
+                    </ScrollView>
+                    {renderWithCategory()}
+                    <View style={styles.InvestNowButtonContainer}>
+                        {/* <TouchableOpacity onPress={() => { navigation.navigate("InvestScreen") }}>
                         <LinearGradient
                             start={{ x: 0.0, y: 0.0 }}
                             end={{ x: 1.0, y: 1.0 }}
@@ -362,9 +378,10 @@ export default InvestmentDetail = ({route, navigation}) => {
                             <Text style={globalStyles.buttonLabel}>Invest Now</Text>
                         </LinearGradient>
                     </TouchableOpacity> */}
+                    </View>
                 </View>
-            </View>
-        </ScrollView>
+            </ScrollView>
+        </SafeAreaView>
     );
 };
 

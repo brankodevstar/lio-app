@@ -8,10 +8,11 @@ import {TextInput} from 'react-native-gesture-handler';
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
 import MenuButton from '../../components/MenuButton';
+import {SafeAreaView} from 'react-native';
 
 export default TransactionHistory = ({navigation}) => {
     return (
-        <View style={globalStyles.container}>
+        <SafeAreaView style={globalStyles.container}>
             <View
                 style={[
                     globalStyles.headerContainer,
@@ -136,7 +137,7 @@ export default TransactionHistory = ({navigation}) => {
                     </View>
                 </View>
             </View>
-        </View>
+        </SafeAreaView>
     );
 };
 

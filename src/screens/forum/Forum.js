@@ -25,6 +25,7 @@ import fonts from '../../styles/fonts';
 import MenuButton from '../../components/MenuButton';
 
 import Action from '../../service';
+import {SafeAreaView} from 'react-native';
 
 export default Forum = ({navigation}) => {
     const [isModalVisible, setModalVisible] = useState(false);
@@ -93,7 +94,7 @@ export default Forum = ({navigation}) => {
     }, [navigation]);
 
     return (
-        <View style={globalStyles.container}>
+        <SafeAreaView style={globalStyles.container}>
             <View
                 style={[globalStyles.headerContainer, {borderBottomWidth: 0}]}>
                 <View style={{position: 'absolute', left: 20}}>
@@ -321,7 +322,7 @@ export default Forum = ({navigation}) => {
                     </View>
                 </View>
             </Modal>
-        </View>
+        </SafeAreaView>
     );
 };
 

@@ -9,12 +9,13 @@ import fonts from '../../styles/fonts';
 import {Slider} from 'react-native-elements';
 // import Slider from '@react-native-community/slider';
 import MenuButton from '../../components/MenuButton';
+import {SafeAreaView} from 'react-native';
 
 export default Invest = ({navigation}) => {
     const [equity, setEquity] = useState(0);
 
     return (
-        <View style={globalStyles.container}>
+        <SafeAreaView style={globalStyles.container}>
             <View
                 style={[
                     globalStyles.headerContainer,
@@ -145,7 +146,7 @@ export default Invest = ({navigation}) => {
                     </LinearGradient>
                 </TouchableOpacity>
             </View>
-        </View>
+        </SafeAreaView>
     );
 };
 

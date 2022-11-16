@@ -26,6 +26,7 @@ import MenuButton from '../../components/MenuButton';
 import allActions from '../../redux/actions';
 import Action from '../../service';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {SafeAreaView} from 'react-native';
 
 export default AccountInfo = ({navigation}) => {
     const [selected, setSelected] = useState('');
@@ -118,7 +119,7 @@ export default AccountInfo = ({navigation}) => {
     };
 
     return (
-        <View style={globalStyles.container}>
+        <SafeAreaView style={globalStyles.container}>
             <View
                 style={[
                     globalStyles.headerContainer,
@@ -406,7 +407,7 @@ export default AccountInfo = ({navigation}) => {
                     </View>
                 </View>
             </Modal>
-        </View>
+        </SafeAreaView>
     );
 };
 

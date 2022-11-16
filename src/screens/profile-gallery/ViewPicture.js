@@ -15,6 +15,7 @@ import HiFiColors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import MenuButton from '../../components/MenuButton';
 import {ADMIN_API_URL} from '../../../config';
+import {SafeAreaView} from 'react-native';
 
 export default ViewPicture = ({route, navigation}) => {
     const {index, photos} = route.params;
@@ -28,7 +29,7 @@ export default ViewPicture = ({route, navigation}) => {
     };
 
     return (
-        <View style={globalStyles.container}>
+        <SafeAreaView style={globalStyles.container}>
             <View
                 style={[
                     globalStyles.headerContainer,
@@ -89,7 +90,7 @@ export default ViewPicture = ({route, navigation}) => {
                     />
                 </TouchableOpacity>
             </View>
-        </View>
+        </SafeAreaView>
     );
 };
 

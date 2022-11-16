@@ -10,6 +10,7 @@ import HiFiColors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import MenuButton from '../../components/MenuButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {SafeAreaView} from 'react-native';
 
 export default Overview = ({navigation}) => {
     const currentUser = useSelector(state => state.CurrentUser);
@@ -20,7 +21,7 @@ export default Overview = ({navigation}) => {
     };
 
     return (
-        <View style={globalStyles.container}>
+        <SafeAreaView style={globalStyles.container}>
             <View style={{paddingHorizontal: 10, flexDirection: 'row'}}>
                 <MenuButton navigation={navigation} />
             </View>
@@ -84,7 +85,6 @@ export default Overview = ({navigation}) => {
                 <View style={styles.accountCard}>
                     <View>
                         <Text style={styles.captionTitle}>Contact Admins</Text>
-                        
                     </View>
                     <FeatherIcon
                         name="chevron-right"
@@ -125,7 +125,7 @@ export default Overview = ({navigation}) => {
                     </TouchableOpacity>
                 </View>
             </View>
-        </View>
+        </SafeAreaView>
     );
 };
 
@@ -153,7 +153,7 @@ const styles = StyleSheet.create({
     },
     caption: {
         marginLeft: 10,
-        flex: 1
+        flex: 1,
     },
     account: {
         marginLeft: 10,

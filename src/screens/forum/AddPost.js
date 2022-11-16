@@ -19,6 +19,7 @@ import HiFiColors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import MenuButton from '../../components/MenuButton';
 import Action from '../../service';
+import {SafeAreaView} from 'react-native';
 
 export default AddPost = ({navigation}) => {
     const [photo, setPhoto] = useState(null);
@@ -95,61 +96,65 @@ export default AddPost = ({navigation}) => {
     };
 
     return (
-        <ScrollView style={[globalStyles.container]}>
-            {activityIndicator && (
-                <ActivityIndicator
-                    size="large"
-                    style={{position: 'absolute', left: '50%', top: '50%'}}
-                />
-            )}
-            <View style={globalStyles.headerContainer}>
-                <View style={{position: 'absolute', left: 20}}>
-                    <MenuButton navigation={navigation} />
+        <SafeAreaView>
+            <ScrollView style={[globalStyles.container]}>
+                {activityIndicator && (
+                    <ActivityIndicator
+                        size="large"
+                        style={{position: 'absolute', left: '50%', top: '50%'}}
+                    />
+                )}
+                <View style={globalStyles.headerContainer}>
+                    <View style={{position: 'absolute', left: 20}}>
+                        <MenuButton navigation={navigation} />
+                    </View>
+                    <View style={styles.closeButtonPos}>
+                        <TouchableOpacity onPress={() => navigation.goBack()}>
+                            <FeatherIcon
+                                name="x"
+                                size={15}
+                                color={HiFiColors.White}
+                                style={styles.closeButtonBack}
+                            />
+                        </TouchableOpacity>
+                    </View>
+                    <Text style={globalStyles.mediumStrongLabel}>
+                        Create Post
+                    </Text>
                 </View>
-                <View style={styles.closeButtonPos}>
-                    <TouchableOpacity onPress={() => navigation.goBack()}>
-                        <FeatherIcon
-                            name="x"
-                            size={15}
-                            color={HiFiColors.White}
-                            style={styles.closeButtonBack}
-                        />
-                    </TouchableOpacity>
-                </View>
-                <Text style={globalStyles.mediumStrongLabel}>Create Post</Text>
-            </View>
-            <View style={{alignItems: 'center', paddingHorizontal: 15}}>
-                {/* <Image
+                <View style={{alignItems: 'center', paddingHorizontal: 15}}>
+                    {/* <Image
                     source={{uri: `${ADMIN_API_URL}upload/${photo}`}}
                     style={styles.backImage}
                     resizeMode="stretch"
                 /> */}
-            </View>
+                </View>
 
-            <View style={styles.postInputContainer}>
-                <TouchableOpacity
-                    style={styles.chooseImageBtnBack}
-                    onPress={handleChoosePhoto}>
-                    <Text style={globalStyles.boldLabel}>Choose Image</Text>
-                </TouchableOpacity>
-                <Text style={styles.titleLabel}>Write a Caption</Text>
-                <TextInput
-                    placeholder="Write Caption"
-                    placeholderTextColor={HiFiColors.Label}
-                    style={styles.inputBox}
-                    multiline
-                    numberOfLines={10}
-                    value={description}
-                    onChangeText={value => setDescription(value)}
-                />
+                <View style={styles.postInputContainer}>
+                    <TouchableOpacity
+                        style={styles.chooseImageBtnBack}
+                        onPress={handleChoosePhoto}>
+                        <Text style={globalStyles.boldLabel}>Choose Image</Text>
+                    </TouchableOpacity>
+                    <Text style={styles.titleLabel}>Write a Caption</Text>
+                    <TextInput
+                        placeholder="Write Caption"
+                        placeholderTextColor={HiFiColors.Label}
+                        style={styles.inputBox}
+                        multiline
+                        numberOfLines={10}
+                        value={description}
+                        onChangeText={value => setDescription(value)}
+                    />
 
-                <TouchableOpacity
-                    style={styles.writeCaptionBack}
-                    onPress={handleSave}>
-                    <Text style={globalStyles.boldLabel}>Post</Text>
-                </TouchableOpacity>
-            </View>
-        </ScrollView>
+                    <TouchableOpacity
+                        style={styles.writeCaptionBack}
+                        onPress={handleSave}>
+                        <Text style={globalStyles.boldLabel}>Post</Text>
+                    </TouchableOpacity>
+                </View>
+            </ScrollView>
+        </SafeAreaView>
     );
 };
 

@@ -26,6 +26,7 @@ import Action from '../../service';
 import {ADMIN_API_URL} from '../../../config';
 import moment from 'moment';
 import {useSelector} from 'react-redux';
+import {SafeAreaView} from 'react-native';
 // import Carousel from 'react-native-snap-carousel';
 
 export default MemberInfo = ({navigation}) => {
@@ -133,179 +134,191 @@ export default MemberInfo = ({navigation}) => {
     }, [navigation]);
 
     return (
-        <ScrollView style={globalStyles.container}>
-            <View
-                style={[
-                    globalStyles.headerContainer,
-                    {justifyContent: 'space-between', flex: 1},
-                ]}>
-                <MenuButton navigation={navigation} />
-                <Text style={globalStyles.mediumStrongLabel}>
-                    Leaders for India Organization
-                </Text>
-                <View style={styles.headerRightPart}>
-                    {/* <TouchableOpacity onPress={() => { navigation.navigate("NavigationScreen") }}>
+        <SafeAreaView>
+            <ScrollView style={globalStyles.container}>
+                <View
+                    style={[
+                        globalStyles.headerContainer,
+                        {justifyContent: 'space-between', flex: 1},
+                    ]}>
+                    <MenuButton navigation={navigation} />
+                    <Text style={globalStyles.mediumStrongLabel}>
+                        Leaders for India Organization
+                    </Text>
+                    <View style={styles.headerRightPart}>
+                        {/* <TouchableOpacity onPress={() => { navigation.navigate("NavigationScreen") }}>
                         <MaterialIcons name="notifications-none" size={30} color={HiFiColors.White} />
                     </TouchableOpacity> */}
-                    <TouchableOpacity
-                        onPress={() => {
-                            navigation.navigate('Profile');
-                        }}>
-                        <Image
-                            source={{
-                                uri: `${ADMIN_API_URL}upload/${currentUser.user.avatarUrl}`,
-                            }}
-                            style={styles.avtarStyle}
-                        />
-                    </TouchableOpacity>
+                        <TouchableOpacity
+                            onPress={() => {
+                                navigation.navigate('Profile');
+                            }}>
+                            <Image
+                                source={{
+                                    uri: `${ADMIN_API_URL}upload/${currentUser.user.avatarUrl}`,
+                                }}
+                                style={styles.avtarStyle}
+                            />
+                        </TouchableOpacity>
+                    </View>
                 </View>
-            </View>
-            <View style={styles.contentContainer}>
-                <ScrollView horizontal style={{flexDirection: 'row'}}>
-                    {featuredEvents.length > 0 &&
-                        featuredEvents.map((event, index) => (
-                            <TouchableOpacity
-                                key={index}
-                                onPress={() => {
-                                    navigation.navigate('EventsDetailScreen', {
-                                        id: event._id,
-                                    });
-                                }}>
-                                <ImageBackground
-                                    source={{
-                                        uri: `${ADMIN_API_URL}upload/${event.photos[0]}`,
-                                    }}
-                                    resizeMode="stretch"
-                                    borderRadius={7}
-                                    style={styles.bannerImage}>
-                                    <LinearGradient
-                                        start={{x: 0.5, y: 0.0}}
-                                        end={{x: 0.5, y: 1.0}}
-                                        colors={['#16253400', '#162534']}
-                                        style={styles.bannerMask}>
-                                        <View style={styles.innerPanel}>
-                                            <View
-                                                style={[
-                                                    styles.sportsCaption,
-                                                    {
-                                                        backgroundColor:
-                                                            HiFiColors.LightGreen,
-                                                        paddingHorizontal: 10,
-                                                        paddingVertical: 2,
-                                                    },
-                                                ]}>
-                                                <Text
-                                                    style={
-                                                        globalStyles.boldSmallLabel
-                                                    }>
-                                                    {event.category}
-                                                </Text>
-                                            </View>
-                                            <View style={styles.sportsCaption}>
-                                                <Text
-                                                    style={[
-                                                        globalStyles.mediumBoldLabel,
-                                                        {
-                                                            fontSize: 20,
-                                                            fontWeight: '700',
-                                                        },
-                                                    ]}>
-                                                    {event.title}
-                                                </Text>
-                                            </View>
-                                            <View
-                                                style={[styles.sportsCaption]}>
-                                                <Text
-                                                    style={
-                                                        globalStyles.boldSmallLabel
-                                                    }>
-                                                    {
-                                                        event.createdDt.split(
-                                                            'T',
-                                                        )[0]
-                                                    }
-                                                </Text>
-                                            </View>
-                                        </View>
-                                    </LinearGradient>
-                                </ImageBackground>
-                            </TouchableOpacity>
-                        ))}
-                </ScrollView>
-                <View style={styles.featureSection}>
-                    <Text
-                        style={[
-                            globalStyles.mediumBoldLabel,
-                            {fontSize: 20, fontWeight: '400'},
-                        ]}>
-                        Featured Start Ups
-                    </Text>
-                    <ScrollView horizontal style={styles.imagePart}>
-                        {featuredInvestments.length > 0 &&
-                            featuredInvestments.map((investment, index) => (
+                <View style={styles.contentContainer}>
+                    <ScrollView horizontal style={{flexDirection: 'row'}}>
+                        {featuredEvents.length > 0 &&
+                            featuredEvents.map((event, index) => (
                                 <TouchableOpacity
                                     key={index}
-                                    style={styles.upCard}
-                                    onPress={() =>
+                                    onPress={() => {
                                         navigation.navigate(
-                                            'InvestmentDetailScreen',
+                                            'EventsDetailScreen',
                                             {
-                                                id: investment._id,
+                                                id: event._id,
                                             },
-                                        )
-                                    }>
-                                    <Image
+                                        );
+                                    }}>
+                                    <ImageBackground
                                         source={{
-                                            uri: `${ADMIN_API_URL}upload/${investment.imageUrl}`,
+                                            uri: `${ADMIN_API_URL}upload/${event.photos[0]}`,
                                         }}
-                                        style={styles.upImage}
-                                    />
-                                    <Text
-                                        style={globalStyles.mediumStrongLabel}>
-                                        {investment.title.length > 10
-                                            ? investment.title.substring(
-                                                  0,
-                                                  12,
-                                              ) + '...'
-                                            : investment.title}
-                                    </Text>
-                                    <Text
-                                        style={[
-                                            globalStyles.label,
-                                            {color: HiFiColors.Label},
-                                        ]}>
-                                        {investment.title.categoryName > 10
-                                            ? investment.categoryName.substring(
-                                                  0,
-                                                  12,
-                                              ) + '...'
-                                            : investment.categoryName}
-                                    </Text>
+                                        resizeMode="stretch"
+                                        borderRadius={7}
+                                        style={styles.bannerImage}>
+                                        <LinearGradient
+                                            start={{x: 0.5, y: 0.0}}
+                                            end={{x: 0.5, y: 1.0}}
+                                            colors={['#16253400', '#162534']}
+                                            style={styles.bannerMask}>
+                                            <View style={styles.innerPanel}>
+                                                <View
+                                                    style={[
+                                                        styles.sportsCaption,
+                                                        {
+                                                            backgroundColor:
+                                                                HiFiColors.LightGreen,
+                                                            paddingHorizontal: 10,
+                                                            paddingVertical: 2,
+                                                        },
+                                                    ]}>
+                                                    <Text
+                                                        style={
+                                                            globalStyles.boldSmallLabel
+                                                        }>
+                                                        {event.category}
+                                                    </Text>
+                                                </View>
+                                                <View
+                                                    style={
+                                                        styles.sportsCaption
+                                                    }>
+                                                    <Text
+                                                        style={[
+                                                            globalStyles.mediumBoldLabel,
+                                                            {
+                                                                fontSize: 20,
+                                                                fontWeight:
+                                                                    '700',
+                                                            },
+                                                        ]}>
+                                                        {event.title}
+                                                    </Text>
+                                                </View>
+                                                <View
+                                                    style={[
+                                                        styles.sportsCaption,
+                                                    ]}>
+                                                    <Text
+                                                        style={
+                                                            globalStyles.boldSmallLabel
+                                                        }>
+                                                        {
+                                                            event.createdDt.split(
+                                                                'T',
+                                                            )[0]
+                                                        }
+                                                    </Text>
+                                                </View>
+                                            </View>
+                                        </LinearGradient>
+                                    </ImageBackground>
                                 </TouchableOpacity>
                             ))}
                     </ScrollView>
-                </View>
-                <View style={styles.bottomSection}>
-                    <Text
-                        style={[
-                            globalStyles.mediumBoldLabel,
-                            {fontSize: 20, fontWeight: '400'},
-                        ]}>
-                        Announcements
-                    </Text>
-                    {announcements.map((item, index) => (
-                        <View key={index} style={styles.card}>
-                            <View style={styles.cardHeader}>
-                                <View style={styles.userNameContainer}>
-                                    <Image
-                                        source={require('../../../assets/images/logo.png')}
-                                        style={styles.avatarImage}
-                                    />
-                                    <Text style={styles.userNameLabel}>
-                                        Leaders for India Organization
-                                    </Text>
-                                </View>
-                                {/* <View>
+                    <View style={styles.featureSection}>
+                        <Text
+                            style={[
+                                globalStyles.mediumBoldLabel,
+                                {fontSize: 20, fontWeight: '400'},
+                            ]}>
+                            Featured Start Ups
+                        </Text>
+                        <ScrollView horizontal style={styles.imagePart}>
+                            {featuredInvestments.length > 0 &&
+                                featuredInvestments.map((investment, index) => (
+                                    <TouchableOpacity
+                                        key={index}
+                                        style={styles.upCard}
+                                        onPress={() =>
+                                            navigation.navigate(
+                                                'InvestmentDetailScreen',
+                                                {
+                                                    id: investment._id,
+                                                },
+                                            )
+                                        }>
+                                        <Image
+                                            source={{
+                                                uri: `${ADMIN_API_URL}upload/${investment.imageUrl}`,
+                                            }}
+                                            style={styles.upImage}
+                                        />
+                                        <Text
+                                            style={
+                                                globalStyles.mediumStrongLabel
+                                            }>
+                                            {investment.title.length > 10
+                                                ? investment.title.substring(
+                                                      0,
+                                                      12,
+                                                  ) + '...'
+                                                : investment.title}
+                                        </Text>
+                                        <Text
+                                            style={[
+                                                globalStyles.label,
+                                                {color: HiFiColors.Label},
+                                            ]}>
+                                            {investment.title.categoryName > 10
+                                                ? investment.categoryName.substring(
+                                                      0,
+                                                      12,
+                                                  ) + '...'
+                                                : investment.categoryName}
+                                        </Text>
+                                    </TouchableOpacity>
+                                ))}
+                        </ScrollView>
+                    </View>
+                    <View style={styles.bottomSection}>
+                        <Text
+                            style={[
+                                globalStyles.mediumBoldLabel,
+                                {fontSize: 20, fontWeight: '400'},
+                            ]}>
+                            Announcements
+                        </Text>
+                        {announcements.map((item, index) => (
+                            <View key={index} style={styles.card}>
+                                <View style={styles.cardHeader}>
+                                    <View style={styles.userNameContainer}>
+                                        <Image
+                                            source={require('../../../assets/images/logo.png')}
+                                            style={styles.avatarImage}
+                                        />
+                                        <Text style={styles.userNameLabel}>
+                                            Leaders for India Organization
+                                        </Text>
+                                    </View>
+                                    {/* <View>
                                     <TouchableOpacity>
                                         <FeatherIcon
                                             name="more-vertical"
@@ -314,174 +327,175 @@ export default MemberInfo = ({navigation}) => {
                                         />
                                     </TouchableOpacity>
                                 </View> */}
-                            </View>
-                            <View style={styles.discriptionContainer}>
-                                <Text style={globalStyles.label}>
-                                    {item.description}
-                                </Text>
-                            </View>
-                            <Image
-                                source={{
-                                    uri: `${ADMIN_API_URL}upload/${item.imgUrl}`,
-                                }}
-                                style={styles.cardImage}
-                            />
-                            <View style={styles.cardFooter}>
-                                <View
-                                    style={{
-                                        flexDirection: 'row',
-                                        alignItems: 'center',
-                                    }}>
-                                    <TouchableOpacity
-                                        onPress={() =>
-                                            handleLikeClick(item._id)
-                                        }>
-                                        <FeatherIcon
-                                            name="heart"
-                                            size={20}
-                                            color={HiFiColors.Gold}
-                                            style={styles.labelSpace}
-                                        />
-                                    </TouchableOpacity>
-                                    <Text
-                                        style={[
-                                            globalStyles.boldLabel,
-                                            styles.labelSpace,
-                                        ]}>
-                                        {item.clickCount.toLocaleString()}
-                                    </Text>
-                                    <TouchableOpacity
-                                        onPress={() => {
-                                            showCommentDialog(item._id);
-                                        }}>
-                                        <FeatherIcon
-                                            name="message-circle"
-                                            size={20}
-                                            color={HiFiColors.White}
-                                            style={styles.labelSpace}
-                                        />
-                                    </TouchableOpacity>
-                                    <Text style={globalStyles.boldLabel}>
-                                        {item.comments.length.toLocaleString()}
+                                </View>
+                                <View style={styles.discriptionContainer}>
+                                    <Text style={globalStyles.label}>
+                                        {item.description}
                                     </Text>
                                 </View>
-                                <Text style={styles.timeLabel}>
-                                    {timeCalculator(item.createdDt)}
-                                </Text>
+                                <Image
+                                    source={{
+                                        uri: `${ADMIN_API_URL}upload/${item.imgUrl}`,
+                                    }}
+                                    style={styles.cardImage}
+                                />
+                                <View style={styles.cardFooter}>
+                                    <View
+                                        style={{
+                                            flexDirection: 'row',
+                                            alignItems: 'center',
+                                        }}>
+                                        <TouchableOpacity
+                                            onPress={() =>
+                                                handleLikeClick(item._id)
+                                            }>
+                                            <FeatherIcon
+                                                name="heart"
+                                                size={20}
+                                                color={HiFiColors.Gold}
+                                                style={styles.labelSpace}
+                                            />
+                                        </TouchableOpacity>
+                                        <Text
+                                            style={[
+                                                globalStyles.boldLabel,
+                                                styles.labelSpace,
+                                            ]}>
+                                            {item.clickCount.toLocaleString()}
+                                        </Text>
+                                        <TouchableOpacity
+                                            onPress={() => {
+                                                showCommentDialog(item._id);
+                                            }}>
+                                            <FeatherIcon
+                                                name="message-circle"
+                                                size={20}
+                                                color={HiFiColors.White}
+                                                style={styles.labelSpace}
+                                            />
+                                        </TouchableOpacity>
+                                        <Text style={globalStyles.boldLabel}>
+                                            {item.comments.length.toLocaleString()}
+                                        </Text>
+                                    </View>
+                                    <Text style={styles.timeLabel}>
+                                        {timeCalculator(item.createdDt)}
+                                    </Text>
+                                </View>
                             </View>
-                        </View>
-                    ))}
+                        ))}
+                    </View>
                 </View>
-            </View>
-            <Modal
-                isVisible={isModalVisible}
-                onSwipeComplete={() => {
-                    setModalVisible(false);
-                    getAnnouncements();
-                }}
-                swipeDirection={['down']}
-                propagateSwipe={true}
-                style={globalStyles.modalContainer}>
-                <View style={styles.modalContentContainer}>
-                    {activityIndicator && (
-                        <ActivityIndicator
-                            size="large"
-                            style={{
-                                position: 'absolute',
-                                left: '50%',
-                                top: '50%',
-                            }}
-                        />
-                    )}
-                    <Text style={styles.modalCommentTitle}>Comments</Text>
-                    <ScrollView style={styles.commentScroll}>
-                        <TouchableOpacity>
-                            <TouchableWithoutFeedback>
-                                <View>
-                                    {selectedAnnouncement?.comments?.map(
-                                        (item, index) => (
-                                            <View
-                                                key={index}
-                                                style={styles.commentsTag}>
-                                                <Image
-                                                    source={{
-                                                        uri: `${ADMIN_API_URL}upload/${item.commenterAvatarUrl}`,
-                                                    }}
-                                                    style={
-                                                        styles.commenterAvartar
-                                                    }
-                                                />
-                                                <View>
-                                                    <View
-                                                        style={{
-                                                            flexDirection:
-                                                                'row',
-                                                        }}>
+                <Modal
+                    isVisible={isModalVisible}
+                    onSwipeComplete={() => {
+                        setModalVisible(false);
+                        getAnnouncements();
+                    }}
+                    swipeDirection={['down']}
+                    propagateSwipe={true}
+                    style={globalStyles.modalContainer}>
+                    <View style={styles.modalContentContainer}>
+                        {activityIndicator && (
+                            <ActivityIndicator
+                                size="large"
+                                style={{
+                                    position: 'absolute',
+                                    left: '50%',
+                                    top: '50%',
+                                }}
+                            />
+                        )}
+                        <Text style={styles.modalCommentTitle}>Comments</Text>
+                        <ScrollView style={styles.commentScroll}>
+                            <TouchableOpacity>
+                                <TouchableWithoutFeedback>
+                                    <View>
+                                        {selectedAnnouncement?.comments?.map(
+                                            (item, index) => (
+                                                <View
+                                                    key={index}
+                                                    style={styles.commentsTag}>
+                                                    <Image
+                                                        source={{
+                                                            uri: `${ADMIN_API_URL}upload/${item.commenterAvatarUrl}`,
+                                                        }}
+                                                        style={
+                                                            styles.commenterAvartar
+                                                        }
+                                                    />
+                                                    <View>
+                                                        <View
+                                                            style={{
+                                                                flexDirection:
+                                                                    'row',
+                                                            }}>
+                                                            <Text
+                                                                style={
+                                                                    globalStyles.boldLabel
+                                                                }>
+                                                                {item.commenterFirstName +
+                                                                    ' ' +
+                                                                    item.commenterLastName}
+                                                            </Text>
+                                                            <Text
+                                                                style={[
+                                                                    globalStyles.boldLabel,
+                                                                    {
+                                                                        color: HiFiColors.Primary,
+                                                                        marginLeft: 10,
+                                                                    },
+                                                                ]}>
+                                                                {
+                                                                    item.commenterEmailAddress
+                                                                }
+                                                            </Text>
+                                                        </View>
                                                         <Text
                                                             style={
                                                                 globalStyles.boldLabel
                                                             }>
-                                                            {item.commenterFirstName +
-                                                                ' ' +
-                                                                item.commenterLastName}
-                                                        </Text>
-                                                        <Text
-                                                            style={[
-                                                                globalStyles.boldLabel,
-                                                                {
-                                                                    color: HiFiColors.Primary,
-                                                                    marginLeft: 10,
-                                                                },
-                                                            ]}>
                                                             {
-                                                                item.commenterEmailAddress
+                                                                item.commentDescription
                                                             }
                                                         </Text>
                                                     </View>
-                                                    <Text
-                                                        style={
-                                                            globalStyles.boldLabel
-                                                        }>
-                                                        {
-                                                            item.commentDescription
-                                                        }
-                                                    </Text>
                                                 </View>
-                                            </View>
-                                        ),
-                                    )}
-                                </View>
-                            </TouchableWithoutFeedback>
-                        </TouchableOpacity>
-                    </ScrollView>
-                    <View style={styles.addCommentBack}>
-                        <TouchableOpacity>
-                            <MaterialCommunityIcon
-                                name="emoticon-happy-outline"
-                                size={30}
-                                color={HiFiColors.Label}
+                                            ),
+                                        )}
+                                    </View>
+                                </TouchableWithoutFeedback>
+                            </TouchableOpacity>
+                        </ScrollView>
+                        <View style={styles.addCommentBack}>
+                            <TouchableOpacity>
+                                <MaterialCommunityIcon
+                                    name="emoticon-happy-outline"
+                                    size={30}
+                                    color={HiFiColors.Label}
+                                />
+                            </TouchableOpacity>
+                            <TextInput
+                                placeholder="Write your comments"
+                                placeholderTextColor={HiFiColors.Label}
+                                value={comment}
+                                onChangeText={value => {
+                                    setComment(value);
+                                }}
+                                style={styles.addCommentTextInput}
                             />
-                        </TouchableOpacity>
-                        <TextInput
-                            placeholder="Write your comments"
-                            placeholderTextColor={HiFiColors.Label}
-                            value={comment}
-                            onChangeText={value => {
-                                setComment(value);
-                            }}
-                            style={styles.addCommentTextInput}
-                        />
-                        <TouchableOpacity onPress={addComment}>
-                            <FeatherIcon
-                                name="send"
-                                size={25}
-                                color={HiFiColors.Label}
-                            />
-                        </TouchableOpacity>
+                            <TouchableOpacity onPress={addComment}>
+                                <FeatherIcon
+                                    name="send"
+                                    size={25}
+                                    color={HiFiColors.Label}
+                                />
+                            </TouchableOpacity>
+                        </View>
                     </View>
-                </View>
-            </Modal>
-        </ScrollView>
+                </Modal>
+            </ScrollView>
+        </SafeAreaView>
     );
 };
 

@@ -22,6 +22,7 @@ import moment from 'moment';
 import {useSelector} from 'react-redux';
 import {ADMIN_API_URL} from '../../../config';
 import Action from '../../service';
+import {SafeAreaView} from 'react-native';
 
 export default GroupChat = ({route, navigation}) => {
     const {name, members, allUsers} = route.params.groupInfo;
@@ -240,7 +241,7 @@ export default GroupChat = ({route, navigation}) => {
     }, [route.params.groupInfo.name]);
 
     return (
-        <View style={globalStyles.container}>
+        <SafeAreaView style={globalStyles.container}>
             {activityIndicator && (
                 <ActivityIndicator
                     size="large"
@@ -288,7 +289,7 @@ export default GroupChat = ({route, navigation}) => {
                 })}
             </ScrollView>
             <ChatFooter onSend={onSend} />
-        </View>
+        </SafeAreaView>
     );
 };
 

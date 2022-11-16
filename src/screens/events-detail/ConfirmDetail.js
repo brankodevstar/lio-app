@@ -8,10 +8,11 @@ import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
 import MenuButton from '../../components/MenuButton';
+import {SafeAreaView} from 'react-native';
 
 export default ConfirmDetail = ({navigation}) => {
     return (
-        <View style={globalStyles.container}>
+        <SafeAreaView style={globalStyles.container}>
             <View
                 style={[
                     globalStyles.headerContainer,
@@ -121,7 +122,7 @@ export default ConfirmDetail = ({navigation}) => {
                     </Text>
                 </View>
             </View>
-        </View>
+        </SafeAreaView>
     );
 };
 

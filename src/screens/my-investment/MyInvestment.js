@@ -18,6 +18,7 @@ import globalStyles from '../../styles/style';
 import MenuButton from '../../components/MenuButton';
 import Action from '../../service';
 import {ADMIN_API_URL} from '../../../config';
+import {SafeAreaView} from 'react-native';
 
 const sum = (items, prop) => {
     return items.reduce((a, b) => {
@@ -79,76 +80,84 @@ export default MyInvestment = ({navigation}) => {
     }, [navigation]);
 
     return (
-        <ScrollView style={globalStyles.container}>
-            <View
-                style={[
-                    globalStyles.headerContainer,
-                    {justifyContent: 'center'},
-                ]}>
-                <View style={{position: 'absolute', left: 20}}>
-                    <MenuButton navigation={navigation} />
+        <SafeAreaView>
+            <ScrollView style={globalStyles.container}>
+                <View
+                    style={[
+                        globalStyles.headerContainer,
+                        {justifyContent: 'center'},
+                    ]}>
+                    <View style={{position: 'absolute', left: 20}}>
+                        <MenuButton navigation={navigation} />
+                    </View>
+                    <Text style={globalStyles.mediumStrongLabel}>
+                        My Investments
+                    </Text>
                 </View>
-                <Text style={globalStyles.mediumStrongLabel}>
-                    My Investments
-                </Text>
-            </View>
-            <View style={styles.contentContainer}>
-                <View style={styles.mainInfoContainer}>
-                    <LinearGradient
-                        start={{x: 0.0, y: 0.0}}
-                        end={{x: 1.0, y: 1.0}}
-                        colors={['#7B61FF', '#991450', '#40799D']}
-                        style={[styles.mainInfoBack]}>
+                <View style={styles.contentContainer}>
+                    <View style={styles.mainInfoContainer}>
+                        <LinearGradient
+                            start={{x: 0.0, y: 0.0}}
+                            end={{x: 1.0, y: 1.0}}
+                            colors={['#7B61FF', '#991450', '#40799D']}
+                            style={[styles.mainInfoBack]}>
+                            <Text
+                                style={[
+                                    styles.mainInfoTitle,
+                                    {
+                                        alignSelf: 'flex-start',
+                                        marginLeft: 20,
+                                        marginBottom: 15,
+                                    },
+                                ]}>
+                                My Investments
+                            </Text>
+                            <Text
+                                style={[
+                                    styles.mainInfoTitle,
+                                    {marginLeft: 40},
+                                ]}>
+                                ₹{investmentSum.toLocaleString()}
+                            </Text>
+                        </LinearGradient>
+                    </View>
+                    <View style={styles.chartInfo}>
                         <Text
                             style={[
-                                styles.mainInfoTitle,
-                                {
-                                    alignSelf: 'flex-start',
-                                    marginLeft: 20,
-                                    marginBottom: 15,
-                                },
+                                styles.chartTitle,
+                                {alignSelf: 'flex-start'},
                             ]}>
-                            My Investments
+                            Investment Split
                         </Text>
-                        <Text style={[styles.mainInfoTitle, {marginLeft: 40}]}>
-                            ₹{investmentSum.toLocaleString()}
+                        <VictoryPie
+                            radius={Dimensions.get('window').width / 5}
+                            data={chartData}
+                            colorScale={sliceColor}
+                            labels={({datum}) => datum.x + '\n' + datum.y + '%'}
+                            style={{
+                                labels: {
+                                    fill: HiFiColors.Label,
+                                    fontSize: 12,
+                                    fontWeight: '300',
+                                    fontFamily: fonts.primary,
+                                    borderWidth: 1,
+                                    borderColor: 'red',
+                                },
+                            }}
+                            height={300}
+                        />
+                    </View>
+                    <View style={styles.myListContainer}>
+                        <Text
+                            style={[
+                                styles.chartTitle,
+                                {alignSelf: 'flex-start', marginBottom: 20},
+                            ]}>
+                            My Company List
                         </Text>
-                    </LinearGradient>
-                </View>
-                <View style={styles.chartInfo}>
-                    <Text
-                        style={[styles.chartTitle, {alignSelf: 'flex-start'}]}>
-                        Investment Split
-                    </Text>
-                    <VictoryPie
-                        radius={Dimensions.get('window').width / 5}
-                        data={chartData}
-                        colorScale={sliceColor}
-                        labels={({datum}) => datum.x + '\n' + datum.y + '%'}
-                        style={{
-                            labels: {
-                                fill: HiFiColors.Label,
-                                fontSize: 12,
-                                fontWeight: '300',
-                                fontFamily: fonts.primary,
-                                borderWidth: 1,
-                                borderColor: 'red',
-                            },
-                        }}
-                        height={300}
-                    />
-                </View>
-                <View style={styles.myListContainer}>
-                    <Text
-                        style={[
-                            styles.chartTitle,
-                            {alignSelf: 'flex-start', marginBottom: 20},
-                        ]}>
-                        My Company List
-                    </Text>
-                    {userInfo?.investmentCompany?.map((item, index) => (
-                        <View key={index} style={styles.investContainer}>
-                            {/* <TouchableOpacity
+                        {userInfo?.investmentCompany?.map((item, index) => (
+                            <View key={index} style={styles.investContainer}>
+                                {/* <TouchableOpacity
                                 style={{
                                     flexDirection: 'row',
                                     alignItems: 'center',
@@ -181,12 +190,13 @@ export default MyInvestment = ({navigation}) => {
                                     ]}>
                                     Environment
                                 </Text> */}
-                            {/* </TouchableOpacity> */}
-                        </View>
-                    ))}
+                                {/* </TouchableOpacity> */}
+                            </View>
+                        ))}
+                    </View>
                 </View>
-            </View>
-        </ScrollView>
+            </ScrollView>
+        </SafeAreaView>
     );
 };
 

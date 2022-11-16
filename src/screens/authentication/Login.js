@@ -10,6 +10,7 @@ import {
     sendSmsVerification,
     checkVerification,
 } from '../../service/TwilioService';
+import {SafeAreaView} from 'react-native';
 
 export default Login = ({navigation}) => {
     const [phone, setPhone] = useState('');
@@ -66,7 +67,7 @@ export default Login = ({navigation}) => {
     };
 
     return (
-        <View style={[globalStyles.container]}>
+        <SafeAreaView style={[globalStyles.container]}>
             <View style={styles.container}>
                 <Image
                     source={require('../../../assets/images/logo.png')}
@@ -120,7 +121,7 @@ export default Login = ({navigation}) => {
                     </TouchableOpacity>
                 </View>
             </View>
-        </View>
+        </SafeAreaView>
     );
 };
 

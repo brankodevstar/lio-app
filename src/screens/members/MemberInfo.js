@@ -11,6 +11,7 @@ import Action from '../../service';
 import moment from 'moment';
 import {ScrollView} from 'react-native-gesture-handler';
 import AsyncStorage from '@react-native-async-storage/async-storage';
+import {SafeAreaView} from 'react-native';
 
 export default MemberInfo = ({route, navigation}) => {
     const {id} = route.params;
@@ -33,7 +34,7 @@ export default MemberInfo = ({route, navigation}) => {
     }, [navigation]);
 
     return (
-        <View style={globalStyles.container}>
+        <SafeAreaView style={globalStyles.container}>
             <View style={globalStyles.headerContainer}>
                 <View style={{position: 'absolute', left: 20}}>
                     <MenuButton navigation={navigation} />
@@ -56,11 +57,7 @@ export default MemberInfo = ({route, navigation}) => {
                             ]}>
                             {user.firstName + ' ' + user.lastName}
                         </Text>
-                        <Text
-                            style={[
-                                globalStyles.label,
-                                {marginVertical: 5},
-                            ]}>
+                        <Text style={[globalStyles.label, {marginVertical: 5}]}>
                             {user.caption}
                         </Text>
                         <Text style={globalStyles.strongLabel}>
@@ -126,33 +123,30 @@ export default MemberInfo = ({route, navigation}) => {
                         </ScrollView>
                     </View> */}
                 </View>
-                {
-                    !mine && 
-                    (
-                        <View style={styles.chatButtonContainer}>
-                            <TouchableOpacity
-                                onPress={() =>
-                                    navigation.navigate('IndividualChatScreen', {
-                                        partner: user,
-                                    })
-                                }>
-                                <LinearGradient
-                                    start={{x: 0.0, y: 0.0}}
-                                    end={{x: 1.0, y: 1.0}}
-                                    colors={['#7B61FF', '#991450', '#40799D']}
-                                    style={styles.chatButtonBack}>
-                                    <EntypoIcon
-                                        name="chat"
-                                        size={30}
-                                        color={HiFiColors.White}
-                                    />
-                                </LinearGradient>
-                            </TouchableOpacity>
-                        </View>
-                    )
-                }                
+                {!mine && (
+                    <View style={styles.chatButtonContainer}>
+                        <TouchableOpacity
+                            onPress={() =>
+                                navigation.navigate('IndividualChatScreen', {
+                                    partner: user,
+                                })
+                            }>
+                            <LinearGradient
+                                start={{x: 0.0, y: 0.0}}
+                                end={{x: 1.0, y: 1.0}}
+                                colors={['#7B61FF', '#991450', '#40799D']}
+                                style={styles.chatButtonBack}>
+                                <EntypoIcon
+                                    name="chat"
+                                    size={30}
+                                    color={HiFiColors.White}
+                                />
+                            </LinearGradient>
+                        </TouchableOpacity>
+                    </View>
+                )}
             </View>
-        </View>
+        </SafeAreaView>
     );
 };
 

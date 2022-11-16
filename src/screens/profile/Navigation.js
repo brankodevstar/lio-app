@@ -5,10 +5,11 @@ import FeatherIcon from 'react-native-vector-icons/Feather';
 
 import globalStyles from '../../styles/style';
 import HiFiColors from '../../styles/colors';
+import {SafeAreaView} from 'react-native';
 
 export default Navigation = ({navigation}) => {
     return (
-        <View style={globalStyles.container}>
+        <SafeAreaView style={globalStyles.container}>
             <View
                 style={[
                     globalStyles.headerContainer,
@@ -61,7 +62,7 @@ export default Navigation = ({navigation}) => {
                     </View>
                 </TouchableOpacity>
             </View>
-        </View>
+        </SafeAreaView>
     );
 };
 

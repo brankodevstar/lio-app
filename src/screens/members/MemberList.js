@@ -21,6 +21,7 @@ import {ADMIN_API_URL} from '../../../config';
 import Action from '../../service';
 import Modal from 'react-native-modal';
 import fonts from '../../styles/fonts';
+import { SafeAreaView } from 'react-native';
 
 const checkedIconTag = () => (
     <View
@@ -120,7 +121,7 @@ export default MemberList = ({navigation}) => {
     }, [navigation]);
 
     return (
-        <View style={globalStyles.container}>
+        <SafeAreaView style={globalStyles.container}>
             <View
                 style={[
                     globalStyles.headerContainer,
@@ -263,7 +264,7 @@ export default MemberList = ({navigation}) => {
                     </ScrollView>
                 </View>
             </Modal>
-        </View>
+        </SafeAreaView>
     );
 };
 

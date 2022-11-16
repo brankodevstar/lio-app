@@ -17,6 +17,7 @@ import MenuButton from '../../components/MenuButton';
 import {ADMIN_API_URL} from '../../../config';
 import Action from '../../service';
 import {TYPE_NAME} from '../../constant';
+import { SafeAreaView } from 'react-native';
 
 export default Investments = ({navigation}) => {
     const [investments, setInvestments] = useState([]);
@@ -35,7 +36,7 @@ export default Investments = ({navigation}) => {
     }, [navigation]);
 
     return (
-        <View style={globalStyles.container}>
+        <SafeAreaView style={globalStyles.container}>
             <View style={globalStyles.headerContainer}>
                 <View style={{position: 'absolute', left: 20}}>
                     <MenuButton navigation={navigation} />
@@ -124,7 +125,7 @@ export default Investments = ({navigation}) => {
                     ))}
                 </ScrollView>
             </View>
-        </View>
+        </SafeAreaView>
     );
 };
 

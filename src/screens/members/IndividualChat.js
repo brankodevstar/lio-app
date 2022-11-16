@@ -23,6 +23,7 @@ import firestore from '@react-native-firebase/firestore';
 import {ADMIN_API_URL} from '../../../config';
 import Action from '../../service';
 import RNFetchBlob from 'rn-fetch-blob';
+import {SafeAreaView} from 'react-native';
 
 export default IndividualChat = ({route, navigation}) => {
     const {partner} = route.params;
@@ -155,7 +156,7 @@ export default IndividualChat = ({route, navigation}) => {
 
     const inMessage = (messageData, index) => {
         return (
-            <View style={styles.chatRow} key={index}>
+            <SafeAreaView style={styles.chatRow} key={index}>
                 <View style={styles.messageContainer}>
                     {messageData.attachedFile ? (
                         <TouchableOpacity
@@ -184,7 +185,7 @@ export default IndividualChat = ({route, navigation}) => {
                         {messageData.createdAt}
                     </Text>
                 </View>
-            </View>
+            </SafeAreaView>
         );
     };
 

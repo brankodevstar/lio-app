@@ -13,7 +13,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
-import MapView, { Marker} from 'react-native-maps';
+import MapView, {Marker} from 'react-native-maps';
 import Geocoder from 'react-native-geocoding';
 
 import globalStyles from '../../styles/style';
@@ -21,7 +21,8 @@ import HiFiColors from '../../styles/colors';
 import fonts from '../../styles/fonts';
 import MenuButton from '../../components/MenuButton';
 import Action from '../../service';
-import { ADMIN_API_URL, GOOGLE_API_KEY } from '../../../config';
+import {ADMIN_API_URL, GOOGLE_API_KEY} from '../../../config';
+import {SafeAreaView} from 'react-native';
 
 Geocoder.init(GOOGLE_API_KEY);
 
@@ -72,86 +73,108 @@ export default EventDetail = ({route, navigation}) => {
     }, [navigation]);
 
     return (
-        <ScrollView style={styles.container}>
-            <View>
-                <ImageBackground
-                    source={{
-                        uri: `${ADMIN_API_URL}upload/${
-                            eventItem?.photos?.length && eventItem?.photos[0]
-                        }`,
-                    }}
-                    resizeMode="stretch"
-                    style={styles.bannerImage}>
-                    <LinearGradient
-                        start={{x: 0.5, y: 0.0}}
-                        end={{x: 0.5, y: 1.0}}
-                        colors={['#16253400', '#162534']}
-                        style={styles.bannerMask}>
-                        <View style={{position: 'absolute', left: 20, top: 15}}>
-                            <MenuButton navigation={navigation} />
-                        </View>
-                        <View style={styles.bannerControlBack}>
-                            <MaterialIcon
-                                name="photo-album"
+        <SafeAreaView>
+            <ScrollView style={styles.container}>
+                <View>
+                    <ImageBackground
+                        source={{
+                            uri: `${ADMIN_API_URL}upload/${
+                                eventItem?.photos?.length &&
+                                eventItem?.photos[0]
+                            }`,
+                        }}
+                        resizeMode="stretch"
+                        style={styles.bannerImage}>
+                        <LinearGradient
+                            start={{x: 0.5, y: 0.0}}
+                            end={{x: 0.5, y: 1.0}}
+                            colors={['#16253400', '#162534']}
+                            style={styles.bannerMask}>
+                            <View
+                                style={{
+                                    position: 'absolute',
+                                    left: 20,
+                                    top: 15,
+                                }}>
+                                <MenuButton navigation={navigation} />
+                            </View>
+                            <View style={styles.bannerControlBack}>
+                                <MaterialIcon
+                                    name="photo-album"
+                                    size={15}
+                                    color={HiFiColors.White}
+                                />
+                                <Text style={globalStyles.label}>
+                                    1/{eventItem?.photos?.length}
+                                </Text>
+                            </View>
+                        </LinearGradient>
+                    </ImageBackground>
+                </View>
+                <View style={styles.content}>
+                    <Text style={globalStyles.pageTitle}>
+                        {eventItem?.title}
+                    </Text>
+                    <View style={styles.nameContainer}>
+                        <Text
+                            style={[
+                                globalStyles.smallLabel,
+                                {marginRight: 10},
+                            ]}>
+                            ₹ •{' '}
+                        </Text>
+                        <Text
+                            style={[
+                                styles.conferenceTag,
+                                globalStyles.smallLabel,
+                            ]}>
+                            {eventItem?.category}
+                        </Text>
+
+                        <Text style={globalStyles.smallLabel}>
+                            {' '}
+                            • {eventItem?.createdDt?.split('T')[0]}{' '}
+                        </Text>
+                    </View>
+                    <View style={styles.discriptionContainer}>
+                        <Text style={[globalStyles.label, styles.discription]}>
+                            {eventItem?.description}
+                        </Text>
+                    </View>
+                    <View style={styles.discriptionContainer}>
+                        <Text
+                            style={[
+                                globalStyles.boldLabel,
+                                {marginBottom: 10},
+                            ]}>
+                            Location
+                        </Text>
+                        <View style={styles.locationStringContainer}>
+                            <FeatherIcon
+                                name="map-pin"
                                 size={15}
                                 color={HiFiColors.White}
                             />
-                            <Text style={globalStyles.label}>
-                                1/{eventItem?.photos?.length}
+                            <Text
+                                style={[
+                                    globalStyles.smallLabel,
+                                    {marginLeft: 5},
+                                ]}>
+                                {mapLocationName && mapLocationName}
                             </Text>
                         </View>
-                    </LinearGradient>
-                </ImageBackground>
-            </View>
-            <View style={styles.content}>
-                <Text style={globalStyles.pageTitle}>{eventItem?.title}</Text>
-                <View style={styles.nameContainer}>
-                    <Text style={[globalStyles.smallLabel, {marginRight: 10}]}>
-                        ₹ •{' '}
-                    </Text>
-                    <Text
-                        style={[styles.conferenceTag, globalStyles.smallLabel]}>
-                        {eventItem?.category}
-                    </Text>
-
-                    <Text style={globalStyles.smallLabel}>
-                        {' '}
-                        • {eventItem?.createdDt?.split('T')[0]}{' '}
-                    </Text>
-                </View>
-                <View style={styles.discriptionContainer}>
-                    <Text style={[globalStyles.label, styles.discription]}>
-                        {eventItem?.description}
-                    </Text>
-                </View>
-                <View style={styles.discriptionContainer}>
-                    <Text style={[globalStyles.boldLabel, {marginBottom: 10}]}>
-                        Location
-                    </Text>
-                    <View style={styles.locationStringContainer}>
-                        <FeatherIcon
-                            name="map-pin"
-                            size={15}
-                            color={HiFiColors.White}
-                        />
-                        <Text
-                            style={[globalStyles.smallLabel, {marginLeft: 5}]}>
-                            {mapLocationName && mapLocationName }
-                        </Text>
-                    </View>
-                    {
-                        region && 
-                        (
+                        {region && (
                             <MapView style={styles.mapImage} region={region}>
                                 <Marker
-                                    coordinate={eventToLocation(eventItem)}>
-                                </Marker>
+                                    coordinate={eventToLocation(
+                                        eventItem,
+                                    )}></Marker>
                             </MapView>
-                        )
-                    }
+                        )}
+                    </View>
                 </View>
-            </View>
-        </ScrollView>
+            </ScrollView>
+        </SafeAreaView>
     );
 };
 

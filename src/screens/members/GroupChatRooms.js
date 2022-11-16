@@ -15,6 +15,7 @@ import MenuButton from '../../components/MenuButton';
 import firestore from '@react-native-firebase/firestore';
 import {useSelector} from 'react-redux';
 import Action from '../../service';
+import { SafeAreaView } from 'react-native';
 
 export default GroupChatRooms = ({route, navigation}) => {
     const currentUser = useSelector(state => state.CurrentUser);
@@ -67,7 +68,7 @@ export default GroupChatRooms = ({route, navigation}) => {
     }, []);
 
     return (
-        <View style={globalStyles.container}>
+        <SafeAreaView style={globalStyles.container}>
             <View style={styles.chatBoxHeader}>
                 <View style={{position: 'absolute', left: 20}}>
                     <MenuButton navigation={navigation} />
@@ -101,7 +102,7 @@ export default GroupChatRooms = ({route, navigation}) => {
                     </TouchableOpacity>
                 ))}
             </ScrollView>
-        </View>
+        </SafeAreaView>
     );
 };
 

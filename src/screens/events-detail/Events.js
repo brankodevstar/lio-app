@@ -10,6 +10,7 @@ import HiFiColors from '../../styles/colors';
 import MenuButton from '../../components/MenuButton';
 import {ADMIN_API_URL} from '../../../config';
 import Action from '../../service';
+import {SafeAreaView} from 'react-native';
 
 export default Events = ({navigation}) => {
     const [events, setEvents] = useState([]);
@@ -28,7 +29,7 @@ export default Events = ({navigation}) => {
     }, [navigation]);
 
     return (
-        <View style={globalStyles.container}>
+        <SafeAreaView style={globalStyles.container}>
             <View style={globalStyles.headerContainer}>
                 <View style={{position: 'absolute', left: 20}}>
                     <MenuButton navigation={navigation} />
@@ -105,7 +106,7 @@ export default Events = ({navigation}) => {
                     </TouchableOpacity>
                 ))}
             </ScrollView>
-        </View>
+        </SafeAreaView>
     );
 };
 
