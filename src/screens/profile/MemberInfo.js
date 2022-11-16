@@ -134,7 +134,7 @@ export default MemberInfo = ({navigation}) => {
     }, [navigation]);
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={globalStyles.container}>
             <ScrollView style={globalStyles.container}>
                 <View
                     style={[

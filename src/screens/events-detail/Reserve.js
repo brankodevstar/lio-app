@@ -12,7 +12,7 @@ import {SafeAreaView} from 'react-native';
 
 export default Reserve = ({navigation}) => {
     return (
-        <SafeAreaView>
+        <SafeAreaView style={globalStyles.container}>
             <ScrollView style={globalStyles.container}>
                 <View
                     style={[

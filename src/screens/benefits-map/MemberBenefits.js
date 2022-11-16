@@ -52,7 +52,7 @@ export default MemberBenefits = ({navigation}) => {
     }, [navigation]);
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={globalStyles.container}>
             <ScrollView
                 style={{backgroundColor: HiFiColors.Accent}}
                 contentContainerStyle={{paddingVertical: 20}}>

@@ -11,7 +11,7 @@ import {SafeAreaView} from 'react-native';
 
 export default PartnerDetail = ({navigation}) => {
     return (
-        <SafeAreaView>
+        <SafeAreaView style={globalStyles.container}>
             <ScrollView style={styles.container}>
                 <View style={globalStyles.headerContainer}>
                     <View style={{position: 'absolute', left: 20}}>

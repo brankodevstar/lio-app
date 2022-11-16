@@ -96,7 +96,7 @@ export default AddPost = ({navigation}) => {
     };
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={globalStyles.container}>
             <ScrollView style={[globalStyles.container]}>
                 {activityIndicator && (
                     <ActivityIndicator

@@ -22,7 +22,7 @@ export default InvestmentDetail = ({navigation}) => {
     const [category, setCategory] = useState('overview');
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={globalStyles.container}>
             <ScrollView style={styles.container}>
                 <View>
                     <ImageBackground

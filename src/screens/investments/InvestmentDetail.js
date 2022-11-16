@@ -211,7 +211,7 @@ export default InvestmentDetail = ({route, navigation}) => {
     };
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={globalStyles.container}>
             <ScrollView style={styles.container}>
                 <View>
                     <ImageBackground

@@ -73,7 +73,7 @@ export default EventDetail = ({route, navigation}) => {
     }, [navigation]);
 
     return (
-        <SafeAreaView>
+        <SafeAreaView style={globalStyles.container}>
             <ScrollView style={styles.container}>
                 <View>
                     <ImageBackground
