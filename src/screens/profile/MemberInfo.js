@@ -62,7 +62,7 @@ export default MemberInfo = ({navigation}) => {
 
     const getById = async id => {
         const response = await Action.announcements.getById(id);
-        setSelectedAnnouncement(response);
+        setSelectedAnnouncement(response.data);
     };
 
     const handleLikeClick = async id => {
@@ -91,6 +91,9 @@ export default MemberInfo = ({navigation}) => {
             commenterAvatarUrl: currentUser.user.avatarUrl,
             commentDescription: comment,
         };
+        if (!data.comments.length > 0) {
+            data.comments = [];
+        }
         data.comments.push(commentData);
         Action.announcements
             .update(data._id, data)

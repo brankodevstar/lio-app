@@ -213,18 +213,24 @@ export default InvestmentDetail = ({route, navigation}) => {
     return (
         <SafeAreaView style={globalStyles.container}>
             <ScrollView style={styles.container}>
-                <View>
-                    <ImageBackground
-                        source={{
-                            uri: `${ADMIN_API_URL}upload/${investment.imageUrl}`,
-                        }}
-                        resizeMode="stretch"
-                        style={styles.bannerImage}>
-                        <View style={{position: 'absolute', left: 20, top: 15}}>
-                            <MenuButton navigation={navigation} />
-                        </View>
-                        <View style={[styles.headerIconBack, {left: 60}]}>
+                <ImageBackground
+                    source={{
+                        uri: `${ADMIN_API_URL}upload/${investment.imageUrl}`,
+                    }}
+                    resizeMode="stretch"
+                    style={styles.bannerImage}>
+                    <View
+                        style={{
+                            position: 'absolute',
+                            top: 20,
+                            left: 20,
+                            flexDirection: 'row',
+                            alignItems: 'center',
+                        }}>
+                        <MenuButton navigation={navigation} />
+                        <View>
                             <TouchableOpacity
+                                style={styles.headerIconBack}
                                 onPress={() => {
                                     navigation.goBack();
                                 }}>
@@ -236,7 +242,9 @@ export default InvestmentDetail = ({route, navigation}) => {
                                 />
                             </TouchableOpacity>
                         </View>
-                        {/* <View style={[styles.headerIconBack, {right: 60}]}>
+                    </View>
+
+                    {/* <View style={[styles.headerIconBack, {right: 60}]}>
                         <TouchableOpacity>
                             <FontAwesomeIcon
                                 name="heart"
@@ -256,8 +264,7 @@ export default InvestmentDetail = ({route, navigation}) => {
                             />
                         </TouchableOpacity>
                     </View> */}
-                    </ImageBackground>
-                </View>
+                </ImageBackground>
                 <View style={styles.content}>
                     <Text style={globalStyles.pageTitle}>
                         {investment.title}
@@ -394,14 +401,11 @@ const styles = StyleSheet.create({
         height: 250,
     },
     headerIconBack: {
-        position: 'absolute',
-        top: 20,
+        backgroundColor: HiFiColors.Accent,
+        padding: 8,
+        borderRadius: 100,
     },
-    headerIcon: {
-        backgroundColor: HiFiColors.AccentFade,
-        borderRadius: 50,
-        padding: 5,
-    },
+    headerIcon: {},
     content: {
         paddingHorizontal: 20,
     },

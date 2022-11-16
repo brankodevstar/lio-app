@@ -1,5 +1,5 @@
 import React from 'react';
-import {View, Text, Image, TouchableOpacity} from 'react-native';
+import {View, Text, Image, TouchableOpacity, SafeAreaView} from 'react-native';
 import {StyleSheet} from 'react-native';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 
@@ -20,7 +20,7 @@ export default DrawerMenu = props => {
     };
 
     return (
-        <View style={globalStyles.container}>
+        <SafeAreaView style={globalStyles.container}>
             {/* <View
                 style={[
                     globalStyles.headerContainer,
@@ -213,7 +213,7 @@ export default DrawerMenu = props => {
                     </TouchableOpacity>
                 </View>
             </View>
-        </View>
+        </SafeAreaView>
     );
 };
 

@@ -130,7 +130,6 @@ export default function TabNavigator() {
 const styles = StyleSheet.create({
     tabBarBackground: {
         backgroundColor: HiFiColors.AccentFade,
-        height: 60,
         borderTopWidth: 0,
         paddingVertical: 10,
     },
