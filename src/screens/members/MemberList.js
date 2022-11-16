@@ -21,7 +21,7 @@ import {ADMIN_API_URL} from '../../../config';
 import Action from '../../service';
 import Modal from 'react-native-modal';
 import fonts from '../../styles/fonts';
-import { SafeAreaView } from 'react-native';
+import {SafeAreaView} from 'react-native';
 
 const checkedIconTag = () => (
     <View
@@ -160,12 +160,14 @@ export default MemberList = ({navigation}) => {
                         position: 'absolute',
                         right: 25,
                     }}>
-                    <TouchableOpacity onPress={onSearch}>
+                    <TouchableOpacity
+                        onPress={onSearch}
+                        style={styles.searchButton}>
                         <FeatherIcon
                             name="search"
                             size={20}
                             color={HiFiColors.White}
-                            style={[styles.headerButton, styles.searchButton]}
+                            style={styles.headerButton}
                         />
                     </TouchableOpacity>
                 </View>
@@ -305,11 +307,11 @@ const styles = StyleSheet.create({
         borderColor: HiFiColors.Label,
         color: HiFiColors.White,
         borderRadius: 50,
+        paddingVertical: 10,
         paddingLeft: 20,
         paddingRight: 40,
     },
     searchButton: {
-        padding: 10,
         backgroundColor: HiFiColors.AccentFade,
         borderRadius: 100,
     },

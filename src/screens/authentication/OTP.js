@@ -98,12 +98,13 @@ export default OTP = ({route, navigation}) => {
                     globalStyles.headerContainer,
                     {justifyContent: 'space-between', borderBottomWidth: 0},
                 ]}>
-                <TouchableOpacity onPress={() => navigation.goBack()}>
+                <TouchableOpacity
+                    style={styles.headerIcon}
+                    onPress={() => navigation.goBack()}>
                     <FeatherIcon
                         name="arrow-left"
                         size={20}
                         color={HiFiColors.White}
-                        style={styles.headerIcon}
                     />
                 </TouchableOpacity>
             </View>

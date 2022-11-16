@@ -78,6 +78,7 @@ export default VenueMap = ({route, navigation}) => {
                 ]}>
                 <MenuButton navigation={navigation} />
                 <TouchableOpacity
+                    style={styles.headerIcon}
                     onPress={() => {
                         navigation.goBack();
                     }}>
@@ -85,7 +86,6 @@ export default VenueMap = ({route, navigation}) => {
                         name="arrow-left"
                         size={20}
                         color={HiFiColors.White}
-                        style={styles.headerIcon}
                     />
                 </TouchableOpacity>
                 <View style={styles.searchInputView}>
