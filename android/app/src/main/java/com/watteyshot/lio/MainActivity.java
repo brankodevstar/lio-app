@@ -1,4 +1,4 @@
-package com.lio;
+package com.watteyshot.lio;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

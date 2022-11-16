@@ -9,7 +9,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:1019091276543:android:e73e36857b6668b6e7f2ca",
         "android_client_info": {
-          "package_name": "com.lio"
+          "package_name": "com.watteyshot.lio"
         }
       },
       "oauth_client": [
@@ -17,7 +17,7 @@
           "client_id": "1019091276543-an652aeq6a4f6lukp50ocrgbevu7ph91.apps.googleusercontent.com",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.lio",
+            "package_name": "com.watteyshot.lio",
             "certificate_hash": "5e8f16062ea3cd2c4a0d547876baa6f38cabf625"
           }
         },

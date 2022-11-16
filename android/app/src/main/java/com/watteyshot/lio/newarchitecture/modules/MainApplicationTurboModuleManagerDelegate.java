@@ -1,4 +1,4 @@
-package com.lio.newarchitecture.modules;
+package com.watteyshot.lio.newarchitecture.modules;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.ReactPackage;
