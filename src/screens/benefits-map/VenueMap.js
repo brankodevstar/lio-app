@@ -113,9 +113,7 @@ export default VenueMap = ({route, navigation}) => {
                 </TouchableOpacity>
             </View>
             <MapView
-                style={{
-                    flex: 1,
-                }}
+                style={{flex: 1}}
                 region={region}>
                 {markers.map((marker, index) => (
                     <Marker key={index} coordinate={benefitToLocation(marker)}>

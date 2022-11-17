@@ -669,10 +669,10 @@ PODS:
     - GoogleUtilities/Environment (~> 7.7)
     - nanopb (< 2.30910.0, >= 2.30908.0)
     - PromisesObjC (< 3.0, >= 1.2)
-  - GoogleMaps (7.2.0):
-    - GoogleMaps/Maps (= 7.2.0)
-  - GoogleMaps/Base (7.2.0)
-  - GoogleMaps/Maps (7.2.0):
+  - GoogleMaps (7.0.0):
+    - GoogleMaps/Maps (= 7.0.0)
+  - GoogleMaps/Base (7.0.0)
+  - GoogleMaps/Maps (7.0.0):
     - GoogleMaps/Base
   - GoogleUtilities/Environment (7.10.0):
     - PromisesObjC (< 3.0, >= 1.2)
@@ -973,6 +973,10 @@ PODS:
     - glog
   - react-native-document-picker (8.1.2):
     - React-Core
+  - react-native-google-maps (1.3.2):
+    - Google-Maps-iOS-Utils (= 4.1.0)
+    - GoogleMaps (= 7.0.0)
+    - React-Core
   - react-native-image-picker (4.10.1):
     - React-Core
   - react-native-maps (1.3.2):
@@ -1109,8 +1113,6 @@ DEPENDENCIES:
   - FBLazyVector (from `../node_modules/react-native/Libraries/FBLazyVector`)
   - FBReactNativeSpec (from `../node_modules/react-native/React/FBReactNativeSpec`)
   - glog (from `../node_modules/react-native/third-party-podspecs/glog.podspec`)
-  - Google-Maps-iOS-Utils
-  - GoogleMaps
   - hermes-engine (from `../node_modules/react-native/sdks/hermes/hermes-engine.podspec`)
   - libevent (~> 2.1.12)
   - RCT-Folly (from `../node_modules/react-native/third-party-podspecs/RCT-Folly.podspec`)
@@ -1130,6 +1132,7 @@ DEPENDENCIES:
   - React-jsinspector (from `../node_modules/react-native/ReactCommon/jsinspector`)
   - React-logger (from `../node_modules/react-native/ReactCommon/logger`)
   - react-native-document-picker (from `../node_modules/react-native-document-picker`)
+  - react-native-google-maps (from `../node_modules/react-native-maps`)
   - react-native-image-picker (from `../node_modules/react-native-image-picker`)
   - react-native-maps (from `../node_modules/react-native-maps`)
   - react-native-safe-area-context (from `../node_modules/react-native-safe-area-context`)
@@ -1227,6 +1230,8 @@ EXTERNAL SOURCES:
     :path: "../node_modules/react-native/ReactCommon/logger"
   react-native-document-picker:
     :path: "../node_modules/react-native-document-picker"
+  react-native-google-maps:
+    :path: "../node_modules/react-native-maps"
   react-native-image-picker:
     :path: "../node_modules/react-native-image-picker"
   react-native-maps:
@@ -1299,7 +1304,7 @@ SPEC CHECKSUMS:
   glog: 04b94705f318337d7ead9e6d17c019bd9b1f6b1b
   Google-Maps-iOS-Utils: 3343332b18dfd5be8f1f44edd7d481ace3da4d9a
   GoogleDataTransport: 1c8145da7117bd68bbbed00cf304edb6a24de00f
-  GoogleMaps: 65ce5426e2398bb81433c8076f2ab6419c2c5537
+  GoogleMaps: 6e9c923ca035989709fcb5771544fda4cc5fa2a4
   GoogleUtilities: bad72cb363809015b1f7f19beb1f1cd23c589f95
   "gRPC-C++": 9675f953ace2b3de7c506039d77be1f2e77a8db2
   gRPC-Core: 943e491cb0d45598b0b0eb9e910c88080369290b
@@ -1325,6 +1330,7 @@ SPEC CHECKSUMS:
   React-jsinspector: bd839d6c2c28e49fe1373f055735d2abecbd6cf3
   React-logger: 48d82b9be8e44d86668de4453fdb60255516388b
   react-native-document-picker: f5ec1a712ca2a975c233117f044817bb8393cad4
+  react-native-google-maps: 035ad2f9b4974f22af3d4d4c6993960a181b0aaf
   react-native-image-picker: f2ab1215d17bcfe27b0eb6417cc236fd1f4775e7
   react-native-maps: 085f614cf14d3637b2048bb9752da5b1c27c2886
   react-native-safe-area-context: b456e1c40ec86f5593d58b275bd0e9603169daca
@@ -1353,6 +1359,6 @@ SPEC CHECKSUMS:
   RNVectorIcons: fcc2f6cb32f5735b586e66d14103a74ce6ad61f8
   Yoga: 82c9e8f652789f67d98bed5aef9d6653f71b04a9
 
-PODFILE CHECKSUM: f04ad75be225ce264d0ac349c9b73ac0fd9d4a79
+PODFILE CHECKSUM: faf083e359839fcddcb2775657f132300d342517
 
 COCOAPODS: 1.11.3

@@ -11,9 +11,17 @@ target 'LIO' do
 
   # React Native Maps dependencies
   rn_maps_path = '../node_modules/react-native-maps'
-  pod 'react-native-maps', :path => rn_maps_path
-  pod 'GoogleMaps'
-  pod 'Google-Maps-iOS-Utils'
+  pod 'react-native-google-maps', :path => rn_maps_path
+  # pod 'GoogleMaps'
+  # pod 'Google-Maps-iOS-Utils'
+  $static_library = [
+    'React',
+    'Google-Maps-iOS-Utils',
+    'GoogleMaps',
+    'react-native-google-maps',
+    'react-native-maps',
+    'React-hermes'
+  ]
   $RNFirebaseAsStaticFramework = true
 
   config = use_native_modules!

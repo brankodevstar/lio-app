@@ -12470,11 +12470,6 @@ react-native-swipe-gestures@^1.0.5:
   resolved "https://registry.npmjs.org/react-native-swipe-gestures/-/react-native-swipe-gestures-1.0.5.tgz"
   integrity sha512-Ns7Bn9H/Tyw278+5SQx9oAblDZ7JixyzeOczcBK8dipQk2pD7Djkcfnf1nB/8RErAmMLL9iXgW0QHqiII8AhKw==
 
-react-native-text-gradient@^0.1.7:
-  version "0.1.7"
-  resolved "https://registry.npmjs.org/react-native-text-gradient/-/react-native-text-gradient-0.1.7.tgz"
-  integrity sha512-QuEwW8TMKBNI5ejmDFu3/SDJh5CIzOi5eL1xNzq8yBEwU5wHaloBxhQ9K0zc16GPkr3KgSUDyU4olQtiYje4mw==
-
 react-native-typing-animation@0.1.7:
   version "0.1.7"
   resolved "https://registry.npmjs.org/react-native-typing-animation/-/react-native-typing-animation-0.1.7.tgz"
