@@ -114,6 +114,7 @@ export default VenueMap = ({route, navigation}) => {
             </View>
             <MapView
                 style={{flex: 1}}
+                provider={PROVIDER_GOOGLE}
                 region={region}>
                 {markers.map((marker, index) => (
                     <Marker key={index} coordinate={benefitToLocation(marker)}>

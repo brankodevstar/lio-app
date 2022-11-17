@@ -13,7 +13,7 @@ import LinearGradient from 'react-native-linear-gradient';
 import FeatherIcon from 'react-native-vector-icons/Feather';
 import FontAwesomeIcon from 'react-native-vector-icons/FontAwesome';
 import MaterialIcon from 'react-native-vector-icons/MaterialIcons';
-import MapView, {Marker} from 'react-native-maps';
+import MapView, {Marker, PROVIDER_GOOGLE} from 'react-native-maps';
 import Geocoder from 'react-native-geocoding';
 
 import globalStyles from '../../styles/style';
@@ -164,7 +164,10 @@ export default EventDetail = ({route, navigation}) => {
                             </Text>
                         </View>
                         {region && (
-                            <MapView style={styles.mapImage} region={region}>
+                            <MapView
+                                style={styles.mapImage}
+                                provider={PROVIDER_GOOGLE}
+                                region={region}>
                                 <Marker
                                     coordinate={eventToLocation(
                                         eventItem,
