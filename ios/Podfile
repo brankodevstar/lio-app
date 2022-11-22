@@ -8,20 +8,10 @@ platform :ios, '13.0'
 install! 'cocoapods', :deterministic_uuids => false 
 
 target 'LIO' do
-
+  $static_framework = []
   # React Native Maps dependencies
   rn_maps_path = '../node_modules/react-native-maps'
-  pod 'react-native-google-maps', :path => rn_maps_path
-  # pod 'GoogleMaps'
-  # pod 'Google-Maps-iOS-Utils'
-  $static_library = [
-    'React',
-    'Google-Maps-iOS-Utils',
-    'GoogleMaps',
-    'react-native-google-maps',
-    'react-native-maps',
-    'React-hermes'
-  ]
+  
   $RNFirebaseAsStaticFramework = true
 
   config = use_native_modules!
@@ -54,18 +44,70 @@ target 'LIO' do
     :app_path => "#{Pod::Config.instance.installation_root}/.."
   )
 
+  $static_framework += [
+    'react-native-maps',
+    'react-native-google-maps',
+    'Google-Maps-iOS-Utils',
+    'GoogleMaps',
+  ]
+
+  # pod 'react-native-maps', :path => rn_maps_path
+  pod 'react-native-google-maps', :path => rn_maps_path
+  pod 'GoogleMaps'
+  pod 'Google-Maps-iOS-Utils'
+  # $static_library = [
+  #   'React',
+  #   'Google-Maps-iOS-Utils',
+  #   'GoogleMaps',
+  #   'react-native-google-maps',
+  #   'react-native-maps',
+  #   'React-hermes'
+  # ]
+
   target 'LIOTests' do
     inherit! :complete
     # Pods for testing
   end
 
+  # post_install do |installer|
+  #   react_native_post_install(
+  #     installer,
+  #     # Set `mac_catalyst_enabled` to `true` in order to apply patches
+  #     # necessary for Mac Catalyst builds
+  #     :mac_catalyst_enabled => false
+  #   )
+  #   __apply_Xcode_12_5_M1_post_install_workaround(installer)
+  # end
+
+  # ****** THIS IS THE MAGIC ******
+  pre_install do |installer|
+    Pod::Installer::Xcode::TargetValidator.send(:define_method, :verify_no_static_framework_transitive_dependencies) {}
+        installer.pod_targets.each do |pod|
+            if $static_framework.include?(pod.name)
+                def pod.build_type;
+                Pod::BuildType.static_library # >= 1.9
+            end
+        end
+    end
+  end
+
   post_install do |installer|
-    react_native_post_install(
-      installer,
-      # Set `mac_catalyst_enabled` to `true` in order to apply patches
-      # necessary for Mac Catalyst builds
-      :mac_catalyst_enabled => false
-    )
-    __apply_Xcode_12_5_M1_post_install_workaround(installer)
+  #  if !ENV['IS_CI']
+  #    flipper_post_install(installer)
+  #  end
+
+    # This is also important AND MUST BE IN SAME ORDER
+    react_native_post_install(installer)
+    installer.pods_project.targets.each do |target|
+      if target.name == 'RCT-Folly'
+        target.build_configurations.each do |config|
+          config.build_settings['HEADER_SEARCH_PATHS'] = "$(inherited) ${PODS_ROOT}/fmt/include"
+        end
+      end
+    end
+    #   __apply_Xcode_12_5_M1_post_install_workaround(installer)
+    installer.pods_project.build_configurations.each do |config|
+      config.build_settings["EXCLUDED_ARCHS[sdk=iphonesimulator*]"] = "arm64"
+    end
   end
 end
